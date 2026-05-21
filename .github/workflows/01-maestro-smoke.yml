@@ -61,13 +61,9 @@ jobs:
             -no-boot-anim
           disable-animations: true
           script: |
-            # Install APK
             adb install -r "Qatarat (Lambda-Stage).apk"
-
-            # Run smoke suite
-            maestro test testing/maestro/flows/suites/smoke.yaml \
-              --format junit \
-              --output testing/maestro/reports/smoke-results.xml
+            mkdir -p testing/maestro/reports
+            maestro test --format junit --output testing/maestro/reports/smoke-results.xml testing/maestro/flows/suites/smoke.yaml
 
       # ── Reports ─────────────────────────────────────────
       - name: Upload test results

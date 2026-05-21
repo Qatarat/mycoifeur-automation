@@ -61,22 +61,15 @@ jobs:
           disable-animations: true
           script: |
             adb install -r "Qatarat (Lambda-Stage).apk"
-
-            # Run single flow if specified, otherwise full regression
-            FLOW="${{ github.event.inputs.flow }}"
             mkdir -p testing/maestro/reports
-
+            FLOW="${{ github.event.inputs.flow }}"
             if [ -n "$FLOW" ]; then
               FLOW_FILE=$(ls testing/maestro/flows/${FLOW}*.yaml 2>/dev/null | head -1)
               echo "Running single flow: $FLOW_FILE"
-              maestro test "$FLOW_FILE" \
-                --format junit \
-                --output testing/maestro/reports/regression-results.xml
+              maestro test --format junit --output testing/maestro/reports/regression-results.xml "$FLOW_FILE"
             else
               echo "Running full regression suite..."
-              maestro test testing/maestro/flows/suites/regression.yaml \
-                --format junit \
-                --output testing/maestro/reports/regression-results.xml
+              maestro test --format junit --output testing/maestro/reports/regression-results.xml testing/maestro/flows/suites/regression.yaml
             fi
 
       - name: Upload test results

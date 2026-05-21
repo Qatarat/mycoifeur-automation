@@ -87,26 +87,14 @@ jobs:
           script: |
             adb install -r "Qatarat (Lambda-Stage).apk"
             mkdir -p testing/appium/reports/screenshots
-
             MARKER="${{ github.event.inputs.marker }}"
             cd testing/appium
-
             if [ -n "$MARKER" ]; then
               echo "Running marker: $MARKER"
-              python3 -m pytest tests/ -m "$MARKER" -v \
-                --html=reports/report.html \
-                --self-contained-html \
-                --tb=short \
-                -o "junit_family=xunit2" \
-                --junit-xml=reports/results.xml
+              python3 -m pytest tests/ -m "$MARKER" -v --html=reports/report.html --self-contained-html --tb=short -o "junit_family=xunit2" --junit-xml=reports/results.xml
             else
               echo "Running all Appium tests..."
-              python3 -m pytest tests/ -v \
-                --html=reports/report.html \
-                --self-contained-html \
-                --tb=short \
-                -o "junit_family=xunit2" \
-                --junit-xml=reports/results.xml
+              python3 -m pytest tests/ -v --html=reports/report.html --self-contained-html --tb=short -o "junit_family=xunit2" --junit-xml=reports/results.xml
             fi
 
       - name: Upload HTML report
