@@ -72,7 +72,7 @@ def scroll_to_text(driver, text, direction="down", max_scrolls=10):
     raise NoSuchElementException(f"Could not scroll to: {text}")
 
 
-def enter_otp(driver, otp="123456"):
+def enter_otp(driver, otp="1234"):
     for digit in otp:
         driver.find_element(AppiumBy.XPATH, f"//android.widget.EditText").send_keys(digit)
         time.sleep(0.1)

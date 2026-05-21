@@ -5,22 +5,38 @@
 
 ---
 
-## Quick Start
+## Quick Start — USB Device (easiest)
 
 ```bash
-# 1. Install everything (Java, ADB, Maestro, Appium, Python deps)
-cd testing
-./install.sh
+# 1. Install all tools
+cd testing && ./install.sh && source ~/.zshrc
 
-# 2. Restart terminal (reload PATH)
-source ~/.zshrc
-
-# 3. Connect Android device or start emulator, then:
-./run_maestro.sh           # Phase 1 smoke (5 min)
-./run_maestro.sh regression  # Phase 1 full (20 min)
-./run_appium.sh payment    # Phase 2 payment deep tests
-./run_appium.sh            # Phase 2 all tests
+# 2. Plug in your Android phone → enable USB Debugging → run:
+./run_on_device.sh
 ```
+
+The script detects your phone, installs the APK, and shows a menu — no commands to memorize.
+
+---
+
+## Quick Start — CI / Emulator
+
+```bash
+# Local emulator or CI
+./run_maestro.sh           # smoke (5 min)
+./run_maestro.sh regression  # all flows (20 min)
+./run_appium.sh payment    # payment deep tests
+./run_appium.sh            # all Appium tests
+```
+
+---
+
+## Test credentials
+
+| Field | Value |
+|-------|-------|
+| Phone | `8801685220417` |
+| OTP   | `1234` |
 
 ---
 

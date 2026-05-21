@@ -35,7 +35,7 @@ class LoginPage(BasePage):
         wait_for_animation(self.driver, 2)
         return self
 
-    def enter_otp(self, otp="123456"):
+    def enter_otp(self, otp="1234"):
         # OTP is usually 6 separate input boxes or one field
         try:
             el = self.driver.find_element(AppiumBy.XPATH, "//android.widget.EditText")
@@ -53,7 +53,7 @@ class LoginPage(BasePage):
         wait_for_animation(self.driver, 3)
         return self
 
-    def login(self, phone="501234567", otp="123456"):
+    def login(self, phone="8801685220417", otp="1234"):
         self.select_country_and_language()
         self.skip_onboarding()
         self.enter_phone(phone)

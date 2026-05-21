@@ -24,7 +24,7 @@ appId: com.qatarat.app
 
 - assertVisible: "Enter phone number"
 - tapOn: "Enter phone number"
-- inputText: "501234567"
+- inputText: "8801685220417"
 
 # Accept T&C if shown
 - tapOn:
@@ -39,7 +39,7 @@ appId: com.qatarat.app
 
 # OTP screen
 - assertVisible: "Please enter verification code"
-- inputText: "123456"
+- inputText: "1234"
 
 # Tap Verify
 - tapOn: "Verify"

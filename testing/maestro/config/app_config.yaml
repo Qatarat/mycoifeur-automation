@@ -9,8 +9,8 @@ appId: com.qatarat.app         # Android
 env:
   ANDROID_APP_ID: com.qatarat.app
   IOS_APP_ID: com.qatarat.app
-  TEST_PHONE: "501234567"       # 9-digit test number
-  TEST_OTP: "123456"            # Use real OTP in CI via secrets
+  TEST_PHONE: "8801685220417"
+  TEST_OTP: "1234"
   TEST_PROMO: "TEST10"
   RECIPIENT_NAME: "Test User"
   RECIPIENT_PHONE: "509876543"

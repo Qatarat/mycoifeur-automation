@@ -19,13 +19,13 @@ appId: com.qatarat.app
 - tapOn:
     text: "Enter phone number"
     optional: true
-- inputText: "501234567"
+- inputText: "8801685220417"
 - tapOn:
     text: "Continue"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000
-- inputText: "123456"
+- inputText: "1234"
 - tapOn: "Verify"
 - waitForAnimationToEnd:
     timeout: 5000
