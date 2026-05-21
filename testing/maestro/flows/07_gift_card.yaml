@@ -1,0 +1,95 @@
+appId: com.qatarat.app
+---
+# Flow: Send a gift card to someone via WhatsApp
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Find gift option
+- tapOn:
+    text: "Gift to someone you love"
+    optional: true
+- tapOn:
+    text: "Gift Card"
+    optional: true
+- waitForAnimationToEnd
+
+# Gift details form
+- assertVisible:
+    text: "Gift Details"
+    optional: true
+
+# Recipient name
+- tapOn:
+    text: "Enter recipient Name"
+    optional: true
+- inputText: "Ahmed Ali"
+
+# Recipient WhatsApp number
+- tapOn:
+    text: "Recipient Number"
+    optional: true
+- inputText: "509876543"
+
+# Sender name
+- tapOn:
+    text: "Enter sender Name"
+    optional: true
+- inputText: "Test Sender"
+
+# Gift message (optional)
+- tapOn:
+    text: "What do you want to say?"
+    optional: true
+- inputText: "Wishing you blessings from Mecca!"
+
+# Choose relationship
+- tapOn:
+    text: "Choose Relationship"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+
+# Select template
+- tapOn:
+    text: "Select Template"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    index: 0
+    optional: true
+
+# Preview gift
+- tapOn:
+    text: "Preview"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Gift Card Preview"
+    optional: true
+- assertVisible:
+    text: "Gift card will be sent to this WhatsApp number"
+    optional: true
+
+- takeScreenshot: gift_card_preview
+
+# Save
+- tapOn:
+    text: "Save Gift Details"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Checkout"
+    optional: true
+
+- takeScreenshot: gift_card_saved

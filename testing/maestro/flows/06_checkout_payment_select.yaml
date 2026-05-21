@@ -1,0 +1,68 @@
+appId: com.qatarat.app
+---
+# Flow: Cart → Checkout → Payment method selection (no actual payment)
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+
+# Go to cart (assumes items already in cart from previous flow, or add one)
+- tapOn: "Cart"
+- waitForAnimationToEnd
+
+# If cart empty, add an item first
+- tapOn:
+    text: "Select a Service"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+- tapOn: "Cart"
+- waitForAnimationToEnd
+
+# Proceed to checkout
+- assertVisible: "Checkout"
+- tapOn: "Checkout"
+- waitForAnimationToEnd
+
+# Payment method screen
+- assertVisible: "Please select payment method"
+
+# Verify all payment methods visible
+- assertVisible:
+    text: "Pay later with Tabby"
+    optional: true
+- assertVisible:
+    text: "4 interest-free"
+    optional: true
+
+# Select a payment option (card/credit)
+- tapOn:
+    text: "Select Option"
+    optional: true
+
+- waitForAnimationToEnd
+
+- takeScreenshot: checkout_payment_selection
+
+# Promo code
+- tapOn:
+    text: "Redeem your Promo Code"
+    optional: true
+- inputText: "TEST10"
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Promo Code Applied"
+    optional: true
+
+- takeScreenshot: checkout_promo_applied

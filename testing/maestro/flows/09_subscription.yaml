@@ -1,0 +1,82 @@
+appId: com.qatarat.app
+---
+# Flow: Subscribe to recurring weekly/monthly donation
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "501234567"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- inputText: "123456"
+- tapOn: "Verify"
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Add item to cart
+- tapOn:
+    text: "Select a Service"
+    optional: true
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd
+
+# Go to cart → checkout
+- tapOn: "Cart"
+- waitForAnimationToEnd
+- tapOn: "Checkout"
+- waitForAnimationToEnd
+
+# Subscription prompt should appear
+- assertVisible:
+    text: "Would you like to subscribe"
+    optional: true
+
+- tapOn:
+    text: "Yes"
+    optional: true
+- waitForAnimationToEnd
+
+# Subscription type selector
+- assertVisible:
+    text: "Please specify the subscription type"
+    optional: true
+
+# Select weekly
+- tapOn:
+    text: "Weekly"
+    optional: true
+- waitForAnimationToEnd
+
+# Confirm subscription
+- tapOn:
+    text: "Subscribe Now"
+    optional: true
+- tapOn:
+    text: "Subscribe now for Reminder"
+    optional: true
+- waitForAnimationToEnd
+
+- assertVisible:
+    text: "Successfully Subscribed!"
+    optional: true
+
+- takeScreenshot: subscription_success

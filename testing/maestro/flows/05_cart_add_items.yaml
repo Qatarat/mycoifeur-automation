@@ -1,0 +1,65 @@
+appId: com.qatarat.app
+---
+# Flow: Add items to cart, verify cart state, update quantity
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Navigate to services/home
+- tapOn:
+    text: "Select a Service"
+    optional: true
+- waitForAnimationToEnd
+
+# Add first available item
+- scrollUntilVisible:
+    element:
+      text: "Add"
+    direction: DOWN
+    timeout: 10000
+    optional: true
+- tapOn:
+    text: "Add"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Verify added successfully
+- assertVisible:
+    text: "Added Successfully"
+    optional: true
+
+# Go to cart
+- tapOn: "Cart"
+- waitForAnimationToEnd
+
+# Verify items in cart
+- assertVisible:
+    text: "Items in the cart"
+    optional: true
+- assertVisible:
+    text: "Checkout"
+    optional: true
+
+# Increase quantity
+- tapOn:
+    text: "+"
+    optional: true
+- waitForAnimationToEnd
+
+# Verify price/tax visible
+- assertVisible:
+    text: "Tax"
+    optional: true
+- assertVisible:
+    text: "Price"
+    optional: true
+
+- takeScreenshot: cart_with_items

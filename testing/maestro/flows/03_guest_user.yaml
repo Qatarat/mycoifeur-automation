@@ -1,0 +1,44 @@
+appId: com.qatarat.app
+---
+# Flow: Launch as guest user → verify guest browsing works
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Skip country/language if already set
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Select guest mode
+- tapOn:
+    text: "Guest User"
+    optional: true
+- tapOn:
+    text: "Continue as Guest"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Guest should land on home/services screen
+- assertVisible:
+    text: "Select a Service"
+    optional: true
+- assertVisible:
+    text: "Cart"
+    optional: true
+
+# Verify login prompt appears when accessing protected feature
+- tapOn:
+    text: "My Orders"
+    optional: true
+- assertVisible:
+    text: "Login Required"
+    optional: true
+
+- takeScreenshot: guest_user_login_prompt

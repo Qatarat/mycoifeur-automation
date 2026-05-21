@@ -1,0 +1,78 @@
+name: "Maestro — Smoke (iOS Simulator)"
+
+on:
+  workflow_dispatch:        # manual only — macOS minutes are limited on free tier
+    inputs:
+      ios_version:
+        description: "iOS version to test on"
+        required: false
+        default: "17"
+
+jobs:
+  ios-smoke:
+    name: Smoke Tests (iOS ${{ github.event.inputs.ios_version || '17' }} Simulator)
+    runs-on: macos-14        # Apple Silicon runner — fastest free macOS option
+    timeout-minutes: 45
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: List available simulators
+        run: xcrun simctl list devices available | grep -i iphone | head -10
+
+      - name: Boot iPhone 15 Pro Simulator
+        run: |
+          SIM_ID=$(xcrun simctl list devices available | \
+            grep "iPhone 15 Pro" | grep -v "Max\|Plus" | \
+            head -1 | grep -oE "[A-F0-9-]{36}")
+          echo "SIM_ID=$SIM_ID" >> $GITHUB_ENV
+          xcrun simctl boot "$SIM_ID" || true
+          echo "Simulator booted: $SIM_ID"
+
+      # NOTE: iOS tests require a .app build (Simulator) or .ipa (device)
+      # Uncomment when you have an iOS build available:
+      #
+      # - name: Install app on Simulator
+      #   run: |
+      #     xcrun simctl install "$SIM_ID" "Qatarat.app"
+      #
+      # Until then, run against the App Store version using bundle ID:
+      - name: Run iOS Smoke Suite
+        run: |
+          maestro test testing/maestro/flows/suites/smoke.yaml \
+            --device "$SIM_ID" \
+            --format junit \
+            --output testing/maestro/reports/ios-smoke-results.xml
+        env:
+          # Override appId to use iOS bundle ID
+          MAESTRO_APP_ID: com.qatarat.app
+
+      - name: Upload iOS test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-ios-smoke-${{ github.run_number }}
+          path: testing/maestro/reports/
+          retention-days: 14
+
+      - name: Upload iOS screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-ios-screenshots-${{ github.run_number }}
+          path: ~/.maestro/tests/
+          retention-days: 7

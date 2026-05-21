@@ -1,0 +1,16 @@
+# Qatarat app — shared Maestro config
+# Include this in every flow with: <<: !include ../config/app_config.yaml
+
+appId: com.qatarat.app         # Android
+# appId: com.qatarat.app       # iOS (same bundle ID)
+
+---
+# Reusable env vars referenced in flows as ${VAR}
+env:
+  ANDROID_APP_ID: com.qatarat.app
+  IOS_APP_ID: com.qatarat.app
+  TEST_PHONE: "501234567"       # 9-digit test number
+  TEST_OTP: "123456"            # Use real OTP in CI via secrets
+  TEST_PROMO: "TEST10"
+  RECIPIENT_NAME: "Test User"
+  RECIPIENT_PHONE: "509876543"

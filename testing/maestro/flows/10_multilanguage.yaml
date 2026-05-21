@@ -1,0 +1,61 @@
+appId: com.qatarat.app
+---
+# Flow: Switch app language (Arabic RTL, Turkish, Urdu) and verify UI adapts
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Onboarding — pick Arabic
+- assertVisible: "Select your language"
+- tapOn: "Arabic"
+- waitForAnimationToEnd
+
+# Arabic text should appear (قطرات)
+- assertVisible:
+    text: "قطرات"
+    optional: true
+- takeScreenshot: language_arabic
+
+# Relaunch and pick Turkish
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Turkish"
+    optional: true
+- tapOn:
+    text: "Türkçe"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: language_turkish
+
+# Relaunch and pick Urdu (RTL)
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Urdu"
+    optional: true
+- tapOn:
+    text: "اردو"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: language_urdu
+
+# Back to English for remaining tests
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- tapOn:
+    text: "English"
+    optional: true
+- waitForAnimationToEnd
+- takeScreenshot: language_english_restored

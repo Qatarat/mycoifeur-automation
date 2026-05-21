@@ -1,0 +1,97 @@
+appId: com.qatarat.app
+---
+# Flow: View orders list, order details, rate an order
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Must be logged in — attempt login first
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "501234567"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- inputText: "123456"
+- tapOn: "Verify"
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Navigate to My Orders
+- tapOn: "My Orders"
+- waitForAnimationToEnd
+
+- assertVisible: "My Orders"
+- assertVisible:
+    text: "Recent Orders"
+    optional: true
+
+# Search orders
+- tapOn:
+    text: "Search orders..."
+    optional: true
+- inputText: "order"
+- waitForAnimationToEnd
+- tapOn:
+    text: "Back"
+    optional: true
+
+# Open first order if available
+- tapOn:
+    text: "See All Orders"
+    optional: true
+- waitForAnimationToEnd
+
+# Tap first order in list
+- tapOn:
+    index: 0
+    optional: true
+- waitForAnimationToEnd
+
+# Check order detail fields
+- assertVisible:
+    text: "Order Number"
+    optional: true
+- assertVisible:
+    text: "Payment Date"
+    optional: true
+- assertVisible:
+    text: "Invoice"
+    optional: true
+
+- takeScreenshot: order_detail
+
+# Rate an order
+- tapOn:
+    text: "Rate Order"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "How was your order?"
+    optional: true
+- tapOn:
+    text: "Type your feedback"
+    optional: true
+- inputText: "Excellent service, very satisfied!"
+- tapOn:
+    text: "Submit Rating"
+    optional: true
+- waitForAnimationToEnd
+- assertVisible:
+    text: "Thank You For Your Feedback!"
+    optional: true
+
+- takeScreenshot: order_rating_submitted

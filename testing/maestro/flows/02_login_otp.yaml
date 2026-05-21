@@ -1,0 +1,57 @@
+appId: com.qatarat.app
+---
+# Flow: Phone number entry → OTP verification → logged-in home
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Skip onboarding if shown (already configured)
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Tap login / enter phone
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+
+- assertVisible: "Enter phone number"
+- tapOn: "Enter phone number"
+- inputText: "501234567"
+
+# Accept T&C if shown
+- tapOn:
+    text: "By clicking continue"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# OTP screen
+- assertVisible: "Please enter verification code"
+- inputText: "123456"
+
+# Tap Verify
+- tapOn: "Verify"
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Confirm logged in
+- assertVisible:
+    text: "Cart"
+    optional: true
+- assertVisible:
+    text: "My Orders"
+    optional: true
+
+- takeScreenshot: login_otp_success

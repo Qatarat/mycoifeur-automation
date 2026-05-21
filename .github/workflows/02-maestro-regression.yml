@@ -1,0 +1,118 @@
+name: "Maestro — Full Regression (Android)"
+
+on:
+  schedule:
+    - cron: "0 1 * * *"   # nightly at 01:00 UTC (free minutes run overnight)
+  workflow_dispatch:        # manual trigger from GitHub UI
+    inputs:
+      flow:
+        description: "Single flow to run (e.g. 07 for gift card). Leave empty for full regression."
+        required: false
+        default: ""
+
+concurrency:
+  group: maestro-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    name: Full Regression (Android API 33)
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Install Maestro
+        run: |
+          curl -Ls "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> $GITHUB_PATH
+
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' \
+            | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run Regression Suite on Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 33
+          arch: x86_64
+          profile: pixel_6
+          target: google_apis
+          force-avd-creation: false
+          emulator-options: >
+            -no-snapshot-save
+            -no-window
+            -gpu swiftshader_indirect
+            -noaudio
+            -no-boot-anim
+          disable-animations: true
+          script: |
+            adb install -r "Qatarat (Lambda-Stage).apk"
+
+            # Run single flow if specified, otherwise full regression
+            FLOW="${{ github.event.inputs.flow }}"
+            mkdir -p testing/maestro/reports
+
+            if [ -n "$FLOW" ]; then
+              FLOW_FILE=$(ls testing/maestro/flows/${FLOW}*.yaml 2>/dev/null | head -1)
+              echo "Running single flow: $FLOW_FILE"
+              maestro test "$FLOW_FILE" \
+                --format junit \
+                --output testing/maestro/reports/regression-results.xml
+            else
+              echo "Running full regression suite..."
+              maestro test testing/maestro/flows/suites/regression.yaml \
+                --format junit \
+                --output testing/maestro/reports/regression-results.xml
+            fi
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-regression-results-${{ github.run_number }}
+          path: testing/maestro/reports/
+          retention-days: 30
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-regression-screenshots-${{ github.run_number }}
+          path: ~/.maestro/tests/
+          retention-days: 14
+
+      - name: Publish test summary
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: Maestro Regression Results
+          path: testing/maestro/reports/regression-results.xml
+          reporter: java-junit
+          fail-on-error: false
+
+      - name: Notify on failure
+        if: failure() && github.event_name == 'schedule'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `[CI] Nightly regression failed — ${new Date().toISOString().split('T')[0]}`,
+              body: `Maestro regression failed on run [#${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).`,
+              labels: ['ci-failure', 'automated']
+            })

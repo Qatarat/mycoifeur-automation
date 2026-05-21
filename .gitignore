@@ -1,0 +1,18 @@
+# Python
+testing/appium/.venv/
+testing/appium/__pycache__/
+testing/appium/**/__pycache__/
+testing/appium/**/*.pyc
+testing/appium/appium.log
+
+# Test reports & screenshots (kept as CI artifacts, not in git)
+testing/appium/reports/
+testing/maestro/reports/
+
+# macOS
+.DS_Store
+.claude/
+
+# Android emulator
+*.avd/
+.android/

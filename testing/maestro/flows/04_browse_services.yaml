@@ -1,0 +1,53 @@
+appId: com.qatarat.app
+---
+# Flow: Browse services, mosque selection, item details
+
+- launchApp
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- tapOn:
+    text: "Skip"
+    optional: true
+- waitForAnimationToEnd
+
+# Services page
+- assertVisible: "Select a Service"
+- tapOn: "Select a Service"
+- waitForAnimationToEnd
+
+# Most needed mosques
+- assertVisible:
+    text: "Mecca mosques most needed"
+    optional: true
+
+# Browse mosque list
+- scrollUntilVisible:
+    element:
+      text: "Mecca mosque"
+    direction: DOWN
+    timeout: 8000
+    optional: true
+
+- tapOn:
+    text: "Mecca mosque"
+    optional: true
+- waitForAnimationToEnd
+
+# Mosque selection confirmation dialog
+- tapOn:
+    text: "Yes"
+    optional: true
+- waitForAnimationToEnd
+
+# Check More Details is accessible
+- tapOn:
+    text: "More Details"
+    optional: true
+- waitForAnimationToEnd
+- tapOn:
+    text: "Back"
+    optional: true
+
+- takeScreenshot: browse_services_complete

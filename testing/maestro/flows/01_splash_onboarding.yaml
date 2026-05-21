@@ -1,0 +1,34 @@
+appId: com.qatarat.app
+---
+# Flow: Splash screen → country & language selection → home
+- launchApp:
+    clearState: true
+
+# Wait for splash animation
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Onboarding: country + language picker should appear
+- assertVisible: "Select your country"
+- tapOn: "Select your country"
+- waitForAnimationToEnd
+
+# Pick Saudi Arabia (main market for Qatarat)
+- scrollUntilVisible:
+    element:
+      text: "Saudi Arabia"
+    direction: DOWN
+    timeout: 10000
+- tapOn: "Saudi Arabia"
+
+# Pick language
+- assertVisible: "Select your language"
+- tapOn: "English"
+
+- waitForAnimationToEnd
+
+# Should land on welcome / home screen
+- assertVisible:
+    text: "Welcome to Qatarat"
+    optional: true
+- takeScreenshot: splash_onboarding_complete
