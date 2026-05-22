@@ -1,6 +1,10 @@
 name: "Maestro — Full Regression (Android)"
 
 on:
+  push:
+    branches: [main, develop, "release/**"]
+  pull_request:
+    branches: [main, develop]
   schedule:
     - cron: "0 1 * * *"
   workflow_dispatch:
@@ -11,15 +15,15 @@ on:
         default: ""
 
 concurrency:
-  # PRs: cancel stale run on new commit. Main/schedule: never cancel.
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  # Cancel in-progress regression when a new push lands so CI stays fresh.
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   regression:
     name: Full Regression (Android API 33)
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 100
 
     steps:
       - name: Checkout

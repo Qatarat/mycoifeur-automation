@@ -44,20 +44,40 @@ jobs:
       # Resolve which run's artifacts to download:
       #   workflow_run  → use the triggering run's ID (has the test XMLs/screenshots)
       #   push / dispatch → find the most recent successful smoke or regression run
-      - name: Resolve artifact source run ID
+      # Resolve the latest Maestro run (smoke or regression) for flow results
+      - name: Resolve Maestro source run ID
         id: source-run
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+          if [ "${{ github.event_name }}" = "workflow_run" ] && \
+             echo "${{ github.event.workflow_run.name }}" | grep -qi "maestro"; then
             echo "id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
-            echo "Triggered by workflow_run: using run ${{ github.event.workflow_run.id }}"
+            echo "Triggered by Maestro workflow_run: ${{ github.event.workflow_run.id }}"
           else
-            echo "Triggered by ${{ github.event_name }}: searching for latest test run"
-            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=30" \
-              --jq '[.workflow_runs[] | select(.name | test("Maestro|Appium"))] | first | .id // ""' 2>/dev/null || echo "")
+            echo "Searching for latest successful Maestro run..."
+            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=50" \
+              --jq '[.workflow_runs[] | select(.name | test("Maestro"))] | first | .id // ""' 2>/dev/null || echo "")
             echo "id=${ID}" >> "$GITHUB_OUTPUT"
-            echo "Latest test run ID: ${ID:-none found}"
+            echo "Latest Maestro run ID: ${ID:-none found}"
+          fi
+
+      # Separately resolve the latest Appium run — it runs on a different schedule
+      - name: Resolve Appium source run ID
+        id: appium-run
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_run" ] && \
+             echo "${{ github.event.workflow_run.name }}" | grep -qi "appium"; then
+            echo "id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
+            echo "Triggered by Appium workflow_run: ${{ github.event.workflow_run.id }}"
+          else
+            echo "Searching for latest successful Appium run..."
+            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=50" \
+              --jq '[.workflow_runs[] | select(.name | test("Appium"))] | first | .id // ""' 2>/dev/null || echo "")
+            echo "id=${ID}" >> "$GITHUB_OUTPUT"
+            echo "Latest Appium run ID: ${ID:-none found}"
           fi
 
       - name: Install Allure CLI
@@ -67,25 +87,15 @@ jobs:
           sudo mv allure-2.29.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/local/bin/allure
 
-      - name: Download JUnit XML artifacts
+      # ── Maestro artifacts (flow XMLs + screenshots) ──────────────────
+      - name: Download Maestro JUnit XMLs
         if: steps.source-run.outputs.id != ''
         uses: actions/download-artifact@v4
         with:
           run-id: ${{ steps.source-run.outputs.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: raw-artifacts/
-          pattern: "*junit*"
-          merge-multiple: false
-        continue-on-error: true
-
-      - name: Download Appium Allure results
-        if: steps.source-run.outputs.id != ''
-        uses: actions/download-artifact@v4
-        with:
-          run-id: ${{ steps.source-run.outputs.id }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          path: allure-results/
-          pattern: "appium-allure-results-*"
+          path: raw-artifacts/maestro/
+          pattern: "maestro-*junit*"
           merge-multiple: true
         continue-on-error: true
 
@@ -96,15 +106,38 @@ jobs:
           run-id: ${{ steps.source-run.outputs.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: raw-screenshots/
-          pattern: "maestro-*-screenshots-*"
+          pattern: "maestro-*screenshots*"
+          merge-multiple: true
+        continue-on-error: true
+
+      # ── Appium artifacts (JUnit + Allure + screenshots) — separate run ─
+      - name: Download Appium JUnit XML
+        if: steps.appium-run.outputs.id != ''
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.appium-run.outputs.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: raw-artifacts/appium/
+          pattern: "appium-junit*"
+          merge-multiple: true
+        continue-on-error: true
+
+      - name: Download Appium Allure results
+        if: steps.appium-run.outputs.id != ''
+        uses: actions/download-artifact@v4
+        with:
+          run-id: ${{ steps.appium-run.outputs.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          path: allure-results/
+          pattern: "appium-allure-results-*"
           merge-multiple: true
         continue-on-error: true
 
       - name: Download Appium screenshots
-        if: steps.source-run.outputs.id != ''
+        if: steps.appium-run.outputs.id != ''
         uses: actions/download-artifact@v4
         with:
-          run-id: ${{ steps.source-run.outputs.id }}
+          run-id: ${{ steps.appium-run.outputs.id }}
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path: raw-screenshots/
           pattern: "appium-screenshots-*"

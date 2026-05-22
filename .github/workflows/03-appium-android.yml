@@ -1,6 +1,10 @@
 name: "Appium — Deep Tests (Android)"
 
 on:
+  push:
+    branches: [main, develop, "release/**"]
+  pull_request:
+    branches: [main, develop]
   schedule:
     - cron: "0 2 * * 1"
   workflow_dispatch:
@@ -83,9 +87,19 @@ jobs:
             MARKER="${{ github.event.inputs.marker }}"
             cd testing/appium
             if [ -n "$MARKER" ]; then
-              python3 -m pytest tests/ -m "$MARKER" -v --html=reports/report.html --self-contained-html --tb=short -o "junit_family=xunit2" --junit-xml=reports/results.xml
+              python3 -m pytest tests/ -m "$MARKER" -v \
+                --html=reports/report.html --self-contained-html \
+                --tb=short \
+                -o "junit_family=xunit2" \
+                --junit-xml=reports/results.xml \
+                --alluredir=allure-results
             else
-              python3 -m pytest tests/ -v --html=reports/report.html --self-contained-html --tb=short -o "junit_family=xunit2" --junit-xml=reports/results.xml
+              python3 -m pytest tests/ -v \
+                --html=reports/report.html --self-contained-html \
+                --tb=short \
+                -o "junit_family=xunit2" \
+                --junit-xml=reports/results.xml \
+                --alluredir=allure-results
             fi
 
       - name: Publish step summary
