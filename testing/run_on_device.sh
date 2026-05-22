@@ -129,36 +129,74 @@ if [ "$PLATFORM" = "android" ]; then
         echo -e "  ${YELLOW}${BOLD}On your phone:${RESET}"
         echo -e "  ${DIM}1. Settings → About phone → tap Build number 7 times${RESET}"
         echo -e "  ${DIM}2. Settings → Developer options → Wireless debugging → ON${RESET}"
-        echo -e "  ${DIM}3. Tap 'Pair device with pairing code'${RESET}"
-        echo -e "  ${DIM}4. Note the IP:port popup and the 6-digit code${RESET}"
+        echo -e "  ${DIM}3. Tap  'Pair device with pairing code'${RESET}"
+        echo -e "  ${DIM}   A popup shows:  IP address  192.168.x.x:XXXXX  and a 6-digit code${RESET}"
+        echo -e "  ${YELLOW}   ⚠ Enter the IP:port exactly as shown — use a colon (:) before the port${RESET}"
         echo ""
-        read -rp "  IP:port shown in popup (e.g. 192.168.1.5:39753): " _PAIR_ADDR
+        while true; do
+          read -rp "  IP:port from popup (e.g. 192.168.0.197:39753): " _PAIR_ADDR
+          # validate format: must be digits.digits.digits.digits:digits
+          if [[ "$_PAIR_ADDR" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]]; then
+            break
+          fi
+          warn "Wrong format. Must be like 192.168.0.197:39753 (IP, colon, port number)"
+          warn "If you see a MAC address like 44:E2:BA:30:CE:14 — that is the wrong screen."
+        done
         read -rp "  6-digit pairing code: " _PAIR_CODE
         echo ""
         step "Pairing..."
-        adb pair "$_PAIR_ADDR" "$_PAIR_CODE" || { error "Pairing failed — check IP:port and code"; return 1; }
-        log "Paired"
+        # adb pair sometimes exits non-zero even on success; check output text instead
+        _PAIR_OUT=$(adb pair "$_PAIR_ADDR" "$_PAIR_CODE" 2>&1) || true
+        if echo "$_PAIR_OUT" | grep -qi "successfully paired\|success"; then
+          log "Paired  ($( echo "$_PAIR_OUT" | head -1 ))"
+        else
+          echo "$_PAIR_OUT"
+          error "Pairing failed — check the IP:port and 6-digit code then try again"
+          return 1
+        fi
         echo ""
-        echo -e "  ${DIM}Go back to the Wireless debugging main screen.${RESET}"
-        echo -e "  ${DIM}It shows a second IP:port (e.g. 192.168.1.5:5555) for connecting.${RESET}"
+        echo -e "  ${DIM}Now go back to the 'Wireless debugging' main screen (not the Pair popup).${RESET}"
+        echo -e "  ${DIM}It shows a connection IP:port like  192.168.0.197:38613  — enter that below.${RESET}"
         echo ""
         local _WIP="${_PAIR_ADDR%%:*}"
-        read -rp "  IP:port from Wireless debugging main screen [default ${_WIP}:5555]: " _CONN
-        _CONN="${_CONN:-${_WIP}:5555}"
+        while true; do
+          read -rp "  IP:port from Wireless debugging main screen [default ${_WIP}:5555]: " _CONN
+          _CONN="${_CONN:-${_WIP}:5555}"
+          [[ "$_CONN" =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+:[0-9]+$ ]] && break
+          warn "Must be IP:port format (e.g. 192.168.0.197:38613)"
+        done
         step "Connecting to $_CONN..."
-        adb connect "$_CONN" || { error "Connection failed"; return 1; }
-        log "Connected to $_CONN"
+        _CONN_OUT=$(adb connect "$_CONN" 2>&1) || true
+        echo "$_CONN_OUT"
+        if echo "$_CONN_OUT" | grep -qi "connected\|already connected"; then
+          log "Connected to $_CONN"
+        else
+          error "Connection failed — is Wireless debugging still ON on the device?"
+          return 1
+        fi
         ;;
       b)
         echo -e "  ${DIM}On your phone: Developer options → enable 'ADB over network'${RESET}"
         echo -e "  ${DIM}or: Developer options → Wireless debugging → ON  (the IP is shown there)${RESET}"
+        echo -e "  ${DIM}You can enter just the IP or the full IP:port${RESET}"
         echo ""
-        read -rp "  Device IP address: " _WIP
-        read -rp "  Port [default 5555]: " _WPORT
-        _WPORT="${_WPORT:-5555}"
-        step "Connecting to $_WIP:$_WPORT..."
-        adb connect "$_WIP:$_WPORT" || { error "Cannot reach $_WIP:$_WPORT"; return 1; }
-        log "Connected"
+        read -rp "  Device IP (e.g. 192.168.0.197 or 192.168.0.197:5555): " _WIP
+        # if user already included a port, use it; otherwise ask
+        if [[ "$_WIP" =~ ^([0-9.]+):([0-9]+)$ ]]; then
+          _CONN_ADDR="$_WIP"
+        else
+          read -rp "  Port [default 5555]: " _WPORT
+          _CONN_ADDR="$_WIP:${_WPORT:-5555}"
+        fi
+        step "Connecting to $_CONN_ADDR..."
+        _CONN_OUT=$(adb connect "$_CONN_ADDR" 2>&1) || true
+        echo "$_CONN_OUT"
+        if echo "$_CONN_OUT" | grep -qi "connected\|already connected"; then
+          log "Connected"
+        else
+          error "Cannot reach $_CONN_ADDR — is the device on the same WiFi network?"
+          return 1
+        fi
         ;;
       c)
         echo -e "  ${DIM}Settings → Developer options → USB debugging → ON${RESET}"
@@ -435,7 +473,9 @@ echo ""
 echo -e "  ${BOLD}Launching ${#FLOW_FILES[@]} flows on${RESET} ${GREEN}$_CHOSEN_LABEL${RESET}${BOLD}...${RESET}"
 echo ""
 
-nohup bash "$RUN_SCRIPT" > "$LOG_FILE" 2>&1 &
+# Pre-create the log so tail -f never races a missing file
+touch "$LOG_FILE"
+nohup bash "$RUN_SCRIPT" >> "$LOG_FILE" 2>&1 &
 TEST_PID=$!
 
 echo -e "  ${GREEN}${BOLD}Tests are running in the background!${RESET}"
