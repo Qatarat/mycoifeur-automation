@@ -14,8 +14,13 @@ const App = () => {
   const defaults = window.__QATARAT_DEFAULTS;
   const [t, setTweak] = useTweaks(defaults);
   const view = t.view || "overview";
-  const { RUN_META } = window.QATARAT_DATA;
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Defensive guard — data.js may not be loaded on first GitHub Pages visit
+  const data = window.QATARAT_DATA || {};
+  const RUN_META = data.RUN_META || {};
   const neverRan = RUN_META.neverRan || !RUN_META.startedAt;
+  const isMockData = !!RUN_META.isMockData;
 
   // Apply accent + density to root
   useEffect(() => {
@@ -25,20 +30,51 @@ const App = () => {
     document.documentElement.setAttribute("data-density", t.density || "cozy");
   }, [t.accent, t.density]);
 
+  // Close drawer on resize-to-desktop and Esc
+  useEffect(() => {
+    const onResize = () => { if (window.innerWidth > 900) setMenuOpen(false); };
+    const onKey = (e) => { if (e.key === "Escape") setMenuOpen(false); };
+    window.addEventListener("resize", onResize);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, []);
+
+  const selectView = (id) => { setTweak("view", id); setMenuOpen(false); };
+
   const navItems = [
     { id: "overview", label: "Overview",      icon: "overview", count: null },
-    { id: "flows",    label: "Maestro flows", icon: "flows",    count: window.QATARAT_DATA.MAESTRO_FLOWS.length },
-    { id: "appium",   label: "Appium tests",  icon: "appium",   count: window.QATARAT_DATA.APPIUM_TESTS.reduce((s, f) => s + f.tests.length, 0) },
-    { id: "pipeline", label: "CI / CD",       icon: "pipeline", count: window.QATARAT_DATA.CI_WORKFLOWS.length },
+    { id: "flows",    label: "Maestro flows", icon: "flows",    count: (data.MAESTRO_FLOWS || []).length },
+    { id: "appium",   label: "Appium tests",  icon: "appium",   count: (data.APPIUM_TESTS || []).reduce((s, f) => s + f.tests.length, 0) },
+    { id: "pipeline", label: "CI / CD",       icon: "pipeline", count: (data.CI_WORKFLOWS || []).length },
     { id: "history",  label: "History",       icon: "history",  count: null },
   ];
 
   const ViewCmp = { overview: OverviewView, flows: FlowsView, appium: AppiumView, pipeline: PipelineView, history: HistoryView }[view];
   const crumbLabel = navItems.find(n => n.id === view)?.label || "Overview";
 
+  // Format lastRun timestamp
+  const lastRunLabel = (() => {
+    if (!RUN_META.startedAt) return null;
+    try {
+      const d = new Date(RUN_META.startedAt);
+      const diff = Date.now() - d.getTime();
+      const mins = Math.floor(diff / 60000);
+      if (mins < 60) return `${mins} min ago`;
+      const hrs = Math.floor(mins / 60);
+      if (hrs < 24) return `${hrs}h ago`;
+      return d.toLocaleDateString();
+    } catch (_) { return RUN_META.startedAt; }
+  })();
+
   return (
     <div className="app">
-      <aside className="side" data-screen-label="Sidebar">
+      {/* Mobile scrim */}
+      <div className={`scrim ${menuOpen ? "show" : ""}`} onClick={() => setMenuOpen(false)} />
+
+      <aside className={`side ${menuOpen ? "open" : ""}`} data-screen-label="Sidebar">
         <div className="brand">
           <div className="brand-mark" />
           <div className="brand-name">
@@ -50,7 +86,7 @@ const App = () => {
         <nav className="nav">
           <div className="nav-section">Reports</div>
           {navItems.map(n => (
-            <div key={n.id} className={`nav-item ${view === n.id ? "active" : ""}`} onClick={() => setTweak("view", n.id)}>
+            <div key={n.id} className={`nav-item ${view === n.id ? "active" : ""}`} onClick={() => selectView(n.id)}>
               <span className="ico"><Icon name={n.icon} size={15} /></span>
               <span>{n.label}</span>
               {n.count != null && <span className="count">{n.count}</span>}
@@ -83,25 +119,36 @@ const App = () => {
 
       <main className="main">
         <div className="topbar">
+          {/* Hamburger — visible on mobile only */}
+          <button className="menu-toggle" onClick={() => setMenuOpen(true)} aria-label="Open menu">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
+              <path d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+          </button>
+
           <div className="crumbs">
             <span>Qatarat</span>
             <span className="sep">/</span>
             <b>{crumbLabel}</b>
           </div>
+
           <div className="top-actions">
-            <span className="mono" style={{ fontSize: 11.5, color: "var(--text-3)", display: "flex", alignItems: "center", gap: 8 }}>
-              {neverRan ? (
-                <>
-                  <span style={{ width: 6, height: 6, borderRadius: 50, background: "var(--idle)" }} />
-                  no runs yet · trigger a workflow to populate
-                </>
-              ) : (
-                <>
-                  <span style={{ width: 6, height: 6, borderRadius: 50, background: "var(--pass)", boxShadow: "0 0 8px var(--pass)" }} />
-                  last run · {RUN_META.startedAt}
-                </>
-              )}
-            </span>
+            {isMockData ? (
+              <span className="mono last-run-tag" style={{ fontSize: 11.5, color: "oklch(80% 0.16 75)", display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 50, background: "oklch(80% 0.16 75)", boxShadow: "0 0 8px oklch(80% 0.16 75 / .5)" }} />
+                demo data · run CI to populate
+              </span>
+            ) : neverRan ? (
+              <span className="mono last-run-tag" style={{ fontSize: 11.5, color: "var(--text-3)", display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 50, background: "var(--idle)" }} />
+                no runs yet · trigger a workflow to populate
+              </span>
+            ) : (
+              <span className="mono last-run-tag" style={{ fontSize: 11.5, color: "var(--text-3)", display: "flex", alignItems: "center", gap: 8 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 50, background: "var(--pass)", boxShadow: "0 0 8px var(--pass)" }} />
+                last run · {lastRunLabel || RUN_META.startedAt}
+              </span>
+            )}
           </div>
         </div>
 

@@ -7,6 +7,11 @@ on:
       - "Maestro — Full Regression (Android)"
       - "Appium — Deep Tests (Android)"
     types: [completed]
+  push:
+    branches: [main]
+    paths:
+      - "testing/report-ui/**"
+      - "testing/generate_data_js.py"
   workflow_dispatch:
 
 permissions:
