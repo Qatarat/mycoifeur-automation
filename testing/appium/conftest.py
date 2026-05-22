@@ -2,7 +2,13 @@ import os
 import pytest
 import allure
 from appium import webdriver
-from appium.options import AppiumOptions
+
+# AppiumOptions moved out of __init__ in client v4.x — try both import paths
+try:
+    from appium.options import AppiumOptions
+except ImportError:
+    from appium.options.base_options import AppiumOptions
+
 from capabilities.android_caps import ANDROID_DEVICE_CAPS, ANDROID_EMULATOR_CAPS
 from capabilities.ios_caps import IOS_DEVICE_CAPS, IOS_SIMULATOR_CAPS
 from utils.helpers import APPIUM_SERVER, screenshot
