@@ -23,10 +23,10 @@ def _make_generic_options_class():
     """Return a class whose instances accept load_capabilities(caps_dict)."""
     # Strategy 3 / 4: platform-specific class used generically
     for mod_path, cls_name in [
-        ("appium.options.android.uiautomator2.main", "UiAutomator2Options"),
-        ("appium.options", "UiAutomator2Options"),
-        ("appium.options", "XCUITestOptions"),
-        ("appium.options.ios.xcuitest.main", "XCUITestOptions"),
+        ("appium.options.common.base", "AppiumOptions"),
+        ("appium.options.android.uiautomator2.base", "UiAutomator2Options"),
+        ("appium.options.ios.xcuitest.base", "XCUITestOptions"),
+        ("appium.options.flutter_integration.base", "FlutterOptions"),
     ]:
         try:
             mod = importlib.import_module(mod_path)
@@ -53,12 +53,16 @@ try:
     if not hasattr(AppiumOptions, "load_capabilities"):
         raise ImportError("AppiumOptions.load_capabilities missing")
 except (ImportError, AttributeError):
-    # Strategy 2: internal submodule path present in some v3 builds
+    # Strategy 2: v4.x moved AppiumOptions to appium.options.common.base
     try:
-        from appium.options.base_options import AppiumOptions  # type: ignore[no-redef]
+        from appium.options.common.base import AppiumOptions  # type: ignore[no-redef]
     except (ImportError, ModuleNotFoundError):
-        # Strategy 3/4: platform-specific class with monkey-patched load_capabilities
-        AppiumOptions = _make_generic_options_class()
+        # Strategy 3: internal submodule path present in some v3 builds
+        try:
+            from appium.options.base_options import AppiumOptions  # type: ignore[no-redef]
+        except (ImportError, ModuleNotFoundError):
+            # Strategy 4: platform-specific class with monkey-patched load_capabilities
+            AppiumOptions = _make_generic_options_class()
 
 # ─────────────────────────────────────────────────────────────────────────────
 
