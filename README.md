@@ -19,7 +19,7 @@
 git clone https://github.com/mejbaurbahar/Qatarat.git
 cd Qatarat/testing
 
-# 2. Install all tools (Java, ADB, Maestro, Appium, Python)
+# 2. Install all tools (Java, ADB, Maestro, Appium, Python, scrcpy)
 bash install.sh
 source ~/.zshrc        # or source ~/.bashrc on Linux
 
@@ -28,7 +28,7 @@ source ~/.zshrc        # or source ~/.bashrc on Linux
 #    Settings → Developer Options → turn on USB Debugging
 #    Connect phone via USB → tap Allow on the dialog that appears
 
-# 4. Launch the interactive menu
+# 4. Launch the interactive menu (auto-detects device + offers screen mirror)
 bash run_on_device.sh
 ```
 
@@ -99,6 +99,40 @@ bash run_maestro.sh
 
 ---
 
+## Screen mirror (see the real device while tests run)
+
+Connect your Android phone via USB and see every tap, animation, and assertion on your PC screen in real time — on any PC, even low-storage ones.
+
+```bash
+cd testing
+
+bash mirror.sh             # basic mirror
+bash mirror.sh --record    # mirror + save video to mirror_recordings/
+bash mirror.sh --watch     # auto-relaunch mirror each time phone reconnects
+bash mirror.sh --low-cpu   # 720p + no audio (saves CPU on slow machines)
+bash mirror.sh --help      # show all options
+```
+
+> **Runs inside `run_on_device.sh`** — when you use the interactive menu it asks automatically if you want to start the mirror. You can also toggle it mid-session with option `m`, or start a recording session with option `r`.
+
+**Why it works on low-storage / slow PCs:**
+- The phone's own GPU encodes the video stream (H.264) — the PC only decodes
+- Binary is ~10 MB, no Android Studio needed
+- Typical CPU usage: 2–5%
+- No temp files written during mirroring
+
+**Keyboard shortcuts while mirroring:**
+
+| Shortcut | Action |
+|----------|--------|
+| Ctrl+Shift+H | Home button |
+| Ctrl+Shift+B | Back button |
+| Ctrl+Shift+P | Power / wake |
+| Ctrl+V | Paste clipboard to phone |
+| Close window / Ctrl+C | Stop mirror |
+
+---
+
 ## Tech stack
 
 | Layer | Technology |
@@ -107,6 +141,7 @@ bash run_maestro.sh
 | **UI automation** | [Maestro](https://maestro.mobile.dev) 2.x — YAML flows |
 | **Deep tests** | [Appium](https://appium.io) 2.x + `appium-flutter-driver` + `uiautomator2` |
 | **Test language** | Python 3 with `pytest` |
+| **Screen mirror** | [scrcpy](https://github.com/Genymobile/scrcpy) — USB, zero install on phone |
 | **Reporting** | [Allure](https://allurereport.org) + GitHub Pages dashboard |
 | **CI / CD** | GitHub Actions (free — Ubuntu + Android emulator) |
 | **Device** | Android API 33 emulator (CI) or any USB Android phone (local) |
@@ -200,10 +235,16 @@ bash run_maestro.sh
 ```bash
 cd testing
 
-bash run_on_device.sh              # interactive USB device menu
+bash run_on_device.sh              # interactive USB device menu (auto-detects phone)
+
+# Screen mirror (standalone)
+bash mirror.sh                     # mirror phone screen to PC
+bash mirror.sh --record            # mirror + record to mirror_recordings/
+bash mirror.sh --watch             # auto-relaunch on reconnect
+bash mirror.sh --low-cpu           # 720p mode for older / low-storage PCs
 
 bash run_maestro.sh                # smoke suite (5 flows)
-bash run_maestro.sh regression     # full regression (all 23 flows)
+bash run_maestro.sh regression     # full regression (all 25 flows)
 bash run_maestro.sh negative       # negative/boundary flows only (7 flows)
 bash run_maestro.sh flow 12        # single flow by number
 
@@ -211,7 +252,7 @@ bash run_appium.sh payment         # payment tests
 bash run_appium.sh gift            # gift card tests
 bash run_appium.sh subscription    # subscription tests
 bash run_appium.sh account         # profile & account tests
-bash run_appium.sh                 # all 92 Appium tests
+bash run_appium.sh                 # all Appium tests
 
 # Run only negative tests (Appium)
 cd appium && python -m pytest tests/ -m negative -v

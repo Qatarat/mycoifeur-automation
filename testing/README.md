@@ -8,14 +8,45 @@
 ## Quick Start — USB Device (easiest)
 
 ```bash
-# 1. Install all tools
+# 1. Install all tools (includes scrcpy for screen mirroring)
 cd testing && ./install.sh && source ~/.zshrc
 
 # 2. Plug in your Android phone → enable USB Debugging → run:
 ./run_on_device.sh
 ```
 
-The script detects your phone, installs the APK, and shows a menu — no commands to memorize.
+The script detects your phone, installs the APK, and shows a menu.
+If scrcpy is installed it immediately asks **"Mirror phone screen? [Y/n]"** — say Y and the phone screen appears on your PC so you can watch every test step live.
+
+---
+
+## Phase 0 — Screen Mirror (new)
+
+See the real device screen on your PC while any test runs. Works even on low-storage machines — the phone's GPU does the encoding, your PC only decodes (~2–5% CPU).
+
+```bash
+# Standalone mirror commands
+./mirror.sh                   # basic mirror via USB
+./mirror.sh --record          # mirror + auto-save session video
+./mirror.sh --watch           # auto-relaunch when phone reconnects
+./mirror.sh --low-cpu         # 720p + no audio (for older PCs)
+./mirror.sh --help
+```
+
+**Inside `run_on_device.sh`:** after the device connects, the script offers to start the mirror automatically. From the test menu you can also:
+- Press `m` — toggle mirror on/off mid-session
+- Press `r` — start mirror + recording at any point
+
+**Install scrcpy** (if not already done by `install.sh`):
+
+| OS | Command |
+|----|---------|
+| macOS | `brew install scrcpy` |
+| Ubuntu 22.04+ | `sudo apt install scrcpy` |
+| Older Ubuntu | `sudo snap install scrcpy` |
+| Windows (WSL) | Install scrcpy on **Windows** side from [github.com/Genymobile/scrcpy](https://github.com/Genymobile/scrcpy/releases) — WSL can't open GUI windows directly |
+
+> **Windows note:** On Windows run scrcpy.exe natively, not inside WSL. Plug in your phone, open a regular PowerShell/CMD window in the scrcpy folder, and run `scrcpy.exe`. Maestro/Appium can still run from WSL simultaneously.
 
 ---
 
@@ -126,6 +157,9 @@ PLATFORM=android DEVICE_MODE=device ./run_appium.sh
 | uiautomator2 driver | Phase 2 Android | `appium driver install uiautomator2` |
 | xcuitest driver | Phase 2 iOS | `appium driver install xcuitest` |
 | Python 3 + deps | Phase 2 | `pip3 install -r appium/requirements.txt` |
+| **scrcpy** | **Phase 0 (mirror)** | **`brew install scrcpy`** (Mac) · `sudo apt install scrcpy` (Linux) |
+
+> All of the above are installed automatically by running **`bash install.sh`**.
 
 > For iOS testing you also need **full Xcode** (not just Command Line Tools).
 > Run: `! xcode-select --install` and then install Xcode from the App Store.

@@ -192,6 +192,34 @@ if [ "$PLATFORM" = "android" ]; then
   adb -s "$DEVICE_ID" install -r "$APK_PATH" 2>&1 | grep -E "Success|Failure|error" || true
   log "App installed"
 
+  # ── Offer screen mirror ────────────────────────────────────────────
+  MIRROR_PID=""
+  if command -v scrcpy &>/dev/null; then
+    echo ""
+    echo -e "  ${CYAN}${BOLD}Mirror phone screen?${RESET}"
+    echo -e "  ${DIM}scrcpy is installed — you can watch every test step live on your PC.${RESET}"
+    echo ""
+    read -p "  Start screen mirror now? [Y/n]: " DO_MIRROR
+    if [[ ! "$DO_MIRROR" =~ ^[Nn]$ ]]; then
+      MIRROR_TITLE="Qatarat · $DEVICE_BRAND $DEVICE_MODEL · Android $DEVICE_VER"
+      scrcpy \
+        --serial "$DEVICE_ID" \
+        --window-title "$MIRROR_TITLE" \
+        --stay-awake \
+        --max-size 1080 \
+        --window-width 360 \
+        --window-height 780 \
+        &>/dev/null &
+      MIRROR_PID=$!
+      log "Mirror started (PID $MIRROR_PID) — phone screen is now visible on your PC"
+    fi
+  else
+    echo ""
+    warn "scrcpy not installed — screen mirroring unavailable."
+    echo -e "  ${DIM}Install it:  brew install scrcpy   (Mac)   or   sudo apt install scrcpy   (Linux)${RESET}"
+    echo -e "  ${DIM}Or run: bash install.sh — it installs scrcpy automatically.${RESET}"
+  fi
+
 # ═══════════════════════════════════════════════════════════════════
 #   iOS PATH
 # ═══════════════════════════════════════════════════════════════════
@@ -306,9 +334,17 @@ echo -e "  ${BOLD}  b)${RESET} Gift Card Tests"
 echo -e "  ${BOLD}  c)${RESET} Subscription Tests"
 echo -e "  ${BOLD}  d)${RESET} All Appium Tests    ${DIM}~45 min${RESET}"
 echo ""
+echo -e "  ${CYAN}${BOLD}  SCREEN MIRROR${RESET}"
+if command -v scrcpy &>/dev/null; then
+  echo -e "  ${BOLD}  m)${RESET} Toggle mirror       ${DIM}show/hide phone screen on this PC${RESET}"
+  echo -e "  ${BOLD}  r)${RESET} Record + mirror      ${DIM}saves session to mirror_recordings/${RESET}"
+else
+  echo -e "  ${DIM}  m/r — install scrcpy first (run: bash install.sh)${RESET}"
+fi
+echo ""
 echo "  ─────────────────────────────────────────────────────────"
 echo ""
-read -p "  Enter choice [1-9, a-d]: " CHOICE
+read -p "  Enter choice [1-9, a-d, m, r]: " CHOICE
 echo ""
 
 # ── Run helpers ─────────────────────────────────────────────────────
@@ -394,6 +430,45 @@ case "$CHOICE" in
   b|B) run_appium "gift"         "Gift Card Tests" ;;
   c|C) run_appium "subscription" "Subscription Tests" ;;
   d|D) run_appium ""             "All Appium Tests" ;;
+  m|M)
+    if command -v scrcpy &>/dev/null; then
+      if [ -n "$MIRROR_PID" ] && kill -0 "$MIRROR_PID" 2>/dev/null; then
+        warn "Stopping mirror (PID $MIRROR_PID)..."
+        kill "$MIRROR_PID" 2>/dev/null || true
+        MIRROR_PID=""
+        log "Mirror stopped."
+      else
+        MIRROR_TITLE="Qatarat · ${DEVICE_BRAND:-Device} ${DEVICE_MODEL:-} · Android ${DEVICE_VER:-}"
+        scrcpy --serial "$DEVICE_ID" \
+          --window-title "$MIRROR_TITLE" \
+          --stay-awake --max-size 1080 \
+          --window-width 360 --window-height 780 \
+          &>/dev/null &
+        MIRROR_PID=$!
+        log "Mirror started (PID $MIRROR_PID)"
+      fi
+    else
+      error "scrcpy not installed — run: bash install.sh"
+    fi
+    ;;
+  r|R)
+    if command -v scrcpy &>/dev/null; then
+      mkdir -p "$SCRIPT_DIR/mirror_recordings"
+      REC_FILE="$SCRIPT_DIR/mirror_recordings/session_$(date +%Y%m%d_%H%M%S).mkv"
+      MIRROR_TITLE="Qatarat · ${DEVICE_BRAND:-Device} ${DEVICE_MODEL:-} (recording)"
+      info "Recording to: $REC_FILE"
+      scrcpy --serial "$DEVICE_ID" \
+        --window-title "$MIRROR_TITLE" \
+        --stay-awake --max-size 1080 \
+        --window-width 360 --window-height 780 \
+        --record "$REC_FILE" \
+        &>/dev/null &
+      MIRROR_PID=$!
+      log "Mirror + recording started (PID $MIRROR_PID)"
+    else
+      error "scrcpy not installed — run: bash install.sh"
+    fi
+    ;;
   *)
     warn "Invalid choice: $CHOICE"
     exit 1
@@ -410,4 +485,16 @@ echo -e "  ${DIM}  Maestro: testing/maestro/reports/${RESET}"
 echo -e "  ${DIM}  Appium:  testing/appium/reports/${RESET}"
 echo ""
 echo -e "  ${DIM}Run again:  cd testing && bash run_on_device.sh${RESET}"
+echo ""
+
+# ── Stop mirror if still running ─────────────────────────────────────
+if [ -n "$MIRROR_PID" ] && kill -0 "$MIRROR_PID" 2>/dev/null; then
+  read -p "  Mirror is still open. Close it? [Y/n]: " CLOSE_M
+  if [[ ! "$CLOSE_M" =~ ^[Nn]$ ]]; then
+    kill "$MIRROR_PID" 2>/dev/null || true
+    log "Mirror closed."
+  else
+    echo -e "  ${DIM}Mirror running as background process $MIRROR_PID — close the window to stop it.${RESET}"
+  fi
+fi
 echo ""

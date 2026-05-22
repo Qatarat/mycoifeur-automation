@@ -200,6 +200,34 @@ sed -i${OS=="mac" && echo " ''"} \
   "s|python3 -m pytest|\"$VENV_DIR/bin/python\" -m pytest|g" \
   "$SCRIPT_DIR/run_appium.sh" 2>/dev/null || true
 
+# ── scrcpy (phone screen mirror) ────────────────────────────────────
+echo ""
+log "Checking scrcpy (phone screen mirror)..."
+
+if ! command -v scrcpy &>/dev/null; then
+  warn "scrcpy not found — installing..."
+  if [[ "$OS" == "mac" ]]; then
+    brew install scrcpy
+  elif [[ "$OS" == "linux" || "$OS" == "wsl" ]]; then
+    # Try apt first (Ubuntu 22.04+ has scrcpy in universe)
+    if sudo apt-get install -y scrcpy 2>/dev/null; then
+      : # installed
+    else
+      # Fallback: snap
+      if command -v snap &>/dev/null; then
+        sudo snap install scrcpy
+      else
+        warn "scrcpy not available via apt or snap — install manually:"
+        warn "  https://github.com/Genymobile/scrcpy/blob/master/doc/linux.md"
+      fi
+    fi
+  fi
+fi
+
+command -v scrcpy &>/dev/null \
+  && log "scrcpy OK: $(scrcpy --version 2>&1 | head -1)" \
+  || warn "scrcpy not found — screen mirroring will be skipped"
+
 # ── iOS tools (macOS only — optional, for iPhone USB testing) ─────────
 if [[ "$OS" == "mac" ]]; then
   echo ""
@@ -237,6 +265,8 @@ command -v maestro &>/dev/null          && log "Maestro: $(maestro --version)" \
                                         || warn "Maestro: run 'source $SHELL_RC' then check again"
 command -v appium &>/dev/null           && log "Appium: $(appium --version)"   || warn "Appium: not found"
 [ -f "$VENV_DIR/bin/python" ]           && log "Python venv: $VENV_DIR"        || warn "Python venv: not found"
+command -v scrcpy &>/dev/null           && log "scrcpy: $(scrcpy --version 2>&1 | head -1)" \
+                                        || warn "scrcpy: not installed (screen mirror unavailable)"
 echo ""
 warn "Reload your shell:  source $SHELL_RC"
 echo ""
