@@ -23,8 +23,12 @@ _run_flow() {
       RC=$?
       [ "$RC" -eq 124 ] && echo "   ✗ $name TIMED OUT (>${FLOW_TIMEOUT}s)" \
                         || echo "   ✗ $name FAILED (exit $RC)"
+      adb exec-out screencap -p > "$REPORTS_DIR/${name}-screenshot.png" 2>/dev/null || true
       return 1
     }
+  # Capture device screenshot via ADB after every flow (even on pass)
+  adb exec-out screencap -p > "$REPORTS_DIR/${name}-screenshot.png" 2>/dev/null \
+    && echo "   📸 screenshot saved" || true
 }
 
 FAIL=0

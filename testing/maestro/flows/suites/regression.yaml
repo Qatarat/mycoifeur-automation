@@ -28,3 +28,7 @@ appId: com.qatarat.app
 - runFlow: ../21_gift_card_validation.yaml
 - runFlow: ../22_cart_quantity_boundary.yaml
 - runFlow: ../23_app_background_resume.yaml
+
+# Extended edge-case flows
+- runFlow: ../24_browse_search_edge_cases.yaml
+- runFlow: ../25_payment_input_edge_cases.yaml

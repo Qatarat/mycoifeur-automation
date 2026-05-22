@@ -30,12 +30,26 @@ FLOWS_DEF = [
     (14, "Manage Subscriptions",  "Account",    "Active list, billing history, cancel",     23, 6,  81),
     (15, "Cancel Order",          "Commerce",   "Cancel dialog, confirm/decline",           14, 3,  44),
     (16, "Share App",             "Growth",     "Referral link sharing",                     9, 2,  31),
+    # Negative / boundary flows
+    (17, "Login Invalid Phone",   "Auth",       "Non-existent / malformed phone",            8, 2,  24),
+    (18, "Login Wrong OTP",       "Auth",       "Wrong OTP, retry, lockout",                10, 3,  31),
+    (19, "Invalid Promo",         "Commerce",   "Expired / non-existent promo code",         9, 2,  28),
+    (20, "Empty Cart Checkout",   "Commerce",   "Checkout blocked with empty cart",          6, 1,  18),
+    (21, "Gift Card Validation",  "Commerce",   "Missing fields, invalid email",            11, 3,  33),
+    (22, "Cart Qty Boundary",     "Commerce",   "Max/min quantity, +/- at boundary",        13, 4,  41),
+    (23, "App Background Resume", "Resilience", "Background 10s, foreground, state intact", 10, 2,  29),
+    # Extended edge-case flows
+    (24, "Browse Search Edges",   "Catalog",    "Empty, Arabic, XSS, SQL, gibberish",       21, 5,  58),
+    (25, "Payment Input Edges",   "Commerce",   "Spaces, CAPS, far-future expiry, zeros",   20, 4,  54),
 ]
 FLOW_FILE_NAMES = [
     "01_splash_onboarding", "02_login_otp", "03_guest_user", "04_browse_services",
     "05_cart_add_items", "06_checkout_payment_select", "07_gift_card", "08_my_orders",
     "09_subscription", "10_multilanguage", "11_no_internet", "12_profile_settings",
     "13_help_support", "14_manage_subscriptions", "15_cancel_order", "16_share_app",
+    "17_login_invalid_phone", "18_login_wrong_otp", "19_invalid_promo",
+    "20_empty_cart_checkout", "21_gift_card_validation", "22_cart_quantity_boundary",
+    "23_app_background_resume", "24_browse_search_edge_cases", "25_payment_input_edge_cases",
 ]
 # Screenshot names as used in takeScreenshot: commands in each flow's YAML
 FLOW_SCREENSHOT_NAMES = [
@@ -55,6 +69,15 @@ FLOW_SCREENSHOT_NAMES = [
     ["active_subscriptions", "billing_history", "cancel_subscription_dialog"],
     ["cancel_order_dialog", "cancel_order_declined"],
     ["share_app_sheet"],
+    ["login_invalid_phone_error"],
+    ["login_wrong_otp_error"],
+    ["invalid_promo_error"],
+    ["empty_cart_checkout_blocked"],
+    ["gift_card_validation_error"],
+    ["cart_quantity_boundary"],
+    ["app_background_resume"],
+    ["browse_search_edge_cases_complete"],
+    ["payment_input_edge_cases_complete"],
 ]
 
 APPIUM_DEF = [
@@ -98,6 +121,66 @@ APPIUM_DEF = [
         {"name": "test_logout_dialog",   "dur": 5.8},
         {"name": "test_delete_account",  "dur": 9.3},
         {"name": "test_billing_history", "dur": 6.9},
+    ]},
+    {"file": "test_payment_extended.py", "group": "Payment", "icon": "card", "tests": [
+        {"name": "test_card_number_with_spaces",        "dur": 6.2},
+        {"name": "test_card_number_with_dashes",        "dur": 5.8},
+        {"name": "test_card_number_with_padding_spaces","dur": 5.4},
+        {"name": "test_card_number_max_16_digits",      "dur": 4.9},
+        {"name": "test_cvv_letters_rejected",           "dur": 4.2},
+        {"name": "test_cvv_special_chars_rejected",     "dur": 4.1},
+        {"name": "test_cvv_4_digit_amex",               "dur": 5.3},
+        {"name": "test_expiry_current_month_valid",     "dur": 5.7},
+        {"name": "test_expiry_far_future_accepted",     "dur": 4.8},
+        {"name": "test_expiry_no_slash_format",         "dur": 5.1},
+        {"name": "test_expiry_month_00_rejected",       "dur": 4.6},
+        {"name": "test_cardholder_numbers_rejected",    "dur": 5.0},
+        {"name": "test_cardholder_all_spaces_rejected", "dur": 4.3},
+        {"name": "test_cardholder_uppercase_accepted",  "dur": 4.7},
+        {"name": "test_cardholder_50_chars",            "dur": 5.5},
+    ]},
+    {"file": "test_auth_edge_cases.py", "group": "Auth", "icon": "lock", "tests": [
+        {"name": "test_phone_leading_spaces_stripped",    "dur": 5.2},
+        {"name": "test_phone_plus880_prefix",             "dur": 4.8},
+        {"name": "test_phone_all_same_digits",            "dur": 4.5},
+        {"name": "test_phone_starts_with_zero",           "dur": 4.3},
+        {"name": "test_phone_with_dots",                  "dur": 4.1},
+        {"name": "test_phone_with_parentheses",           "dur": 4.2},
+        {"name": "test_phone_max_length",                 "dur": 4.7},
+        {"name": "test_phone_uppercase_blocked",          "dur": 4.0},
+        {"name": "test_phone_emoji_blocked",              "dur": 4.4},
+        {"name": "test_otp_spaces_between_digits",        "dur": 5.1},
+        {"name": "test_otp_uppercase_blocked",            "dur": 4.2},
+        {"name": "test_otp_special_chars_blocked",        "dur": 4.3},
+        {"name": "test_otp_100_digit_input",              "dur": 4.6},
+    ]},
+    {"file": "test_browse_search.py", "group": "Catalog", "icon": "search", "tests": [
+        {"name": "test_single_character_search",        "dur": 4.8},
+        {"name": "test_search_100_chars_does_not_crash","dur": 5.1},
+        {"name": "test_search_arabic_text",             "dur": 5.4},
+        {"name": "test_search_emoji_does_not_crash",    "dur": 4.6},
+        {"name": "test_search_all_uppercase_query",     "dur": 4.7},
+        {"name": "test_search_mixed_case",              "dur": 4.5},
+        {"name": "test_search_with_numbers_only",       "dur": 4.3},
+        {"name": "test_search_with_html_tags_is_safe",  "dur": 5.2},
+        {"name": "test_search_sql_injection_is_safe",   "dur": 5.6},
+        {"name": "test_search_gibberish_shows_empty_state","dur": 5.8},
+        {"name": "test_clear_search_restores_full_list","dur": 4.9},
+        {"name": "test_services_list_loads_without_login","dur": 4.4},
+        {"name": "test_service_card_tap_opens_detail",  "dur": 5.3},
+        {"name": "test_rapid_back_forth_navigation_no_crash","dur": 6.1},
+    ]},
+    {"file": "test_checkout_edge_cases.py", "group": "Commerce", "icon": "bag", "tests": [
+        {"name": "test_back_from_checkout_returns_to_cart",    "dur": 7.2},
+        {"name": "test_back_then_forward_preserves_cart",      "dur": 8.1},
+        {"name": "test_checkout_page_shows_order_summary",     "dur": 6.8},
+        {"name": "test_checkout_price_not_nan_or_zero",        "dur": 6.3},
+        {"name": "test_switch_from_card_to_tabby",             "dur": 7.5},
+        {"name": "test_switch_payment_method_multiple_times",  "dur": 9.2},
+        {"name": "test_coupon_applied_then_payment_selected",  "dur": 8.7},
+        {"name": "test_invalid_coupon_then_payment_selected",  "dur": 7.4},
+        {"name": "test_price_shows_currency_symbol",           "dur": 5.9},
+        {"name": "test_price_decimal_places_correct",          "dur": 6.4},
     ]},
 ]
 
@@ -153,8 +236,14 @@ def _build_demo_data(now):
         "flutterVersion": "3.24.5", "neverRan": False, "isMockData": True,
     }
     flows = []
-    statuses = ["pass","pass","pass","pass","pass","pass","flaky","pass","pass","pass",
-                "pass","pass","pass","fail","pass","pass"]
+    statuses = [
+        "pass","pass","pass","pass","pass","pass","flaky","pass","pass","pass",
+        "pass","pass","pass","fail","pass","pass",
+        # negative / boundary flows (17-23)
+        "pass","pass","pass","pass","pass","pass","pass",
+        # edge-case flows (24-25)
+        "pass","pass",
+    ]
     notes = {6: "Retry passed on attempt 2/3",
              13: "Element 'cancel_confirm_btn' not found after 8000ms"}
     for i, (fid, name, group, coverage, steps, screens, dur) in enumerate(FLOWS_DEF):
@@ -275,8 +364,13 @@ def main():
                "duration": dur, "steps": steps, "status": status, "screens": screens}
         if status == "fail":
             row["note"] = "Flow failed — open CI logs for step-level details"
-        # Screenshot URLs (only if real images were found)
+        # Screenshot URLs — check takeScreenshot names first, then ADB fallback
         shots = [screenshot_lookup[n] for n in FLOW_SCREENSHOT_NAMES[i] if n in screenshot_lookup]
+        if not shots:
+            # ADB screencap fallback: {flow_filename}-screenshot.png
+            adb_key = f"{FLOW_FILE_NAMES[i]}-screenshot"
+            if adb_key in screenshot_lookup:
+                shots = [screenshot_lookup[adb_key]]
         if shots:
             row["screenshots"] = shots
         maestro_flows.append(row)

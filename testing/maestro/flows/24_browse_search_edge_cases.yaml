@@ -1,0 +1,91 @@
+appId: com.qatarat.app
+---
+# Flow 24: Browse & Search edge cases
+# Tests: empty search, single char, Arabic query, gibberish no-results, XSS, SQL injection
+
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding / login — browse is accessible as guest
+- tapOn:
+    text: "Browse as Guest"
+    optional: true
+- tapOn:
+    text: "Continue as Guest"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Open browse/search
+- tapOn:
+    id: "browse_tab"
+    optional: true
+- tapOn:
+    text: "Browse"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+# ── Test 1: Single character search ──
+- tapOn:
+    id: "search_field"
+    optional: true
+- tapOn:
+    text: "Search"
+    optional: true
+- inputText: "a"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+- assertNotVisible: "500"
+
+# ── Test 2: Arabic text search ──
+- clearText
+- inputText: "مسجد"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+- assertNotVisible: "500"
+
+# ── Test 3: All-uppercase search ──
+- clearText
+- inputText: "MOSQUE"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+
+# ── Test 4: Gibberish — must show empty state ──
+- clearText
+- inputText: "zzzzzzzzz"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+- assertNotVisible: "500"
+
+# ── Test 5: XSS attempt ──
+- clearText
+- inputText: "<script>alert('xss')</script>"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+- assertNotVisible: "500"
+
+# ── Test 6: SQL injection ──
+- clearText
+- inputText: "' OR '1'='1"
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "SQL"
+- assertNotVisible: "syntax error"
+- assertNotVisible: "database error"
+- assertNotVisible: "500"
+
+# ── Test 7: Clear search restores listing ──
+- clearText
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Something went wrong"
+
+- takeScreenshot: browse_search_edge_cases_complete

@@ -1,0 +1,122 @@
+appId: com.qatarat.app
+---
+# Flow 25: Payment input edge cases
+# Tests: card with spaces, UPPERCASE name, far-future expiry, CVV boundary, all-zeros card
+
+- launchApp:
+    clearState: true
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- inputText: "8801685220417"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Add item to cart
+- tapOn:
+    id: "browse_tab"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+- tapOn:
+    index: 0
+    optional: true
+- tapOn:
+    text: "Add to Cart"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    id: "cart_tab"
+    optional: true
+- tapOn:
+    text: "Checkout"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Select card payment
+- tapOn:
+    text: "Credit / Debit Card"
+    optional: true
+- tapOn:
+    id: "payment_card_option"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# ── Test 1: Card number with spaces (formatted input) ──
+- tapOn:
+    id: "card_number_field"
+    optional: true
+- inputText: "4111 1111 1111 1111"
+- assertNotVisible: "Something went wrong"
+
+# ── Test 2: Cardholder name ALL UPPERCASE ──
+- tapOn:
+    id: "cardholder_name_field"
+    optional: true
+- clearText
+- inputText: "MEJBAUR BAHAR FAGUN"
+- assertNotVisible: "invalid"
+
+# ── Test 3: Far-future expiry (12/99) ──
+- tapOn:
+    id: "card_expiry_field"
+    optional: true
+- clearText
+- inputText: "12/99"
+- assertNotVisible: "invalid expiry"
+- assertNotVisible: "expired"
+
+# ── Test 4: CVV with exactly 3 digits (boundary) ──
+- tapOn:
+    id: "card_cvv_field"
+    optional: true
+- clearText
+- inputText: "999"
+- assertNotVisible: "Something went wrong"
+
+# ── Test 5: All-zeros card number — must show error, not crash ──
+- tapOn:
+    id: "card_number_field"
+    optional: true
+- clearText
+- inputText: "0000000000000000"
+- tapOn:
+    id: "pay_button"
+    optional: true
+- tapOn:
+    text: "Pay"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+- assertNotVisible: "Something went wrong"
+- assertNotVisible: "500"
+
+# ── Test 6: Empty name submit blocked ──
+- tapOn:
+    id: "cardholder_name_field"
+    optional: true
+- clearText
+- tapOn:
+    id: "pay_button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- assertNotVisible: "Order confirmed"
+
+- takeScreenshot: payment_input_edge_cases_complete

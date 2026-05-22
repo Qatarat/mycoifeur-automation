@@ -22,6 +22,9 @@ for flow in 01_splash_onboarding 02_login_otp 03_guest_user 05_cart_add_items 06
                         || echo "   ✗ $flow FAILED (exit $RC)"
       FAIL=$((FAIL + 1))
     }
+  # Capture device screenshot via ADB after every flow (works even on failure)
+  adb exec-out screencap -p > "$REPORTS_DIR/${flow}-screenshot.png" 2>/dev/null \
+    && echo "   📸 screenshot saved" || true
 done
 
 echo ""
