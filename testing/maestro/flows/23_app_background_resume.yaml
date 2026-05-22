@@ -62,6 +62,7 @@ appId: com.qatarat.app
       text: "Add"
     direction: DOWN
     timeout: 10000
+    optional: true
 - tapOn:
     text: "Add"
     optional: true
@@ -76,7 +77,7 @@ appId: com.qatarat.app
 
 # ── Background the app ───────────────────────────────
 - pressKey: Home
-- wait:
+- waitForAnimationToEnd:
     timeout: 3000
 
 # ── Resume the app ───────────────────────────────────

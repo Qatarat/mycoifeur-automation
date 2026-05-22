@@ -62,6 +62,7 @@ appId: com.qatarat.app
       text: "Add"
     direction: DOWN
     timeout: 10000
+    optional: true
 - tapOn:
     text: "Add"
     optional: true
