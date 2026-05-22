@@ -431,7 +431,9 @@ RUN_SCRIPT="/tmp/qatarat_run_${REPORT_TS}.sh"
 # Write the runner sub-script
 {
   echo "#!/usr/bin/env bash"
-  echo "export PATH=\"$HOME/.maestro/bin:/opt/homebrew/bin:/usr/local/bin:\$PATH\""
+  echo "export PATH=\"$HOME/.maestro/bin:\$HOME/Android/sdk/platform-tools:/opt/homebrew/bin:/usr/local/bin:\$PATH\""
+  # Ensure ADB server is alive in the background process (WiFi connections need it)
+  echo "adb start-server 2>/dev/null || true"
   echo "PASS=0; FAIL=0; TOTAL=${#FLOW_FILES[@]}"
   echo "echo '════════════════════════════════════════════════════════'"
   echo "echo '  Qatarat Maestro — ${#FLOW_FILES[@]} flows on $DEVICE_TARGET'"
@@ -440,21 +442,60 @@ RUN_SCRIPT="/tmp/qatarat_run_${REPORT_TS}.sh"
   echo "echo '════════════════════════════════════════════════════════'"
   echo "echo ''"
 
+  # ── Pre-flight block ─────────────────────────────────────────────
+  echo "echo '── Pre-flight ─────────────────────────────────────────'"
+  echo "echo \"Maestro : \$(maestro --version 2>&1 | head -1 || echo NOT FOUND)\""
+  echo "_ADB_CHECK=\$(adb -s \"$DEVICE_TARGET\" shell echo OK 2>&1 | tr -d '\\r')"
+  echo "echo \"ADB     : \$_ADB_CHECK\""
+  echo "if [ \"\$_ADB_CHECK\" != 'OK' ]; then"
+  echo "  echo 'ERROR: Device $DEVICE_TARGET is unreachable — reconnect and retry'"
+  echo "  echo 'Run:  adb connect $DEVICE_TARGET'"
+  echo "  exit 1"
+  echo "fi"
+  # Forward Maestro's port so it works over WiFi (Maestro uses port 7001 on device)
+  echo "adb -s \"$DEVICE_TARGET\" forward tcp:7001 tcp:7001 2>&1 | sed 's/^/  port-fwd: /'"
+  echo "_PKG=\$(adb -s \"$DEVICE_TARGET\" shell pm list packages 2>/dev/null | grep -i qatarat | head -1 | tr -d '\\r' || true)"
+  echo "if [ -z \"\$_PKG\" ]; then"
+  echo "  echo 'App     : NOT FOUND — com.qatarat.app is not installed on the device'"
+  echo "  echo 'Aborting — install the APK first (adb install -r <apk>)'"
+  echo "  exit 1"
+  echo "else"
+  echo "  echo \"App     : \$_PKG  ← installed OK\""
+  echo "fi"
+  # Check if Maestro companion is installed
+  echo "_MAESTRO_APP=\$(adb -s \"$DEVICE_TARGET\" shell pm list packages 2>/dev/null | grep maestro | tr -d '\\r' || true)"
+  echo "if [ -n \"\$_MAESTRO_APP\" ]; then"
+  echo "  echo \"Maestro : companion installed (\$_MAESTRO_APP)\""
+  echo "else"
+  echo "  echo 'Maestro : companion NOT yet installed — will install on first run'"
+  echo "fi"
+  echo "echo '───────────────────────────────────────────────────────'"
+  echo "echo '  NOTE: If flows fail at 0s, go to device:'"
+  echo "echo '  Settings → Accessibility → Maestro → Enable'"
+  echo "echo '  (required on Android 11+ physical devices)'"
+  echo "echo '───────────────────────────────────────────────────────'"
+  echo "echo ''"
+
   for flow_yaml in "${FLOW_FILES[@]}"; do
     flow_name="$(basename "$flow_yaml" .yaml)"
     echo "echo '──────────────────────────────────────────────────────'"
     echo "echo '  [RUN]  $flow_name'"
+    # Capture full Maestro output (stdout+stderr) so error reasons appear in the log.
+    # --format is omitted: Maestro auto-detects JUnit format from the .xml extension.
     if [ "$PLATFORM" = "ios" ]; then
-      echo "if MAESTRO_DRIVER=ios maestro --device \"$DEVICE_TARGET\" test \\"
+      echo "_FLOW_LOG=\$(MAESTRO_DRIVER=ios maestro --device \"$DEVICE_TARGET\" test \\"
     else
-      echo "if maestro --device \"$DEVICE_TARGET\" test \\"
+      echo "_FLOW_LOG=\$(maestro --device \"$DEVICE_TARGET\" test \\"
     fi
-    echo "    --format junit \\"
     echo "    --output \"$REPORTS_DIR/${flow_name}-results.xml\" \\"
-    echo "    \"$flow_yaml\"; then"
+    echo "    \"$flow_yaml\" 2>&1); _EC=\$?"
+    echo "echo \"\$_FLOW_LOG\""
+    echo "if [ \$_EC -eq 0 ]; then"
     echo "  echo '  [PASS] $flow_name'; PASS=\$((PASS+1))"
     echo "else"
     echo "  echo '  [FAIL] $flow_name'; FAIL=\$((FAIL+1))"
+    echo "  echo '  Error detail:'"
+    echo "  echo \"\$_FLOW_LOG\" | grep -iE 'error|fail|unable|exception|not found|timeout|crash' | head -10 || true"
     echo "fi"
     echo "echo ''"
   done
@@ -467,6 +508,18 @@ RUN_SCRIPT="/tmp/qatarat_run_${REPORT_TS}.sh"
   echo "[ \$FAIL -eq 0 ] && exit 0 || exit 1"
 } > "$RUN_SCRIPT"
 chmod +x "$RUN_SCRIPT"
+
+# ── Physical-device readiness reminder ──────────────────────────────
+if [ "$PLATFORM" = "android" ]; then
+  echo ""
+  echo "  ─────────────────────────────────────────────────────────"
+  echo -e "  ${YELLOW}${BOLD}Before flows run — one-time device setup:${RESET}"
+  echo -e "  ${DIM}Maestro installs a helper app on the device on first run.${RESET}"
+  echo -e "  ${DIM}If all flows fail at 0s, do this on the phone:${RESET}"
+  echo -e "  ${YELLOW}  Settings → Accessibility → Installed apps → Maestro → Enable${RESET}"
+  echo -e "  ${DIM}Also ensure: Developer options → Disable permission monitoring = ON${RESET}"
+  echo "  ─────────────────────────────────────────────────────────"
+fi
 
 # Launch
 echo ""
