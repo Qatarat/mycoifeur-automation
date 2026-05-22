@@ -1,6 +1,6 @@
 // Maestro Flows view — filterable grid + flow detail drawer
 const FlowsView = () => {
-  const { MAESTRO_FLOWS, RUN_META } = window.QATARAT_DATA;
+  const { MAESTRO_FLOWS = [], RUN_META = {} } = window.QATARAT_DATA || {};
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
   const [q, setQ] = useState("");

@@ -1,6 +1,6 @@
 // CI/CD pipeline view — workflows + visualized pipeline
 const PipelineView = () => {
-  const { CI_WORKFLOWS, RUN_META } = window.QATARAT_DATA;
+  const { CI_WORKFLOWS = [], RUN_META = {} } = window.QATARAT_DATA || {};
   const neverRan = RUN_META.neverRan || CI_WORKFLOWS.every(w => w.status === "idle");
   const idleCount = CI_WORKFLOWS.filter(w => w.status === "idle").length;
 

@@ -1,6 +1,6 @@
 // Overview — hero stats, donut, history sparkline, top issues
 const OverviewView = () => {
-  const { MAESTRO_FLOWS, APPIUM_TESTS, HISTORY, RUN_META, COMMITS } = window.QATARAT_DATA;
+  const { MAESTRO_FLOWS = [], APPIUM_TESTS = [], HISTORY = [], RUN_META = {}, COMMITS = [] } = window.QATARAT_DATA || {};
 
   const allTests = useMemo(() => {
     const appiumFlat = APPIUM_TESTS.flatMap(f => f.tests.map(t => ({ ...t, file: f.file, group: f.group })));

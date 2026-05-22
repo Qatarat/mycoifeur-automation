@@ -1,6 +1,6 @@
 // Appium deep tests view — file-based grouping
 const AppiumView = () => {
-  const { APPIUM_TESTS, RUN_META } = window.QATARAT_DATA;
+  const { APPIUM_TESTS = [], RUN_META = {} } = window.QATARAT_DATA || {};
   const allIdle = APPIUM_TESTS.every(f => f.tests.every(t => t.status === "idle"));
   const [expanded, setExpanded] = useState(() => new Set(APPIUM_TESTS.map(f => f.file)));
   const [filter, setFilter] = useState("all");
@@ -182,7 +182,7 @@ const sampleCode = (test) => {
 };
 
 const TestDetail = ({ test, onClose }) => {
-  const { RUN_META } = window.QATARAT_DATA;
+  const { RUN_META = {} } = window.QATARAT_DATA || {};
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);

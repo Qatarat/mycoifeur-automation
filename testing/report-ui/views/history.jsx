@@ -1,6 +1,6 @@
 // History view — 30-day heatmap + commit timeline
 const HistoryView = () => {
-  const { COMMITS, HISTORY } = window.QATARAT_DATA;
+  const { COMMITS = [], HISTORY = [] } = window.QATARAT_DATA || {};
   const tip = useTip();
 
   const hasAnyData = HISTORY.some(d => d.total > 0);
