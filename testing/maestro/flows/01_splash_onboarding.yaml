@@ -1,6 +1,6 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
-# Flow: Splash → country & language selection → home
+# Flow: Splash → onboarding → role selection
 # Note: give the app a full 20s to cold-boot on CI emulators
 
 - launchApp:
@@ -9,33 +9,19 @@ appId: com.qatarat.app
 - waitForAnimationToEnd:
     timeout: 20000
 
-# Country picker — tap if visible, skip if already configured
+# Onboarding Skip — tap if visible
 - tapOn:
-    text: "Select your country"
+    text: "Skip"
     optional: true
+
 - waitForAnimationToEnd:
     timeout: 5000
 
-- scrollUntilVisible:
-    element:
-      text: "Saudi Arabia"
-    direction: DOWN
-    timeout: 10000
-    optional: true
-- tapOn:
-    text: "Saudi Arabia"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
+# Verify we reach role selection (User Login & Service Provider)
+- assertVisible:
+    text: "User Login"
 
-# Language picker
-- tapOn:
-    text: "Select your language"
-    optional: true
-- tapOn:
-    text: "English"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
+- assertVisible:
+    text: "Service Provider"
 
 - takeScreenshot: splash_onboarding_complete

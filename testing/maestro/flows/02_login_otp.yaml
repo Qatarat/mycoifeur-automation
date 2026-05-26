@@ -1,6 +1,6 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
-# Flow: Phone number entry → OTP verification → logged-in home
+# Flow: User Login → Mobile number input → OTP verification → logged-in home
 
 - launchApp:
     clearState: true
@@ -12,57 +12,51 @@ appId: com.qatarat.app
 - tapOn:
     text: "Skip"
     optional: true
+
 - waitForAnimationToEnd:
     timeout: 5000
 
-# Country / language selection (cold start)
+# Tap User Login
 - tapOn:
-    text: "Select your country"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-- tapOn:
-    text: "Saudi Arabia"
-    optional: true
+    text: "User Login"
+
 - waitForAnimationToEnd:
     timeout: 3000
-- tapOn:
-    text: "Select your language"
-    optional: true
-- tapOn:
-    text: "English"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
 
-# Tap login
+# Select Bangladesh country code
 - tapOn:
-    text: "Login to your account"
-    optional: true
+    text: "+966"
+- inputText: "Bangladesh"
 - tapOn:
-    text: "Enter phone number"
+    text: "Bangladesh"
+
+# Tap Mobile Number field and input phone number
+- tapOn:
+    text: "Mobile Number"
+- inputText: "1316314566"
+
+# Agree to terms checkbox/link (if any)
+- tapOn:
+    text: "By continuing you agree"
     optional: true
 
-- inputText: "8801685220417"
-
-# Accept T&C if shown
+# Send Verification Code
 - tapOn:
-    text: "By clicking continue"
-    optional: true
-- tapOn:
-    text: "Continue"
-    optional: true
+    text: "Send Verification Code"
 
 - waitForAnimationToEnd:
     timeout: 5000
 
-# OTP screen — input code
+# Enter OTP
 - inputText: "1234"
 
-# Tap Verify
+# Verify Code
+- tapOn:
+    text: "Verify Code"
 - tapOn:
     text: "Verify"
     optional: true
+
 - waitForAnimationToEnd:
     timeout: 8000
 

@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Negative & boundary test suite — all invalid-data and edge-case flows
 # Run: maestro test flows/suites/negative.yaml

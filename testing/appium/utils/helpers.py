@@ -11,15 +11,7 @@ SCREENSHOT_DIR = os.path.join(os.path.dirname(__file__), "../reports/screenshots
 
 
 def wait_for_text(driver, text, timeout=15):
-    try:
-        return WebDriverWait(driver, timeout).until(
-            EC.presence_of_element_located((AppiumBy.FLUTTER_SEMANTICS_ID, text))
-        )
-    except TimeoutException:
-        # Fallback to accessibility id
-        return WebDriverWait(driver, timeout).until(
-            EC.presence_of_element_located((AppiumBy.ACCESSIBILITY_ID, text))
-        )
+    return find_by_text(driver, text, timeout=timeout)
 
 
 def tap_text(driver, text, timeout=15):
@@ -31,19 +23,27 @@ def tap_text(driver, text, timeout=15):
 def find_by_text(driver, text, timeout=10):
     """Find element by visible text — tries multiple locator strategies."""
     strategies = [
-        (AppiumBy.FLUTTER_SEMANTICS_ID, text),
         (AppiumBy.ACCESSIBILITY_ID, text),
         (AppiumBy.XPATH, f'//*[@text="{text}"]'),
         (AppiumBy.XPATH, f'//*[contains(@text,"{text}")]'),
         (AppiumBy.XPATH, f'//*[@content-desc="{text}"]'),
+        (AppiumBy.XPATH, f'//*[contains(@content-desc,"{text}")]'),
     ]
-    for by, val in strategies:
-        try:
-            return WebDriverWait(driver, timeout).until(
-                EC.presence_of_element_located((by, val))
-            )
-        except (TimeoutException, NoSuchElementException):
-            continue
+    end_time = time.monotonic() + timeout
+    driver.implicitly_wait(0)
+    try:
+        for by, val in strategies:
+            remaining = end_time - time.monotonic()
+            if remaining <= 0:
+                break
+            try:
+                return WebDriverWait(driver, min(remaining, 2)).until(
+                    EC.presence_of_element_located((by, val))
+                )
+            except (TimeoutException, NoSuchElementException):
+                continue
+    finally:
+        driver.implicitly_wait(10)
     raise NoSuchElementException(f"Could not find element with text: {text}")
 
 

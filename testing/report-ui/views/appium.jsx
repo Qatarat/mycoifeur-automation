@@ -531,13 +531,13 @@ function buildTestLog(test) {
   // File-specific navigation steps
   const needsLogin = !["test_browse_search.py"].includes(f) || !tName.includes("without_login");
   if (needsLogin && !["test_auth_edge_cases.py","test_login_negative.py"].includes(f)) {
-    lines.push({ ts: "0.842", level: "info", text: "LoginPage.login(phone='+8801685220417', otp='1234') → ok" });
+    lines.push({ ts: "0.842", level: "info", text: "LoginPage.login(phone='+8801316314566', otp='1234') → ok" });
     lines.push({ ts: "2.150", level: "info", text: "assert_visible('home screen') → ✓" });
   } else if (["test_auth_edge_cases.py","test_login_negative.py"].includes(f)) {
     lines.push({ ts: "0.842", level: "info", text: "LoginPage.select_country_and_language() → ok" });
     lines.push({ ts: "1.240", level: "info", text: "LoginPage.skip_onboarding() → ok" });
     if (tName.includes("otp") || tName.includes("OTP")) {
-      lines.push({ ts: "2.180", level: "info", text: "login_phone_only('+8801685220417') → OTP screen reached" });
+      lines.push({ ts: "2.180", level: "info", text: "login_phone_only('+8801316314566') → OTP screen reached" });
     }
   }
 

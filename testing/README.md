@@ -66,7 +66,7 @@ See the real device screen on your PC while any test runs. Works even on low-sto
 
 | Field | Value |
 |-------|-------|
-| Phone | `8801685220417` |
+| Phone | `8801316314566` |
 | OTP   | `1234` |
 
 ---

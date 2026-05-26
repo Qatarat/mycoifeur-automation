@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Full regression suite — all flows
 # Run: maestro test flows/suites/regression.yaml

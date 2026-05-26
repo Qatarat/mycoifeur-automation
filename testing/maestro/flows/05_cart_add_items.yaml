@@ -1,6 +1,6 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
-# Flow: Add items to cart, verify cart state, update quantity
+# Flow: Add services to booking list, verify state
 
 - launchApp:
     clearState: true
@@ -8,82 +8,75 @@ appId: com.qatarat.app
 - waitForAnimationToEnd:
     timeout: 20000
 
-# Country / language selection (cold start)
-- tapOn:
-    text: "Select your country"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-- tapOn:
-    text: "Saudi Arabia"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
-- tapOn:
-    text: "Select your language"
-    optional: true
-- tapOn:
-    text: "English"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-
+# Skip onboarding if shown
 - tapOn:
     text: "Skip"
     optional: true
-- waitForAnimationToEnd
 
-# Login first (required to add to cart)
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Tap User Login
 - tapOn:
-    text: "Login to your account"
-    optional: true
+    text: "User Login"
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Select Bangladesh country code
 - tapOn:
-    text: "Enter phone number"
-    optional: true
-- inputText: "8801685220417"
+    text: "+966"
+- inputText: "Bangladesh"
 - tapOn:
-    text: "Continue"
-    optional: true
+    text: "Bangladesh"
+
+# Enter phone number and login
+- tapOn:
+    text: "Mobile Number"
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
 - waitForAnimationToEnd:
     timeout: 5000
 - inputText: "1234"
+- tapOn:
+    text: "Verify Code"
 - tapOn:
     text: "Verify"
     optional: true
 - waitForAnimationToEnd:
     timeout: 8000
 
-# Navigate to services/home
+# Search for provider
 - tapOn:
-    text: "Select a Service"
+    text: "Search for a service or provider"
     optional: true
-- waitForAnimationToEnd
+- tapOn:
+    text: "Search providers and services..."
+    optional: true
+- inputText: "Sarah"
+- waitForAnimationToEnd:
+    timeout: 3000
 
-# Add first available item
-- scrollUntilVisible:
-    element:
-      text: "Add"
-    direction: DOWN
-    timeout: 10000
-    optional: true
+# Select provider
 - tapOn:
-    text: "Add"
+    text: "Sarah Beauty Studio"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000
 
-# Go to cart
+# Select a service (tap Choose Service or "+" next to service)
 - tapOn:
-    text: "Cart"
+    text: "Choose Service"
     optional: true
-- waitForAnimationToEnd
+- tapOn:
+    text: "Add"
+    optional: true
+- tapOn:
+    text: "Book Now"
+    optional: true
 
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Verify selected services count shows at bottom
 - takeScreenshot: cart_with_items
-
-# Increase quantity
-- tapOn:
-    text: "+"
-    optional: true
-- waitForAnimationToEnd
-
-- takeScreenshot: cart_quantity_updated

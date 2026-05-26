@@ -80,7 +80,7 @@ class TestPhoneInputEdgeCases:
     def test_phone_with_emoji_does_not_crash(self, driver):
         """Emoji in phone field — must not crash the app."""
         login = LoginPage(driver)
-        login.enter_phone("📱8801685220417")
+        login.enter_phone("📱8801316314566")
         login.tap_continue()
         assert "500" not in driver.page_source
 

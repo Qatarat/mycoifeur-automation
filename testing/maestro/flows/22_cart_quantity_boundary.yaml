@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Boundary: cart quantity — increment many times, decrement to 0, verify no NaN/crash
 
@@ -33,9 +33,15 @@ appId: com.qatarat.app
     text: "Login to your account"
     optional: true
 - tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
     text: "Enter phone number"
     optional: true
-- inputText: "8801685220417"
+- inputText: "1316314566"
 - tapOn:
     text: "By clicking continue"
     optional: true

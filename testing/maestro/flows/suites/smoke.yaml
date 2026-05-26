@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Smoke suite — runs the critical-path flows only (fast, ~5 min)
 # Run: maestro test flows/suites/smoke.yaml

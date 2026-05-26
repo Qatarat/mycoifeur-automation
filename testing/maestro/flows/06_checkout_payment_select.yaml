@@ -1,6 +1,6 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
-# Flow: Cart → Checkout → Payment method selection (no actual payment)
+# Flow: Choose Service → Choose Date & Time → Booking Summary → Payment method selection
 
 - launchApp:
     clearState: true
@@ -8,99 +8,99 @@ appId: com.qatarat.app
 - waitForAnimationToEnd:
     timeout: 20000
 
-# Country / language selection (cold start)
-- tapOn:
-    text: "Select your country"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-- tapOn:
-    text: "Saudi Arabia"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
-- tapOn:
-    text: "Select your language"
-    optional: true
-- tapOn:
-    text: "English"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-
+# Skip onboarding if shown
 - tapOn:
     text: "Skip"
     optional: true
 
-# Login
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Tap User Login and login
 - tapOn:
-    text: "Login to your account"
-    optional: true
+    text: "User Login"
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Select Bangladesh country code
 - tapOn:
-    text: "Enter phone number"
-    optional: true
-- inputText: "8801685220417"
+    text: "+966"
+- inputText: "Bangladesh"
 - tapOn:
-    text: "By clicking continue"
-    optional: true
+    text: "Bangladesh"
+
 - tapOn:
-    text: "Continue"
-    optional: true
+    text: "Mobile Number"
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
 - waitForAnimationToEnd:
     timeout: 5000
 - inputText: "1234"
+- tapOn:
+    text: "Verify Code"
 - tapOn:
     text: "Verify"
     optional: true
 - waitForAnimationToEnd:
     timeout: 8000
 
-# Add item to cart
+# Select provider
 - tapOn:
-    text: "Select a Service"
+    text: "Search for a service or provider"
+    optional: true
+- tapOn:
+    text: "Search providers and services..."
+    optional: true
+- inputText: "Sarah"
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Sarah Beauty Studio"
     optional: true
 - waitForAnimationToEnd:
-    timeout: 5000
-- scrollUntilVisible:
-    element:
-      text: "Add"
-    direction: DOWN
-    timeout: 10000
+    timeout: 3000
+
+# Select a service and tap Book Now / Next
+- tapOn:
+    text: "Choose Service"
     optional: true
 - tapOn:
     text: "Add"
     optional: true
+- tapOn:
+    text: "Book Now"
+    optional: true
 - waitForAnimationToEnd:
     timeout: 3000
 
-# Go to cart → checkout
+# Choose Date and Time
 - tapOn:
-    text: "Cart"
+    text: "Choose Date and Time"
     optional: true
+# Select first available time slot
+- tapOn:
+    text: "Available Times"
+    optional: true
+- tapOn:
+    text: "Next"
+    optional: true
+
 - waitForAnimationToEnd:
     timeout: 5000
-- tapOn:
-    text: "Checkout"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 8000
 
-# Payment method screen
+# Booking Summary page
 - takeScreenshot: checkout_payment_selection
 
-# Verify Tabby BNPL visible (optional — not all regions/carts qualify)
+# Verify Credit Card option is available
 - tapOn:
-    text: "Pay later with Tabby"
+    text: "Credit card"
     optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
 
-# Promo code — cap wait at 8s so a slow API doesn't hang CI
+# Apply Promo Code (if exists)
 - tapOn:
     text: "Redeem your Promo Code"
     optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
 - tapOn:
     text: "Promo Code"
     optional: true
@@ -108,7 +108,7 @@ appId: com.qatarat.app
 - tapOn:
     text: "Apply"
     optional: true
-- waitForAnimationToEnd:
-    timeout: 8000
 
+- waitForAnimationToEnd:
+    timeout: 5000
 - takeScreenshot: checkout_promo_applied

@@ -1,6 +1,6 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
-# Flow: Browse services, mosque selection, item details
+# Flow: Browse services, provider selection, overview details
 
 - launchApp:
     clearState: true
@@ -8,63 +8,40 @@ appId: com.qatarat.app
 - waitForAnimationToEnd:
     timeout: 20000
 
-# Country / language selection (cold start)
-- tapOn:
-    text: "Select your country"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-- tapOn:
-    text: "Saudi Arabia"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 3000
-- tapOn:
-    text: "Select your language"
-    optional: true
-- tapOn:
-    text: "English"
-    optional: true
-- waitForAnimationToEnd:
-    timeout: 5000
-
+# Onboarding Skip — tap if visible
 - tapOn:
     text: "Skip"
     optional: true
-- waitForAnimationToEnd
 
-# Services page
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Tap Search and enter search term
 - tapOn:
-    text: "Select a Service"
+    text: "Search for a service or provider"
     optional: true
-- waitForAnimationToEnd
-
-# Browse mosque list
-- scrollUntilVisible:
-    element:
-      text: "Mecca mosque"
-    direction: DOWN
-    timeout: 8000
+- tapOn:
+    text: "Search providers and services..."
     optional: true
 
-- tapOn:
-    text: "Mecca mosque"
-    optional: true
-- waitForAnimationToEnd
+- inputText: "Sarah"
 
-# Mosque selection confirmation
-- tapOn:
-    text: "Yes"
-    optional: true
-- waitForAnimationToEnd
+- waitForAnimationToEnd:
+    timeout: 3000
 
-# Check More Details is accessible
+# Select provider from list
 - tapOn:
-    text: "More Details"
+    text: "Sarah Beauty Studio"
     optional: true
-- waitForAnimationToEnd
 - tapOn:
-    text: "Back"
+    text: "Book Now"
     optional: true
+
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# View Overview details / service info
+- assertVisible:
+    text: "Overview"
 
 - takeScreenshot: browse_services_complete

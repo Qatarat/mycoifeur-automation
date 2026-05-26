@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Negative: invalid phone numbers must be rejected — OTP screen must NOT appear
 

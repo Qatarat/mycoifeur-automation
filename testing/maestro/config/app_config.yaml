@@ -1,15 +1,15 @@
 # Qatarat app — shared Maestro config
 # Include this in every flow with: <<: !include ../config/app_config.yaml
 
-appId: com.qatarat.app         # Android
-# appId: com.qatarat.app       # iOS (same bundle ID)
+appId: com.example.my_coiffeur         # Android
+# appId: com.example.my_coiffeur       # iOS (same bundle ID)
 
 ---
 # Reusable env vars referenced in flows as ${VAR}
 env:
-  ANDROID_APP_ID: com.qatarat.app
-  IOS_APP_ID: com.qatarat.app
-  TEST_PHONE: "8801685220417"
+  ANDROID_APP_ID: com.example.my_coiffeur
+  IOS_APP_ID: com.example.my_coiffeur
+  TEST_PHONE: "8801316314566"
   TEST_OTP: "1234"
   TEST_PROMO: "TEST10"
   RECIPIENT_NAME: "Test User"

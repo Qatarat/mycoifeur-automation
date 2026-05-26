@@ -5,7 +5,7 @@ All boundary values, invalid inputs, and negative-case data live here.
 
 
 class ValidData:
-    PHONE = "8801685220417"
+    PHONE = "8801316314566"
     OTP = "1234"
     PROMO = "TEST10"
 
@@ -25,12 +25,12 @@ class ValidData:
 class InvalidPhone:
     EMPTY = ""
     TOO_SHORT = "123"
-    TOO_LONG = "88016852204179999999"
+    TOO_LONG = "88013163145669999999"
     LETTERS_ONLY = "abcdefghij"
     MIXED = "abc123def45"
     SPECIAL_CHARS = "+880@abc#123"
     ALL_ZEROS = "0000000000"
-    SPACES = "880 168 522 041 7"
+    SPACES = "880 131 631 456 6"
 
 
 class InvalidOTP:

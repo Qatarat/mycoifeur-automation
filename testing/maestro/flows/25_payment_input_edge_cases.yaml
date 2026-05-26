@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Flow 25: Payment input edge cases
 # Tests: card with spaces, UPPERCASE name, far-future expiry, CVV boundary, all-zeros card
@@ -12,7 +12,13 @@ appId: com.qatarat.app
 - tapOn:
     text: "Login to your account"
     optional: true
-- inputText: "8801685220417"
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- inputText: "1316314566"
 - tapOn:
     text: "Continue"
     optional: true

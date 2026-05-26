@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Flow: Verify offline/no-internet error screen
 # The CI emulator has no internet, so navigation should trigger the offline screen naturally.

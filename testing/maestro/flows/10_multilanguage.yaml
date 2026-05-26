@@ -1,4 +1,4 @@
-appId: com.qatarat.app
+appId: com.example.my_coiffeur
 ---
 # Flow: Switch app language (Arabic RTL, Turkish, Urdu, English) and verify UI adapts
 

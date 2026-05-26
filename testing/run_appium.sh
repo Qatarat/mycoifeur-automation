@@ -104,12 +104,12 @@ ensure_avd() {
   echo "▶  Creating AVD: ${avd_name}..."
   # Try pixel_7 hardware profile, fall back to pixel
   if echo "no" | "$CMDLINE_BIN/avdmanager" \
-        --sdk_root="$SDK_DIR" create avd \
+        create avd \
         -n "$avd_name" -k "$SYS_IMAGE" -d "pixel_7" --force 2>/dev/null; then
     echo "   AVD created (Pixel 7 profile)."
   else
     echo "no" | "$CMDLINE_BIN/avdmanager" \
-        --sdk_root="$SDK_DIR" create avd \
+        create avd \
         -n "$avd_name" -k "$SYS_IMAGE" --force
     echo "   AVD created (default profile)."
   fi
@@ -169,8 +169,7 @@ setup_and_launch_emulator() {
 # Main
 # ════════════════════════════════════════════════════════════════════════════
 if [ "$PLATFORM" = "android" ] && [ "$DEVICE_MODE" = "emulator" ]; then
-  CONNECTED=$(adb devices 2>/dev/null | grep -v "List of devices" | grep -v "^$" \
-              | grep -c "device$" 2>/dev/null || echo "0")
+  CONNECTED=$(adb devices 2>/dev/null | awk '/\tdevice$/ { count++ } END { print count + 0 }')
 
   if [ "${CONNECTED:-0}" -gt 0 ]; then
     echo "   Device already connected (${CONNECTED} found) — skipping emulator launch."
