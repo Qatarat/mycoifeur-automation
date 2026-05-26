@@ -5,6 +5,8 @@ from utils.helpers import scroll_to_text, wait_for_animation
 
 
 class LoginPage(BasePage):
+    BANGLADESH_DIAL_CODE = "880"
+    BANGLADESH_COUNTRY = "Bangladesh"
 
     def skip_onboarding(self):
         return self
@@ -13,27 +15,34 @@ class LoginPage(BasePage):
         return self
 
     def _select_bangladesh_country_code(self):
+        if self.is_visible("+880", timeout=1):
+            return self
+
         self.tap("+966")
+        wait_for_animation(self.driver, 0.5)
+
         fields = self.driver.find_elements(AppiumBy.XPATH, "//android.widget.EditText")
         if fields:
-            fields[0].send_keys("Bangladesh")
+            fields[0].clear()
+            fields[0].send_keys(self.BANGLADESH_COUNTRY)
             wait_for_animation(self.driver, 0.5)
+
         try:
-            self.tap("Bangladesh")
+            self.tap(self.BANGLADESH_COUNTRY)
         except Exception:
-            scroll_to_text(self.driver, "Bangladesh", max_scrolls=20).click()
+            scroll_to_text(self.driver, self.BANGLADESH_COUNTRY, max_scrolls=20).click()
             wait_for_animation(self.driver)
+        return self
+
+    def _normalize_phone_for_entry(self, phone):
+        phone = phone.strip().replace("+", "").replace(" ", "")
+        if phone.startswith(self.BANGLADESH_DIAL_CODE):
+            phone = phone[len(self.BANGLADESH_DIAL_CODE):]
+            self._select_bangladesh_country_code()
+        return phone
 
     def enter_phone(self, phone):
-        phone = phone.replace("+", "").replace(" ", "")
-        if phone.startswith("880"):
-            phone = phone[3:]
-            if self.is_visible("+966", timeout=1):
-                try:
-                    self._select_bangladesh_country_code()
-                except Exception:
-                    for option in ("+880", "880", "(880)"):
-                        self.tap_optional(option, timeout=1)
+        phone = self._normalize_phone_for_entry(phone)
         self.tap_optional("User Login", timeout=1)
         self.tap_optional("Mobile Number", timeout=1)
         el = self.driver.find_element(AppiumBy.XPATH, "//android.widget.EditText")
