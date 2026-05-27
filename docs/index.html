@@ -44,25 +44,28 @@
     --r: 12px;
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
   body {
     font-family: 'Inter', sans-serif;
     background: var(--bg);
     color: var(--text);
     min-height: 100vh;
-    display: flex;
     overflow-x: hidden;
   }
   .mono { font-family: 'JetBrains Mono', monospace; }
 
   /* ===== SIDEBAR ===== */
   #sidebar {
-    width: var(--sidebar-w);
-    min-height: 100vh;
-    background: var(--bg2);
-    border-right: 1px solid var(--border);
     position: fixed;
     top: 0; left: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    overflow-y: auto;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
     z-index: 100;
@@ -156,6 +159,7 @@
     z-index: 200;
     background: var(--bg2);
     border-bottom: 1px solid var(--border);
+    flex-direction: column;
   }
   .mobile-nav-header {
     display: flex; align-items: center; gap: 10px;
@@ -189,17 +193,14 @@
   /* ===== MAIN CONTENT ===== */
   #main {
     margin-left: var(--sidebar-w);
-    flex: 1;
-    min-width: 0;
   }
 
   /* ===== SECTIONS ===== */
   .section {
-    padding: 40px 40px;
-    min-height: 100vh;
+    padding: 48px 44px;
     border-bottom: 1px solid var(--border);
   }
-  .section:last-child { border-bottom: none; min-height: auto; padding-bottom: 60px; }
+  .section:last-of-type { border-bottom: none; }
   .section-header {
     margin-bottom: 32px;
   }
@@ -233,7 +234,7 @@
   }
 
   /* ===== STAT CARDS ===== */
-  .stats-row {
+  .stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
@@ -291,9 +292,9 @@
   /* ===== OVERVIEW ===== */
   .overview-grid {
     display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 24px;
-    margin-bottom: 24px;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
   }
   .donut-card {
     padding: 28px;
@@ -398,9 +399,12 @@
     border-radius: var(--r);
     overflow: hidden;
     overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    max-width: 100%;
   }
   table {
     width: 100%;
+    min-width: 600px;
     border-collapse: collapse;
     font-size: 13px;
   }
@@ -655,7 +659,7 @@
 
   /* ===== FOOTER ===== */
   footer {
-    padding: 24px 40px;
+    padding: 24px 44px;
     border-top: 1px solid var(--border);
     background: var(--bg2);
     display: flex;
@@ -677,7 +681,7 @@
   .hero {
     background: linear-gradient(180deg, rgba(0,212,170,0.05) 0%, transparent 100%);
     border-bottom: 1px solid var(--border);
-    padding: 32px 40px 28px;
+    padding: 32px 44px 28px;
   }
   .hero-top {
     display: flex; align-items: center; gap: 16px;
@@ -714,21 +718,27 @@
   @media (max-width: 900px) {
     #sidebar { transform: translateX(-100%); }
     #main { margin-left: 0; }
-    #mobile-nav { display: block; }
-    .section { padding: 20px 16px; margin-top: 0; }
-    #sec-overview { margin-top: 100px; }
-    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    #mobile-nav { display: flex; flex-direction: column; }
+    .section { padding: 20px 16px; }
+    #sec-overview { padding-top: 90px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
     .overview-grid { grid-template-columns: 1fr; }
     .stat-card .stat-value { font-size: 28px; }
     footer { padding: 16px; }
     .hero { padding: 20px 16px; }
   }
-  @media (max-width: 480px) {
-    .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .stat-card { padding: 14px 14px; }
-    .stat-card .stat-value { font-size: 22px; }
-    .section-title { font-size: 20px; }
+  @media (max-width: 600px) {
+    .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat-card { padding: 14px; }
+    .stat-card .stat-value { font-size: 24px; }
+    .section-title { font-size: 22px; }
+    .filter-bar { gap: 6px; }
+    .filter-btn { padding: 5px 10px; font-size: 11px; }
   }
+  @media (max-width: 400px) {
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+  }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
 
   /* ===== MISC ===== */
   .hidden { display: none !important; }
@@ -746,7 +756,6 @@
     gap: 16px;
     margin-bottom: 16px;
   }
-  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
 
   /* Scrollbar styling */
   ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -864,7 +873,7 @@
 
   <!-- ======== OVERVIEW ======== -->
   <section class="section" id="sec-overview">
-    <div class="stats-row">
+    <div class="stats-grid">
       <div class="stat-card teal">
         <div class="stat-label">Maestro Flows</div>
         <div class="stat-value">50</div>
@@ -1143,7 +1152,7 @@
 
 const MAESTRO_FLOWS = [
   {id:1,  name:"Splash / Onboarding",    cat:"Core",       desc:"Country + language selection, skip",              steps:8,  dur:12, status:"pass"},
-  {id:2,  name:"Login OTP",              cat:"Auth",       desc:"Phone → OTP → logged in",                         steps:11, dur:15, status:"pass"},
+  {id:2,  name:"Login OTP",              cat:"Auth",       desc:"Phone → OTP → logged in",               steps:11, dur:15, status:"pass"},
   {id:3,  name:"Guest User",             cat:"Auth",       desc:"Browse without login, login gate",                steps:9,  dur:13, status:"pass"},
   {id:4,  name:"Browse Services",        cat:"Browse",     desc:"Salon listing, scroll, selection",                steps:12, dur:18, status:"pass"},
   {id:5,  name:"Cart Add Items",         cat:"Commerce",   desc:"Add to cart, quantity, price",                    steps:14, dur:20, status:"pass"},
@@ -1163,12 +1172,12 @@ const MAESTRO_FLOWS = [
   {id:19, name:"Invalid Promo",          cat:"Negative",   desc:"Wrong, empty, SQL, special chars all rejected",   steps:13, dur:9,  status:"pass"},
   {id:20, name:"Empty Cart Checkout",    cat:"Negative",   desc:"Checkout blocked when cart empty",                steps:7,  dur:7,  status:"pass"},
   {id:21, name:"Gift Card Validation",   cat:"Negative",   desc:"Empty form, invalid phone, XSS, SQL",             steps:12, dur:8,  status:"pass"},
-  {id:22, name:"Cart Quantity Boundary", cat:"Boundary",   desc:"10× increment, decrement below 1, NaN check",     steps:10, dur:8,  status:"pass"},
+  {id:22, name:"Cart Quantity Boundary", cat:"Boundary",   desc:"10× increment, decrement below 1, NaN check",steps:10, dur:8,  status:"pass"},
   {id:23, name:"App Background Resume",  cat:"Resilience", desc:"Cart state preserved after backgrounding",         steps:9,  dur:12, status:"pass"},
   {id:24, name:"Browse Search Edges",    cat:"Negative",   desc:"Empty, Arabic, XSS, SQL, gibberish queries",      steps:11, dur:9,  status:"pass"},
   {id:25, name:"Payment Input Edges",    cat:"Negative",   desc:"Spaces, CAPS, far-future expiry, zeros",          steps:12, dur:8,  status:"pass"},
   {id:26, name:"Home Feed",              cat:"UX",         desc:"Carousel, banners, featured providers",           steps:18, dur:22, status:"pass"},
-  {id:27, name:"Booking Flow",           cat:"Booking",    desc:"Provider, date, slot → confirm",                  steps:31, dur:38, status:"pass"},
+  {id:27, name:"Booking Flow",           cat:"Booking",    desc:"Provider, date, slot → confirm",             steps:31, dur:38, status:"pass"},
   {id:28, name:"Booking Reschedule",     cat:"Booking",    desc:"Change date/time of existing booking",            steps:22, dur:28, status:"pass"},
   {id:29, name:"Booking Cancel",         cat:"Booking",    desc:"Cancel booking, confirm dialog",                  steps:18, dur:22, status:"pass"},
   {id:30, name:"Notifications",          cat:"Account",    desc:"List, mark-read, deep link",                      steps:14, dur:17, status:"pass"},
@@ -1440,7 +1449,7 @@ const SCENARIO_DATA = {
       ['" 1316314566 "',       "Leading/trailing spaces","Error shown",       "pass"],
       ['"+880 1316314566"',    "With country code",      "Handled",           "pass"],
       ['"1316314566."',        "With dot",               "Error shown",       "pass"],
-      ['"💇1316314566"',       "With emoji",             "Error shown",       "pass"],
+      ['"\u{1F487}1316314566"',"With emoji",             "Error shown",       "pass"],
     ]
   },
   otp: {
@@ -1474,7 +1483,7 @@ const SCENARIO_DATA = {
       ['"1" (CVV)',          "Single digit CVV",    "Error shown",     "pass"],
       ['"123456" (CVV)',     "Too long CVV",        "Error shown",     "pass"],
       ['"" (name)',          "Empty name",          "Error shown",     "pass"],
-      ['"A"×100 (name)',     "100-char name",       "Error shown",     "pass"],
+      ['"A"×100 (name)',"100-char name",       "Error shown",     "pass"],
     ]
   },
   promo: {
@@ -1488,7 +1497,7 @@ const SCENARIO_DATA = {
       ['"TEST@#$%"',      "Special chars",    "Error shown",       "pass"],
       ['"test10"',        "Lowercase",        "Handled",           "pass"],
       ['" TEST10 "',      "With spaces",      "Trimmed/handled",   "pass"],
-      ['"A"×50',          "Too long",         "Error shown",       "pass"],
+      ['"A"×50',     "Too long",         "Error shown",       "pass"],
       ["' OR '1'='1",     "SQL injection",    "Safe (blocked)",    "pass"],
       ["123456",          "Numbers only",     "Error shown",       "pass"],
     ]
@@ -1500,9 +1509,9 @@ const SCENARIO_DATA = {
       ['"hair"',          "Valid search",     "Results shown",     "pass"],
       ['""',              "Empty search",     "All results",       "pass"],
       ['"a"',             "Single char",      "Results/empty state","pass"],
-      ['"A"×100',         "100 chars",        "No crash",          "pass"],
-      ['"خدمة"',          "Arabic text",      "Accepted",          "pass"],
-      ['"💇‍♀️"',          "Emoji",            "No crash",          "pass"],
+      ['"A"×100',    "100 chars",        "No crash",          "pass"],
+      ['"خدمة"', "Arabic text", "Accepted",   "pass"],
+      ['"\u{1F487}‍♀️"', "Emoji", "No crash",      "pass"],
       ['"<b>test</b>"',   "HTML tags",        "Escaped safely",    "pass"],
       ["' OR 1=1 --",     "SQL injection",    "Safe",              "pass"],
       ['"ZZZNOTEXIST"',   "No results",       "Empty state",       "pass"],
@@ -1514,15 +1523,15 @@ const SCENARIO_DATA = {
     cols: ["Input", "Type", "Expected Result", "Status"],
     rows: [
       ['"Fatima Hassan"',                   "Valid name",          "Accepted",      "pass"],
-      ['"A"×150',                           "150-char name",       "Error shown",   "pass"],
+      ['"A"×150',                      "150-char name",       "Error shown",   "pass"],
       ['"Ahmed@#$%^&*()"',                  "Special chars",       "Error shown",   "pass"],
-      ['"أحمد علي"',                        "Arabic name (Unicode)","Accepted",     "pass"],
+      ['"أحمد علي"', "Arabic name (Unicode)", "Accepted", "pass"],
       ['"abc"',                             "Invalid phone",       "Error shown",   "pass"],
       ['"123"',                             "Short phone",         "Error shown",   "pass"],
       ["Long message (700 chars)",          "Long text",           "Handled",       "pass"],
-      ["<script>alert('xss')</script>",     "XSS attempt",         "Escaped safely","pass"],
+      ["&lt;script&gt;alert('xss')&lt;/script&gt;", "XSS attempt", "Escaped safely","pass"],
       ["'; DROP TABLE users; --",           "SQL injection",       "Safe",          "pass"],
-      ['"🕌🤲✨ Blessed!"',                 "Emoji message",       "Accepted",      "pass"],
+      ['"\u{1F54C}\u{1F932}✨ Blessed!"', "Emoji message",    "Accepted",      "pass"],
     ]
   },
   profile: {
@@ -1531,7 +1540,7 @@ const SCENARIO_DATA = {
     rows: [
       ['"Test User"',          "Valid name",        "Saved",           "pass"],
       ['""',                   "Empty",             "Save blocked",    "pass"],
-      ['"A"×200',              "200-char name",     "Error/truncated", "pass"],
+      ['"A"×200',         "200-char name",     "Error/truncated", "pass"],
       ['"User!@#$%^&*()"',     "Special chars",     "Error shown",     "pass"],
     ]
   }
@@ -1564,7 +1573,7 @@ const PIPELINE_CARDS = [
   },
   {
     name: "iOS Smoke",
-    icon: "🔶",
+    icon: "\u{1F536}",
     status: "manual",
     desc: "Manual trigger only. Runs on macOS runner with iPhone 15 Pro simulator.",
     tags: ["manual", "macOS", "iOS 17"],
@@ -1613,15 +1622,14 @@ function renderMaestro(filter) {
     if (!statusMatch) tr.classList.add('table-row-hidden');
     tr.setAttribute('data-status', f.status);
     tr.setAttribute('data-cat', catKey);
-    tr.innerHTML = `
-      <td class="td-num">${f.id}</td>
-      <td style="font-weight:500;white-space:nowrap;">${escH(f.name)}</td>
-      <td><span class="cat-badge cat-${catKey}">${escH(f.cat)}</span></td>
-      <td class="td-desc">${escH(f.desc)}</td>
-      <td class="td-dur">${f.steps} steps</td>
-      <td class="td-dur">${f.dur}s</td>
-      <td><span class="badge ${f.status}"><span class="badge-dot"></span>${f.status.toUpperCase()}</span></td>
-    `;
+    tr.innerHTML =
+      '<td class="td-num">' + f.id + '</td>' +
+      '<td style="font-weight:500;white-space:nowrap;">' + escH(f.name) + '</td>' +
+      '<td><span class="cat-badge cat-' + catKey + '">' + escH(f.cat) + '</span></td>' +
+      '<td class="td-desc">' + escH(f.desc) + '</td>' +
+      '<td class="td-dur">' + f.steps + ' steps</td>' +
+      '<td class="td-dur">' + f.dur + 's</td>' +
+      '<td><span class="badge ' + f.status + '"><span class="badge-dot"></span>' + f.status.toUpperCase() + '</span></td>';
     tbody.appendChild(tr);
   });
 }
@@ -1651,32 +1659,28 @@ function renderAppium() {
     div.setAttribute('data-group', i);
     const pct = Math.round((g.pass / g.total) * 100);
     const barW = pct;
-    let statusBadge = `<span class="badge pass"><span class="badge-dot"></span>ALL PASS</span>`;
-    if (g.flaky > 0) statusBadge = `<span class="badge flaky"><span class="badge-dot"></span>${g.flaky} FLAKY</span>`;
-    div.innerHTML = `
-      <div class="accordion-head" onclick="toggleAcc(this)">
-        <span class="acc-title">${escH(g.name)}</span>
-        <div class="acc-meta">
-          ${statusBadge}
-          <span class="acc-count">${g.pass}/${g.total} pass</span>
-          <div class="acc-progress">
-            <div class="acc-pass-bar" style="width:${barW}px;"></div>
-          </div>
-          <span class="acc-arrow">▼</span>
-        </div>
-      </div>
-      <div class="accordion-body">
-        <div class="acc-tests" id="acc-tests-${i}">
-          ${g.tests.map(t => `
-            <div class="acc-test-row" data-testname="${escH(t.n)}">
-              <div class="acc-test-dot ${t.s}"></div>
-              <div class="acc-test-name ${t.s === 'flaky' ? 'flaky' : ''}">${escH(t.n)}</div>
-              <span class="badge ${t.s}" style="font-size:10px;padding:2px 7px;">${t.s.toUpperCase()}</span>
-            </div>
-          `).join('')}
-        </div>
-      </div>
-    `;
+    let statusBadge = '<span class="badge pass"><span class="badge-dot"></span>ALL PASS</span>';
+    if (g.flaky > 0) statusBadge = '<span class="badge flaky"><span class="badge-dot"></span>' + g.flaky + ' FLAKY</span>';
+    const testsHtml = g.tests.map(t =>
+      '<div class="acc-test-row" data-testname="' + escH(t.n) + '">' +
+        '<div class="acc-test-dot ' + t.s + '"></div>' +
+        '<div class="acc-test-name' + (t.s === 'flaky' ? ' flaky' : '') + '">' + escH(t.n) + '</div>' +
+        '<span class="badge ' + t.s + '" style="font-size:10px;padding:2px 7px;">' + t.s.toUpperCase() + '</span>' +
+      '</div>'
+    ).join('');
+    div.innerHTML =
+      '<div class="accordion-head" onclick="toggleAcc(this)">' +
+        '<span class="acc-title">' + escH(g.name) + '</span>' +
+        '<div class="acc-meta">' +
+          statusBadge +
+          '<span class="acc-count">' + g.pass + '/' + g.total + ' pass</span>' +
+          '<div class="acc-progress"><div class="acc-pass-bar" style="width:' + barW + 'px;"></div></div>' +
+          '<span class="acc-arrow">&#9660;</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="accordion-body">' +
+        '<div class="acc-tests" id="acc-tests-' + i + '">' + testsHtml + '</div>' +
+      '</div>';
     container.appendChild(div);
   });
 }
@@ -1711,29 +1715,25 @@ function renderScenarios() {
   Object.entries(SCENARIO_DATA).forEach(([key, data]) => {
     const panel = document.getElementById('scen-' + key);
     if (!panel) return;
-    panel.innerHTML = `
-      <div style="margin-bottom:12px;">
-        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;">${escH(data.title)}</div>
-        <div style="font-size:12px;color:var(--text3);">${data.rows.length} test cases</div>
-      </div>
-      <div class="table-wrap">
-        <table class="scen-table">
-          <thead>
-            <tr>${data.cols.map(c => `<th>${escH(c)}</th>`).join('')}</tr>
-          </thead>
-          <tbody>
-            ${data.rows.map(r => `
-              <tr>
-                <td>${escH(r[0])}</td>
-                <td><span class="type-badge">${escH(r[1])}</span></td>
-                <td style="color:var(--text2);">${escH(r[2])}</td>
-                <td><span class="badge ${r[3]}"><span class="badge-dot"></span>${r[3].toUpperCase()}</span></td>
-              </tr>
-            `).join('')}
-          </tbody>
-        </table>
-      </div>
-    `;
+    const rowsHtml = data.rows.map(r =>
+      '<tr>' +
+        '<td>' + escH(r[0]) + '</td>' +
+        '<td><span class="type-badge">' + escH(r[1]) + '</span></td>' +
+        '<td style="color:var(--text2);">' + escH(r[2]) + '</td>' +
+        '<td><span class="badge ' + r[3] + '"><span class="badge-dot"></span>' + r[3].toUpperCase() + '</span></td>' +
+      '</tr>'
+    ).join('');
+    panel.innerHTML =
+      '<div style="margin-bottom:12px;">' +
+        '<div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;">' + escH(data.title) + '</div>' +
+        '<div style="font-size:12px;color:var(--text3);">' + data.rows.length + ' test cases</div>' +
+      '</div>' +
+      '<div class="table-wrap">' +
+        '<table class="scen-table">' +
+          '<thead><tr>' + data.cols.map(c => '<th>' + escH(c) + '</th>').join('') + '</tr></thead>' +
+          '<tbody>' + rowsHtml + '</tbody>' +
+        '</table>' +
+      '</div>';
   });
 }
 
@@ -1747,52 +1747,49 @@ function switchScenTab(btn, panelId) {
 // ========== RENDER: PIPELINE ==========
 function renderPipeline() {
   const grid = document.getElementById('pipeline-grid');
-  grid.innerHTML = PIPELINE_CARDS.map(c => `
-    <div class="pipeline-card">
-      <div class="pc-head">
-        <div class="pc-name">${escH(c.name)}</div>
-        <div class="pc-status-icon">${c.icon}</div>
-      </div>
-      <div class="pc-desc">${escH(c.desc)}</div>
-      <div class="pc-meta">${c.tags.map(t => `<span class="pc-tag">${escH(t)}</span>`).join('')}</div>
-      ${c.pct > 0 ? `
-      <div class="progress-bar-wrap">
-        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
-          <span style="font-size:10px;color:var(--text3);">Pass rate</span>
-          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--pass);">${c.pct}%</span>
-        </div>
-        <div class="progress-bar-track">
-          <div class="progress-bar-fill" data-w="${c.pct}"></div>
-        </div>
-      </div>` : `<div style="margin-top:10px;font-size:11px;color:var(--text3);font-style:italic;">Manual trigger only</div>`}
-    </div>
-  `).join('');
+  grid.innerHTML = PIPELINE_CARDS.map(c => {
+    const tagsHtml = c.tags.map(t => '<span class="pc-tag">' + escH(t) + '</span>').join('');
+    const progressHtml = c.pct > 0
+      ? '<div class="progress-bar-wrap">' +
+          '<div style="display:flex;justify-content:space-between;margin-bottom:4px;">' +
+            '<span style="font-size:10px;color:var(--text3);">Pass rate</span>' +
+            '<span style="font-family:\'JetBrains Mono\',monospace;font-size:10px;color:var(--pass);">' + c.pct + '%</span>' +
+          '</div>' +
+          '<div class="progress-bar-track"><div class="progress-bar-fill" data-w="' + c.pct + '"></div></div>' +
+        '</div>'
+      : '<div style="margin-top:10px;font-size:11px;color:var(--text3);font-style:italic;">Manual trigger only</div>';
+    return '<div class="pipeline-card">' +
+      '<div class="pc-head">' +
+        '<div class="pc-name">' + escH(c.name) + '</div>' +
+        '<div class="pc-status-icon">' + c.icon + '</div>' +
+      '</div>' +
+      '<div class="pc-desc">' + escH(c.desc) + '</div>' +
+      '<div class="pc-meta">' + tagsHtml + '</div>' +
+      progressHtml +
+    '</div>';
+  }).join('');
 
   const stepsEl = document.getElementById('workflow-steps');
-  stepsEl.innerHTML = `
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>#</th><th>Step</th><th>Status</th><th>Duration</th></tr>
-        </thead>
-        <tbody>
-          ${WORKFLOW_STEPS.map((s,i) => `
-            <tr>
-              <td class="td-num">${i+1}</td>
-              <td style="font-weight:500;">${escH(s.step)}</td>
-              <td><span class="badge pass"><span class="badge-dot"></span>PASS</span></td>
-              <td class="td-dur">${escH(s.dur)}</td>
-            </tr>
-          `).join('')}
-        </tbody>
-      </table>
-    </div>
-  `;
+  const stepsRowsHtml = WORKFLOW_STEPS.map((s, i) =>
+    '<tr>' +
+      '<td class="td-num">' + (i + 1) + '</td>' +
+      '<td style="font-weight:500;">' + escH(s.step) + '</td>' +
+      '<td><span class="badge pass"><span class="badge-dot"></span>PASS</span></td>' +
+      '<td class="td-dur">' + escH(s.dur) + '</td>' +
+    '</tr>'
+  ).join('');
+  stepsEl.innerHTML =
+    '<div class="table-wrap">' +
+      '<table>' +
+        '<thead><tr><th>#</th><th>Step</th><th>Status</th><th>Duration</th></tr></thead>' +
+        '<tbody>' + stepsRowsHtml + '</tbody>' +
+      '</table>' +
+    '</div>';
 }
 
 // ========== RENDER: CATEGORY BARS ==========
 const CAT_COUNTS = {};
-MAESTRO_FLOWS.forEach(f => { CAT_COUNTS[f.cat] = (CAT_COUNTS[f.cat]||0)+1; });
+MAESTRO_FLOWS.forEach(f => { CAT_COUNTS[f.cat] = (CAT_COUNTS[f.cat] || 0) + 1; });
 const CAT_ORDER = ["UX","Commerce","Account","Negative","Auth","Booking","Browse","Resilience","Growth","Boundary","A11y","Core"];
 const CAT_COLORS = {
   Core:"#3b82f6",Auth:"#a855f7",Browse:"#f97316",Commerce:"#22c55e",
@@ -1803,15 +1800,15 @@ const maxCat = Math.max(...Object.values(CAT_COUNTS));
 
 function renderCatBars() {
   const el = document.getElementById('cat-bars');
-  el.innerHTML = CAT_ORDER.filter(c => CAT_COUNTS[c]).map(c => `
-    <div class="cat-bar-row">
-      <div class="cat-bar-label">${c}</div>
-      <div class="cat-bar-track">
-        <div class="cat-bar-fill" data-w="${(CAT_COUNTS[c]/maxCat)*100}" style="background:${CAT_COLORS[c]};"></div>
-      </div>
-      <div class="cat-bar-count">${CAT_COUNTS[c]}</div>
-    </div>
-  `).join('');
+  el.innerHTML = CAT_ORDER.filter(c => CAT_COUNTS[c]).map(c =>
+    '<div class="cat-bar-row">' +
+      '<div class="cat-bar-label">' + c + '</div>' +
+      '<div class="cat-bar-track">' +
+        '<div class="cat-bar-fill" data-w="' + ((CAT_COUNTS[c] / maxCat) * 100) + '" style="background:' + CAT_COLORS[c] + ';"></div>' +
+      '</div>' +
+      '<div class="cat-bar-count">' + CAT_COUNTS[c] + '</div>' +
+    '</div>'
+  ).join('');
 }
 
 // ========== DONUT ==========
@@ -1826,13 +1823,13 @@ function animateDonut() {
 
   // Pass arc
   const passEl = document.getElementById('donut-pass');
-  passEl.setAttribute('stroke-dasharray', `${passArc - gap} ${C - passArc + gap}`);
+  passEl.setAttribute('stroke-dasharray', (passArc - gap) + ' ' + (C - passArc + gap));
   passEl.setAttribute('stroke-dashoffset', '0');
 
   // Flaky arc offset = passArc
   const flakyEl = document.getElementById('donut-flaky');
-  flakyEl.setAttribute('stroke-dasharray', `${flakyArc - gap} ${C - flakyArc + gap}`);
-  flakyEl.setAttribute('stroke-dashoffset', `${-(passArc)}`);
+  flakyEl.setAttribute('stroke-dasharray', (flakyArc - gap) + ' ' + (C - flakyArc + gap));
+  flakyEl.setAttribute('stroke-dashoffset', (-passArc).toString());
 }
 
 // ========== ANIMATE BARS ==========
@@ -1881,10 +1878,10 @@ function setupObserver() {
 // ========== UTIL ==========
 function escH(s) {
   return String(s)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;');
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
 }
 
 // ========== INIT ==========
