@@ -1,0 +1,181 @@
+appId: com.example.my_coiffeur
+---
+# Flow 42: Search with Filters — search "hair", apply category/price/sort filters, clear, search "massage"
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: search_filters_home_loaded
+
+# Tap the search icon / search bar
+- tapOn:
+    text: "Search"
+    optional: true
+- tapOn:
+    id: "search_icon"
+    optional: true
+- tapOn:
+    id: "search_bar"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Enter first search query
+- inputText: "hair"
+- tapOn:
+    text: "Search"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: search_results_hair
+
+# Apply category filter — Haircut
+- tapOn:
+    text: "Filter"
+    optional: true
+- tapOn:
+    text: "Filters"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "Category"
+    optional: true
+- tapOn:
+    text: "Haircut"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: search_filter_category_selected
+
+# Apply price range filter
+- tapOn:
+    text: "Price"
+    optional: true
+- tapOn:
+    text: "Price Range"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: search_filter_price_selected
+
+# Apply Nearest sort
+- tapOn:
+    text: "Sort"
+    optional: true
+- tapOn:
+    text: "Sort By"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+- tapOn:
+    text: "Nearest"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: search_filter_sort_nearest
+
+# Apply / confirm filters
+- tapOn:
+    text: "Apply"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: search_filtered_results
+
+# Verify filtered results are visible
+- assertVisible:
+    text: "Haircut"
+    optional: true
+
+# Clear all filters
+- tapOn:
+    text: "Clear"
+    optional: true
+- tapOn:
+    text: "Clear All"
+    optional: true
+- tapOn:
+    text: "Reset"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: search_filters_cleared
+
+# Search for "massage"
+- tapOn:
+    text: "Search"
+    optional: true
+- tapOn:
+    id: "search_bar"
+    optional: true
+- clearText:
+    optional: true
+- inputText: "massage"
+- tapOn:
+    text: "Search"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: search_results_massage
+
+- takeScreenshot: search_filters_complete

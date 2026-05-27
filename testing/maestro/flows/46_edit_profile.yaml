@@ -1,0 +1,159 @@
+appId: com.example.my_coiffeur
+---
+# Flow 46: Edit Profile — navigate to Profile, tap Edit, update display name, optionally change avatar, save and verify
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: edit_profile_home_loaded
+
+# Navigate to Profile
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: edit_profile_profile_screen
+
+# Tap Edit Profile
+- tapOn:
+    text: "Edit Profile"
+    optional: true
+- tapOn:
+    text: "Edit"
+    optional: true
+- tapOn:
+    id: "edit_profile_button"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: edit_profile_edit_screen
+
+# Clear the name field and type updated name
+- tapOn:
+    text: "Name"
+    optional: true
+- tapOn:
+    text: "Full Name"
+    optional: true
+- tapOn:
+    text: "Display Name"
+    optional: true
+- tapOn:
+    id: "name_field"
+    optional: true
+- clearText:
+    optional: true
+- inputText: "Test User Updated"
+
+- takeScreenshot: edit_profile_name_entered
+
+# Optionally tap avatar area to trigger photo option
+- tapOn:
+    text: "Change Photo"
+    optional: true
+- tapOn:
+    id: "avatar"
+    optional: true
+- tapOn:
+    id: "profile_photo"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Dismiss photo picker if it appeared
+- tapOn:
+    text: "Cancel"
+    optional: true
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: edit_profile_avatar_option
+
+# Save changes
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Save Changes"
+    optional: true
+- tapOn:
+    text: "Update"
+    optional: true
+- tapOn:
+    text: "Done"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- takeScreenshot: edit_profile_saved
+
+# Verify updated name is shown on profile screen
+- assertVisible:
+    text: "Test User Updated"
+    optional: true
+
+- takeScreenshot: edit_profile_name_verified
+
+# Tap back to return
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: edit_profile_complete

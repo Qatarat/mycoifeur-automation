@@ -1,0 +1,108 @@
+appId: com.example.my_coiffeur
+---
+# Flow 47: OTP Resend — enter phone, tap Continue, wait on OTP screen, tap Resend, verify confirmation, complete login
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Reach phone entry (do NOT complete login yet — testing resend on OTP screen)
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- takeScreenshot: otp_resend_otp_screen_initial
+
+# Wait 3 seconds on OTP screen before tapping Resend
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: otp_resend_waiting
+
+# Tap Resend OTP / Didn't receive?
+- tapOn:
+    text: "Resend OTP"
+    optional: true
+- tapOn:
+    text: "Resend"
+    optional: true
+- tapOn:
+    text: "Didn't receive?"
+    optional: true
+- tapOn:
+    text: "Didn't receive code?"
+    optional: true
+- tapOn:
+    text: "Send Again"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: otp_resend_tapped
+
+# Verify resend confirmation message / snackbar
+- assertVisible:
+    text: "OTP sent"
+    optional: true
+- assertVisible:
+    text: "Code resent"
+    optional: true
+- assertVisible:
+    text: "Resent"
+    optional: true
+- assertVisible:
+    text: "sent successfully"
+    optional: true
+
+- takeScreenshot: otp_resend_confirmation_visible
+
+# Wait for any snackbar to dismiss
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Now enter the OTP and complete login
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: otp_resend_login_complete

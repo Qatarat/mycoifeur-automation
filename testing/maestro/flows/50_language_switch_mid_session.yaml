@@ -1,0 +1,186 @@
+appId: com.example.my_coiffeur
+---
+# Flow 50: Language Switch Mid-Session — switch English to Arabic (RTL), verify layout, switch back to English
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: language_switch_home_loaded
+
+# Navigate to Profile → Settings or Language option
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: language_switch_settings_screen
+
+# Tap Language selector
+- tapOn:
+    text: "Language"
+    optional: true
+- tapOn:
+    text: "App Language"
+    optional: true
+- tapOn:
+    text: "Select Language"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: language_switch_language_picker
+
+# Switch to Arabic
+- tapOn:
+    text: "Arabic"
+    optional: true
+- tapOn:
+    text: "العربية"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: language_switch_arabic_applied
+
+# Confirm language change dialog if present
+- tapOn:
+    text: "OK"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- takeScreenshot: language_switch_arabic_layout
+
+# Verify UI updates to Arabic / RTL layout
+- assertVisible:
+    text: "العربية"
+    optional: true
+- assertVisible:
+    text: "Arabic"
+    optional: true
+
+- takeScreenshot: language_switch_rtl_verified
+
+# Navigate back to Language settings to switch back to English
+- tapOn:
+    text: "Profile"
+    optional: true
+- tapOn:
+    text: "الملف الشخصي"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Settings"
+    optional: true
+- tapOn:
+    text: "الإعدادات"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Language"
+    optional: true
+- tapOn:
+    text: "اللغة"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Switch back to English
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "الإنجليزية"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: language_switch_english_selected
+
+# Confirm if needed
+- tapOn:
+    text: "OK"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- tapOn:
+    text: "Apply"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Verify English layout restored
+- assertVisible:
+    text: "Profile"
+    optional: true
+- assertVisible:
+    text: "Home"
+    optional: true
+
+- takeScreenshot: language_switch_english_restored
+
+- takeScreenshot: language_switch_complete

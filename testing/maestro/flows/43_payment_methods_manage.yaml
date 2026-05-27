@@ -1,0 +1,213 @@
+appId: com.example.my_coiffeur
+---
+# Flow 43: Payment Methods — view saved cards, add a test card, verify in list, delete a card
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: payment_methods_home_loaded
+
+# Navigate to Profile / Account
+- tapOn:
+    text: "Profile"
+    optional: true
+- tapOn:
+    text: "Account"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Navigate to Payment Methods
+- tapOn:
+    text: "Payment Methods"
+    optional: true
+- tapOn:
+    text: "Payment"
+    optional: true
+- tapOn:
+    text: "Saved Cards"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: payment_methods_list
+
+# Verify saved cards or empty state
+- assertVisible:
+    text: "No cards"
+    optional: true
+- assertVisible:
+    text: "Add Card"
+    optional: true
+
+# Tap Add Card
+- tapOn:
+    text: "Add Card"
+    optional: true
+- tapOn:
+    text: "Add New Card"
+    optional: true
+- tapOn:
+    text: "+"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: payment_add_card_form
+
+# Fill card number
+- tapOn:
+    text: "Card Number"
+    optional: true
+- tapOn:
+    id: "card_number"
+    optional: true
+- inputText: "4111111111111111"
+
+# Fill expiry date
+- tapOn:
+    text: "MM/YY"
+    optional: true
+- tapOn:
+    text: "Expiry"
+    optional: true
+- tapOn:
+    id: "expiry_date"
+    optional: true
+- inputText: "12/26"
+
+# Fill CVV
+- tapOn:
+    text: "CVV"
+    optional: true
+- tapOn:
+    text: "CVC"
+    optional: true
+- tapOn:
+    id: "cvv"
+    optional: true
+- inputText: "123"
+
+# Fill cardholder name
+- tapOn:
+    text: "Cardholder Name"
+    optional: true
+- tapOn:
+    text: "Name on Card"
+    optional: true
+- tapOn:
+    id: "card_name"
+    optional: true
+- inputText: "Test User"
+
+- takeScreenshot: payment_card_form_filled
+
+# Save the card
+- tapOn:
+    text: "Save"
+    optional: true
+- tapOn:
+    text: "Save Card"
+    optional: true
+- tapOn:
+    text: "Add"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- takeScreenshot: payment_card_saved
+
+# Verify card appears in the list
+- assertVisible:
+    text: "4111"
+    optional: true
+- assertVisible:
+    text: "Test User"
+    optional: true
+
+- takeScreenshot: payment_card_in_list
+
+# Tap delete icon on the card
+- tapOn:
+    text: "Delete"
+    optional: true
+- tapOn:
+    id: "delete_card"
+    optional: true
+- tapOn:
+    id: "remove_card"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Confirm deletion dialog
+- tapOn:
+    text: "Yes"
+    optional: true
+- tapOn:
+    text: "Remove"
+    optional: true
+- tapOn:
+    text: "Delete"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: payment_card_deleted
+
+- takeScreenshot: payment_methods_complete

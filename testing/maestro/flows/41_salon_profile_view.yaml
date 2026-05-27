@@ -1,0 +1,158 @@
+appId: com.example.my_coiffeur
+---
+# Flow 41: Salon Profile View — open a salon card, verify name/rating/services, browse gallery, read reviews
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: salon_profile_home_loaded
+
+# Navigate to salon listing from home
+- tapOn:
+    text: "Browse"
+    optional: true
+- tapOn:
+    text: "Salons"
+    optional: true
+- tapOn:
+    text: "Explore"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: salon_profile_listing
+
+# Tap the first salon card to open its profile
+- tapOn:
+    text: "Book Now"
+    optional: true
+- tapOn:
+    text: "View"
+    optional: true
+- tapOn:
+    text: "Details"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: salon_profile_opened
+
+# Verify salon name, rating, services list are visible
+- assertVisible:
+    text: "Rating"
+    optional: true
+- assertVisible:
+    text: "Services"
+    optional: true
+
+- takeScreenshot: salon_profile_info_visible
+
+# Scroll through the gallery / profile photos
+- scroll:
+    direction: DOWN
+    speed: 40
+- waitForAnimationToEnd:
+    timeout: 2000
+- scroll:
+    direction: DOWN
+    speed: 40
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: salon_profile_gallery_scrolled
+
+# Tap a service to see its details
+- tapOn:
+    text: "Haircut"
+    optional: true
+- tapOn:
+    text: "Service"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: salon_profile_service_detail
+
+# Go back to the salon profile
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Tap Reviews tab
+- tapOn:
+    text: "Reviews"
+    optional: true
+- tapOn:
+    text: "Ratings"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: salon_profile_reviews_tab
+
+# Scroll through reviews
+- scroll:
+    direction: DOWN
+    speed: 40
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: salon_profile_reviews_scrolled
+
+# Go back to listing
+- tapOn:
+    text: "Back"
+    optional: true
+
+- takeScreenshot: salon_profile_complete

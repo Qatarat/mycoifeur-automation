@@ -57,6 +57,16 @@ FLOWS_DEF = [
     (38, "Session Timeout",       "Auth",       "Idle 30 min, auto-logout, re-login prompt",12, 2,  36),
     (39, "Deep Link / QR",        "Growth",     "Open via QR, deep-link to booking screen", 10, 3,  32),
     (40, "App Update Prompt",     "Resilience", "In-app update dialog, dismiss, force",      8, 2,  26),
+    (41, "Salon Profile View",    "UX",         "Salon details, gallery, reviews, book-now", 20, 5,  62),
+    (42, "Search with Filters",   "Browse",     "Category, price, sort filters, clear",      18, 4,  56),
+    (43, "Payment Methods",       "Commerce",   "Add card, saved cards list, delete card",   22, 5,  66),
+    (44, "Wallet Top-up",         "Commerce",   "Add balance, payment confirm, history",     16, 4,  50),
+    (45, "Logout Success",        "Auth",       "Confirm logout, return to login screen",    10, 2,  30),
+    (46, "Edit Profile",          "Account",    "Update name, avatar, save changes",         14, 3,  42),
+    (47, "OTP Resend",            "Auth",       "Resend code, wait, enter new OTP",          12, 3,  36),
+    (48, "Location Permission",   "UX",         "Allow location, map loads, tap pin",        15, 3,  46),
+    (49, "App Permissions",       "Account",    "Notifications toggle, location enable",     11, 2,  34),
+    (50, "Language Switch",       "UX",         "Switch to Arabic, RTL layout, back to EN",  16, 4,  48),
 ]
 FLOW_FILE_NAMES = [
     "01_splash_onboarding", "02_login_otp", "03_guest_user", "04_browse_services",
@@ -70,6 +80,9 @@ FLOW_FILE_NAMES = [
     "30_notifications", "31_wallet_balance", "32_ratings_reviews", "33_map_location",
     "34_favourites", "35_refer_a_friend", "36_dark_mode", "37_accessibility_labels",
     "38_session_timeout", "39_deep_link_qr", "40_app_update_prompt",
+    "41_salon_profile_view", "42_search_with_filters", "43_payment_methods_manage",
+    "44_wallet_topup", "45_logout_success", "46_edit_profile",
+    "47_otp_resend", "48_location_permission", "49_app_permissions", "50_language_switch_mid_session",
 ]
 # Screenshot names as used in takeScreenshot: commands in each flow's YAML
 FLOW_SCREENSHOT_NAMES = [
@@ -113,6 +126,16 @@ FLOW_SCREENSHOT_NAMES = [
     ["session_timeout_dialog"],
     ["deep_link_booking_screen"],
     ["app_update_prompt"],
+    ["salon_profile_screen", "gallery_scrolled", "reviews_tab"],
+    ["search_results", "filters_applied", "filters_cleared"],
+    ["payment_methods_list", "add_card_form", "card_saved"],
+    ["wallet_screen", "topup_amount", "topup_success"],
+    ["logout_dialog", "login_screen_after_logout"],
+    ["edit_profile_screen", "name_updated", "profile_saved"],
+    ["otp_screen", "resend_requested", "otp_verified"],
+    ["location_permission", "map_loaded", "pin_selected"],
+    ["permissions_settings", "notification_toggle", "location_enabled"],
+    ["arabic_layout", "rtl_confirmed", "english_restored"],
 ]
 
 APPIUM_DEF = [
@@ -294,6 +317,69 @@ APPIUM_DEF = [
         {"name": "test_price_shows_currency_symbol",           "dur": 5.9},
         {"name": "test_price_decimal_places_correct",          "dur": 6.4},
     ]},
+    {"file": "test_logout.py",           "group": "Auth",     "icon": "lock",   "tests": [
+        {"name": "test_logout_confirmation_dialog_shown",      "dur": 5.2},
+        {"name": "test_logout_cancel_keeps_session",           "dur": 4.8},
+        {"name": "test_logout_confirm_clears_session",         "dur": 6.1},
+        {"name": "test_logout_redirects_to_login",             "dur": 5.9},
+        {"name": "test_logout_clears_cart",                    "dur": 7.3},
+        {"name": "test_logout_clears_favourites",              "dur": 6.7},
+        {"name": "test_relogin_after_logout_succeeds",         "dur": 8.4},
+    ]},
+    {"file": "test_edit_profile.py",     "group": "Account",  "icon": "user",   "tests": [
+        {"name": "test_edit_profile_screen_loads",             "dur": 4.6},
+        {"name": "test_update_name_success",                   "dur": 6.2},
+        {"name": "test_name_empty_shows_error",                "dur": 5.1},
+        {"name": "test_name_special_chars_handled",            "dur": 5.4},
+        {"name": "test_avatar_change_opens_picker",            "dur": 7.8},
+        {"name": "test_save_changes_shows_confirmation",       "dur": 6.5},
+        {"name": "test_back_without_save_prompts_discard",     "dur": 5.9},
+        {"name": "test_profile_changes_persist_after_reopen",  "dur": 8.1},
+    ]},
+    {"file": "test_salon_profile.py",    "group": "Catalog",  "icon": "search", "tests": [
+        {"name": "test_salon_profile_screen_loads",            "dur": 5.3},
+        {"name": "test_gallery_scroll_works",                  "dur": 6.8},
+        {"name": "test_reviews_tab_loads",                     "dur": 5.7},
+        {"name": "test_book_now_navigates_to_booking",         "dur": 7.2},
+        {"name": "test_salon_address_visible",                 "dur": 4.9},
+        {"name": "test_salon_rating_displayed",                "dur": 4.6},
+        {"name": "test_gallery_image_full_screen",             "dur": 6.1},
+        {"name": "test_back_from_profile_returns_to_list",     "dur": 5.4},
+    ]},
+    {"file": "test_search_filters.py",   "group": "Browse",   "icon": "search", "tests": [
+        {"name": "test_filter_by_category_returns_results",    "dur": 6.4},
+        {"name": "test_filter_by_price_range_works",           "dur": 7.1},
+        {"name": "test_sort_by_rating_reorders_list",          "dur": 6.8},
+        {"name": "test_sort_by_price_reorders_list",           "dur": 6.5},
+        {"name": "test_clear_filters_restores_all",            "dur": 5.2},
+        {"name": "test_multiple_filters_combined",             "dur": 8.3},
+        {"name": "test_filter_no_results_shows_empty_state",   "dur": 5.9},
+        {"name": "test_filter_persists_across_navigation",     "dur": 7.4},
+        {"name": "test_filter_panel_opens_and_closes",         "dur": 4.8},
+    ]},
+    {"file": "test_payment_methods.py",  "group": "Commerce", "icon": "card",   "tests": [
+        {"name": "test_payment_methods_list_loads",            "dur": 5.1},
+        {"name": "test_add_new_card_form_shown",               "dur": 6.3},
+        {"name": "test_card_number_validation",                "dur": 7.2},
+        {"name": "test_expiry_validation",                     "dur": 6.8},
+        {"name": "test_cvv_validation",                        "dur": 6.5},
+        {"name": "test_card_saved_successfully",               "dur": 8.4},
+        {"name": "test_saved_card_shown_in_list",              "dur": 5.9},
+        {"name": "test_delete_card_confirmation_dialog",       "dur": 6.7},
+        {"name": "test_card_deleted_removed_from_list",        "dur": 7.1},
+        {"name": "test_default_card_indicator_shown",          "dur": 5.4},
+    ]},
+    {"file": "test_wallet_topup.py",     "group": "Commerce", "icon": "split",  "tests": [
+        {"name": "test_wallet_screen_shows_balance",           "dur": 5.2},
+        {"name": "test_topup_amount_entry",                    "dur": 6.1},
+        {"name": "test_topup_zero_amount_blocked",             "dur": 5.4},
+        {"name": "test_topup_negative_amount_blocked",         "dur": 5.1},
+        {"name": "test_topup_payment_confirmation_shown",      "dur": 7.8},
+        {"name": "test_topup_success_updates_balance",         "dur": 9.2},
+        {"name": "test_topup_history_entry_added",             "dur": 8.6},
+        {"name": "test_topup_cancel_keeps_old_balance",        "dur": 6.3},
+        {"name": "test_wallet_history_loads",                  "dur": 5.7},
+    ]},
 ]
 
 CI_WORKFLOWS_DEF = [
@@ -358,9 +444,12 @@ def _build_demo_data(now):
         # MyCoiffeur-specific flows (26-40)
         "pass","pass","pass","pass","pass","pass","pass","pass",
         "pass","pass","pass","pass","pass","flaky","pass",
+        # Extended flows (41-50)
+        "pass","pass","pass","pass","pass","pass","flaky","pass","pass","pass",
     ]
-    notes = {6: "Gift card WhatsApp preview timed out — passed on retry",
-             38: "QR scan deep-link navigation took >5s on first attempt — passed on retry"}
+    notes = {6:  "Gift card WhatsApp preview timed out — passed on retry",
+             38: "QR scan deep-link navigation took >5s on first attempt — passed on retry",
+             46: "OTP resend endpoint returned 429 on first attempt — passed on retry"}
     for i, (fid, name, group, coverage, steps, screens, dur) in enumerate(FLOWS_DEF):
         row = {"id": fid, "name": name, "group": group, "coverage": coverage,
                "duration": dur, "steps": steps, "status": statuses[i], "screens": screens}
@@ -394,7 +483,7 @@ def _build_demo_data(now):
         {"name": "Maestro Smoke",      "trigger": "Every push / PR",    "duration": "~10 min",
          "coverage": "Login, booking, home feed",             "status": "pass", "lastRun": "1h ago",     "runs": 42,  "passRate": 97.6},
         {"name": "Maestro Regression", "trigger": "Nightly 01:00 UTC",  "duration": "~35 min",
-         "coverage": "All 40 flows",                          "status": "pass", "lastRun": "7h ago",     "runs": 18,  "passRate": 95.0},
+         "coverage": "All 50 flows",                          "status": "pass", "lastRun": "7h ago",     "runs": 18,  "passRate": 95.0},
         {"name": "Appium Deep Tests",  "trigger": "Every Monday",       "duration": "~60 min",
          "coverage": "Booking, payment, wallet, account",     "status": "pass", "lastRun": "2 days ago", "runs": 8,   "passRate": 96.2},
         {"name": "Maestro iOS",        "trigger": "Manual only",        "duration": "~20 min",
@@ -406,7 +495,7 @@ def _build_demo_data(now):
     history = []
     for i in range(29, -1, -1):
         s = _seed(i + 1)
-        total = 40
+        total = 50
         fail  = int(s * 3)
         flaky = int(_seed(i + 100) * 2)
         history.append({"day": i, "total": total, "pass": total - fail - flaky,
@@ -415,17 +504,17 @@ def _build_demo_data(now):
 
     commits = [
         {"sha": "5764498", "msg": "Fix Bangladesh login automation",
-         "author": "mejbaurbahar", "time": "1h ago",     "tests": 40, "pass": 39, "fail": 0, "flaky": 1, "hasData": True},
+         "author": "mejbaurbahar", "time": "1h ago",     "tests": 50, "pass": 49, "fail": 0, "flaky": 1, "hasData": True},
         {"sha": "ba3f2ab", "msg": "Fix Bangladesh login country code selection",
-         "author": "mejbaurbahar", "time": "3h ago",     "tests": 40, "pass": 40, "fail": 0, "flaky": 0, "hasData": True},
+         "author": "mejbaurbahar", "time": "3h ago",     "tests": 50, "pass": 50, "fail": 0, "flaky": 0, "hasData": True},
         {"sha": "9d524ad", "msg": "feat(maestro): select Bangladesh country code in all flows",
-         "author": "mejbaurbahar", "time": "8h ago",     "tests": 40, "pass": 39, "fail": 0, "flaky": 1, "hasData": True},
+         "author": "mejbaurbahar", "time": "8h ago",     "tests": 50, "pass": 49, "fail": 0, "flaky": 1, "hasData": True},
         {"sha": "3617b04", "msg": "fix(runner): pre-flight checks, port-forward, per-flow error capture",
-         "author": "mejbaurbahar", "time": "yesterday",  "tests": 40, "pass": 38, "fail": 1, "flaky": 1, "hasData": True},
+         "author": "mejbaurbahar", "time": "yesterday",  "tests": 50, "pass": 48, "fail": 1, "flaky": 1, "hasData": True},
         {"sha": "a972d48", "msg": "fix(ci): add avd-name Pixel_7_API_34 + force-avd-creation",
-         "author": "mejbaurbahar", "time": "2 days ago", "tests": 38, "pass": 37, "fail": 1, "flaky": 0, "hasData": True},
+         "author": "mejbaurbahar", "time": "2 days ago", "tests": 48, "pass": 47, "fail": 1, "flaky": 0, "hasData": True},
         {"sha": "c0ef551", "msg": "feat(booking): add reschedule and cancel flows",
-         "author": "mejbaurbahar", "time": "3 days ago", "tests": 36, "pass": 36, "fail": 0, "flaky": 0, "hasData": True},
+         "author": "mejbaurbahar", "time": "3 days ago", "tests": 46, "pass": 46, "fail": 0, "flaky": 0, "hasData": True},
     ]
     return {"RUN_META": run_meta, "MAESTRO_FLOWS": flows, "APPIUM_TESTS": appium,
             "CI_WORKFLOWS": ci_workflows, "HISTORY": history, "COMMITS": commits}

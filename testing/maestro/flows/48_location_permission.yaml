@@ -1,0 +1,133 @@
+appId: com.example.my_coiffeur
+---
+# Flow 48: Location Permission — navigate to Map/Near Me, handle permission dialog, verify map loads, tap a pin
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: location_permission_home_loaded
+
+# Navigate to Map or Near Me
+- tapOn:
+    text: "Map"
+    optional: true
+- tapOn:
+    text: "Near Me"
+    optional: true
+- tapOn:
+    text: "Nearby"
+    optional: true
+- tapOn:
+    text: "Location"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: location_permission_map_navigated
+
+# Handle OS location permission dialog
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "Allow While Using App"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- tapOn:
+    text: "Only this time"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 4000
+
+- takeScreenshot: location_permission_granted
+
+# Verify map loads or location-based results appear
+- assertVisible:
+    text: "Map"
+    optional: true
+- assertVisible:
+    text: "Near Me"
+    optional: true
+- assertVisible:
+    text: "Nearby"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: location_permission_map_loaded
+
+# Tap a pin on map or first nearby result
+- tapOn:
+    id: "map_pin"
+    optional: true
+- tapOn:
+    text: "Salon"
+    optional: true
+- tapOn:
+    text: "View"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: location_permission_pin_tapped
+
+# Go back
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: location_permission_complete

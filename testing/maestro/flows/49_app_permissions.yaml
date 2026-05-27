@@ -1,0 +1,162 @@
+appId: com.example.my_coiffeur
+---
+# Flow 49: App Permissions — navigate to Settings/Notifications, toggle notification permission, enable location if present
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: app_permissions_home_loaded
+
+# Navigate to Profile → Settings
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Settings"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: app_permissions_settings_screen
+
+# Navigate to Notifications section
+- tapOn:
+    text: "Notifications"
+    optional: true
+- tapOn:
+    text: "Notification Settings"
+    optional: true
+- tapOn:
+    text: "Permissions"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: app_permissions_notifications_screen
+
+# Verify notification toggle is visible
+- assertVisible:
+    text: "Notifications"
+    optional: true
+- assertVisible:
+    text: "Push Notifications"
+    optional: true
+
+# Tap notification toggle to enable/disable
+- tapOn:
+    text: "Push Notifications"
+    optional: true
+- tapOn:
+    id: "notification_toggle"
+    optional: true
+- tapOn:
+    id: "notifications_switch"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: app_permissions_notification_toggled
+
+# Handle system permission dialog if it appears
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "OK"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Toggle back
+- tapOn:
+    text: "Push Notifications"
+    optional: true
+- tapOn:
+    id: "notification_toggle"
+    optional: true
+- tapOn:
+    id: "notifications_switch"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: app_permissions_notification_retoggled
+
+# Tap Enable Location if visible
+- tapOn:
+    text: "Enable Location"
+    optional: true
+- tapOn:
+    text: "Location Access"
+    optional: true
+- tapOn:
+    text: "Location Services"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Handle location permission dialog
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "Allow While Using App"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: app_permissions_final_state

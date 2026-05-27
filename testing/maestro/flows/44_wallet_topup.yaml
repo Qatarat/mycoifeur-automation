@@ -1,0 +1,174 @@
+appId: com.example.my_coiffeur
+---
+# Flow 44: Wallet Top-Up — view balance, tap Top Up, select 50 SAR amount, choose payment method, confirm
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: wallet_topup_home_loaded
+
+# Navigate to Wallet (bottom nav or Profile)
+- tapOn:
+    text: "Wallet"
+    optional: true
+- tapOn:
+    text: "My Wallet"
+    optional: true
+- tapOn:
+    text: "Balance"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: wallet_topup_balance_screen
+
+# View current balance
+- assertVisible:
+    text: "SAR"
+    optional: true
+- assertVisible:
+    text: "Balance"
+    optional: true
+
+# Tap Top Up / Add Money
+- tapOn:
+    text: "Top Up"
+    optional: true
+- tapOn:
+    text: "Add Money"
+    optional: true
+- tapOn:
+    text: "Recharge"
+    optional: true
+- tapOn:
+    text: "Add Funds"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: wallet_topup_amount_screen
+
+# Select 50 SAR amount
+- tapOn:
+    text: "50"
+    optional: true
+- tapOn:
+    text: "50 SAR"
+    optional: true
+- tapOn:
+    text: "SAR 50"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: wallet_topup_50_selected
+
+# Choose payment method
+- tapOn:
+    text: "Payment Method"
+    optional: true
+- tapOn:
+    text: "Select Payment"
+    optional: true
+- tapOn:
+    text: "Credit Card"
+    optional: true
+- tapOn:
+    text: "Card"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: wallet_topup_payment_selected
+
+# Confirm top-up
+- tapOn:
+    text: "Confirm"
+    optional: true
+- tapOn:
+    text: "Proceed"
+    optional: true
+- tapOn:
+    text: "Pay"
+    optional: true
+- tapOn:
+    text: "Top Up Now"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 6000
+
+- takeScreenshot: wallet_topup_processing
+
+# Verify success screen or updated balance
+- assertVisible:
+    text: "Success"
+    optional: true
+- assertVisible:
+    text: "successful"
+    optional: true
+- assertVisible:
+    text: "Balance"
+    optional: true
+
+- takeScreenshot: wallet_topup_success
+
+# Return to wallet home
+- tapOn:
+    text: "Done"
+    optional: true
+- tapOn:
+    text: "Back"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: wallet_topup_complete

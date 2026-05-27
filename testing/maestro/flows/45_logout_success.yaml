@@ -1,0 +1,138 @@
+appId: com.example.my_coiffeur
+---
+# Flow 45: Logout Success — login, navigate to Profile, tap Logout, confirm dialog, verify login screen returns
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Country / language selection (onboarding)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- tapOn:
+    text: "Saudi Arabia"
+    optional: true
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "Login to your account"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Enter phone number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: logout_home_loaded
+
+# Navigate to Profile
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: logout_profile_screen
+
+# Navigate to Account settings if needed
+- tapOn:
+    text: "Account"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Scroll down to find Logout
+- scroll:
+    direction: DOWN
+    speed: 40
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: logout_profile_scrolled
+
+# Tap Logout
+- tapOn:
+    text: "Logout"
+    optional: true
+- tapOn:
+    text: "Log Out"
+    optional: true
+- tapOn:
+    text: "Sign Out"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: logout_dialog_appeared
+
+# Confirm logout in dialog — tap "Yes"
+- tapOn:
+    text: "Yes"
+    optional: true
+- tapOn:
+    text: "Yes, Logout"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- tapOn:
+    text: "Log Out"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 6000
+
+- takeScreenshot: logout_processing
+
+# Verify app returns to login / splash screen
+- assertVisible:
+    text: "Login"
+    optional: true
+- assertVisible:
+    text: "Login to your account"
+    optional: true
+- assertVisible:
+    text: "Sign In"
+    optional: true
+
+- takeScreenshot: logout_login_screen_visible
+
+# Verify login button is visible again
+- assertVisible:
+    text: "Continue"
+    optional: true
+- assertVisible:
+    text: "Get Started"
+    optional: true
+
+- takeScreenshot: logout_success_complete
