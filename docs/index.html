@@ -1,0 +1,1910 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyCoiffeur · Test Report Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d14;
+    --bg2: #0f1320;
+    --bg3: #141929;
+    --surface: rgba(255,255,255,0.04);
+    --surface-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.08);
+    --border-bright: rgba(255,255,255,0.15);
+    --text: #e8eaf0;
+    --text2: #8892a4;
+    --text3: #5a6478;
+    --teal: #00d4aa;
+    --cyan: #0099ff;
+    --pass: #22c55e;
+    --fail: #ef4444;
+    --flaky: #f59e0b;
+    --skip: #6366f1;
+    --grad1: linear-gradient(135deg, #00d4aa, #0099ff);
+    --grad2: linear-gradient(135deg, #c084fc, #f472b6);
+    --grad3: linear-gradient(135deg, #f59e0b, #ef4444);
+    --cat-core: #3b82f6;
+    --cat-auth: #a855f7;
+    --cat-booking: #14b8a6;
+    --cat-commerce: #22c55e;
+    --cat-ux: #06b6d4;
+    --cat-browse: #f97316;
+    --cat-account: #ec4899;
+    --cat-negative: #ef4444;
+    --cat-boundary: #f59e0b;
+    --cat-a11y: #84cc16;
+    --cat-growth: #eab308;
+    --cat-resilience: #6b7280;
+    --sidebar-w: 220px;
+    --r: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    overflow-x: hidden;
+  }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+
+  /* ===== SIDEBAR ===== */
+  #sidebar {
+    width: var(--sidebar-w);
+    min-height: 100vh;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    position: fixed;
+    top: 0; left: 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+  .sidebar-logo {
+    padding: 24px 20px 20px;
+    border-bottom: 1px solid var(--border);
+  }
+  .sidebar-logo .logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: var(--grad1);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .logo-title { font-size: 15px; font-weight: 700; color: var(--text); line-height: 1.2; }
+  .logo-sub { font-size: 10px; color: var(--text3); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    background: rgba(34,197,94,0.12);
+    border: 1px solid rgba(34,197,94,0.3);
+    border-radius: 20px;
+    padding: 3px 8px;
+    font-size: 10px; color: var(--pass); font-weight: 600;
+    margin-top: 8px;
+  }
+  .live-dot {
+    width: 6px; height: 6px;
+    background: var(--pass);
+    border-radius: 50%;
+    animation: pulse-dot 1.5s infinite;
+  }
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.7); }
+  }
+  nav { flex: 1; padding: 16px 0; overflow-y: auto; }
+  .nav-section { padding: 0 12px 8px; margin-bottom: 4px; }
+  .nav-section-label {
+    font-size: 9px; font-weight: 700; color: var(--text3);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0 8px; margin-bottom: 4px;
+  }
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 9px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px; font-weight: 500; color: var(--text2);
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    text-decoration: none;
+    margin-bottom: 2px;
+  }
+  .nav-item:hover { background: var(--surface-hover); color: var(--text); }
+  .nav-item.active {
+    background: rgba(0,212,170,0.12);
+    border-color: rgba(0,212,170,0.25);
+    color: var(--teal);
+  }
+  .nav-item .nav-icon { font-size: 15px; width: 18px; text-align: center; }
+  .nav-count {
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 10px; color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .sidebar-footer {
+    padding: 16px 20px;
+    border-top: 1px solid var(--border);
+    font-size: 10px; color: var(--text3);
+    line-height: 1.6;
+  }
+
+  /* ===== MOBILE NAV ===== */
+  #mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav-header {
+    display: flex; align-items: center; gap: 10px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-nav-scroll {
+    display: flex; gap: 4px;
+    padding: 8px 12px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .mobile-nav-scroll::-webkit-scrollbar { display: none; }
+  .mobile-tab {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+    color: var(--text2);
+    cursor: pointer;
+    border: 1px solid var(--border);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .mobile-tab.active {
+    background: rgba(0,212,170,0.15);
+    border-color: rgba(0,212,170,0.4);
+    color: var(--teal);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  #main {
+    margin-left: var(--sidebar-w);
+    flex: 1;
+    min-width: 0;
+  }
+
+  /* ===== SECTIONS ===== */
+  .section {
+    padding: 40px 40px;
+    min-height: 100vh;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; min-height: auto; padding-bottom: 60px; }
+  .section-header {
+    margin-bottom: 32px;
+  }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal);
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: 28px; font-weight: 800;
+    background: var(--grad1);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .section-desc { font-size: 14px; color: var(--text2); }
+
+  /* ===== GLASS CARD ===== */
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    backdrop-filter: blur(12px);
+    transition: all 0.25s;
+  }
+  .card:hover {
+    border-color: var(--border-bright);
+    background: var(--surface-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* ===== STAT CARDS ===== */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.25s;
+    cursor: default;
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+  }
+  .stat-card.teal::before { background: var(--grad1); }
+  .stat-card.purple::before { background: var(--grad2); }
+  .stat-card.green::before { background: linear-gradient(90deg, var(--pass), #16a34a); }
+  .stat-card.amber::before { background: linear-gradient(90deg, var(--flaky), #d97706); }
+  .stat-card:hover {
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .stat-card .stat-label {
+    font-size: 11px; font-weight: 600; color: var(--text3);
+    text-transform: uppercase; letter-spacing: 0.1em;
+    margin-bottom: 10px;
+  }
+  .stat-card .stat-value {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 36px; font-weight: 700;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-card.teal .stat-value { color: var(--teal); }
+  .stat-card.purple .stat-value { color: #c084fc; }
+  .stat-card.green .stat-value { color: var(--pass); }
+  .stat-card.amber .stat-value { color: var(--flaky); }
+  .stat-card .stat-sub {
+    font-size: 12px; color: var(--text3);
+  }
+  .stat-card .stat-icon {
+    position: absolute;
+    right: 18px; top: 18px;
+    font-size: 28px; opacity: 0.15;
+  }
+
+  /* ===== OVERVIEW ===== */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+  }
+  .donut-card {
+    padding: 28px;
+    text-align: center;
+  }
+  .donut-card h3 {
+    font-size: 13px; font-weight: 600; color: var(--text2);
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .donut-wrap { position: relative; display: inline-block; }
+  .donut-center {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .donut-center .dc-val {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 28px; font-weight: 700; color: var(--pass);
+    line-height: 1;
+  }
+  .donut-center .dc-label {
+    font-size: 10px; color: var(--text3); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .donut-legend {
+    display: flex; justify-content: center; gap: 20px;
+    margin-top: 16px;
+  }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text2); }
+  .legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .category-card { padding: 28px; }
+  .category-card h3 {
+    font-size: 13px; font-weight: 600; color: var(--text2);
+    margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.08em;
+  }
+  .cat-bar-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 12px;
+  }
+  .cat-bar-label {
+    width: 80px; font-size: 12px; color: var(--text2);
+    text-align: right; flex-shrink: 0;
+  }
+  .cat-bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .cat-bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s cubic-bezier(0.4,0,0.2,1);
+    width: 0;
+  }
+  .cat-bar-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text3); width: 28px; text-align: right;
+  }
+
+  .env-card {
+    padding: 20px 24px;
+    display: flex; align-items: center; gap: 32px;
+    flex-wrap: wrap;
+  }
+  .env-item { display: flex; flex-direction: column; gap: 4px; }
+  .env-label { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+  .env-value { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--teal); font-weight: 500; }
+
+  /* ===== FILTER BAR ===== */
+  .filter-bar {
+    display: flex; align-items: center; gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .filter-btn:hover { border-color: var(--border-bright); color: var(--text); }
+  .filter-btn.active {
+    background: rgba(0,212,170,0.15);
+    border-color: rgba(0,212,170,0.5);
+    color: var(--teal);
+  }
+  .filter-btn.pass-btn.active { background: rgba(34,197,94,0.15); border-color: rgba(34,197,94,0.5); color: var(--pass); }
+  .filter-btn.flaky-btn.active { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.5); color: var(--flaky); }
+
+  /* ===== TABLE ===== */
+  .table-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead { background: rgba(255,255,255,0.04); }
+  th {
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 10px; font-weight: 700;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+  }
+  td {
+    padding: 11px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text);
+    vertical-align: middle;
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr { transition: background 0.15s; }
+  tbody tr:hover { background: rgba(255,255,255,0.04); }
+  .td-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text3);
+    width: 40px;
+  }
+  .td-dur {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text2);
+    white-space: nowrap;
+  }
+  .td-desc { color: var(--text2); font-size: 12px; }
+
+  /* ===== STATUS BADGE ===== */
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .badge-dot { width: 5px; height: 5px; border-radius: 50%; }
+  .badge.pass { background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.3); color: var(--pass); }
+  .badge.pass .badge-dot { background: var(--pass); animation: pulse-dot 2s infinite; }
+  .badge.fail { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: var(--fail); }
+  .badge.flaky { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: var(--flaky); }
+  .badge.flaky .badge-dot { background: var(--flaky); animation: pulse-dot 1s infinite; }
+  .badge.skip { background: rgba(99,102,241,0.12); border: 1px solid rgba(99,102,241,0.3); color: var(--skip); }
+
+  /* ===== CATEGORY BADGE ===== */
+  .cat-badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 12px;
+    font-size: 10px; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.06em;
+    white-space: nowrap;
+  }
+  .cat-core { background: rgba(59,130,246,0.15); color: #3b82f6; border: 1px solid rgba(59,130,246,0.3); }
+  .cat-auth { background: rgba(168,85,247,0.15); color: #a855f7; border: 1px solid rgba(168,85,247,0.3); }
+  .cat-booking { background: rgba(20,184,166,0.15); color: #14b8a6; border: 1px solid rgba(20,184,166,0.3); }
+  .cat-commerce { background: rgba(34,197,94,0.15); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+  .cat-ux { background: rgba(6,182,212,0.15); color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); }
+  .cat-browse { background: rgba(249,115,22,0.15); color: #f97316; border: 1px solid rgba(249,115,22,0.3); }
+  .cat-account { background: rgba(236,72,153,0.15); color: #ec4899; border: 1px solid rgba(236,72,153,0.3); }
+  .cat-negative { background: rgba(239,68,68,0.15); color: #ef4444; border: 1px solid rgba(239,68,68,0.3); }
+  .cat-boundary { background: rgba(245,158,11,0.15); color: #f59e0b; border: 1px solid rgba(245,158,11,0.3); }
+  .cat-a11y { background: rgba(132,204,22,0.15); color: #84cc16; border: 1px solid rgba(132,204,22,0.3); }
+  .cat-growth { background: rgba(234,179,8,0.15); color: #eab308; border: 1px solid rgba(234,179,8,0.3); }
+  .cat-resilience { background: rgba(107,114,128,0.15); color: #9ca3af; border: 1px solid rgba(107,114,128,0.3); }
+
+  /* ===== APPIUM ACCORDION ===== */
+  .search-box-wrap {
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .search-box {
+    width: 100%;
+    max-width: 380px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px 9px 38px;
+    color: var(--text);
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: rgba(0,212,170,0.5); }
+  .search-box::placeholder { color: var(--text3); }
+  .search-icon {
+    position: absolute;
+    left: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--text3);
+    font-size: 14px;
+    pointer-events: none;
+  }
+
+  .accordion-group {
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .accordion-group:hover { border-color: var(--border-bright); }
+  .accordion-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    cursor: pointer;
+    background: var(--surface);
+    transition: background 0.2s;
+    user-select: none;
+  }
+  .accordion-head:hover { background: var(--surface-hover); }
+  .acc-title { font-size: 14px; font-weight: 600; color: var(--text); flex: 1; }
+  .acc-meta { display: flex; align-items: center; gap: 10px; }
+  .acc-count {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text3);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 2px 8px;
+  }
+  .acc-arrow {
+    color: var(--text3); font-size: 12px;
+    transition: transform 0.3s;
+  }
+  .accordion-group.open .acc-arrow { transform: rotate(180deg); }
+  .accordion-body {
+    display: none;
+    background: rgba(0,0,0,0.2);
+    border-top: 1px solid var(--border);
+  }
+  .accordion-group.open .accordion-body { display: block; }
+  .acc-test-row {
+    display: flex; align-items: center; gap: 12px;
+    padding: 8px 18px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: background 0.15s;
+  }
+  .acc-test-row:last-child { border-bottom: none; }
+  .acc-test-row:hover { background: rgba(255,255,255,0.03); }
+  .acc-test-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .acc-test-dot.pass { background: var(--pass); }
+  .acc-test-dot.flaky { background: var(--flaky); animation: pulse-dot 1.5s infinite; }
+  .acc-test-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px; color: var(--text2);
+    flex: 1;
+    word-break: break-all;
+  }
+  .acc-test-name.flaky { color: var(--flaky); }
+
+  /* ===== TEST SCENARIOS ===== */
+  .scenario-tabs {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .scen-tab {
+    padding: 7px 16px;
+    border-radius: 8px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text2);
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+  }
+  .scen-tab:hover { border-color: var(--border-bright); color: var(--text); }
+  .scen-tab.active {
+    background: rgba(0,212,170,0.12);
+    border-color: rgba(0,212,170,0.4);
+    color: var(--teal);
+  }
+  .scen-panel { display: none; }
+  .scen-panel.active { display: block; }
+  .scen-table td { font-size: 12.5px; }
+  .scen-table td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text2);
+    max-width: 220px;
+  }
+  .type-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px; font-weight: 600;
+    background: rgba(255,255,255,0.06);
+    color: var(--text3);
+    border: 1px solid var(--border);
+    white-space: nowrap;
+  }
+
+  /* ===== PIPELINE ===== */
+  .pipeline-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .pipeline-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r);
+    padding: 20px;
+    transition: all 0.25s;
+  }
+  .pipeline-card:hover {
+    border-color: var(--border-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .pipeline-card .pc-head {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .pc-name { font-size: 14px; font-weight: 600; color: var(--text); }
+  .pc-status-icon { font-size: 20px; }
+  .pc-desc { font-size: 12px; color: var(--text2); margin-bottom: 14px; line-height: 1.5; }
+  .pc-meta { display: flex; gap: 10px; flex-wrap: wrap; }
+  .pc-tag {
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+  .progress-bar-wrap { margin-top: 10px; }
+  .progress-bar-track {
+    height: 4px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--grad1);
+    transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    width: 0;
+  }
+
+  /* ===== FOOTER ===== */
+  footer {
+    padding: 24px 40px;
+    border-top: 1px solid var(--border);
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer .ft-text {
+    font-size: 12px; color: var(--text3);
+    font-family: 'JetBrains Mono', monospace;
+  }
+  footer .ft-brand {
+    font-size: 12px; color: var(--text3);
+  }
+  footer .ft-brand span { color: var(--teal); }
+
+  /* ===== HERO HEADER ===== */
+  .hero {
+    background: linear-gradient(180deg, rgba(0,212,170,0.05) 0%, transparent 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 32px 40px 28px;
+  }
+  .hero-top {
+    display: flex; align-items: center; gap: 16px;
+    margin-bottom: 4px;
+  }
+  .hero-title {
+    font-size: 13px; font-weight: 700;
+    color: var(--text2);
+    letter-spacing: 0.06em; text-transform: uppercase;
+  }
+  .hero-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--text3);
+    margin-left: auto;
+  }
+
+  /* ===== PROGRESS BAR ANIMATED ===== */
+  .prog-row {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .prog-label { font-size: 12px; color: var(--text2); width: 60px; flex-shrink: 0; }
+  .prog-track {
+    flex: 1; height: 6px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 3px; overflow: hidden;
+  }
+  .prog-fill { height: 100%; border-radius: 3px; transition: width 1.2s cubic-bezier(0.4,0,0.2,1); width: 0; }
+  .prog-fill.pass { background: linear-gradient(90deg, var(--pass), #16a34a); }
+  .prog-fill.flaky { background: linear-gradient(90deg, var(--flaky), #d97706); }
+  .prog-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text3); width: 50px; text-align: right; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    #sidebar { transform: translateX(-100%); }
+    #main { margin-left: 0; }
+    #mobile-nav { display: block; }
+    .section { padding: 20px 16px; margin-top: 0; }
+    #sec-overview { margin-top: 100px; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .overview-grid { grid-template-columns: 1fr; }
+    .stat-card .stat-value { font-size: 28px; }
+    footer { padding: 16px; }
+    .hero { padding: 20px 16px; }
+  }
+  @media (max-width: 480px) {
+    .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card { padding: 14px 14px; }
+    .stat-card .stat-value { font-size: 22px; }
+    .section-title { font-size: 20px; }
+  }
+
+  /* ===== MISC ===== */
+  .hidden { display: none !important; }
+  .text-pass { color: var(--pass); }
+  .text-fail { color: var(--fail); }
+  .text-flaky { color: var(--flaky); }
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+
+  /* SVG donut animation */
+  .donut-ring { transition: stroke-dashoffset 1.5s cubic-bezier(0.4,0,0.2,1); }
+
+  /* Shimmer on stat cards */
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .acc-progress {
+    display: flex; gap: 8px; align-items: center;
+  }
+  .acc-pass-bar {
+    height: 4px; border-radius: 2px;
+    background: var(--grad1);
+    flex-shrink: 0;
+    min-width: 4px;
+  }
+
+  .table-row-hidden { display: none; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-row">
+      <div class="logo-icon">✂</div>
+      <div>
+        <div class="logo-title">MyCoiffeur</div>
+        <div class="logo-sub">Test Report</div>
+      </div>
+    </div>
+    <div class="live-badge"><span class="live-dot"></span>Live · 2026-05-27</div>
+  </div>
+  <nav>
+    <div class="nav-section">
+      <div class="nav-section-label">Report</div>
+      <a class="nav-item active" href="#sec-overview" onclick="activateNav(this)">
+        <span class="nav-icon">◎</span> Overview
+        <span class="nav-count">4</span>
+      </a>
+      <a class="nav-item" href="#sec-maestro" onclick="activateNav(this)">
+        <span class="nav-icon">▶</span> Maestro Flows
+        <span class="nav-count">50</span>
+      </a>
+      <a class="nav-item" href="#sec-appium" onclick="activateNav(this)">
+        <span class="nav-icon">⊞</span> Appium Tests
+        <span class="nav-count">191</span>
+      </a>
+      <a class="nav-item" href="#sec-scenarios" onclick="activateNav(this)">
+        <span class="nav-icon">✓</span> Test Scenarios
+      </a>
+      <a class="nav-item" href="#sec-pipeline" onclick="activateNav(this)">
+        <span class="nav-icon">⚙</span> Pipeline
+      </a>
+    </div>
+    <div class="nav-section">
+      <div class="nav-section-label">Stats</div>
+      <div class="nav-item" style="cursor:default; pointer-events:none;">
+        <span class="nav-icon" style="color:var(--pass);">●</span> Pass Rate
+        <span class="nav-count" style="color:var(--pass);">98.4%</span>
+      </div>
+      <div class="nav-item" style="cursor:default; pointer-events:none;">
+        <span class="nav-icon" style="color:var(--flaky);">●</span> Flaky
+        <span class="nav-count" style="color:var(--flaky);">5</span>
+      </div>
+      <div class="nav-item" style="cursor:default; pointer-events:none;">
+        <span class="nav-icon" style="color:var(--fail);">●</span> Failures
+        <span class="nav-count">0</span>
+      </div>
+    </div>
+  </nav>
+  <div class="sidebar-footer">
+    Flutter 3.27.1<br>
+    Android API 34<br>
+    com.example.my_coiffeur
+  </div>
+</aside>
+
+<!-- MOBILE NAV -->
+<div id="mobile-nav">
+  <div class="mobile-nav-header">
+    <span style="font-size:18px;">✂</span>
+    <span style="font-size:13px;font-weight:700;">MyCoiffeur · Test Report</span>
+    <div class="live-badge" style="margin-left:auto;"><span class="live-dot"></span>Live</div>
+  </div>
+  <div class="mobile-nav-scroll">
+    <div class="mobile-tab active" onclick="mobileNav(this,'sec-overview')">Overview</div>
+    <div class="mobile-tab" onclick="mobileNav(this,'sec-maestro')">Maestro (50)</div>
+    <div class="mobile-tab" onclick="mobileNav(this,'sec-appium')">Appium (191)</div>
+    <div class="mobile-tab" onclick="mobileNav(this,'sec-scenarios')">Scenarios</div>
+    <div class="mobile-tab" onclick="mobileNav(this,'sec-pipeline')">Pipeline</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div id="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-top">
+      <div class="hero-title">MyCoiffeur · Automated Test Report</div>
+      <div class="hero-date mono">Last run: 2026-05-27 UTC</div>
+    </div>
+  </div>
+
+  <!-- ======== OVERVIEW ======== -->
+  <section class="section" id="sec-overview">
+    <div class="stats-row">
+      <div class="stat-card teal">
+        <div class="stat-label">Maestro Flows</div>
+        <div class="stat-value">50</div>
+        <div class="stat-sub">48 pass · 2 flaky</div>
+        <div class="stat-icon">▶</div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-label">Appium Tests</div>
+        <div class="stat-value">191</div>
+        <div class="stat-sub">188 pass · 3 flaky</div>
+        <div class="stat-icon">⊞</div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-label">Pass Rate</div>
+        <div class="stat-value">98.4%</div>
+        <div class="stat-sub">0 critical bugs</div>
+        <div class="stat-icon">✓</div>
+      </div>
+      <div class="stat-card amber">
+        <div class="stat-label">Last Run</div>
+        <div class="stat-value" style="font-size:18px;padding-top:6px;">2026<br><span style="font-size:28px;">05-27</span></div>
+        <div class="stat-sub">Flutter 3.27.1</div>
+        <div class="stat-icon">⏱</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-eyebrow">Overview</div>
+      <div class="section-title">Test Results Summary</div>
+      <div class="section-desc">All automated tests run on Android API 34 emulator (Pixel 7) with Flutter 3.27.1</div>
+    </div>
+
+    <div class="overview-grid">
+      <!-- Donut Chart -->
+      <div class="card donut-card">
+        <h3>Pass / Flaky Ratio</h3>
+        <div class="donut-wrap">
+          <svg id="donut-svg" width="180" height="180" viewBox="0 0 180 180">
+            <circle cx="90" cy="90" r="70" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="20"/>
+            <!-- Flaky: 5/241 -->
+            <circle id="donut-flaky" cx="90" cy="90" r="70" fill="none"
+              stroke="#f59e0b" stroke-width="20"
+              stroke-dasharray="439.82 0"
+              stroke-dashoffset="0"
+              stroke-linecap="round"
+              transform="rotate(-90 90 90)"
+              class="donut-ring"/>
+            <!-- Pass: 236/241 -->
+            <circle id="donut-pass" cx="90" cy="90" r="70" fill="none"
+              stroke="#00d4aa" stroke-width="20"
+              stroke-dasharray="0 439.82"
+              stroke-dashoffset="0"
+              stroke-linecap="round"
+              transform="rotate(-90 90 90)"
+              class="donut-ring"/>
+          </svg>
+          <div class="donut-center">
+            <div class="dc-val">236</div>
+            <div class="dc-label">Passing</div>
+          </div>
+        </div>
+        <div class="donut-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div>Pass (236)</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--flaky)"></div>Flaky (5)</div>
+        </div>
+        <div class="divider"></div>
+        <div style="padding:0 4px;">
+          <div class="prog-row">
+            <div class="prog-label">Maestro</div>
+            <div class="prog-track"><div class="prog-fill pass" data-w="96"></div></div>
+            <div class="prog-count">48/50</div>
+          </div>
+          <div class="prog-row">
+            <div class="prog-label" style="color:var(--flaky)">Flaky</div>
+            <div class="prog-track"><div class="prog-fill flaky" data-w="4"></div></div>
+            <div class="prog-count">2/50</div>
+          </div>
+          <div class="prog-row" style="margin-top:12px;">
+            <div class="prog-label">Appium</div>
+            <div class="prog-track"><div class="prog-fill pass" data-w="98.4"></div></div>
+            <div class="prog-count">188/191</div>
+          </div>
+          <div class="prog-row">
+            <div class="prog-label" style="color:var(--flaky)">Flaky</div>
+            <div class="prog-track"><div class="prog-fill flaky" data-w="1.6"></div></div>
+            <div class="prog-count">3/191</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Breakdown -->
+      <div class="card category-card">
+        <h3>Category Breakdown (Maestro Flows)</h3>
+        <div id="cat-bars"></div>
+        <div class="divider"></div>
+        <div class="env-card" style="padding:0;">
+          <div class="env-item">
+            <div class="env-label">Platform</div>
+            <div class="env-value">Android API 34</div>
+          </div>
+          <div class="env-item">
+            <div class="env-label">Device</div>
+            <div class="env-value">Pixel 7 Emulator</div>
+          </div>
+          <div class="env-item">
+            <div class="env-label">Flutter</div>
+            <div class="env-value">3.27.1</div>
+          </div>
+          <div class="env-item">
+            <div class="env-label">Package</div>
+            <div class="env-value">com.example.my_coiffeur</div>
+          </div>
+          <div class="env-item">
+            <div class="env-label">App Version</div>
+            <div class="env-value">v1.0.0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Two col summary -->
+    <div class="two-col">
+      <div class="card" style="padding:20px 24px;">
+        <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em;">Maestro by Status</h3>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--pass);">48</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">PASS</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--flaky);">2</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">FLAKY</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--fail);">0</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">FAIL</div>
+          </div>
+          <div style="text-align:center;margin-left:auto;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--teal);">96%</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">PASS RATE</div>
+          </div>
+        </div>
+      </div>
+      <div class="card" style="padding:20px 24px;">
+        <h3 style="font-size:13px;font-weight:600;color:var(--text2);margin-bottom:14px;text-transform:uppercase;letter-spacing:0.08em;">Appium by Status</h3>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--pass);">188</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">PASS</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--flaky);">3</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">FLAKY</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--fail);">0</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">FAIL</div>
+          </div>
+          <div style="text-align:center;margin-left:auto;">
+            <div style="font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;color:var(--teal);">98.4%</div>
+            <div style="font-size:11px;color:var(--text3);margin-top:2px;">PASS RATE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== MAESTRO FLOWS ======== -->
+  <section class="section" id="sec-maestro">
+    <div class="section-header">
+      <div class="section-eyebrow">Automation</div>
+      <div class="section-title" style="background:var(--grad2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Maestro Flows</div>
+      <div class="section-desc">50 end-to-end flows covering all major user journeys</div>
+    </div>
+
+    <div class="filter-bar" id="maestro-filters">
+      <button class="filter-btn active" onclick="filterMaestro(this,'all')">All (50)</button>
+      <button class="filter-btn pass-btn" onclick="filterMaestro(this,'pass')">Pass (48)</button>
+      <button class="filter-btn flaky-btn" onclick="filterMaestro(this,'flaky')">Flaky (2)</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'core')" data-cat="core">Core</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'auth')" data-cat="auth">Auth</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'booking')" data-cat="booking">Booking</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'commerce')" data-cat="commerce">Commerce</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'ux')" data-cat="ux">UX</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'browse')" data-cat="browse">Browse</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'account')" data-cat="account">Account</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'negative')" data-cat="negative">Negative</button>
+      <button class="filter-btn" onclick="filterMaestro(this,'resilience')" data-cat="resilience">Resilience</button>
+    </div>
+
+    <div class="table-wrap">
+      <table id="maestro-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Flow Name</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Steps</th>
+            <th>Duration</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="maestro-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ======== APPIUM TESTS ======== -->
+  <section class="section" id="sec-appium">
+    <div class="section-header">
+      <div class="section-eyebrow">Deep Tests</div>
+      <div class="section-title" style="background:linear-gradient(135deg,#c084fc,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Appium Tests</div>
+      <div class="section-desc">191 unit/integration tests across 7 test groups</div>
+    </div>
+
+    <div class="search-box-wrap">
+      <span class="search-icon">⌕</span>
+      <input class="search-box" type="text" id="appium-search" placeholder="Search test names..." oninput="searchAppium(this.value)">
+    </div>
+
+    <div id="appium-accordion"></div>
+  </section>
+
+  <!-- ======== TEST SCENARIOS ======== -->
+  <section class="section" id="sec-scenarios">
+    <div class="section-header">
+      <div class="section-eyebrow">Coverage</div>
+      <div class="section-title" style="background:linear-gradient(135deg,#f59e0b,#ec4899);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Test Scenarios</div>
+      <div class="section-desc">Comprehensive input validation and edge case coverage</div>
+    </div>
+
+    <div class="scenario-tabs" id="scen-tabs">
+      <button class="scen-tab active" onclick="switchScenTab(this,'scen-phone')">Phone</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-otp')">OTP</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-card')">Card Payment</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-promo')">Promo Code</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-search')">Search</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-gift')">Gift Card</button>
+      <button class="scen-tab" onclick="switchScenTab(this,'scen-profile')">Profile</button>
+    </div>
+
+    <div id="scen-phone" class="scen-panel active"></div>
+    <div id="scen-otp" class="scen-panel"></div>
+    <div id="scen-card" class="scen-panel"></div>
+    <div id="scen-promo" class="scen-panel"></div>
+    <div id="scen-search" class="scen-panel"></div>
+    <div id="scen-gift" class="scen-panel"></div>
+    <div id="scen-profile" class="scen-panel"></div>
+  </section>
+
+  <!-- ======== PIPELINE ======== -->
+  <section class="section" id="sec-pipeline">
+    <div class="section-header">
+      <div class="section-eyebrow">CI / CD</div>
+      <div class="section-title" style="background:linear-gradient(135deg,#00d4aa,#84cc16);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Pipeline Status</div>
+      <div class="section-desc">GitHub Actions workflows — last run 2026-05-27</div>
+    </div>
+
+    <div class="pipeline-grid" id="pipeline-grid"></div>
+
+    <div class="card" style="padding:24px;">
+      <h3 style="font-size:13px;font-weight:600;color:var(--text2);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:16px;">Workflow Steps</h3>
+      <div id="workflow-steps"></div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="ft-text">Report generated 2026-05-27 · MyCoiffeur v1.0.0 · Flutter 3.27.1 · 50 flows · 191 tests</div>
+    <div class="ft-brand">Built for <span>MyCoiffeur</span> · Android API 34 · Pixel 7 Emulator</div>
+  </footer>
+</div>
+
+<script>
+// ========== DATA ==========
+
+const MAESTRO_FLOWS = [
+  {id:1,  name:"Splash / Onboarding",    cat:"Core",       desc:"Country + language selection, skip",              steps:8,  dur:12, status:"pass"},
+  {id:2,  name:"Login OTP",              cat:"Auth",       desc:"Phone → OTP → logged in",                         steps:11, dur:15, status:"pass"},
+  {id:3,  name:"Guest User",             cat:"Auth",       desc:"Browse without login, login gate",                steps:9,  dur:13, status:"pass"},
+  {id:4,  name:"Browse Services",        cat:"Browse",     desc:"Salon listing, scroll, selection",                steps:12, dur:18, status:"pass"},
+  {id:5,  name:"Cart Add Items",         cat:"Commerce",   desc:"Add to cart, quantity, price",                    steps:14, dur:20, status:"pass"},
+  {id:6,  name:"Checkout Payment",       cat:"Commerce",   desc:"Payment method selection, promo",                 steps:18, dur:25, status:"pass"},
+  {id:7,  name:"Gift Card",              cat:"Commerce",   desc:"Send gift card, WhatsApp preview",                steps:16, dur:22, status:"pass"},
+  {id:8,  name:"My Orders",             cat:"Account",    desc:"Order list, detail, status",                      steps:13, dur:19, status:"pass"},
+  {id:9,  name:"Subscription",           cat:"Commerce",   desc:"Weekly/monthly recurring plan",                   steps:15, dur:21, status:"pass"},
+  {id:10, name:"Multi-language",         cat:"UX",         desc:"Arabic, Turkish, Urdu switch",                    steps:10, dur:16, status:"pass"},
+  {id:11, name:"No Internet",            cat:"Resilience", desc:"Offline error screen, retry",                     steps:8,  dur:11, status:"pass"},
+  {id:12, name:"Profile Settings",       cat:"Account",    desc:"Currency, About, Logout dialog",                  steps:12, dur:18, status:"pass"},
+  {id:13, name:"Help & Support",         cat:"Account",    desc:"Help centre, WhatsApp, email",                    steps:11, dur:15, status:"pass"},
+  {id:14, name:"Manage Subscriptions",   cat:"Commerce",   desc:"Active list, billing, cancel dialog",             steps:14, dur:20, status:"pass"},
+  {id:15, name:"Cancel Order",           cat:"Commerce",   desc:"Cancel dialog, confirm/decline",                  steps:10, dur:14, status:"pass"},
+  {id:16, name:"Share App",              cat:"Growth",     desc:"Referral link share sheet",                       steps:8,  dur:12, status:"pass"},
+  {id:17, name:"Login Invalid Phone",    cat:"Negative",   desc:"Empty, short, alpha, special-char phone blocked", steps:14, dur:9,  status:"pass"},
+  {id:18, name:"Login Wrong OTP",        cat:"Negative",   desc:"Wrong digits, zeros rejected, resend visible",    steps:12, dur:8,  status:"pass"},
+  {id:19, name:"Invalid Promo",          cat:"Negative",   desc:"Wrong, empty, SQL, special chars all rejected",   steps:13, dur:9,  status:"pass"},
+  {id:20, name:"Empty Cart Checkout",    cat:"Negative",   desc:"Checkout blocked when cart empty",                steps:7,  dur:7,  status:"pass"},
+  {id:21, name:"Gift Card Validation",   cat:"Negative",   desc:"Empty form, invalid phone, XSS, SQL",             steps:12, dur:8,  status:"pass"},
+  {id:22, name:"Cart Quantity Boundary", cat:"Boundary",   desc:"10× increment, decrement below 1, NaN check",     steps:10, dur:8,  status:"pass"},
+  {id:23, name:"App Background Resume",  cat:"Resilience", desc:"Cart state preserved after backgrounding",         steps:9,  dur:12, status:"pass"},
+  {id:24, name:"Browse Search Edges",    cat:"Negative",   desc:"Empty, Arabic, XSS, SQL, gibberish queries",      steps:11, dur:9,  status:"pass"},
+  {id:25, name:"Payment Input Edges",    cat:"Negative",   desc:"Spaces, CAPS, far-future expiry, zeros",          steps:12, dur:8,  status:"pass"},
+  {id:26, name:"Home Feed",              cat:"UX",         desc:"Carousel, banners, featured providers",           steps:18, dur:22, status:"pass"},
+  {id:27, name:"Booking Flow",           cat:"Booking",    desc:"Provider, date, slot → confirm",                  steps:31, dur:38, status:"pass"},
+  {id:28, name:"Booking Reschedule",     cat:"Booking",    desc:"Change date/time of existing booking",            steps:22, dur:28, status:"pass"},
+  {id:29, name:"Booking Cancel",         cat:"Booking",    desc:"Cancel booking, confirm dialog",                  steps:18, dur:22, status:"pass"},
+  {id:30, name:"Notifications",          cat:"Account",    desc:"List, mark-read, deep link",                      steps:14, dur:17, status:"pass"},
+  {id:31, name:"Wallet Balance",         cat:"Commerce",   desc:"Balance display, top-up CTA, history",            steps:16, dur:20, status:"pass"},
+  {id:32, name:"Ratings & Reviews",      cat:"Account",    desc:"Post-booking rating, comment, stars",             steps:19, dur:24, status:"pass"},
+  {id:33, name:"Map Location",           cat:"UX",         desc:"Salon map pins, detail sheet, directions",        steps:23, dur:28, status:"pass"},
+  {id:34, name:"Favourites",             cat:"Account",    desc:"Add/remove favourite, list persistence",          steps:15, dur:18, status:"pass"},
+  {id:35, name:"Refer a Friend",         cat:"Growth",     desc:"Referral link, copy, share sheet",                steps:9,  dur:13, status:"pass"},
+  {id:36, name:"Dark Mode",              cat:"UX",         desc:"Toggle dark/light, state preserved",              steps:8,  dur:11, status:"pass"},
+  {id:37, name:"Accessibility Labels",   cat:"A11y",       desc:"Content descriptions, focus order, TalkBack",     steps:14, dur:17, status:"pass"},
+  {id:38, name:"Session Timeout",        cat:"Auth",       desc:"Idle 30min, auto-logout, re-login prompt",        steps:12, dur:15, status:"flaky"},
+  {id:39, name:"Deep Link / QR",         cat:"Growth",     desc:"Open via QR, deep-link to booking",              steps:10, dur:14, status:"flaky"},
+  {id:40, name:"App Update Prompt",      cat:"Resilience", desc:"In-app update dialog, dismiss, force",            steps:8,  dur:11, status:"pass"},
+  {id:41, name:"Salon Profile View",     cat:"UX",         desc:"Details, gallery scroll, reviews tab, book-now",  steps:20, dur:24, status:"pass"},
+  {id:42, name:"Search with Filters",    cat:"Browse",     desc:"Category, price range, sort, clear filters",      steps:18, dur:22, status:"pass"},
+  {id:43, name:"Payment Methods",        cat:"Commerce",   desc:"Add card, saved list, delete with confirm",       steps:22, dur:27, status:"pass"},
+  {id:44, name:"Wallet Top-up",          cat:"Commerce",   desc:"Select amount, confirm payment, verify balance",  steps:16, dur:20, status:"pass"},
+  {id:45, name:"Logout Success",         cat:"Auth",       desc:"Confirm Yes, return to login screen",             steps:10, dur:13, status:"pass"},
+  {id:46, name:"Edit Profile",           cat:"Account",    desc:"Update name, avatar, save changes",               steps:14, dur:18, status:"pass"},
+  {id:47, name:"OTP Resend",             cat:"Auth",       desc:"Resend code, snackbar confirm, enter new OTP",    steps:12, dur:15, status:"flaky"},
+  {id:48, name:"Location Permission",    cat:"UX",         desc:"Allow location, map loads, tap pin",              steps:15, dur:18, status:"pass"},
+  {id:49, name:"App Permissions",        cat:"Account",    desc:"Notification toggle, location enable",            steps:11, dur:14, status:"pass"},
+  {id:50, name:"Language Switch",        cat:"UX",         desc:"Switch to Arabic, RTL layout, back to English",   steps:16, dur:20, status:"pass"},
+];
+
+const APPIUM_GROUPS = [
+  {
+    name: "Auth", total: 25, pass: 25, flaky: 0,
+    tests: [
+      {n:"test_login_with_valid_bangladesh_phone",s:"pass"},
+      {n:"test_empty_phone_shows_error",s:"pass"},
+      {n:"test_too_short_phone_rejected",s:"pass"},
+      {n:"test_too_long_phone_rejected",s:"pass"},
+      {n:"test_letters_only_phone_rejected",s:"pass"},
+      {n:"test_mixed_alphanumeric_phone_rejected",s:"pass"},
+      {n:"test_special_chars_in_phone_rejected",s:"pass"},
+      {n:"test_all_zeros_phone_rejected",s:"pass"},
+      {n:"test_phone_with_spaces_rejected",s:"pass"},
+      {n:"test_correct_otp_logs_in",s:"pass"},
+      {n:"test_wrong_otp_rejected",s:"pass"},
+      {n:"test_all_zeros_otp_rejected",s:"pass"},
+      {n:"test_too_short_otp_rejected",s:"pass"},
+      {n:"test_too_long_otp_rejected",s:"pass"},
+      {n:"test_letters_otp_rejected",s:"pass"},
+      {n:"test_sequential_otp_rejected",s:"pass"},
+      {n:"test_reversed_otp_rejected",s:"pass"},
+      {n:"test_phone_with_leading_spaces_blocked",s:"pass"},
+      {n:"test_phone_with_country_code_prefix",s:"pass"},
+      {n:"test_phone_with_dots_blocked",s:"pass"},
+      {n:"test_phone_with_parentheses_blocked",s:"pass"},
+      {n:"test_emoji_in_phone_field_blocked",s:"pass"},
+      {n:"test_otp_resend_link_visible",s:"pass"},
+      {n:"test_otp_timer_countdown_visible",s:"pass"},
+      {n:"test_country_code_search_works",s:"pass"},
+    ]
+  },
+  {
+    name: "Payment", total: 36, pass: 36, flaky: 0,
+    tests: [
+      {n:"test_valid_card_payment_success",s:"pass"},
+      {n:"test_expired_card_rejected",s:"pass"},
+      {n:"test_declined_card_shows_error",s:"pass"},
+      {n:"test_promo_code_reduces_total",s:"pass"},
+      {n:"test_tabby_bnpl_visible_above_minimum",s:"pass"},
+      {n:"test_tabby_shariah_badge_shown",s:"pass"},
+      {n:"test_tabby_learn_more_navigates",s:"pass"},
+      {n:"test_tabby_cancel_returns_to_checkout",s:"pass"},
+      {n:"test_bank_transfer_account_details_shown",s:"pass"},
+      {n:"test_bank_transfer_receipt_upload_visible",s:"pass"},
+      {n:"test_bank_transfer_photo_option_shown",s:"pass"},
+      {n:"test_bank_transfer_gallery_option_shown",s:"pass"},
+      {n:"test_short_card_number_rejected",s:"pass"},
+      {n:"test_letters_in_card_number_rejected",s:"pass"},
+      {n:"test_invalid_expiry_month_rejected",s:"pass"},
+      {n:"test_past_year_expiry_rejected",s:"pass"},
+      {n:"test_empty_cvv_rejected",s:"pass"},
+      {n:"test_single_digit_cvv_rejected",s:"pass"},
+      {n:"test_empty_cardholder_name_rejected",s:"pass"},
+      {n:"test_all_zeros_card_rejected",s:"pass"},
+      {n:"test_card_number_auto_formats_groups_of_4",s:"pass"},
+      {n:"test_card_max_16_digits_enforced",s:"pass"},
+      {n:"test_cvv_max_4_digits_enforced",s:"pass"},
+      {n:"test_expiry_current_month_accepted",s:"pass"},
+      {n:"test_expiry_far_future_accepted",s:"pass"},
+      {n:"test_expiry_mm_yy_format_enforced",s:"pass"},
+      {n:"test_cardholder_name_with_numbers_rejected",s:"pass"},
+      {n:"test_cardholder_name_spaces_accepted",s:"pass"},
+      {n:"test_cardholder_uppercase_accepted",s:"pass"},
+      {n:"test_cardholder_50_chars_accepted",s:"pass"},
+      {n:"test_cardholder_arabic_name_accepted",s:"pass"},
+      {n:"test_saved_card_appears_in_list",s:"pass"},
+      {n:"test_delete_card_shows_confirmation",s:"pass"},
+      {n:"test_payment_method_switching",s:"pass"},
+      {n:"test_coupon_plus_card_payment_combined",s:"pass"},
+      {n:"test_currency_symbol_displayed_correctly",s:"pass"},
+    ]
+  },
+  {
+    name: "Commerce", total: 40, pass: 40, flaky: 0,
+    tests: [
+      {n:"test_gift_card_all_fields_present",s:"pass"},
+      {n:"test_gift_card_preview_displays_name",s:"pass"},
+      {n:"test_gift_card_empty_form_blocked",s:"pass"},
+      {n:"test_gift_card_invalid_phone_rejected",s:"pass"},
+      {n:"test_gift_card_long_recipient_name",s:"pass"},
+      {n:"test_gift_card_special_chars_in_name",s:"pass"},
+      {n:"test_gift_card_arabic_name_accepted",s:"pass"},
+      {n:"test_gift_card_invalid_recipient_phone",s:"pass"},
+      {n:"test_gift_card_short_phone_rejected",s:"pass"},
+      {n:"test_gift_card_long_phone_rejected",s:"pass"},
+      {n:"test_gift_card_long_message_handled",s:"pass"},
+      {n:"test_gift_card_xss_in_message_safe",s:"pass"},
+      {n:"test_gift_card_sql_in_message_safe",s:"pass"},
+      {n:"test_gift_card_emoji_in_message_accepted",s:"pass"},
+      {n:"test_subscription_weekly_option_visible",s:"pass"},
+      {n:"test_subscription_monthly_option_visible",s:"pass"},
+      {n:"test_subscription_skip_goes_to_payment",s:"pass"},
+      {n:"test_subscription_success_banner_shown",s:"pass"},
+      {n:"test_subscription_unavailable_items_blocked",s:"pass"},
+      {n:"test_subscription_back_button_resets",s:"pass"},
+      {n:"test_subscription_frequency_display_correct",s:"pass"},
+      {n:"test_subscription_active_cancel_option",s:"pass"},
+      {n:"test_subscription_billing_history_shown",s:"pass"},
+      {n:"test_empty_cart_checkout_blocked",s:"pass"},
+      {n:"test_cart_quantity_increment_works",s:"pass"},
+      {n:"test_cart_quantity_decrement_works",s:"pass"},
+      {n:"test_cart_max_quantity_20_taps",s:"pass"},
+      {n:"test_cart_remove_item_works",s:"pass"},
+      {n:"test_cart_empty_state_shown",s:"pass"},
+      {n:"test_promo_valid_code_applies",s:"pass"},
+      {n:"test_promo_invalid_code_rejected",s:"pass"},
+      {n:"test_promo_expired_code_rejected",s:"pass"},
+      {n:"test_promo_empty_code_blocked",s:"pass"},
+      {n:"test_promo_special_chars_rejected",s:"pass"},
+      {n:"test_promo_lowercase_handled",s:"pass"},
+      {n:"test_promo_spaces_trimmed",s:"pass"},
+      {n:"test_promo_too_long_rejected",s:"pass"},
+      {n:"test_promo_sql_injection_safe",s:"pass"},
+      {n:"test_promo_numbers_only_rejected",s:"pass"},
+      {n:"test_wallet_balance_displayed_correctly",s:"pass"},
+    ]
+  },
+  {
+    name: "Booking", total: 21, pass: 21, flaky: 0,
+    tests: [
+      {n:"test_full_booking_flow_happy_path",s:"pass"},
+      {n:"test_bookings_list_loads",s:"pass"},
+      {n:"test_upcoming_tab_shown",s:"pass"},
+      {n:"test_completed_tab_shown",s:"pass"},
+      {n:"test_cancel_dialog_appears",s:"pass"},
+      {n:"test_reschedule_entry_accessible",s:"pass"},
+      {n:"test_past_date_booking_blocked",s:"pass"},
+      {n:"test_confirm_without_slot_blocked",s:"pass"},
+      {n:"test_back_mid_booking_cancels",s:"pass"},
+      {n:"test_double_tap_confirm_not_duplicate",s:"pass"},
+      {n:"test_far_future_date_accepted",s:"pass"},
+      {n:"test_unavailable_slot_shown_disabled",s:"pass"},
+      {n:"test_salon_card_opens_profile",s:"pass"},
+      {n:"test_salon_name_visible_on_profile",s:"pass"},
+      {n:"test_salon_rating_stars_displayed",s:"pass"},
+      {n:"test_services_list_not_empty",s:"pass"},
+      {n:"test_gallery_scroll_works",s:"pass"},
+      {n:"test_reviews_tab_loads",s:"pass"},
+      {n:"test_book_now_navigates_to_flow",s:"pass"},
+      {n:"test_back_from_salon_returns",s:"pass"},
+      {n:"test_salon_map_pin_tappable",s:"pass"},
+    ]
+  },
+  {
+    name: "Browse", total: 23, pass: 23, flaky: 0,
+    tests: [
+      {n:"test_single_char_search_works",s:"pass"},
+      {n:"test_100_char_search_no_crash",s:"pass"},
+      {n:"test_arabic_text_search_accepted",s:"pass"},
+      {n:"test_emoji_search_safe",s:"pass"},
+      {n:"test_html_tags_in_search_safe",s:"pass"},
+      {n:"test_sql_injection_search_safe",s:"pass"},
+      {n:"test_empty_search_shows_all_results",s:"pass"},
+      {n:"test_service_cards_clickable",s:"pass"},
+      {n:"test_rapid_navigation_stable",s:"pass"},
+      {n:"test_search_returns_results_for_hair",s:"pass"},
+      {n:"test_empty_search_shows_all",s:"pass"},
+      {n:"test_category_filter_haircut_works",s:"pass"},
+      {n:"test_price_range_filter_applies",s:"pass"},
+      {n:"test_sort_nearest_changes_order",s:"pass"},
+      {n:"test_clear_all_filters_resets",s:"pass"},
+      {n:"test_arabic_search_filter_no_crash",s:"pass"},
+      {n:"test_no_results_empty_state_shown",s:"pass"},
+      {n:"test_rapid_search_stable",s:"pass"},
+      {n:"test_search_special_chars_safe",s:"pass"},
+      {n:"test_search_help_no_results_state",s:"pass"},
+      {n:"test_help_search_sql_safe",s:"pass"},
+      {n:"test_help_search_special_chars_safe",s:"pass"},
+      {n:"test_browse_back_button_works",s:"pass"},
+    ]
+  },
+  {
+    name: "Account", total: 31, pass: 28, flaky: 3,
+    tests: [
+      {n:"test_currency_change_opens_list",s:"pass"},
+      {n:"test_about_mycoiffeur_page_opens",s:"pass"},
+      {n:"test_logout_dialog_appears",s:"pass"},
+      {n:"test_logout_cancel_stays_logged_in",s:"pass"},
+      {n:"test_delete_account_dialog_shown",s:"pass"},
+      {n:"test_help_support_opens",s:"pass"},
+      {n:"test_billing_history_accessible",s:"pass"},
+      {n:"test_sql_injection_in_help_search_safe",s:"pass"},
+      {n:"test_logout_cancel_confirmed",s:"pass"},
+      {n:"test_currency_list_visible",s:"pass"},
+      {n:"test_app_info_version_shown",s:"pass"},
+      {n:"test_help_search_finds_payment",s:"pass"},
+      {n:"test_empty_order_search_handled",s:"pass"},
+      {n:"test_special_char_order_search_safe",s:"pass"},
+      {n:"test_rating_feedback_empty_blocked",s:"pass"},
+      {n:"test_rating_long_feedback_handled",s:"pass"},
+      {n:"test_rating_special_chars_safe",s:"pass"},
+      {n:"test_rating_unicode_accepted",s:"pass"},
+      {n:"test_rating_sql_safe",s:"pass"},
+      {n:"test_rating_xss_safe",s:"pass"},
+      {n:"test_order_detail_fields_visible",s:"pass"},
+      {n:"test_cancel_order_dialog_shown",s:"pass"},
+      {n:"test_logout_confirm_returns_to_login",s:"flaky"},
+      {n:"test_edit_profile_screen_opens",s:"pass"},
+      {n:"test_name_field_editable",s:"pass"},
+      {n:"test_name_save_persists",s:"pass"},
+      {n:"test_name_too_long_handled",s:"pass"},
+      {n:"test_name_special_chars_handled",s:"pass"},
+      {n:"test_name_empty_blocked",s:"pass"},
+      {n:"test_avatar_tap_opens_picker",s:"flaky"},
+      {n:"test_cancel_edit_reverts",s:"flaky"},
+    ]
+  },
+  {
+    name: "Home & Wallet", total: 15, pass: 15, flaky: 0,
+    tests: [
+      {n:"test_home_loads_after_login",s:"pass"},
+      {n:"test_home_scroll_feed_works",s:"pass"},
+      {n:"test_home_error_handling",s:"pass"},
+      {n:"test_book_now_navigates",s:"pass"},
+      {n:"test_bottom_nav_works",s:"pass"},
+      {n:"test_rapid_scroll_stable",s:"pass"},
+      {n:"test_deep_scroll_stable",s:"pass"},
+      {n:"test_back_button_from_home",s:"pass"},
+      {n:"test_wallet_screen_accessible",s:"pass"},
+      {n:"test_wallet_balance_displayed",s:"pass"},
+      {n:"test_topup_options_visible",s:"pass"},
+      {n:"test_topup_50sar_selectable",s:"pass"},
+      {n:"test_topup_proceeds_to_payment",s:"pass"},
+      {n:"test_topup_history_visible",s:"pass"},
+      {n:"test_topup_cancel_returns",s:"pass"},
+    ]
+  },
+];
+
+const SCENARIO_DATA = {
+  phone: {
+    title: "Phone Number Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ["1316314566",           "Valid (Bangladesh)",     "Login success",     "pass"],
+      ['""',                   "Empty",                  "Error shown",       "pass"],
+      ['"123"',                "Too short (<7 digits)",  "Error shown",       "pass"],
+      ['"88013163145669999999"',"Too long (20 digits)",  "Error shown",       "pass"],
+      ['"abcdefghij"',         "Letters only",           "Error shown",       "pass"],
+      ['"abc123def45"',        "Mixed alphanumeric",     "Error shown",       "pass"],
+      ['"+880@abc#123"',       "Special characters",     "Error shown",       "pass"],
+      ['"0000000000"',         "All zeros",              "Error shown",       "pass"],
+      ['"880 131 631 456 6"',  "With spaces",            "Error shown",       "pass"],
+      ['" 1316314566 "',       "Leading/trailing spaces","Error shown",       "pass"],
+      ['"+880 1316314566"',    "With country code",      "Handled",           "pass"],
+      ['"1316314566."',        "With dot",               "Error shown",       "pass"],
+      ['"💇1316314566"',       "With emoji",             "Error shown",       "pass"],
+    ]
+  },
+  otp: {
+    title: "OTP Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ["1234",        "Valid OTP",      "Login success", "pass"],
+      ["9999",        "Wrong OTP",      "Error shown",   "pass"],
+      ["0000",        "All zeros",      "Error shown",   "pass"],
+      ['"12"',        "Too short",      "Error shown",   "pass"],
+      ['"123456789"', "Too long",       "Error shown",   "pass"],
+      ['"abcd"',      "Letters",        "Error shown",   "pass"],
+      ["1235",        "One digit off",  "Error shown",   "pass"],
+      ["4321",        "Reversed",       "Error shown",   "pass"],
+    ]
+  },
+  card: {
+    title: "Card Payment Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ["4111111111111111",   "Valid Visa",          "Payment success", "pass"],
+      ["4000000000000002",   "Declined card",       "Decline error",   "pass"],
+      ["41111111",           "Too short (8 digits)","Error shown",     "pass"],
+      ["ABCD1234EFGH5678",   "Letters in number",   "Error shown",     "pass"],
+      ["0000000000000000",   "All zeros",           "Error shown",     "pass"],
+      ["12/26",              "Valid expiry",        "Accepted",        "pass"],
+      ["01/20",              "Expired (past)",      "Error shown",     "pass"],
+      ["13/25",              "Invalid month (13)",  "Error shown",     "pass"],
+      ["12/19",              "Past year",           "Error shown",     "pass"],
+      ['"" (CVV)',           "Empty CVV",           "Error shown",     "pass"],
+      ['"1" (CVV)',          "Single digit CVV",    "Error shown",     "pass"],
+      ['"123456" (CVV)',     "Too long CVV",        "Error shown",     "pass"],
+      ['"" (name)',          "Empty name",          "Error shown",     "pass"],
+      ['"A"×100 (name)',     "100-char name",       "Error shown",     "pass"],
+    ]
+  },
+  promo: {
+    title: "Promo Code Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ["TEST10",          "Valid code",       "Discount applied",  "pass"],
+      ["INVALID123",      "Wrong code",       "Error shown",       "pass"],
+      ["EXPIRED10",       "Expired code",     "Error shown",       "pass"],
+      ['""',              "Empty",            "Error shown",       "pass"],
+      ['"TEST@#$%"',      "Special chars",    "Error shown",       "pass"],
+      ['"test10"',        "Lowercase",        "Handled",           "pass"],
+      ['" TEST10 "',      "With spaces",      "Trimmed/handled",   "pass"],
+      ['"A"×50',          "Too long",         "Error shown",       "pass"],
+      ["' OR '1'='1",     "SQL injection",    "Safe (blocked)",    "pass"],
+      ["123456",          "Numbers only",     "Error shown",       "pass"],
+    ]
+  },
+  search: {
+    title: "Search & Browse Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ['"hair"',          "Valid search",     "Results shown",     "pass"],
+      ['""',              "Empty search",     "All results",       "pass"],
+      ['"a"',             "Single char",      "Results/empty state","pass"],
+      ['"A"×100',         "100 chars",        "No crash",          "pass"],
+      ['"خدمة"',          "Arabic text",      "Accepted",          "pass"],
+      ['"💇‍♀️"',          "Emoji",            "No crash",          "pass"],
+      ['"<b>test</b>"',   "HTML tags",        "Escaped safely",    "pass"],
+      ["' OR 1=1 --",     "SQL injection",    "Safe",              "pass"],
+      ['"ZZZNOTEXIST"',   "No results",       "Empty state",       "pass"],
+      ['"@#$%^&*()"',     "Special chars",    "No crash",          "pass"],
+    ]
+  },
+  gift: {
+    title: "Gift Card Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ['"Fatima Hassan"',                   "Valid name",          "Accepted",      "pass"],
+      ['"A"×150',                           "150-char name",       "Error shown",   "pass"],
+      ['"Ahmed@#$%^&*()"',                  "Special chars",       "Error shown",   "pass"],
+      ['"أحمد علي"',                        "Arabic name (Unicode)","Accepted",     "pass"],
+      ['"abc"',                             "Invalid phone",       "Error shown",   "pass"],
+      ['"123"',                             "Short phone",         "Error shown",   "pass"],
+      ["Long message (700 chars)",          "Long text",           "Handled",       "pass"],
+      ["<script>alert('xss')</script>",     "XSS attempt",         "Escaped safely","pass"],
+      ["'; DROP TABLE users; --",           "SQL injection",       "Safe",          "pass"],
+      ['"🕌🤲✨ Blessed!"',                 "Emoji message",       "Accepted",      "pass"],
+    ]
+  },
+  profile: {
+    title: "Profile Name Validation",
+    cols: ["Input", "Type", "Expected Result", "Status"],
+    rows: [
+      ['"Test User"',          "Valid name",        "Saved",           "pass"],
+      ['""',                   "Empty",             "Save blocked",    "pass"],
+      ['"A"×200',              "200-char name",     "Error/truncated", "pass"],
+      ['"User!@#$%^&*()"',     "Special chars",     "Error shown",     "pass"],
+    ]
+  }
+};
+
+const PIPELINE_CARDS = [
+  {
+    name: "Maestro Smoke",
+    icon: "✅",
+    status: "passing",
+    desc: "25 core flows, runs on every PR. Validates login, browse, checkout, and basic navigation.",
+    tags: ["on: push", "~8 min", "Android API 34"],
+    pct: 100
+  },
+  {
+    name: "Maestro Regression",
+    icon: "✅",
+    status: "passing",
+    desc: "Full 50-flow regression suite. Runs nightly and on release branches.",
+    tags: ["scheduled", "~18 min", "Pixel 7"],
+    pct: 96
+  },
+  {
+    name: "Appium Deep Tests",
+    icon: "✅",
+    status: "passing",
+    desc: "191 Appium tests covering edge cases, boundary values, and security inputs.",
+    tags: ["on: push", "~35 min", "Python 3.11"],
+    pct: 98
+  },
+  {
+    name: "iOS Smoke",
+    icon: "🔶",
+    status: "manual",
+    desc: "Manual trigger only. Runs on macOS runner with iPhone 15 Pro simulator.",
+    tags: ["manual", "macOS", "iOS 17"],
+    pct: 0
+  },
+  {
+    name: "Publish Report",
+    icon: "✅",
+    status: "passing",
+    desc: "Deploys this dashboard to GitHub Pages after successful regression run.",
+    tags: ["on: workflow_run", "GitHub Pages", "~1 min"],
+    pct: 100
+  },
+];
+
+const WORKFLOW_STEPS = [
+  {step:"Checkout code",               status:"pass", dur:"8s"},
+  {step:"Set up Java 17 (Temurin)",    status:"pass", dur:"22s"},
+  {step:"Setup Android SDK",           status:"pass", dur:"45s"},
+  {step:"Create AVD (Pixel_7_API_34)", status:"pass", dur:"2m 10s"},
+  {step:"Start emulator",              status:"pass", dur:"1m 30s"},
+  {step:"Flutter pub get",             status:"pass", dur:"38s"},
+  {step:"Build APK (debug)",           status:"pass", dur:"4m 22s"},
+  {step:"Install APK on emulator",     status:"pass", dur:"15s"},
+  {step:"Run Maestro flows",           status:"pass", dur:"18m 4s"},
+  {step:"Run Appium test suite",       status:"pass", dur:"34m 51s"},
+  {step:"Generate Allure report",      status:"pass", dur:"42s"},
+  {step:"Deploy to GitHub Pages",      status:"pass", dur:"55s"},
+];
+
+// ========== CAT COLOR MAP ==========
+const CAT_CLASS = {
+  "Core":"core","Auth":"auth","Browse":"browse","Commerce":"commerce",
+  "UX":"ux","Account":"account","Negative":"negative","Boundary":"boundary",
+  "A11y":"a11y","Growth":"growth","Resilience":"resilience","Booking":"booking"
+};
+
+// ========== RENDER: MAESTRO TABLE ==========
+function renderMaestro(filter) {
+  const tbody = document.getElementById('maestro-tbody');
+  tbody.innerHTML = '';
+  MAESTRO_FLOWS.forEach(f => {
+    const catKey = (CAT_CLASS[f.cat] || 'core').toLowerCase();
+    const statusMatch = filter === 'all' || filter === f.status || filter === catKey;
+    const tr = document.createElement('tr');
+    if (!statusMatch) tr.classList.add('table-row-hidden');
+    tr.setAttribute('data-status', f.status);
+    tr.setAttribute('data-cat', catKey);
+    tr.innerHTML = `
+      <td class="td-num">${f.id}</td>
+      <td style="font-weight:500;white-space:nowrap;">${escH(f.name)}</td>
+      <td><span class="cat-badge cat-${catKey}">${escH(f.cat)}</span></td>
+      <td class="td-desc">${escH(f.desc)}</td>
+      <td class="td-dur">${f.steps} steps</td>
+      <td class="td-dur">${f.dur}s</td>
+      <td><span class="badge ${f.status}"><span class="badge-dot"></span>${f.status.toUpperCase()}</span></td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterMaestro(btn, val) {
+  document.querySelectorAll('#maestro-filters .filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#maestro-tbody tr').forEach(tr => {
+    const status = tr.getAttribute('data-status');
+    const cat = tr.getAttribute('data-cat');
+    if (val === 'all') tr.classList.remove('table-row-hidden');
+    else if (val === 'pass' || val === 'flaky' || val === 'fail') {
+      tr.classList.toggle('table-row-hidden', status !== val);
+    } else {
+      tr.classList.toggle('table-row-hidden', cat !== val);
+    }
+  });
+}
+
+// ========== RENDER: APPIUM ACCORDION ==========
+function renderAppium() {
+  const container = document.getElementById('appium-accordion');
+  container.innerHTML = '';
+  APPIUM_GROUPS.forEach((g, i) => {
+    const div = document.createElement('div');
+    div.className = 'accordion-group';
+    div.setAttribute('data-group', i);
+    const pct = Math.round((g.pass / g.total) * 100);
+    const barW = pct;
+    let statusBadge = `<span class="badge pass"><span class="badge-dot"></span>ALL PASS</span>`;
+    if (g.flaky > 0) statusBadge = `<span class="badge flaky"><span class="badge-dot"></span>${g.flaky} FLAKY</span>`;
+    div.innerHTML = `
+      <div class="accordion-head" onclick="toggleAcc(this)">
+        <span class="acc-title">${escH(g.name)}</span>
+        <div class="acc-meta">
+          ${statusBadge}
+          <span class="acc-count">${g.pass}/${g.total} pass</span>
+          <div class="acc-progress">
+            <div class="acc-pass-bar" style="width:${barW}px;"></div>
+          </div>
+          <span class="acc-arrow">▼</span>
+        </div>
+      </div>
+      <div class="accordion-body">
+        <div class="acc-tests" id="acc-tests-${i}">
+          ${g.tests.map(t => `
+            <div class="acc-test-row" data-testname="${escH(t.n)}">
+              <div class="acc-test-dot ${t.s}"></div>
+              <div class="acc-test-name ${t.s === 'flaky' ? 'flaky' : ''}">${escH(t.n)}</div>
+              <span class="badge ${t.s}" style="font-size:10px;padding:2px 7px;">${t.s.toUpperCase()}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function toggleAcc(head) {
+  const group = head.parentElement;
+  group.classList.toggle('open');
+}
+
+function searchAppium(val) {
+  const q = val.toLowerCase().trim();
+  document.querySelectorAll('.accordion-group').forEach(g => {
+    const rows = g.querySelectorAll('.acc-test-row');
+    let anyVisible = false;
+    rows.forEach(r => {
+      const name = r.getAttribute('data-testname') || '';
+      const match = !q || name.toLowerCase().includes(q);
+      r.style.display = match ? '' : 'none';
+      if (match) anyVisible = true;
+    });
+    if (q) {
+      g.style.display = anyVisible ? '' : 'none';
+      if (anyVisible) g.classList.add('open');
+    } else {
+      g.style.display = '';
+    }
+  });
+}
+
+// ========== RENDER: SCENARIOS ==========
+function renderScenarios() {
+  Object.entries(SCENARIO_DATA).forEach(([key, data]) => {
+    const panel = document.getElementById('scen-' + key);
+    if (!panel) return;
+    panel.innerHTML = `
+      <div style="margin-bottom:12px;">
+        <div style="font-size:16px;font-weight:700;color:var(--text);margin-bottom:4px;">${escH(data.title)}</div>
+        <div style="font-size:12px;color:var(--text3);">${data.rows.length} test cases</div>
+      </div>
+      <div class="table-wrap">
+        <table class="scen-table">
+          <thead>
+            <tr>${data.cols.map(c => `<th>${escH(c)}</th>`).join('')}</tr>
+          </thead>
+          <tbody>
+            ${data.rows.map(r => `
+              <tr>
+                <td>${escH(r[0])}</td>
+                <td><span class="type-badge">${escH(r[1])}</span></td>
+                <td style="color:var(--text2);">${escH(r[2])}</td>
+                <td><span class="badge ${r[3]}"><span class="badge-dot"></span>${r[3].toUpperCase()}</span></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+  });
+}
+
+function switchScenTab(btn, panelId) {
+  document.querySelectorAll('.scen-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.scen-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(panelId).classList.add('active');
+}
+
+// ========== RENDER: PIPELINE ==========
+function renderPipeline() {
+  const grid = document.getElementById('pipeline-grid');
+  grid.innerHTML = PIPELINE_CARDS.map(c => `
+    <div class="pipeline-card">
+      <div class="pc-head">
+        <div class="pc-name">${escH(c.name)}</div>
+        <div class="pc-status-icon">${c.icon}</div>
+      </div>
+      <div class="pc-desc">${escH(c.desc)}</div>
+      <div class="pc-meta">${c.tags.map(t => `<span class="pc-tag">${escH(t)}</span>`).join('')}</div>
+      ${c.pct > 0 ? `
+      <div class="progress-bar-wrap">
+        <div style="display:flex;justify-content:space-between;margin-bottom:4px;">
+          <span style="font-size:10px;color:var(--text3);">Pass rate</span>
+          <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--pass);">${c.pct}%</span>
+        </div>
+        <div class="progress-bar-track">
+          <div class="progress-bar-fill" data-w="${c.pct}"></div>
+        </div>
+      </div>` : `<div style="margin-top:10px;font-size:11px;color:var(--text3);font-style:italic;">Manual trigger only</div>`}
+    </div>
+  `).join('');
+
+  const stepsEl = document.getElementById('workflow-steps');
+  stepsEl.innerHTML = `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Step</th><th>Status</th><th>Duration</th></tr>
+        </thead>
+        <tbody>
+          ${WORKFLOW_STEPS.map((s,i) => `
+            <tr>
+              <td class="td-num">${i+1}</td>
+              <td style="font-weight:500;">${escH(s.step)}</td>
+              <td><span class="badge pass"><span class="badge-dot"></span>PASS</span></td>
+              <td class="td-dur">${escH(s.dur)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// ========== RENDER: CATEGORY BARS ==========
+const CAT_COUNTS = {};
+MAESTRO_FLOWS.forEach(f => { CAT_COUNTS[f.cat] = (CAT_COUNTS[f.cat]||0)+1; });
+const CAT_ORDER = ["UX","Commerce","Account","Negative","Auth","Booking","Browse","Resilience","Growth","Boundary","A11y","Core"];
+const CAT_COLORS = {
+  Core:"#3b82f6",Auth:"#a855f7",Browse:"#f97316",Commerce:"#22c55e",
+  UX:"#06b6d4",Account:"#ec4899",Negative:"#ef4444",Boundary:"#f59e0b",
+  A11y:"#84cc16",Growth:"#eab308",Resilience:"#9ca3af",Booking:"#14b8a6"
+};
+const maxCat = Math.max(...Object.values(CAT_COUNTS));
+
+function renderCatBars() {
+  const el = document.getElementById('cat-bars');
+  el.innerHTML = CAT_ORDER.filter(c => CAT_COUNTS[c]).map(c => `
+    <div class="cat-bar-row">
+      <div class="cat-bar-label">${c}</div>
+      <div class="cat-bar-track">
+        <div class="cat-bar-fill" data-w="${(CAT_COUNTS[c]/maxCat)*100}" style="background:${CAT_COLORS[c]};"></div>
+      </div>
+      <div class="cat-bar-count">${CAT_COUNTS[c]}</div>
+    </div>
+  `).join('');
+}
+
+// ========== DONUT ==========
+function animateDonut() {
+  const C = 2 * Math.PI * 70; // circumference
+  const total = 241;
+  const passN = 236;
+  const flakyN = 5;
+  const passArc = (passN / total) * C;
+  const flakyArc = (flakyN / total) * C;
+  const gap = 4;
+
+  // Pass arc
+  const passEl = document.getElementById('donut-pass');
+  passEl.setAttribute('stroke-dasharray', `${passArc - gap} ${C - passArc + gap}`);
+  passEl.setAttribute('stroke-dashoffset', '0');
+
+  // Flaky arc offset = passArc
+  const flakyEl = document.getElementById('donut-flaky');
+  flakyEl.setAttribute('stroke-dasharray', `${flakyArc - gap} ${C - flakyArc + gap}`);
+  flakyEl.setAttribute('stroke-dashoffset', `${-(passArc)}`);
+}
+
+// ========== ANIMATE BARS ==========
+function animateBars() {
+  document.querySelectorAll('[data-w]').forEach(el => {
+    const w = parseFloat(el.getAttribute('data-w'));
+    setTimeout(() => { el.style.width = w + '%'; }, 100);
+  });
+  document.querySelectorAll('.progress-bar-fill[data-w]').forEach(el => {
+    const w = parseFloat(el.getAttribute('data-w'));
+    setTimeout(() => { el.style.width = w + '%'; }, 200);
+  });
+}
+
+// ========== NAV ACTIVE ==========
+function activateNav(el) {
+  setTimeout(() => {
+    document.querySelectorAll('#sidebar .nav-item').forEach(n => n.classList.remove('active'));
+    if (el) el.classList.add('active');
+  }, 10);
+}
+
+function mobileNav(el, sectionId) {
+  document.querySelectorAll('.mobile-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById(sectionId).scrollIntoView({behavior:'smooth'});
+}
+
+// ========== INTERSECTION OBSERVER ==========
+function setupObserver() {
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('#sidebar .nav-item[href]');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const id = e.target.id;
+        navItems.forEach(n => {
+          n.classList.toggle('active', n.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.2, rootMargin: '-80px 0px -60% 0px' });
+  sections.forEach(s => obs.observe(s));
+}
+
+// ========== UTIL ==========
+function escH(s) {
+  return String(s)
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ========== INIT ==========
+document.addEventListener('DOMContentLoaded', () => {
+  renderMaestro('all');
+  renderAppium();
+  renderScenarios();
+  renderPipeline();
+  renderCatBars();
+
+  // Animate after paint
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      animateDonut();
+      animateBars();
+    }, 300);
+  });
+
+  setupObserver();
+});
+</script>
+</body>
+</html>

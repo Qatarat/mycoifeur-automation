@@ -1,14 +1,16 @@
 # MyCoiffeur — Mobile App Test Suite
 
-[![Maestro Smoke](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/01-maestro-smoke.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/01-maestro-smoke.yml)
-[![Maestro Regression](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/02-maestro-regression.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/02-maestro-regression.yml)
-[![Appium Deep Tests](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/03-appium-android.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/03-appium-android.yml)
+[![Maestro Smoke](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/01-maestro-smoke.yml/badge.svg)](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/01-maestro-smoke.yml)
+[![Maestro Regression](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/02-maestro-regression.yml/badge.svg)](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/02-maestro-regression.yml)
+[![Appium Deep Tests](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/03-appium-android.yml/badge.svg)](https://github.com/Qatarat/mycoifeur-automation/actions/workflows/03-appium-android.yml)
 
 **Flutter app** · Android & iOS · Package `com.example.my_coiffeur`
 
-📊 **[View Live Test Report →](https://mejbaurbahar.github.io/MyCoifeur/)**
+📊 **[View Live Test Report →](https://qatarat.github.io/mycoifeur-automation/)**
 
-🔗 **[GitHub Repository →](https://github.com/mejbaurbahar/MyCoifeur)**
+🔗 **[GitHub Repository →](https://github.com/Qatarat/mycoifeur-automation)**
+
+> **Enable the report page (one-time):** In the repo go to **Settings → Pages → Source → Deploy from a branch → Branch: `main` → Folder: `/docs` → Save**
 
 ---
 
@@ -18,7 +20,7 @@
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/mejbaurbahar/MyCoifeur.git
+git clone https://github.com/Qatarat/mycoifeur-automation.git
 cd MyCoifeur/testing
 
 # 2. Install all tools (Java, ADB, Maestro, Appium, Python, scrcpy)
@@ -50,7 +52,7 @@ wsl --install
 ```bash
 # Clone into WSL filesystem (faster I/O than /mnt/c or /mnt/h)
 cd ~
-git clone https://github.com/mejbaurbahar/MyCoifeur.git
+git clone https://github.com/Qatarat/mycoifeur-automation.git
 cd MyCoifeur/testing
 
 # Install everything automatically
@@ -322,7 +324,7 @@ bash mirror.sh --help      # show all options
 | Maestro iOS | Manual only | ~20 min | Smoke on iOS Simulator |
 | Publish Report | After any test run | ~3 min | Deploys to GitHub Pages |
 
-**Run any workflow manually:** [Actions tab](https://github.com/mejbaurbahar/MyCoifeur/actions) → pick workflow → **Run workflow**
+**Run any workflow manually:** [Actions tab](https://github.com/Qatarat/mycoifeur-automation/actions) → pick workflow → **Run workflow**
 
 > **First-time setup:** Go to **Settings → Pages → Source → GitHub Actions** to enable the report page.
 
