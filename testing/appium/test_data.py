@@ -5,7 +5,7 @@ All boundary values, invalid inputs, and negative-case data live here.
 
 
 class ValidData:
-    PHONE = "8801316314566"
+    PHONE = "1316314566"
     OTP = "1234"
     PROMO = "TEST10"
 

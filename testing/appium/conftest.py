@@ -84,7 +84,10 @@ def driver():
     d = webdriver.Remote(APPIUM_SERVER, options=_build_options(get_caps()))
     d.implicitly_wait(10)
     yield d
-    d.quit()
+    try:
+        d.quit()
+    except Exception:
+        pass
 
 
 @pytest.fixture(scope="module")
@@ -93,7 +96,10 @@ def driver_module():
     d = webdriver.Remote(APPIUM_SERVER, options=_build_options(caps))
     d.implicitly_wait(10)
     yield d
-    d.quit()
+    try:
+        d.quit()
+    except Exception:
+        pass
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
@@ -111,5 +117,8 @@ def pytest_runtest_makereport(item, call):
                 )
             except Exception:
                 pass
-            os.makedirs("reports/screenshots", exist_ok=True)
-            screenshot(driver, f"FAIL_{item.name}")
+            try:
+                os.makedirs("reports/screenshots", exist_ok=True)
+                screenshot(driver, f"FAIL_{item.name}")
+            except Exception:
+                pass
