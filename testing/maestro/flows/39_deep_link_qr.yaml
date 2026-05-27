@@ -1,0 +1,88 @@
+appId: com.example.my_coiffeur
+---
+# Flow 39: Deep Link / QR Code — entry point visible, camera permission handled
+# Covers: QR code scanner entry visible, camera permission dialog, back navigation.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Look for QR / Scan entry point
+- tapOn:
+    text: "Scan QR"
+    optional: true
+- tapOn:
+    text: "Scan"
+    optional: true
+- tapOn:
+    text: "QR Code"
+    optional: true
+- tapOn:
+    id: "qr_scanner"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Handle camera permission
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "While Using App"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: qr_scanner_screen
+
+# Go back
+- tapOn:
+    text: "Back"
+    optional: true
+- pressKey: Back
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: deep_link_qr_complete

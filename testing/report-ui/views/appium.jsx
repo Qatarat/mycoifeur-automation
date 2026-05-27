@@ -1,6 +1,6 @@
 // Appium deep tests view — file-based grouping + test detail drawer
 const AppiumView = () => {
-  const { APPIUM_TESTS = [], RUN_META = {} } = window.QATARAT_DATA || {};
+  const { APPIUM_TESTS = [], RUN_META = {} } = window.MYCOIFFEUR_DATA || {};
   const allIdle = APPIUM_TESTS.every(f => f.tests.every(t => t.status === "idle"));
   const [expanded, setExpanded] = useState(() => new Set(APPIUM_TESTS.map(f => f.file)));
   const [filter, setFilter] = useState("all");
@@ -515,12 +515,12 @@ function getTestCode(test) {
 
 // ─── Build test execution log (real steps per test) ───────────────────────────
 function buildTestLog(test) {
-  const device = (window.QATARAT_DATA?.RUN_META?.device) || "Pixel 7 · Android 14 · API 34";
+  const device = (window.MYCOIFFEUR_DATA?.RUN_META?.device) || "Pixel 7 · Android 14 · API 34";
   const lines = [
     { ts: "0.000", level: "info",  text: `pytest -v tests/${test.file}::${test.name}` },
     { ts: "0.042", level: "info",  text: "collected 1 test" },
     { ts: "0.186", level: "info",  text: `session → ${device}` },
-    { ts: "0.284", level: "info",  text: "appium-flutter-driver → connecting to com.qatarat.app" },
+    { ts: "0.284", level: "info",  text: "appium-flutter-driver → connecting to com.example.my_coiffeur" },
     { ts: "0.612", level: "info",  text: "driver attached · implicit_wait=10s" },
   ];
 
@@ -661,7 +661,7 @@ const STATUS_THEME = {
 };
 
 const TestDetail = ({ test, onClose }) => {
-  const { RUN_META = {} } = window.QATARAT_DATA || {};
+  const { RUN_META = {} } = window.MYCOIFFEUR_DATA || {};
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);

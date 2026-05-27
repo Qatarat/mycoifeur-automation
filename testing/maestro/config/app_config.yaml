@@ -1,4 +1,4 @@
-# Qatarat app — shared Maestro config
+# MyCoiffeur app — shared Maestro config
 # Include this in every flow with: <<: !include ../config/app_config.yaml
 
 appId: com.example.my_coiffeur         # Android

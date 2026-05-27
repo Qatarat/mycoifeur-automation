@@ -78,12 +78,12 @@ appId: com.example.my_coiffeur
     text: "Back"
     optional: true
 
-# About Qatarat
+# About MyCoiffeur
 - tapOn:
     text: "About"
     optional: true
 - tapOn:
-    text: "About Qatarat"
+    text: "About MyCoiffeur"
     optional: true
 - waitForAnimationToEnd
 - tapOn:

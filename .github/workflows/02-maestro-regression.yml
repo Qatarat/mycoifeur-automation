@@ -58,7 +58,7 @@ jobs:
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim
           disable-animations: true
-          script: adb install -r "Qatarat (Lambda-Stage).apk" && bash testing/run_regression_ci.sh "${{ github.event.inputs.flow }}"
+          script: adb install -r "MyCoiffeur.apk" && bash testing/run_regression_ci.sh "${{ github.event.inputs.flow }}"
 
       - name: Publish step summary
         if: always()

@@ -1,6 +1,6 @@
 // Overview — hero stats, donut, history sparkline, top issues
 const OverviewView = () => {
-  const { MAESTRO_FLOWS = [], APPIUM_TESTS = [], HISTORY = [], RUN_META = {}, COMMITS = [] } = window.QATARAT_DATA || {};
+  const { MAESTRO_FLOWS = [], APPIUM_TESTS = [], HISTORY = [], RUN_META = {}, COMMITS = [] } = window.MYCOIFFEUR_DATA || {};
 
   const allTests = useMemo(() => {
     const appiumFlat = APPIUM_TESTS.flatMap(f => f.tests.map(t => ({ ...t, file: f.file, group: f.group })));
@@ -89,9 +89,9 @@ const OverviewView = () => {
           </div>
           <h1 className="h1">Test Suite Report</h1>
           <p className="lead">
-            Qatarat (قطرات) · Flutter app for Android &amp; iOS.
+            MyCoiffeur · Flutter hair salon booking app for Android &amp; iOS.
             {" "}<strong style={{ color: "var(--text)", fontWeight: 500 }}>{MAESTRO_FLOWS.length} Maestro UI flows</strong> (YAML scripts that tap through the app like a real user) and{" "}
-            <strong style={{ color: "var(--text)", fontWeight: 500 }}>{APPIUM_TESTS.reduce((s, f) => s + f.tests.length, 0)} Appium deep tests</strong> (Python/pytest that verify payment SDKs &amp; data integrity), run nightly via GitHub Actions.
+            <strong style={{ color: "var(--text)", fontWeight: 500 }}>{APPIUM_TESTS.reduce((s, f) => s + f.tests.length, 0)} Appium deep tests</strong> (Python/pytest that verify booking, payment &amp; data integrity), run nightly via GitHub Actions.
           </p>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 6 }}>
@@ -343,7 +343,7 @@ const OverviewView = () => {
             ran: MAESTRO_FLOWS.filter(f => f.status !== "idle").length,
             passed: MAESTRO_FLOWS.filter(f => f.status === "pass").length,
             failed: MAESTRO_FLOWS.filter(f => f.status === "fail").length,
-            desc: "YAML-defined sequences that drive the app UI exactly like a human would — tap, swipe, type, assert. Each flow covers a complete user journey end-to-end.",
+            desc: "YAML-defined sequences that drive the app UI exactly like a real user — tap, swipe, type, assert. Each flow covers a complete end-to-end journey in the hair salon booking app.",
             viewKey: "flows",
           },
           {
@@ -354,7 +354,7 @@ const OverviewView = () => {
             ran: APPIUM_TESTS.flatMap(f => f.tests).filter(t => t.status !== "idle").length,
             passed: APPIUM_TESTS.flatMap(f => f.tests).filter(t => t.status === "pass").length,
             failed: APPIUM_TESTS.flatMap(f => f.tests).filter(t => t.status === "fail").length,
-            desc: "Python/pytest with appium-flutter-driver. Verifies payment SDKs (HyperPay, Tabby BNPL, bank transfer), gift cards, subscriptions, and account management at the API level.",
+            desc: "Python/pytest with appium-flutter-driver. Verifies booking flows, payment processing, wallet, notifications, and account management at the API level.",
             viewKey: "appium",
           },
         ].map(s => (

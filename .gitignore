@@ -16,3 +16,13 @@ testing/maestro/reports/
 # Android emulator
 *.avd/
 .android/
+
+# APK binaries — download separately, do not commit
+*.apk
+
+# CI-generated artifacts
+allure-results/
+testing/appium/allure-results/
+
+# IDE / tool configs
+.playwright-mcp/

@@ -1,0 +1,95 @@
+appId: com.example.my_coiffeur
+---
+# Flow 30: Notifications — open notification panel, read items, mark all read
+# Covers: bell icon tap, notification list loads, tap notification, mark all read.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Open notifications (bell icon or Notifications tab)
+- tapOn:
+    text: "Notifications"
+    optional: true
+- tapOn:
+    id: "notification_bell"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: notifications_panel_open
+
+# Scroll through notification list
+- scroll:
+    direction: DOWN
+    speed: 40
+- waitForAnimationToEnd:
+    timeout: 1000
+
+# Mark all as read (if available)
+- tapOn:
+    text: "Mark All as Read"
+    optional: true
+- tapOn:
+    text: "Mark all read"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Tap a notification item if visible
+- tapOn:
+    text: "Your booking"
+    optional: true
+- tapOn:
+    text: "Order confirmed"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- tapOn:
+    text: "Back"
+    optional: true
+
+- takeScreenshot: notifications_complete

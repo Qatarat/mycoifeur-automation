@@ -11,13 +11,13 @@ const ACCENTS = {
 };
 
 const App = () => {
-  const defaults = window.__QATARAT_DEFAULTS;
+  const defaults = window.__MYCOIFFEUR_DEFAULTS;
   const [t, setTweak] = useTweaks(defaults);
   const view = t.view || "overview";
   const [menuOpen, setMenuOpen] = useState(false);
 
   // Defensive guard — data.js may not be loaded on first GitHub Pages visit
-  const data = window.QATARAT_DATA || {};
+  const data = window.MYCOIFFEUR_DATA || {};
   const RUN_META = data.RUN_META || {};
   const neverRan = RUN_META.neverRan || !RUN_META.startedAt;
   const isMockData = !!RUN_META.isMockData;
@@ -77,8 +77,8 @@ const App = () => {
         <div className="brand">
           <div className="brand-mark" />
           <div className="brand-name">
-            <b>Qatarat</b>
-            <span>قطرات · test suite</span>
+            <b>MyCoiffeur</b>
+            <span>Hair Salon · test suite</span>
           </div>
         </div>
 
@@ -126,7 +126,7 @@ const App = () => {
           </button>
 
           <div className="crumbs">
-            <span>Qatarat</span>
+            <span>MyCoiffeur</span>
             <span className="sep">/</span>
             <b>{crumbLabel}</b>
           </div>

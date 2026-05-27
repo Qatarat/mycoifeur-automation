@@ -1,12 +1,14 @@
-# MyCoifeur — Mobile App Test Suite
+# MyCoiffeur — Mobile App Test Suite
 
-[![Maestro Smoke](../../actions/workflows/01-maestro-smoke.yml/badge.svg)](../../actions/workflows/01-maestro-smoke.yml)
-[![Maestro Regression](../../actions/workflows/02-maestro-regression.yml/badge.svg)](../../actions/workflows/02-maestro-regression.yml)
-[![Appium Deep Tests](../../actions/workflows/03-appium-android.yml/badge.svg)](../../actions/workflows/03-appium-android.yml)
+[![Maestro Smoke](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/01-maestro-smoke.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/01-maestro-smoke.yml)
+[![Maestro Regression](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/02-maestro-regression.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/02-maestro-regression.yml)
+[![Appium Deep Tests](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/03-appium-android.yml/badge.svg)](https://github.com/mejbaurbahar/MyCoifeur/actions/workflows/03-appium-android.yml)
 
-**Flutter app** · Android & iOS · Package `com.qatarat.app`
+**Flutter app** · Android & iOS · Package `com.example.my_coiffeur`
 
-📊 **[View Live Test Report →](https://mejbaurbahar.github.io/Qatarat/)**
+📊 **[View Live Test Report →](https://mejbaurbahar.github.io/MyCoifeur/)**
+
+🔗 **[GitHub Repository →](https://github.com/mejbaurbahar/MyCoifeur)**
 
 ---
 
@@ -16,8 +18,8 @@
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/mejbaurbahar/Qatarat.git
-cd Qatarat/testing
+git clone https://github.com/mejbaurbahar/MyCoifeur.git
+cd MyCoifeur/testing
 
 # 2. Install all tools (Java, ADB, Maestro, Appium, Python, scrcpy)
 bash install.sh
@@ -48,8 +50,8 @@ wsl --install
 ```bash
 # Clone into WSL filesystem (faster I/O than /mnt/c or /mnt/h)
 cd ~
-git clone https://github.com/mejbaurbahar/Qatarat.git
-cd Qatarat/testing
+git clone https://github.com/mejbaurbahar/MyCoifeur.git
+cd MyCoifeur/testing
 
 # Install everything automatically
 bash install.sh
@@ -89,7 +91,7 @@ appium driver install uiautomator2
 appium driver install --source=npm appium-flutter-driver
 
 # Python deps
-cd H:\Qatarat\testing
+cd H:\MyCoifeur\testing
 python -m venv appium\.venv
 appium\.venv\Scripts\pip install -r appium\requirements.txt
 
@@ -144,7 +146,7 @@ bash mirror.sh --help      # show all options
 | **Screen mirror** | [scrcpy](https://github.com/Genymobile/scrcpy) — USB, zero install on phone |
 | **Reporting** | [Allure](https://allurereport.org) + GitHub Pages dashboard |
 | **CI / CD** | GitHub Actions (free — Ubuntu + Android emulator) |
-| **Device** | Android API 33 emulator (CI) or any USB Android phone (local) |
+| **Device** | Android API 34 emulator (CI) or any USB Android phone (local) |
 
 ---
 
@@ -152,13 +154,13 @@ bash mirror.sh --help      # show all options
 
 | Workflow | Trigger | Duration | Coverage |
 |----------|---------|----------|----------|
-| Maestro Smoke | Every push / PR | ~10 min | Login, cart, checkout |
-| Maestro Regression | Nightly 01:00 UTC | ~30 min | All 23 flows |
-| Appium Deep Tests | Every Monday | ~60 min | Payment, gift, subscriptions, account |
+| Maestro Smoke | Every push / PR | ~10 min | Login, booking, home feed |
+| Maestro Regression | Nightly 01:00 UTC | ~35 min | All 40 flows |
+| Appium Deep Tests | Every Monday | ~60 min | Booking, payment, wallet, account |
 | Maestro iOS | Manual only | ~20 min | Smoke on iOS Simulator |
 | Publish Report | After any test run | ~3 min | Deploys to GitHub Pages |
 
-**Run any workflow manually:** [Actions tab](../../actions) → pick workflow → **Run workflow**
+**Run any workflow manually:** [Actions tab](https://github.com/mejbaurbahar/MyCoifeur/actions) → pick workflow → **Run workflow**
 
 > **First-time setup:** Go to **Settings → Pages → Source → GitHub Actions** to enable the report page.
 
@@ -166,16 +168,16 @@ bash mirror.sh --help      # show all options
 
 ## What is tested (full coverage)
 
-### Maestro flows — 23 flows (16 happy-path + 7 negative/boundary)
+### Maestro flows — 40 flows (25 happy-path + 15 MyCoiffeur-specific)
 
-**Happy-path flows**
+**Core happy-path flows**
 
 | # | Flow | What it covers |
 |---|------|---------------|
 | 01 | Splash / Onboarding | Country + language selection |
 | 02 | Login OTP | Phone → OTP → logged in |
 | 03 | Guest User | Guest browsing + login gate |
-| 04 | Browse Services | Mosque listing + selection |
+| 04 | Browse Services | Salon listing + selection |
 | 05 | Cart | Add items, quantity, price, tax |
 | 06 | Checkout | Payment method + promo code |
 | 07 | Gift Card | Full send flow + WhatsApp preview |
@@ -193,40 +195,58 @@ bash mirror.sh --help      # show all options
 
 | # | Flow | What it covers |
 |---|------|---------------|
-| 17 | Login — Invalid Phone | Empty, too-short, alpha, special-char phone all blocked |
-| 18 | Login — Wrong OTP | Wrong digits, all-zeros OTP rejected; resend link visible |
+| 17 | Login Invalid Phone | Empty, too-short, alpha, special-char phone all blocked |
+| 18 | Login Wrong OTP | Wrong digits, all-zeros OTP rejected; resend link visible |
 | 19 | Invalid Promo Codes | Wrong, empty, special-char, SQL injection all rejected |
 | 20 | Empty Cart Checkout | Checkout blocked when cart is empty |
 | 21 | Gift Card Validation | Empty form, invalid phone, XSS, SQL injection |
 | 22 | Cart Quantity Boundary | 10× increment, decrement below 1, NaN check |
-| 23 | App Background / Resume | Cart state preserved after backgrounding |
+| 23 | App Background Resume | Cart state preserved after backgrounding |
+| 24 | Browse Search Edges | Empty, Arabic, XSS, SQL, gibberish queries |
+| 25 | Payment Input Edges | Spaces, CAPS, far-future expiry, zeros |
 
-### Appium deep tests — 92 tests (31 happy-path + 61 negative/boundary)
+**MyCoiffeur-specific flows**
 
-**Happy-path tests**
+| # | Flow | What it covers |
+|---|------|---------------|
+| 26 | Home Feed | Carousel scrolling, banner taps, featured providers |
+| 27 | Booking Flow | Select provider, date, time slot → confirm |
+| 28 | Booking Reschedule | Change date and time of existing booking |
+| 29 | Booking Cancel | Cancel booking, confirm dialog |
+| 30 | Notifications | Notification list, mark-read, deep link |
+| 31 | Wallet Balance | Balance display, top-up CTA, history |
+| 32 | Ratings & Reviews | Post booking rating, comment, star picker |
+| 33 | Map Location | Salon map pins, detail sheet, directions |
+| 34 | Favourites | Add/remove favourite, list persistence |
+| 35 | Refer a Friend | Referral link share sheet, copy link |
+| 36 | Dark Mode | Toggle dark/light, colour-scheme preserves state |
+| 37 | Accessibility Labels | Content descriptions, focus order, TalkBack |
+| 38 | Session Timeout | Idle 30 min, auto-logout, re-login prompt |
+| 39 | Deep Link / QR | Open via QR code, deep-link to booking screen |
+| 40 | App Update Prompt | In-app update dialog, dismiss, force-update |
 
-| File | Tests |
-|------|-------|
-| `test_card_payment.py` | HyperPay card success, expired card, declined, promo code |
-| `test_tabby_bnpl.py` | Tabby visibility, Shariah badge, Learn More, cancel |
-| `test_bank_transfer.py` | Account details, receipt upload prompt, photo/gallery options |
-| `test_gift_card.py` | Field validation, preview accuracy, gifts received section |
-| `test_subscription.py` | Weekly, monthly, skip, success banner, unavailable items |
-| `test_live_broadcast.py` | Broadcast screen, visual docs, permission handling |
-| `test_profile.py` | Currency, About page, logout dialog, delete account, billing history |
+### Appium deep tests — 119 tests (across 18 test files)
 
-**Negative & boundary tests**
-
-| File | Tests | What gets caught |
-|------|-------|-----------------|
-| `auth/test_login_negative.py` | 9 | Alpha/empty/short phone accepted? Wrong OTP lets you in? |
-| `cart/test_cart_boundary.py` | 6 | Empty cart checkout, NaN on high quantity, decrement below 1 |
-| `payment/test_payment_negative.py` | 8 | Invalid card numbers, bad expiry, empty CVV, blank name |
-| `promo/test_promo_codes.py` | 9 | Expired codes, SQL injection, case sensitivity, spaces |
-| `gift/test_gift_card_boundary.py` | 9 | XSS in message, SQL injection, Arabic names, invalid phone |
-| `orders/test_orders_edge_cases.py` | 7 | Empty feedback, special-char search, cancel flow |
-| `subscription/test_subscription_boundary.py` | 6 | Back-button resets, frequency options, cancel declined |
-| `account/test_profile_edge_cases.py` | 7 | SQL in help search, logout cancel, empty search state |
+| Group | File | Tests |
+|-------|------|-------|
+| Payment | `test_card_payment.py` | HyperPay card success, expired card, declined, promo code |
+| Payment | `test_tabby_bnpl.py` | Tabby visibility, Shariah badge, Learn More, cancel |
+| Payment | `test_bank_transfer.py` | Account details, receipt upload prompt, photo/gallery options |
+| Payment | `test_payment_negative.py` | Invalid card numbers, bad expiry, empty CVV, blank name |
+| Payment | `test_payment_extended.py` | Card formatting, expiry edge cases, cardholder validation |
+| Commerce | `test_gift_card.py` | Field validation, preview accuracy, gifts received section |
+| Commerce | `test_gift_card_boundary.py` | XSS in message, SQL injection, Arabic names, invalid phone |
+| Commerce | `test_subscription.py` | Weekly, monthly, skip, success banner, unavailable items |
+| Commerce | `test_subscription_boundary.py` | Back-button resets, frequency options, cancel declined |
+| Commerce | `test_cart_boundary.py` | Empty cart checkout, NaN on high quantity, decrement below 1 |
+| Commerce | `test_promo_codes.py` | Expired codes, SQL injection, case sensitivity, spaces |
+| Auth | `test_login_negative.py` | Alpha/empty/short phone accepted? Wrong OTP lets you in? |
+| Auth | `test_auth_edge_cases.py` | Leading spaces, plus prefix, emoji, special chars |
+| Catalog | `test_browse_search.py` | Single char, Arabic text, XSS, SQL, gibberish, clear search |
+| Checkout | `test_checkout_edge_cases.py` | Back navigation, payment switching, coupon + payment |
+| Account | `test_profile.py` | Currency, About page, logout dialog, delete account |
+| Account | `test_profile_edge_cases.py` | SQL in help search, logout cancel, empty search state |
+| Account | `test_orders_edge_cases.py` | Empty feedback, special-char search, cancel flow |
 
 ---
 
@@ -244,9 +264,9 @@ bash mirror.sh --watch             # auto-relaunch on reconnect
 bash mirror.sh --low-cpu           # 720p mode for older / low-storage PCs
 
 bash run_maestro.sh                # smoke suite (5 flows)
-bash run_maestro.sh regression     # full regression (all 25 flows)
-bash run_maestro.sh negative       # negative/boundary flows only (7 flows)
-bash run_maestro.sh flow 12        # single flow by number
+bash run_maestro.sh regression     # full regression (all 40 flows)
+bash run_maestro.sh negative       # negative/boundary flows only
+bash run_maestro.sh flow 27        # single flow by number (e.g. booking flow)
 
 bash run_appium.sh payment         # payment tests
 bash run_appium.sh gift            # gift card tests

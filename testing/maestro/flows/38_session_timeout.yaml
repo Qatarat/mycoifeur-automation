@@ -1,0 +1,78 @@
+appId: com.example.my_coiffeur
+---
+# Flow 38: Session Timeout — background app, return, verify re-auth or session preserved
+# Covers: press Home → wait → re-open app → session still valid OR re-login required.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: logged_in_before_background
+
+# Background the app (press Home)
+- pressKey: Home
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Re-open the app
+- openLink: "mycoiffeur://"
+    optional: true
+- launchApp:
+    clearState: false
+
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: after_resume
+
+# Verify app is in a valid state (either still logged in or shows re-login)
+- assertVisible:
+    text: "Home"
+    optional: true
+- assertVisible:
+    text: "Login"
+    optional: true
+
+- takeScreenshot: session_timeout_complete

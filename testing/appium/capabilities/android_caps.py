@@ -1,13 +1,36 @@
 import os
 
+# ---------------------------------------------------------------------------
+# Android Appium capabilities
+# ---------------------------------------------------------------------------
+# APK path resolution order:
+#   1. ANDROID_APP_PATH env var (set in CI or before running locally)
+#   2. Falls back to a .apk found at the repo root (any filename ending .apk)
+#   3. Falls back to the legacy MyCoiffeur.apk path for backwards compat
+# ---------------------------------------------------------------------------
+
+def _resolve_apk_path() -> str:
+    """Return the APK path from env var or auto-discover from repo root."""
+    env_path = os.environ.get("ANDROID_APP_PATH", "")
+    if env_path and os.path.isfile(env_path):
+        return os.path.abspath(env_path)
+    # Auto-discover: look for any *.apk at the repo root (two levels up)
+    repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../.."))
+    for filename in os.listdir(repo_root):
+        if filename.endswith(".apk"):
+            return os.path.join(repo_root, filename)
+    # Legacy fallback
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../MyCoiffeur.apk"))
+
+
 ANDROID_CAPS = {
     "platformName": "Android",
     "appium:automationName": "UiAutomator2",
-    "appium:app": os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../../../MyCoiffeur.apk")
+    "appium:app": _resolve_apk_path(),
+    "appium:appPackage": os.environ.get("ANDROID_APP_PACKAGE", "com.example.my_coiffeur"),
+    "appium:appActivity": os.environ.get(
+        "ANDROID_APP_ACTIVITY", "com.example.my_coiffeur.MainActivity"
     ),
-    "appium:appPackage": "com.example.my_coiffeur",
-    "appium:appActivity": "com.example.my_coiffeur.MainActivity",
     "appium:noReset": False,
     "appium:fullReset": False,
     "appium:newCommandTimeout": 120,

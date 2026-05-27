@@ -1,6 +1,6 @@
-# Qatarat — Full Automation Testing Suite
+# MyCoiffeur — Full Automation Testing Suite
 
-**App:** Qatarat (قطرات) — Flutter, `com.qatarat.app`
+**App:** MyCoiffeur — Flutter, `com.example.my_coiffeur`
 **Environment:** Lambda Stage APK
 
 ---

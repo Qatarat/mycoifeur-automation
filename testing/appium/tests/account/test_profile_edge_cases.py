@@ -80,10 +80,10 @@ class TestProfileEdgeCases:
         """About page must contain app name and version information."""
         base = self._login_and_open_profile(driver)
         base.tap_optional("About")
-        base.tap_optional("About Qatarat")
+        base.tap_optional("About MyCoiffeur")
         wait_for_animation(driver, 2)
 
-        assert base.is_visible("Qatarat") or \
+        assert base.is_visible("MyCoiffeur") or \
                base.is_visible("Version") or \
                base.is_visible("About"), \
             "About page did not load or is missing app info"

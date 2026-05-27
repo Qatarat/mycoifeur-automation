@@ -33,7 +33,7 @@ class TestSearchInput:
         assert "500" not in driver.page_source
 
     def test_search_arabic_text(self, driver):
-        """Arabic search query — Qatarat is an Arabic-first app."""
+        """Arabic search query — MyCoiffeur supports Arabic text input."""
         _go_to_browse(driver)
         driver.find_element(AppiumBy.ACCESSIBILITY_ID, "search_field").send_keys("مسجد")
         page = driver.page_source

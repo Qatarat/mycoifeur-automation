@@ -1,0 +1,109 @@
+appId: com.example.my_coiffeur
+---
+# Flow 27: Booking Flow — service → provider → date/time slot → confirm booking
+# Covers: complete happy-path booking, slot selection, booking confirmation screen.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Navigate to browse / services
+- tapOn:
+    text: "Browse"
+    optional: true
+- tapOn:
+    text: "Services"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+# Tap the first available service
+- tapOn:
+    text: "Book Now"
+    optional: true
+- tapOn:
+    text: "Select"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: booking_service_selected
+
+# Select date — tap first available date chip
+- tapOn:
+    text: "Today"
+    optional: true
+- tapOn:
+    text: "Tomorrow"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+# Select first available time slot
+- tapOn:
+    text: "10:00"
+    optional: true
+- tapOn:
+    text: "AM"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: booking_slot_selected
+
+# Confirm booking
+- tapOn:
+    text: "Confirm Booking"
+    optional: true
+- tapOn:
+    text: "Book"
+    optional: true
+- tapOn:
+    text: "Confirm"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+- takeScreenshot: booking_confirmed

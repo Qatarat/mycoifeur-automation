@@ -1,0 +1,3678 @@
+- generic [ref=e2]:
+  - navigation [ref=e3]:
+    - generic [ref=e6]:
+      - text: Fagun Autonomous QA
+      - generic [ref=e7]: "Markopolo · staging · run #153"
+    - generic [ref=e8]:
+      - link "Overview" [ref=e9] [cursor=pointer]:
+        - /url: "#overview"
+      - link "Regressions" [ref=e10] [cursor=pointer]:
+        - /url: "#regressions"
+      - link "Trend" [ref=e11] [cursor=pointer]:
+        - /url: "#trend"
+      - link "Breakdown" [ref=e12] [cursor=pointer]:
+        - /url: "#breakdown"
+      - link "Heatmap" [ref=e13] [cursor=pointer]:
+        - /url: "#heatmap"
+      - link "Agents" [ref=e14] [cursor=pointer]:
+        - /url: "#agents"
+      - link "Bugs" [ref=e15] [cursor=pointer]:
+        - /url: "#bugs"
+      - link "Plan" [ref=e16] [cursor=pointer]:
+        - /url: "#recos"
+    - generic [ref=e17]:
+      - button "Next build in 23h 17m" [ref=e19] [cursor=pointer]:
+        - generic [ref=e21]:
+          - generic [ref=e22]: Next build in
+          - generic [ref=e23]: 23h 17m
+      - button "History" [ref=e24] [cursor=pointer]:
+        - img
+        - text: History
+      - button "Watch CI run" [ref=e29] [cursor=pointer]:
+        - img [ref=e30]
+        - text: Watch CI run
+  - generic [ref=e32]:
+    - generic [ref=e33]:
+      - generic [ref=e34]:
+        - generic [ref=e35]:
+          - generic [ref=e36]:
+            - generic [ref=e37]: QA Report
+            - generic [ref=e38]: /
+            - generic [ref=e39]: "Run #153"
+            - generic [ref=e40]: /
+            - generic [ref=e41]: 2389 tests · 43 agents
+            - generic [ref=e42]: /
+            - generic [ref=e43]: Regression detected
+          - 'heading "100 nightly runs in — and tonight, one P0 stands between stg and prod. Autonomous coverage across 22 agents opened 39 bug tickets. The dip from #99 traces back to a handful of high-severity hits in security, accessibility, and performance." [level=1] [ref=e44]':
+            - text: 100 nightly runs in —
+            - text: and tonight,
+            - emphasis [ref=e45]: one
+            - text: P0 stands between stg and prod.
+            - generic [ref=e46]: "Autonomous coverage across 22 agents opened 39 bug tickets. The dip from #99 traces back to a handful of high-severity hits in security, accessibility, and performance."
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - generic [ref=e49]: Project
+            - generic [ref=e50]: Markopolo.ai
+          - generic [ref=e51]:
+            - generic [ref=e52]: Target
+            - generic [ref=e53]: beta-stg.markopolo.ai
+          - generic [ref=e54]:
+            - generic [ref=e55]: Commit
+            - generic [ref=e56]: a6b4974
+          - generic [ref=e57]:
+            - generic [ref=e58]: Duration
+            - generic [ref=e59]: 92m 22s
+          - generic [ref=e60]:
+            - generic [ref=e61]: Coverage
+            - generic [ref=e62]: 87% · 48 sources
+          - generic [ref=e63]:
+            - generic [ref=e64]: Flaky tests
+            - generic [ref=e65]: 0 re-run
+      - generic [ref=e66]:
+        - generic [ref=e68]: C+
+        - generic [ref=e69]:
+          - 'heading "Overall quality: stable but slipping" [level=2] [ref=e70]'
+          - paragraph [ref=e71]:
+            - text: Pass rate dropped −3.9% vs the previous run after holding mid-70s for the last 10 builds. Two new critical/high security findings and a notable LCP regression on
+            - code [ref=e72]: /journeys
+            - text: are the primary drivers. Patch P0–P1 before the next release branch cut.
+        - generic [ref=e73]:
+          - button "Watch CI replay" [ref=e74] [cursor=pointer]:
+            - img [ref=e75]
+            - text: Watch CI replay
+          - link "Open raw report ↗" [ref=e77] [cursor=pointer]:
+            - /url: https://mejbaur-markopolo.github.io/Markopolo-Automation-Testing/
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - generic [ref=e80]: Pass rate
+        - generic [ref=e81]: 74.6%
+        - generic [ref=e82]: "▲ 0.1% vs #152"
+        - img [ref=e84]
+      - generic [ref=e89]:
+        - generic [ref=e90]: Total tests
+        - generic [ref=e91]: "2389"
+        - generic [ref=e92]: across 43 agents · 18 sources
+        - img [ref=e94]
+      - generic [ref=e99]:
+        - generic [ref=e100]: Passed
+        - generic [ref=e101]: "1781"
+        - generic [ref=e102]: 74.6% of suite
+        - img [ref=e104]
+      - generic [ref=e109]:
+        - generic [ref=e110]: Failed
+        - generic [ref=e111]: "258"
+        - generic [ref=e112]: "▼ 2 vs #152"
+        - img [ref=e114]
+      - generic [ref=e119]:
+        - generic [ref=e120]: Bug tickets
+        - generic [ref=e121]: "258"
+        - generic [ref=e122]: "▼ 2 vs #152"
+        - img [ref=e124]
+      - generic [ref=e129]:
+        - generic [ref=e130]: Coverage
+        - generic [ref=e131]: 87%
+        - generic [ref=e132]: 48 sources crawled
+        - img [ref=e134]
+    - generic [ref=e139]:
+      - generic [ref=e140]:
+        - generic [ref=e141]:
+          - generic [ref=e142]: "01"
+          - heading "Regression alerts" [level=3] [ref=e143]
+        - paragraph [ref=e144]: "Detected by comparing run #100 to #99. Three correlated deltas worth investigating before next release."
+      - generic [ref=e145]:
+        - generic [ref=e146]:
+          - generic [ref=e147]:
+            - generic [ref=e148]: ▲ Regression
+            - generic [ref=e149]: "since #99"
+          - generic [ref=e150]: −2
+          - generic [ref=e151]: Bug count reduced
+          - generic [ref=e152]: "260 → 258 tickets vs run #152"
+        - generic [ref=e153]:
+          - generic [ref=e154]:
+            - generic [ref=e155]: ▲ Regression
+            - generic [ref=e156]: "since #99"
+          - generic [ref=e157]: −2
+          - generic [ref=e158]: Failing tests down
+          - generic [ref=e159]: "260 → 258 failures vs run #152"
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - generic [ref=e162]:
+          - generic [ref=e163]: "02"
+          - heading "30-run trajectory" [level=3] [ref=e164]
+        - paragraph [ref=e165]: "Pass-rate line with bug-volume bars. The platform stabilised around run #83 — and has held mid-70s since."
+      - generic [ref=e166]:
+        - generic [ref=e167]:
+          - generic [ref=e168]:
+            - generic [ref=e169]: Pass rate (%)
+            - generic [ref=e171]: Bug tickets
+            - generic [ref=e173]: Annotation
+          - generic [ref=e175]: "Runs #118–#153 · 30 builds · median 74.6%"
+        - img [ref=e176]:
+          - generic [ref=e177]:
+            - generic [ref=e179]: 0%
+            - generic [ref=e181]: 25%
+            - generic [ref=e183]: 50%
+            - generic [ref=e185]: 75%
+            - generic [ref=e187]: 100%
+          - generic [ref=e188]: target ≥ 75%
+          - generic [ref=e282]:
+            - generic [ref=e283]: "#118"
+            - generic [ref=e284]: "#122"
+            - generic [ref=e285]: "#126"
+            - generic [ref=e286]: "#132"
+            - generic [ref=e287]: "#137"
+            - generic [ref=e288]: "#142"
+            - generic [ref=e289]: "#146"
+            - generic [ref=e290]: "#152"
+            - generic [ref=e291]: "#153"
+    - generic [ref=e292]:
+      - generic [ref=e293]:
+        - generic [ref=e294]:
+          - generic [ref=e295]: "03"
+          - heading "Pass / fail breakdown" [level=3] [ref=e296]
+        - paragraph [ref=e297]: Where the 39 failures cluster — and how each test category is holding up against the rest of the suite.
+      - generic [ref=e298]:
+        - generic [ref=e299]:
+          - img [ref=e301]:
+            - generic [ref=e305]: 87.3%
+            - generic [ref=e306]: PASSED
+          - generic [ref=e307]:
+            - generic [ref=e308]:
+              - generic [ref=e310]: Passed
+              - generic [ref=e311]: "1781"
+              - generic [ref=e312]: 74.6%
+            - generic [ref=e313]:
+              - generic [ref=e315]: Failed
+              - generic [ref=e316]: "258"
+              - generic [ref=e317]: 10.8%
+            - generic [ref=e318]:
+              - generic [ref=e320]: Flaky (re-ran)
+              - generic [ref=e321]: "0"
+              - generic [ref=e322]: 0.0%
+            - generic [ref=e323]:
+              - generic [ref=e325]: Total tests
+              - generic [ref=e326]: "2389"
+              - generic [ref=e327]: 43 agents
+        - generic [ref=e328]:
+          - generic [ref=e329]:
+            - generic [ref=e330]:
+              - text: Stability
+              - generic [ref=e331]: 31 failed of 50
+            - generic [ref=e332]: 19/50
+            - generic [ref=e335]: 38%
+          - generic [ref=e336]:
+            - generic [ref=e337]:
+              - text: AI Quality
+              - generic [ref=e338]: 17 failed of 35
+            - generic [ref=e339]: 18/35
+            - generic [ref=e342]: 51%
+          - generic [ref=e343]:
+            - generic [ref=e344]:
+              - text: Accessibility
+              - generic [ref=e345]: 6 failed of 32
+            - generic [ref=e346]: 26/32
+            - generic [ref=e349]: 81%
+          - generic [ref=e350]:
+            - generic [ref=e351]:
+              - text: Security
+              - generic [ref=e352]: 13 failed of 103
+            - generic [ref=e353]: 90/103
+            - generic [ref=e356]: 87%
+          - generic [ref=e357]:
+            - generic [ref=e358]:
+              - text: Functional
+              - generic [ref=e359]: 185 failed of 1675
+            - generic [ref=e360]: 1490/1675
+            - generic [ref=e363]: 89%
+          - generic [ref=e364]:
+            - generic [ref=e365]:
+              - text: Integration
+              - generic [ref=e366]: 5 failed of 97
+            - generic [ref=e367]: 92/97
+            - generic [ref=e370]: 95%
+          - generic [ref=e371]:
+            - generic [ref=e372]:
+              - text: Auth
+              - generic [ref=e373]: 1 failed of 203
+            - generic [ref=e374]: 202/203
+            - generic [ref=e377]: 100%
+          - generic [ref=e378]:
+            - generic [ref=e379]:
+              - text: Performance
+              - generic [ref=e380]: 0 failed of 27
+            - generic [ref=e381]: 27/27
+            - generic [ref=e384]: 100%
+          - generic [ref=e385]:
+            - generic [ref=e386]:
+              - text: Visual
+              - generic [ref=e387]: 0 failed of 8
+            - generic [ref=e388]: 8/8
+            - generic [ref=e391]: 100%
+          - generic [ref=e392]:
+            - generic [ref=e393]:
+              - text: Regression
+              - generic [ref=e394]: 0 failed of 159
+            - generic [ref=e395]: 159/159
+            - generic [ref=e398]: 100%
+    - generic [ref=e399]:
+      - generic [ref=e400]:
+        - generic [ref=e401]:
+          - generic [ref=e402]: "04"
+          - heading "Failure heatmap" [level=3] [ref=e403]
+        - paragraph [ref=e404]: Failure concentration across categories over the last 30 runs. Hover any cell for the run’s detail.
+      - generic [ref=e405]:
+        - generic [ref=e406]:
+          - generic [ref=e408]: Functional
+          - generic [ref=e441]: Security
+          - generic [ref=e474]: Performance
+          - generic [ref=e507]: AI Quality
+          - generic [ref=e540]: Integration
+          - generic [ref=e573]: Accessibility
+          - generic [ref=e606]: Visual
+          - generic [ref=e639]: Stability
+          - generic [ref=e672]: Auth
+          - generic [ref=e705]: Regression
+        - generic [ref=e738]:
+          - generic [ref=e739]: "#118"
+          - generic [ref=e740]: "#119"
+          - generic [ref=e741]: "#120"
+          - generic [ref=e742]: "#121"
+          - generic [ref=e743]: "#122"
+          - generic [ref=e744]: "#123"
+          - generic [ref=e745]: "#124"
+          - generic [ref=e746]: "#125"
+          - generic [ref=e747]: "#126"
+          - generic [ref=e748]: "#129"
+          - generic [ref=e749]: "#130"
+          - generic [ref=e750]: "#131"
+          - generic [ref=e751]: "#132"
+          - generic [ref=e752]: "#133"
+          - generic [ref=e753]: "#134"
+          - generic [ref=e754]: "#135"
+          - generic [ref=e755]: "#137"
+          - generic [ref=e756]: "#138"
+          - generic [ref=e757]: "#140"
+          - generic [ref=e758]: "#141"
+          - generic [ref=e759]: "#142"
+          - generic [ref=e760]: "#143"
+          - generic [ref=e761]: "#144"
+          - generic [ref=e762]: "#145"
+          - generic [ref=e763]: "#146"
+          - generic [ref=e764]: "#148"
+          - generic [ref=e765]: "#150"
+          - generic [ref=e766]: "#151"
+          - generic [ref=e767]: "#152"
+          - generic [ref=e768]: "#153"
+        - generic [ref=e769]:
+          - generic [ref=e770]: "Severity:"
+          - generic [ref=e773]: healthy
+          - generic [ref=e776]: watch
+          - generic [ref=e779]: elevated
+          - generic [ref=e782]: high
+          - generic [ref=e785]: critical
+    - generic [ref=e786]:
+      - generic [ref=e787]:
+        - generic [ref=e788]:
+          - generic [ref=e789]: "05"
+          - heading "Per-agent matrix · 43 agents" [level=3] [ref=e790]
+        - paragraph [ref=e791]: Each autonomous agent runs its own pytest-html suite. Click any card to open its detailed report.
+      - generic [ref=e792]:
+        - link "QA01FUNC · Functional 🧪 QA-01 Functional 11/11 tests passed 11/11 pass —" [ref=e793] [cursor=pointer]:
+          - /url: agents/agent-qa01func.html
+          - generic [ref=e794]:
+            - generic [ref=e795]: QA01FUNC · Functional
+            - generic [ref=e796]: 🧪
+          - generic [ref=e797]: QA-01 Functional
+          - generic [ref=e798]: 11/11 tests passed
+          - generic [ref=e801]:
+            - generic [ref=e802]: 11/11 pass
+            - generic [ref=e804]: —
+        - link "QA02EDGE · Functional 🔍 QA-02 Edge Cases 7/7 tests passed 7/7 pass —" [ref=e805] [cursor=pointer]:
+          - /url: agents/agent-qa02edge.html
+          - generic [ref=e806]:
+            - generic [ref=e807]: QA02EDGE · Functional
+            - generic [ref=e808]: 🔍
+          - generic [ref=e809]: QA-02 Edge Cases
+          - generic [ref=e810]: 7/7 tests passed
+          - generic [ref=e813]:
+            - generic [ref=e814]: 7/7 pass
+            - generic [ref=e816]: —
+        - link "QA03SECU · Security 🔒 QA-03 Security 9/9 tests passed 9/9 pass —" [ref=e817] [cursor=pointer]:
+          - /url: agents/agent-qa03secu.html
+          - generic [ref=e818]:
+            - generic [ref=e819]: QA03SECU · Security
+            - generic [ref=e820]: 🔒
+          - generic [ref=e821]: QA-03 Security
+          - generic [ref=e822]: 9/9 tests passed
+          - generic [ref=e825]:
+            - generic [ref=e826]: 9/9 pass
+            - generic [ref=e828]: —
+        - link "QA04PERF · Performance ⚡ QA-04 Performance 15/15 tests passed 15/15 pass —" [ref=e829] [cursor=pointer]:
+          - /url: agents/agent-qa04perf.html
+          - generic [ref=e830]:
+            - generic [ref=e831]: QA04PERF · Performance
+            - generic [ref=e832]: ⚡
+          - generic [ref=e833]: QA-04 Performance
+          - generic [ref=e834]: 15/15 tests passed
+          - generic [ref=e837]:
+            - generic [ref=e838]: 15/15 pass
+            - generic [ref=e840]: —
+        - 'link "QA05HALL · AI Quality 🧠 QA-05 Hallucination Failed: Test qa05 page loads consistent data on reload 18/19 pass —" [ref=e841] [cursor=pointer]':
+          - /url: agents/agent-qa05hall.html
+          - generic [ref=e842]:
+            - generic [ref=e843]: QA05HALL · AI Quality
+            - generic [ref=e844]: 🧠
+          - generic [ref=e845]: QA-05 Hallucination
+          - generic [ref=e846]: "Failed: Test qa05 page loads consistent data on reload"
+          - generic [ref=e849]:
+            - generic [ref=e850]: 18/19 pass
+            - generic [ref=e852]: —
+        - link "QA06API · Integration 🌐 QA-06 API & Network 9/11 tests passed 9/11 pass —" [ref=e853] [cursor=pointer]:
+          - /url: agents/agent-qa06api.html
+          - generic [ref=e854]:
+            - generic [ref=e855]: QA06API · Integration
+            - generic [ref=e856]: 🌐
+          - generic [ref=e857]: QA-06 API & Network
+          - generic [ref=e858]: 9/11 tests passed
+          - generic [ref=e861]:
+            - generic [ref=e862]: 9/11 pass
+            - generic [ref=e864]: —
+        - link "QA07ACCE · Accessibility ♿ QA-07 Accessibility 19/22 tests passed 19/22 pass —" [ref=e865] [cursor=pointer]:
+          - /url: agents/agent-qa07acce.html
+          - generic [ref=e866]:
+            - generic [ref=e867]: QA07ACCE · Accessibility
+            - generic [ref=e868]: ♿
+          - generic [ref=e869]: QA-07 Accessibility
+          - generic [ref=e870]: 19/22 tests passed
+          - generic [ref=e873]:
+            - generic [ref=e874]: 19/22 pass
+            - generic [ref=e876]: —
+        - 'link "QA08MOBI · Accessibility 📱 QA-08 Mobile/Viewport Failed: Test qa08 login form usable on mobile 7/10 pass —" [ref=e877] [cursor=pointer]':
+          - /url: agents/agent-qa08mobi.html
+          - generic [ref=e878]:
+            - generic [ref=e879]: QA08MOBI · Accessibility
+            - generic [ref=e880]: 📱
+          - generic [ref=e881]: QA-08 Mobile/Viewport
+          - generic [ref=e882]: "Failed: Test qa08 login form usable on mobile"
+          - generic [ref=e885]:
+            - generic [ref=e886]: 7/10 pass
+            - generic [ref=e888]: —
+        - link "QA09SEO · Functional 🔎 QA-09 SEO & Meta 12/13 tests passed 12/13 pass —" [ref=e889] [cursor=pointer]:
+          - /url: agents/agent-qa09seo.html
+          - generic [ref=e890]:
+            - generic [ref=e891]: QA09SEO · Functional
+            - generic [ref=e892]: 🔎
+          - generic [ref=e893]: QA-09 SEO & Meta
+          - generic [ref=e894]: 12/13 tests passed
+          - generic [ref=e897]:
+            - generic [ref=e898]: 12/13 pass
+            - generic [ref=e900]: —
+        - link "QA11VISU · Visual 🎨 QA-11 Visual Regression 8/8 tests passed 8/8 pass —" [ref=e901] [cursor=pointer]:
+          - /url: agents/agent-qa11visu.html
+          - generic [ref=e902]:
+            - generic [ref=e903]: QA11VISU · Visual
+            - generic [ref=e904]: 🎨
+          - generic [ref=e905]: QA-11 Visual Regression
+          - generic [ref=e906]: 8/8 tests passed
+          - generic [ref=e909]:
+            - generic [ref=e910]: 8/8 pass
+            - generic [ref=e912]: —
+        - link "QA12JSER · Stability 🐞 QA-12 JS Error Sweeper 14/14 tests passed 14/14 pass —" [ref=e913] [cursor=pointer]:
+          - /url: agents/agent-qa12jser.html
+          - generic [ref=e914]:
+            - generic [ref=e915]: QA12JSER · Stability
+            - generic [ref=e916]: 🐞
+          - generic [ref=e917]: QA-12 JS Error Sweeper
+          - generic [ref=e918]: 14/14 tests passed
+          - generic [ref=e921]:
+            - generic [ref=e922]: 14/14 pass
+            - generic [ref=e924]: —
+        - 'link "QA13SECU · Security 🛡️ QA-13 Security Headers Failed: Test qa13 strict transport security present 7/13 pass —" [ref=e925] [cursor=pointer]':
+          - /url: agents/agent-qa13secu.html
+          - generic [ref=e926]:
+            - generic [ref=e927]: QA13SECU · Security
+            - generic [ref=e928]: 🛡️
+          - generic [ref=e929]: QA-13 Security Headers
+          - generic [ref=e930]: "Failed: Test qa13 strict transport security present"
+          - generic [ref=e933]:
+            - generic [ref=e934]: 7/13 pass
+            - generic [ref=e936]: —
+        - 'link "QA14COOK · Security 🍪 QA-14 Cookie Security Failed: Test qa14 session cookies have secure flag 6/11 pass —" [ref=e937] [cursor=pointer]':
+          - /url: agents/agent-qa14cook.html
+          - generic [ref=e938]:
+            - generic [ref=e939]: QA14COOK · Security
+            - generic [ref=e940]: 🍪
+          - generic [ref=e941]: QA-14 Cookie Security
+          - generic [ref=e942]: "Failed: Test qa14 session cookies have secure flag"
+          - generic [ref=e945]:
+            - generic [ref=e946]: 6/11 pass
+            - generic [ref=e948]: —
+        - link "QA15OWAS · Security 🎯 QA-15 OWASP Surface 18/18 tests passed 18/18 pass —" [ref=e949] [cursor=pointer]:
+          - /url: agents/agent-qa15owas.html
+          - generic [ref=e950]:
+            - generic [ref=e951]: QA15OWAS · Security
+            - generic [ref=e952]: 🎯
+          - generic [ref=e953]: QA-15 OWASP Surface
+          - generic [ref=e954]: 18/18 tests passed
+          - generic [ref=e957]:
+            - generic [ref=e958]: 18/18 pass
+            - generic [ref=e960]: —
+        - link "QA16LIGH · Performance 📊 QA-16 Core Web Vitals 3/3 tests passed 3/3 pass —" [ref=e961] [cursor=pointer]:
+          - /url: agents/agent-qa16ligh.html
+          - generic [ref=e962]:
+            - generic [ref=e963]: QA16LIGH · Performance
+            - generic [ref=e964]: 📊
+          - generic [ref=e965]: QA-16 Core Web Vitals
+          - generic [ref=e966]: 3/3 tests passed
+          - generic [ref=e969]:
+            - generic [ref=e970]: 3/3 pass
+            - generic [ref=e972]: —
+        - link "QA17MEMO · Performance 💧 QA-17 Memory Leak 9/9 tests passed 9/9 pass —" [ref=e973] [cursor=pointer]:
+          - /url: agents/agent-qa17memo.html
+          - generic [ref=e974]:
+            - generic [ref=e975]: QA17MEMO · Performance
+            - generic [ref=e976]: 💧
+          - generic [ref=e977]: QA-17 Memory Leak
+          - generic [ref=e978]: 9/9 tests passed
+          - generic [ref=e981]:
+            - generic [ref=e982]: 9/9 pass
+            - generic [ref=e984]: —
+        - link "QA18NETW · Stability 📡 QA-18 Network Resilience 3/4 tests passed 3/4 pass —" [ref=e985] [cursor=pointer]:
+          - /url: agents/agent-qa18netw.html
+          - generic [ref=e986]:
+            - generic [ref=e987]: QA18NETW · Stability
+            - generic [ref=e988]: 📡
+          - generic [ref=e989]: QA-18 Network Resilience
+          - generic [ref=e990]: 3/4 tests passed
+          - generic [ref=e993]:
+            - generic [ref=e994]: 3/4 pass
+            - generic [ref=e996]: —
+        - 'link "QA19EXPL · AI Quality 🤖 QA-19 Autonomous Exploratory Failed: Test qa19 autonomous exploration 0/16 pass —" [ref=e997] [cursor=pointer]':
+          - /url: agents/agent-qa19expl.html
+          - generic [ref=e998]:
+            - generic [ref=e999]: QA19EXPL · AI Quality
+            - generic [ref=e1000]: 🤖
+          - generic [ref=e1001]: QA-19 Autonomous Exploratory
+          - generic [ref=e1002]: "Failed: Test qa19 autonomous exploration"
+          - generic [ref=e1004]:
+            - generic [ref=e1005]: 0/16 pass
+            - generic [ref=e1007]: —
+        - 'link "MP1000 · Functional 🔢 1000+ Comprehensive Tests Failed: Test email input present 821/947 pass —" [ref=e1008] [cursor=pointer]':
+          - /url: agents/agent-mp1000.html
+          - generic [ref=e1009]:
+            - generic [ref=e1010]: MP1000 · Functional
+            - generic [ref=e1011]: 🔢
+          - generic [ref=e1012]: 1000+ Comprehensive Tests
+          - generic [ref=e1013]: "Failed: Test email input present"
+          - generic [ref=e1016]:
+            - generic [ref=e1017]: 821/947 pass
+            - generic [ref=e1019]: —
+        - 'link "QA23 · Functional 🚶 QA-23 End User Journeys Failed: Test qa23 login page loads with email field 6/11 pass —" [ref=e1020] [cursor=pointer]':
+          - /url: agents/agent-qa23.html
+          - generic [ref=e1021]:
+            - generic [ref=e1022]: QA23 · Functional
+            - generic [ref=e1023]: 🚶
+          - generic [ref=e1024]: QA-23 End User Journeys
+          - generic [ref=e1025]: "Failed: Test qa23 login page loads with email field"
+          - generic [ref=e1028]:
+            - generic [ref=e1029]: 6/11 pass
+            - generic [ref=e1031]: —
+        - 'link "QA24 · Functional 🔬 QA-24 Tester Checks Failed: Test qa24 back button from login to home 7/8 pass —" [ref=e1032] [cursor=pointer]':
+          - /url: agents/agent-qa24.html
+          - generic [ref=e1033]:
+            - generic [ref=e1034]: QA24 · Functional
+            - generic [ref=e1035]: 🔬
+          - generic [ref=e1036]: QA-24 Tester Checks
+          - generic [ref=e1037]: "Failed: Test qa24 back button from login to home"
+          - generic [ref=e1040]:
+            - generic [ref=e1041]: 7/8 pass
+            - generic [ref=e1043]: —
+        - link "QA25 · Functional 💻 QA-25 Developer Checks 7/9 tests passed 7/9 pass —" [ref=e1044] [cursor=pointer]:
+          - /url: agents/agent-qa25.html
+          - generic [ref=e1045]:
+            - generic [ref=e1046]: QA25 · Functional
+            - generic [ref=e1047]: 💻
+          - generic [ref=e1048]: QA-25 Developer Checks
+          - generic [ref=e1049]: 7/9 tests passed
+          - generic [ref=e1052]:
+            - generic [ref=e1053]: 7/9 pass
+            - generic [ref=e1055]: —
+        - link "QA26 · Functional 📋 QA-26 PM Critical Paths 6/8 tests passed 6/8 pass —" [ref=e1056] [cursor=pointer]:
+          - /url: agents/agent-qa26.html
+          - generic [ref=e1057]:
+            - generic [ref=e1058]: QA26 · Functional
+            - generic [ref=e1059]: 📋
+          - generic [ref=e1060]: QA-26 PM Critical Paths
+          - generic [ref=e1061]: 6/8 tests passed
+          - generic [ref=e1064]:
+            - generic [ref=e1065]: 6/8 pass
+            - generic [ref=e1067]: —
+        - 'link "E2EFLOWS · Functional 🔗 E2E Stateful Flows Failed: Test flow login to dashboard 2/13 pass —" [ref=e1068] [cursor=pointer]':
+          - /url: agents/agent-e2eflows.html
+          - generic [ref=e1069]:
+            - generic [ref=e1070]: E2EFLOWS · Functional
+            - generic [ref=e1071]: 🔗
+          - generic [ref=e1072]: E2E Stateful Flows
+          - generic [ref=e1073]: "Failed: Test flow login to dashboard"
+          - generic [ref=e1076]:
+            - generic [ref=e1077]: 2/13 pass
+            - generic [ref=e1079]: —
+        - 'link "TESTREGR · Stability 🔄 Regression Bug Tests Failed: Test ds146 jwt must be verified not decoded 2/32 pass —" [ref=e1080] [cursor=pointer]':
+          - /url: agents/agent-testregr.html
+          - generic [ref=e1081]:
+            - generic [ref=e1082]: TESTREGR · Stability
+            - generic [ref=e1083]: 🔄
+          - generic [ref=e1084]: Regression Bug Tests
+          - generic [ref=e1085]: "Failed: Test ds146 jwt must be verified not decoded"
+          - generic [ref=e1088]:
+            - generic [ref=e1089]: 2/32 pass
+            - generic [ref=e1091]: —
+        - link "TESTLOGI · Functional 🔐 Login Tests 12/12 tests passed 12/12 pass —" [ref=e1092] [cursor=pointer]:
+          - /url: agents/agent-testlogi.html
+          - generic [ref=e1093]:
+            - generic [ref=e1094]: TESTLOGI · Functional
+            - generic [ref=e1095]: 🔐
+          - generic [ref=e1096]: Login Tests
+          - generic [ref=e1097]: 12/12 tests passed
+          - generic [ref=e1100]:
+            - generic [ref=e1101]: 12/12 pass
+            - generic [ref=e1103]: —
+        - link "TESTFILE · Functional 🧪 File Upload Tests 2/2 tests passed 2/2 pass —" [ref=e1104] [cursor=pointer]:
+          - /url: agents/agent-testfile.html
+          - generic [ref=e1105]:
+            - generic [ref=e1106]: TESTFILE · Functional
+            - generic [ref=e1107]: 🧪
+          - generic [ref=e1108]: File Upload Tests
+          - generic [ref=e1109]: 2/2 tests passed
+          - generic [ref=e1112]:
+            - generic [ref=e1113]: 2/2 pass
+            - generic [ref=e1115]: —
+        - link "TESTWEBS · Functional 🧪 WebSocket Tests 3/4 tests passed 3/4 pass —" [ref=e1116] [cursor=pointer]:
+          - /url: agents/agent-testwebs.html
+          - generic [ref=e1117]:
+            - generic [ref=e1118]: TESTWEBS · Functional
+            - generic [ref=e1119]: 🧪
+          - generic [ref=e1120]: WebSocket Tests
+          - generic [ref=e1121]: 3/4 tests passed
+          - generic [ref=e1124]:
+            - generic [ref=e1125]: 3/4 pass
+            - generic [ref=e1127]: —
+        - link "MARKOPOL · Functional 📈 Analytics 37/84 tests passed 79/84 pass —" [ref=e1128] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1129]:
+            - generic [ref=e1130]: MARKOPOL · Functional
+            - generic [ref=e1131]: 📈
+          - generic [ref=e1132]: Analytics
+          - generic [ref=e1133]: 37/84 tests passed
+          - generic [ref=e1136]:
+            - generic [ref=e1137]: 79/84 pass
+            - generic [ref=e1139]: —
+        - link "MARKOPOL · Functional 📝 Content 33/52 tests passed 49/52 pass —" [ref=e1140] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1141]:
+            - generic [ref=e1142]: MARKOPOL · Functional
+            - generic [ref=e1143]: 📝
+          - generic [ref=e1144]: Content
+          - generic [ref=e1145]: 33/52 tests passed
+          - generic [ref=e1148]:
+            - generic [ref=e1149]: 49/52 pass
+            - generic [ref=e1151]: —
+        - link "MARKOPOL · Functional 📊 Dashboard 35/63 tests passed 59/63 pass —" [ref=e1152] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1153]:
+            - generic [ref=e1154]: MARKOPOL · Functional
+            - generic [ref=e1155]: 📊
+          - generic [ref=e1156]: Dashboard
+          - generic [ref=e1157]: 35/63 tests passed
+          - generic [ref=e1160]:
+            - generic [ref=e1161]: 59/63 pass
+            - generic [ref=e1163]: —
+        - link "SPECDATA · Functional 🧪 Dataroom 31/87 tests passed 78/87 pass —" [ref=e1164] [cursor=pointer]:
+          - /url: agents/agent-specdata.html
+          - generic [ref=e1165]:
+            - generic [ref=e1166]: SPECDATA · Functional
+            - generic [ref=e1167]: 🧪
+          - generic [ref=e1168]: Dataroom
+          - generic [ref=e1169]: 31/87 tests passed
+          - generic [ref=e1172]:
+            - generic [ref=e1173]: 78/87 pass
+            - generic [ref=e1175]: —
+        - link "MARKOPOL · Integration 🔗 Integrations 39/86 tests passed 83/86 pass —" [ref=e1176] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1177]:
+            - generic [ref=e1178]: MARKOPOL · Integration
+            - generic [ref=e1179]: 🔗
+          - generic [ref=e1180]: Integrations
+          - generic [ref=e1181]: 39/86 tests passed
+          - generic [ref=e1184]:
+            - generic [ref=e1185]: 83/86 pass
+            - generic [ref=e1187]: —
+        - link "MARKOPOL · Functional 🎯 Leads 63/69 tests passed 63/69 pass —" [ref=e1188] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1189]:
+            - generic [ref=e1190]: MARKOPOL · Functional
+            - generic [ref=e1191]: 🎯
+          - generic [ref=e1192]: Leads
+          - generic [ref=e1193]: 63/69 tests passed
+          - generic [ref=e1196]:
+            - generic [ref=e1197]: 63/69 pass
+            - generic [ref=e1199]: —
+        - link "MARKOPOL · Auth 🔐 Login 62/89 tests passed 89/89 pass —" [ref=e1200] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1201]:
+            - generic [ref=e1202]: MARKOPOL · Auth
+            - generic [ref=e1203]: 🔐
+          - generic [ref=e1204]: Login
+          - generic [ref=e1205]: 62/89 tests passed
+          - generic [ref=e1208]:
+            - generic [ref=e1209]: 89/89 pass
+            - generic [ref=e1211]: —
+        - 'link "SPECPLAN · Functional 🧪 Planbilling Failed: Test flow flow 5 unauthenticated access redire 53/62 pass —" [ref=e1212] [cursor=pointer]':
+          - /url: agents/agent-specplan.html
+          - generic [ref=e1213]:
+            - generic [ref=e1214]: SPECPLAN · Functional
+            - generic [ref=e1215]: 🧪
+          - generic [ref=e1216]: Planbilling
+          - generic [ref=e1217]: "Failed: Test flow flow 5 unauthenticated access redire"
+          - generic [ref=e1220]:
+            - generic [ref=e1221]: 53/62 pass
+            - generic [ref=e1223]: —
+        - link "SPECREGR · Functional 🧪 Regressioncampaigns 23/23 tests passed 23/23 pass —" [ref=e1224] [cursor=pointer]:
+          - /url: agents/agent-specregr.html
+          - generic [ref=e1225]:
+            - generic [ref=e1226]: SPECREGR · Functional
+            - generic [ref=e1227]: 🧪
+          - generic [ref=e1228]: Regressioncampaigns
+          - generic [ref=e1229]: 23/23 tests passed
+          - generic [ref=e1232]:
+            - generic [ref=e1233]: 23/23 pass
+            - generic [ref=e1235]: —
+        - 'link "SPECREGR · Security 🧪 Regressionsecurity Failed: Test element email 0002 50/52 pass —" [ref=e1236] [cursor=pointer]':
+          - /url: agents/agent-specregr.html
+          - generic [ref=e1237]:
+            - generic [ref=e1238]: SPECREGR · Security
+            - generic [ref=e1239]: 🧪
+          - generic [ref=e1240]: Regressionsecurity
+          - generic [ref=e1241]: "Failed: Test element email 0002"
+          - generic [ref=e1244]:
+            - generic [ref=e1245]: 50/52 pass
+            - generic [ref=e1247]: —
+        - link "SPECREGR · Functional 🧪 Regressionui 23/23 tests passed 23/23 pass —" [ref=e1248] [cursor=pointer]:
+          - /url: agents/agent-specregr.html
+          - generic [ref=e1249]:
+            - generic [ref=e1250]: SPECREGR · Functional
+            - generic [ref=e1251]: 🧪
+          - generic [ref=e1252]: Regressionui
+          - generic [ref=e1253]: 23/23 tests passed
+          - generic [ref=e1256]:
+            - generic [ref=e1257]: 23/23 pass
+            - generic [ref=e1259]: —
+        - link "SPECRESE · Functional 🧪 Resetpass 53/53 tests passed 53/53 pass —" [ref=e1260] [cursor=pointer]:
+          - /url: agents/agent-specrese.html
+          - generic [ref=e1261]:
+            - generic [ref=e1262]: SPECRESE · Functional
+            - generic [ref=e1263]: 🧪
+          - generic [ref=e1264]: Resetpass
+          - generic [ref=e1265]: 53/53 tests passed
+          - generic [ref=e1268]:
+            - generic [ref=e1269]: 53/53 pass
+            - generic [ref=e1271]: —
+        - link "MARKOPOL · Functional ⚙️ Settings 98/114 tests passed 114/114 pass —" [ref=e1272] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1273]:
+            - generic [ref=e1274]: MARKOPOL · Functional
+            - generic [ref=e1275]: ⚙️
+          - generic [ref=e1276]: Settings
+          - generic [ref=e1277]: 98/114 tests passed
+          - generic [ref=e1280]:
+            - generic [ref=e1281]: 114/114 pass
+            - generic [ref=e1283]: —
+        - link "MARKOPOL · Auth ✍️ Signup 110/114 tests passed 113/114 pass —" [ref=e1284] [cursor=pointer]:
+          - /url: agents/agent-markopol.html
+          - generic [ref=e1285]:
+            - generic [ref=e1286]: MARKOPOL · Auth
+            - generic [ref=e1287]: ✍️
+          - generic [ref=e1288]: Signup
+          - generic [ref=e1289]: 110/114 tests passed
+          - generic [ref=e1292]:
+            - generic [ref=e1293]: 113/114 pass
+            - generic [ref=e1295]: —
+        - link "REGRESSI · Regression 🔄 Regression · Campaigns 86/159 tests passed 159/159 pass —" [ref=e1296] [cursor=pointer]:
+          - /url: agents/agent-regressi.html
+          - generic [ref=e1297]:
+            - generic [ref=e1298]: REGRESSI · Regression
+            - generic [ref=e1299]: 🔄
+          - generic [ref=e1300]: Regression · Campaigns
+          - generic [ref=e1301]: 86/159 tests passed
+          - generic [ref=e1304]:
+            - generic [ref=e1305]: 159/159 pass
+            - generic [ref=e1307]: —
+    - generic [ref=e1308]:
+      - generic [ref=e1309]:
+        - generic [ref=e1310]:
+          - generic [ref=e1311]: "06"
+          - heading "Bug tickets · 258" [level=3] [ref=e1312]
+        - paragraph [ref=e1313]: Auto-generated when a test fails. Severity, owning team, priority and source agent — search or filter to triage.
+      - generic [ref=e1314]:
+        - generic [ref=e1315]:
+          - button "All 258" [ref=e1316] [cursor=pointer]
+          - button "Critical 25" [ref=e1317] [cursor=pointer]
+          - button "High 31" [ref=e1318] [cursor=pointer]
+          - button "Medium 199" [ref=e1319] [cursor=pointer]
+          - button "Low 3" [ref=e1320] [cursor=pointer]
+          - textbox "search bugs, areas, ids…" [ref=e1321]
+        - table [ref=e1323]:
+          - rowgroup [ref=e1324]:
+            - row "ID Title Severity Area Pri Owner Agent Status" [ref=e1325]:
+              - columnheader "ID" [ref=e1326]
+              - columnheader "Title" [ref=e1327]
+              - columnheader "Severity" [ref=e1328]
+              - columnheader "Area" [ref=e1329]
+              - columnheader "Pri" [ref=e1330]
+              - columnheader "Owner" [ref=e1331]
+              - columnheader "Agent" [ref=e1332]
+              - columnheader "Status" [ref=e1333]
+          - rowgroup [ref=e1334]:
+            - 'row "QA-05 -001 Failed: Test qa05 page loads consistent data on reload high Security P1 Security Team 🧠 QA-05 Hallucination ● Open" [ref=e1335] [cursor=pointer]':
+              - cell "QA-05 -001" [ref=e1336]
+              - 'cell "Failed: Test qa05 page loads consistent data on reload" [ref=e1337]'
+              - cell "high" [ref=e1338]:
+                - generic [ref=e1339]: high
+              - cell "Security" [ref=e1340]
+              - cell "P1" [ref=e1341]
+              - cell "Security Team" [ref=e1342]
+              - cell "🧠 QA-05 Hallucination" [ref=e1343]
+              - cell "● Open" [ref=e1344]:
+                - generic [ref=e1345]: ● Open
+            - 'row "QA-06 -001 Failed: Test qa06 no sensitive headers exposed medium Security P2 Security Team 🌐 QA-06 API & Network ● Open" [ref=e1346] [cursor=pointer]':
+              - cell "QA-06 -001" [ref=e1347]
+              - 'cell "Failed: Test qa06 no sensitive headers exposed" [ref=e1348]'
+              - cell "medium" [ref=e1349]:
+                - generic [ref=e1350]: medium
+              - cell "Security" [ref=e1351]
+              - cell "P2" [ref=e1352]
+              - cell "Security Team" [ref=e1353]
+              - cell "🌐 QA-06 API & Network" [ref=e1354]
+              - cell "● Open" [ref=e1355]:
+                - generic [ref=e1356]: ● Open
+            - 'row "QA-06 -002 Failed: Test qa06 json responses are well formed medium General P2 Engineering 🌐 QA-06 API & Network ● Open" [ref=e1357] [cursor=pointer]':
+              - cell "QA-06 -002" [ref=e1358]
+              - 'cell "Failed: Test qa06 json responses are well formed" [ref=e1359]'
+              - cell "medium" [ref=e1360]:
+                - generic [ref=e1361]: medium
+              - cell "General" [ref=e1362]
+              - cell "P2" [ref=e1363]
+              - cell "Engineering" [ref=e1364]
+              - cell "🌐 QA-06 API & Network" [ref=e1365]
+              - cell "● Open" [ref=e1366]:
+                - generic [ref=e1367]: ● Open
+            - 'row "QA-07 -001 Failed: Test qa07 page has main landmark medium General P2 Engineering ♿ QA-07 Accessibility ● Open" [ref=e1368] [cursor=pointer]':
+              - cell "QA-07 -001" [ref=e1369]
+              - 'cell "Failed: Test qa07 page has main landmark" [ref=e1370]'
+              - cell "medium" [ref=e1371]:
+                - generic [ref=e1372]: medium
+              - cell "General" [ref=e1373]
+              - cell "P2" [ref=e1374]
+              - cell "Engineering" [ref=e1375]
+              - cell "♿ QA-07 Accessibility" [ref=e1376]
+              - cell "● Open" [ref=e1377]:
+                - generic [ref=e1378]: ● Open
+            - 'row "QA-07 -002 Failed: Test qa07 heading hierarchy starts with h1 medium General P2 Engineering ♿ QA-07 Accessibility ● Open" [ref=e1379] [cursor=pointer]':
+              - cell "QA-07 -002" [ref=e1380]
+              - 'cell "Failed: Test qa07 heading hierarchy starts with h1" [ref=e1381]'
+              - cell "medium" [ref=e1382]:
+                - generic [ref=e1383]: medium
+              - cell "General" [ref=e1384]
+              - cell "P2" [ref=e1385]
+              - cell "Engineering" [ref=e1386]
+              - cell "♿ QA-07 Accessibility" [ref=e1387]
+              - cell "● Open" [ref=e1388]:
+                - generic [ref=e1389]: ● Open
+            - 'row "QA-07 -003 Failed: Test qa07 landmark roles present medium Security P2 Security Team ♿ QA-07 Accessibility ● Open" [ref=e1390] [cursor=pointer]':
+              - cell "QA-07 -003" [ref=e1391]
+              - 'cell "Failed: Test qa07 landmark roles present" [ref=e1392]'
+              - cell "medium" [ref=e1393]:
+                - generic [ref=e1394]: medium
+              - cell "Security" [ref=e1395]
+              - cell "P2" [ref=e1396]
+              - cell "Security Team" [ref=e1397]
+              - cell "♿ QA-07 Accessibility" [ref=e1398]
+              - cell "● Open" [ref=e1399]:
+                - generic [ref=e1400]: ● Open
+            - 'row "QA-08 -001 Failed: Test qa08 login form usable on mobile high Auth P1 Engineering Lead 📱 QA-08 Mobile/Viewport ● Open" [ref=e1401] [cursor=pointer]':
+              - cell "QA-08 -001" [ref=e1402]
+              - 'cell "Failed: Test qa08 login form usable on mobile" [ref=e1403]'
+              - cell "high" [ref=e1404]:
+                - generic [ref=e1405]: high
+              - cell "Auth" [ref=e1406]
+              - cell "P1" [ref=e1407]
+              - cell "Engineering Lead" [ref=e1408]
+              - cell "📱 QA-08 Mobile/Viewport" [ref=e1409]
+              - cell "● Open" [ref=e1410]:
+                - generic [ref=e1411]: ● Open
+            - 'row "QA-08 -002 Failed: Test qa08 desktop 1280 no js errors medium Auth P2 Engineering 📱 QA-08 Mobile/Viewport ● Open" [ref=e1412] [cursor=pointer]':
+              - cell "QA-08 -002" [ref=e1413]
+              - 'cell "Failed: Test qa08 desktop 1280 no js errors" [ref=e1414]'
+              - cell "medium" [ref=e1415]:
+                - generic [ref=e1416]: medium
+              - cell "Auth" [ref=e1417]
+              - cell "P2" [ref=e1418]
+              - cell "Engineering" [ref=e1419]
+              - cell "📱 QA-08 Mobile/Viewport" [ref=e1420]
+              - cell "● Open" [ref=e1421]:
+                - generic [ref=e1422]: ● Open
+            - 'row "QA-08 -003 Failed: Test qa08 wide 4k no layout break medium Auth P2 Engineering 📱 QA-08 Mobile/Viewport ● Open" [ref=e1423] [cursor=pointer]':
+              - cell "QA-08 -003" [ref=e1424]
+              - 'cell "Failed: Test qa08 wide 4k no layout break" [ref=e1425]'
+              - cell "medium" [ref=e1426]:
+                - generic [ref=e1427]: medium
+              - cell "Auth" [ref=e1428]
+              - cell "P2" [ref=e1429]
+              - cell "Engineering" [ref=e1430]
+              - cell "📱 QA-08 Mobile/Viewport" [ref=e1431]
+              - cell "● Open" [ref=e1432]:
+                - generic [ref=e1433]: ● Open
+            - 'row "QA-09 -001 Failed: Test qa09 h1 exists and unique low SEO P3 Engineering 🔎 QA-09 SEO & Meta ● Open" [ref=e1434] [cursor=pointer]':
+              - cell "QA-09 -001" [ref=e1435]
+              - 'cell "Failed: Test qa09 h1 exists and unique" [ref=e1436]'
+              - cell "low" [ref=e1437]:
+                - generic [ref=e1438]: low
+              - cell "SEO" [ref=e1439]
+              - cell "P3" [ref=e1440]
+              - cell "Engineering" [ref=e1441]
+              - cell "🔎 QA-09 SEO & Meta" [ref=e1442]
+              - cell "● Open" [ref=e1443]:
+                - generic [ref=e1444]: ● Open
+            - 'row "QA-13 -001 Failed: Test qa13 strict transport security present critical Security P0 Security Team 🛡️ QA-13 Security Headers ● Open" [ref=e1445] [cursor=pointer]':
+              - cell "QA-13 -001" [ref=e1446]
+              - 'cell "Failed: Test qa13 strict transport security present" [ref=e1447]'
+              - cell "critical" [ref=e1448]:
+                - generic [ref=e1449]: critical
+              - cell "Security" [ref=e1450]
+              - cell "P0" [ref=e1451]
+              - cell "Security Team" [ref=e1452]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1453]
+              - cell "● Open" [ref=e1454]:
+                - generic [ref=e1455]: ● Open
+            - 'row "QA-13 -002 Failed: Test qa13 x frame options or csp frame ancestors critical General P0 Engineering Lead 🛡️ QA-13 Security Headers ● Open" [ref=e1456] [cursor=pointer]':
+              - cell "QA-13 -002" [ref=e1457]
+              - 'cell "Failed: Test qa13 x frame options or csp frame ancestors" [ref=e1458]'
+              - cell "critical" [ref=e1459]:
+                - generic [ref=e1460]: critical
+              - cell "General" [ref=e1461]
+              - cell "P0" [ref=e1462]
+              - cell "Engineering Lead" [ref=e1463]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1464]
+              - cell "● Open" [ref=e1465]:
+                - generic [ref=e1466]: ● Open
+            - 'row "QA-13 -003 Failed: Test qa13 x content type options nosniff critical General P0 Engineering Lead 🛡️ QA-13 Security Headers ● Open" [ref=e1467] [cursor=pointer]':
+              - cell "QA-13 -003" [ref=e1468]
+              - 'cell "Failed: Test qa13 x content type options nosniff" [ref=e1469]'
+              - cell "critical" [ref=e1470]:
+                - generic [ref=e1471]: critical
+              - cell "General" [ref=e1472]
+              - cell "P0" [ref=e1473]
+              - cell "Engineering Lead" [ref=e1474]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1475]
+              - cell "● Open" [ref=e1476]:
+                - generic [ref=e1477]: ● Open
+            - 'row "QA-13 -004 Failed: Test qa13 referrer policy present critical General P0 Engineering Lead 🛡️ QA-13 Security Headers ● Open" [ref=e1478] [cursor=pointer]':
+              - cell "QA-13 -004" [ref=e1479]
+              - 'cell "Failed: Test qa13 referrer policy present" [ref=e1480]'
+              - cell "critical" [ref=e1481]:
+                - generic [ref=e1482]: critical
+              - cell "General" [ref=e1483]
+              - cell "P0" [ref=e1484]
+              - cell "Engineering Lead" [ref=e1485]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1486]
+              - cell "● Open" [ref=e1487]:
+                - generic [ref=e1488]: ● Open
+            - 'row "QA-13 -005 Failed: Test qa13 content security policy present critical Security P0 Security Team 🛡️ QA-13 Security Headers ● Open" [ref=e1489] [cursor=pointer]':
+              - cell "QA-13 -005" [ref=e1490]
+              - 'cell "Failed: Test qa13 content security policy present" [ref=e1491]'
+              - cell "critical" [ref=e1492]:
+                - generic [ref=e1493]: critical
+              - cell "Security" [ref=e1494]
+              - cell "P0" [ref=e1495]
+              - cell "Security Team" [ref=e1496]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1497]
+              - cell "● Open" [ref=e1498]:
+                - generic [ref=e1499]: ● Open
+            - 'row "QA-13 -006 Failed: Test qa13 no server version disclosure critical Security P0 Security Team 🛡️ QA-13 Security Headers ● Open" [ref=e1500] [cursor=pointer]':
+              - cell "QA-13 -006" [ref=e1501]
+              - 'cell "Failed: Test qa13 no server version disclosure" [ref=e1502]'
+              - cell "critical" [ref=e1503]:
+                - generic [ref=e1504]: critical
+              - cell "Security" [ref=e1505]
+              - cell "P0" [ref=e1506]
+              - cell "Security Team" [ref=e1507]
+              - cell "🛡️ QA-13 Security Headers" [ref=e1508]
+              - cell "● Open" [ref=e1509]:
+                - generic [ref=e1510]: ● Open
+            - 'row "QA-14 -001 Failed: Test qa14 session cookies have secure flag critical Security P0 Security Team 🍪 QA-14 Cookie Security ● Open" [ref=e1511] [cursor=pointer]':
+              - cell "QA-14 -001" [ref=e1512]
+              - 'cell "Failed: Test qa14 session cookies have secure flag" [ref=e1513]'
+              - cell "critical" [ref=e1514]:
+                - generic [ref=e1515]: critical
+              - cell "Security" [ref=e1516]
+              - cell "P0" [ref=e1517]
+              - cell "Security Team" [ref=e1518]
+              - cell "🍪 QA-14 Cookie Security" [ref=e1519]
+              - cell "● Open" [ref=e1520]:
+                - generic [ref=e1521]: ● Open
+            - 'row "QA-14 -002 Failed: Test qa14 no cookie with excessive lifetime critical Security P0 Security Team 🍪 QA-14 Cookie Security ● Open" [ref=e1522] [cursor=pointer]':
+              - cell "QA-14 -002" [ref=e1523]
+              - 'cell "Failed: Test qa14 no cookie with excessive lifetime" [ref=e1524]'
+              - cell "critical" [ref=e1525]:
+                - generic [ref=e1526]: critical
+              - cell "Security" [ref=e1527]
+              - cell "P0" [ref=e1528]
+              - cell "Security Team" [ref=e1529]
+              - cell "🍪 QA-14 Cookie Security" [ref=e1530]
+              - cell "● Open" [ref=e1531]:
+                - generic [ref=e1532]: ● Open
+            - 'row "QA-14 -003 Failed: Test qa14 no overly broad cookie domain critical Security P0 Security Team 🍪 QA-14 Cookie Security ● Open" [ref=e1533] [cursor=pointer]':
+              - cell "QA-14 -003" [ref=e1534]
+              - 'cell "Failed: Test qa14 no overly broad cookie domain" [ref=e1535]'
+              - cell "critical" [ref=e1536]:
+                - generic [ref=e1537]: critical
+              - cell "Security" [ref=e1538]
+              - cell "P0" [ref=e1539]
+              - cell "Security Team" [ref=e1540]
+              - cell "🍪 QA-14 Cookie Security" [ref=e1541]
+              - cell "● Open" [ref=e1542]:
+                - generic [ref=e1543]: ● Open
+            - 'row "QA-14 -004 Failed: Test qa14 no sensitive data in cookie value critical Security P0 Security Team 🍪 QA-14 Cookie Security ● Open" [ref=e1544] [cursor=pointer]':
+              - cell "QA-14 -004" [ref=e1545]
+              - 'cell "Failed: Test qa14 no sensitive data in cookie value" [ref=e1546]'
+              - cell "critical" [ref=e1547]:
+                - generic [ref=e1548]: critical
+              - cell "Security" [ref=e1549]
+              - cell "P0" [ref=e1550]
+              - cell "Security Team" [ref=e1551]
+              - cell "🍪 QA-14 Cookie Security" [ref=e1552]
+              - cell "● Open" [ref=e1553]:
+                - generic [ref=e1554]: ● Open
+            - 'row "QA-14 -005 Failed: Test qa14 auth cookie not accessible via js critical Security P0 Security Team 🍪 QA-14 Cookie Security ● Open" [ref=e1555] [cursor=pointer]':
+              - cell "QA-14 -005" [ref=e1556]
+              - 'cell "Failed: Test qa14 auth cookie not accessible via js" [ref=e1557]'
+              - cell "critical" [ref=e1558]:
+                - generic [ref=e1559]: critical
+              - cell "Security" [ref=e1560]
+              - cell "P0" [ref=e1561]
+              - cell "Security Team" [ref=e1562]
+              - cell "🍪 QA-14 Cookie Security" [ref=e1563]
+              - cell "● Open" [ref=e1564]:
+                - generic [ref=e1565]: ● Open
+            - 'row "QA-18 -001 Failed: Test qa18 offline does not crash page medium General P2 Engineering 📡 QA-18 Network Resilience ● Open" [ref=e1566] [cursor=pointer]':
+              - cell "QA-18 -001" [ref=e1567]
+              - 'cell "Failed: Test qa18 offline does not crash page" [ref=e1568]'
+              - cell "medium" [ref=e1569]:
+                - generic [ref=e1570]: medium
+              - cell "General" [ref=e1571]
+              - cell "P2" [ref=e1572]
+              - cell "Engineering" [ref=e1573]
+              - cell "📡 QA-18 Network Resilience" [ref=e1574]
+              - cell "● Open" [ref=e1575]:
+                - generic [ref=e1576]: ● Open
+            - 'row "QA-19 -001 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1577] [cursor=pointer]':
+              - cell "QA-19 -001" [ref=e1578]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1579]'
+              - cell "medium" [ref=e1580]:
+                - generic [ref=e1581]: medium
+              - cell "General" [ref=e1582]
+              - cell "P2" [ref=e1583]
+              - cell "Engineering" [ref=e1584]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1585]
+              - cell "● Open" [ref=e1586]:
+                - generic [ref=e1587]: ● Open
+            - 'row "QA-19 -002 Failed: Test qa19 autonomous exploration high Auth P1 Engineering Lead 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1588] [cursor=pointer]':
+              - cell "QA-19 -002" [ref=e1589]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1590]'
+              - cell "high" [ref=e1591]:
+                - generic [ref=e1592]: high
+              - cell "Auth" [ref=e1593]
+              - cell "P1" [ref=e1594]
+              - cell "Engineering Lead" [ref=e1595]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1596]
+              - cell "● Open" [ref=e1597]:
+                - generic [ref=e1598]: ● Open
+            - 'row "QA-19 -003 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1599] [cursor=pointer]':
+              - cell "QA-19 -003" [ref=e1600]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1601]'
+              - cell "medium" [ref=e1602]:
+                - generic [ref=e1603]: medium
+              - cell "General" [ref=e1604]
+              - cell "P2" [ref=e1605]
+              - cell "Engineering" [ref=e1606]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1607]
+              - cell "● Open" [ref=e1608]:
+                - generic [ref=e1609]: ● Open
+            - 'row "QA-19 -004 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1610] [cursor=pointer]':
+              - cell "QA-19 -004" [ref=e1611]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1612]'
+              - cell "medium" [ref=e1613]:
+                - generic [ref=e1614]: medium
+              - cell "General" [ref=e1615]
+              - cell "P2" [ref=e1616]
+              - cell "Engineering" [ref=e1617]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1618]
+              - cell "● Open" [ref=e1619]:
+                - generic [ref=e1620]: ● Open
+            - 'row "QA-19 -005 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1621] [cursor=pointer]':
+              - cell "QA-19 -005" [ref=e1622]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1623]'
+              - cell "medium" [ref=e1624]:
+                - generic [ref=e1625]: medium
+              - cell "General" [ref=e1626]
+              - cell "P2" [ref=e1627]
+              - cell "Engineering" [ref=e1628]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1629]
+              - cell "● Open" [ref=e1630]:
+                - generic [ref=e1631]: ● Open
+            - 'row "QA-19 -006 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1632] [cursor=pointer]':
+              - cell "QA-19 -006" [ref=e1633]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1634]'
+              - cell "medium" [ref=e1635]:
+                - generic [ref=e1636]: medium
+              - cell "General" [ref=e1637]
+              - cell "P2" [ref=e1638]
+              - cell "Engineering" [ref=e1639]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1640]
+              - cell "● Open" [ref=e1641]:
+                - generic [ref=e1642]: ● Open
+            - 'row "QA-19 -007 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1643] [cursor=pointer]':
+              - cell "QA-19 -007" [ref=e1644]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1645]'
+              - cell "medium" [ref=e1646]:
+                - generic [ref=e1647]: medium
+              - cell "General" [ref=e1648]
+              - cell "P2" [ref=e1649]
+              - cell "Engineering" [ref=e1650]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1651]
+              - cell "● Open" [ref=e1652]:
+                - generic [ref=e1653]: ● Open
+            - 'row "QA-19 -008 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1654] [cursor=pointer]':
+              - cell "QA-19 -008" [ref=e1655]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1656]'
+              - cell "medium" [ref=e1657]:
+                - generic [ref=e1658]: medium
+              - cell "General" [ref=e1659]
+              - cell "P2" [ref=e1660]
+              - cell "Engineering" [ref=e1661]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1662]
+              - cell "● Open" [ref=e1663]:
+                - generic [ref=e1664]: ● Open
+            - 'row "QA-19 -009 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1665] [cursor=pointer]':
+              - cell "QA-19 -009" [ref=e1666]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1667]'
+              - cell "medium" [ref=e1668]:
+                - generic [ref=e1669]: medium
+              - cell "General" [ref=e1670]
+              - cell "P2" [ref=e1671]
+              - cell "Engineering" [ref=e1672]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1673]
+              - cell "● Open" [ref=e1674]:
+                - generic [ref=e1675]: ● Open
+            - 'row "QA-19 -010 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1676] [cursor=pointer]':
+              - cell "QA-19 -010" [ref=e1677]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1678]'
+              - cell "medium" [ref=e1679]:
+                - generic [ref=e1680]: medium
+              - cell "General" [ref=e1681]
+              - cell "P2" [ref=e1682]
+              - cell "Engineering" [ref=e1683]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1684]
+              - cell "● Open" [ref=e1685]:
+                - generic [ref=e1686]: ● Open
+            - 'row "QA-19 -011 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1687] [cursor=pointer]':
+              - cell "QA-19 -011" [ref=e1688]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1689]'
+              - cell "medium" [ref=e1690]:
+                - generic [ref=e1691]: medium
+              - cell "General" [ref=e1692]
+              - cell "P2" [ref=e1693]
+              - cell "Engineering" [ref=e1694]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1695]
+              - cell "● Open" [ref=e1696]:
+                - generic [ref=e1697]: ● Open
+            - 'row "QA-19 -012 Failed: Test qa19 autonomous exploration high Auth P1 Engineering Lead 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1698] [cursor=pointer]':
+              - cell "QA-19 -012" [ref=e1699]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1700]'
+              - cell "high" [ref=e1701]:
+                - generic [ref=e1702]: high
+              - cell "Auth" [ref=e1703]
+              - cell "P1" [ref=e1704]
+              - cell "Engineering Lead" [ref=e1705]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1706]
+              - cell "● Open" [ref=e1707]:
+                - generic [ref=e1708]: ● Open
+            - 'row "QA-19 -013 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1709] [cursor=pointer]':
+              - cell "QA-19 -013" [ref=e1710]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1711]'
+              - cell "medium" [ref=e1712]:
+                - generic [ref=e1713]: medium
+              - cell "General" [ref=e1714]
+              - cell "P2" [ref=e1715]
+              - cell "Engineering" [ref=e1716]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1717]
+              - cell "● Open" [ref=e1718]:
+                - generic [ref=e1719]: ● Open
+            - 'row "QA-19 -014 Failed: Test qa19 autonomous exploration medium Auth P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1720] [cursor=pointer]':
+              - cell "QA-19 -014" [ref=e1721]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1722]'
+              - cell "medium" [ref=e1723]:
+                - generic [ref=e1724]: medium
+              - cell "Auth" [ref=e1725]
+              - cell "P2" [ref=e1726]
+              - cell "Engineering" [ref=e1727]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1728]
+              - cell "● Open" [ref=e1729]:
+                - generic [ref=e1730]: ● Open
+            - 'row "QA-19 -015 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1731] [cursor=pointer]':
+              - cell "QA-19 -015" [ref=e1732]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1733]'
+              - cell "medium" [ref=e1734]:
+                - generic [ref=e1735]: medium
+              - cell "General" [ref=e1736]
+              - cell "P2" [ref=e1737]
+              - cell "Engineering" [ref=e1738]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1739]
+              - cell "● Open" [ref=e1740]:
+                - generic [ref=e1741]: ● Open
+            - 'row "QA-19 -016 Failed: Test qa19 autonomous exploration medium General P2 Engineering 🤖 QA-19 Autonomous Exploratory ● Open" [ref=e1742] [cursor=pointer]':
+              - cell "QA-19 -016" [ref=e1743]
+              - 'cell "Failed: Test qa19 autonomous exploration" [ref=e1744]'
+              - cell "medium" [ref=e1745]:
+                - generic [ref=e1746]: medium
+              - cell "General" [ref=e1747]
+              - cell "P2" [ref=e1748]
+              - cell "Engineering" [ref=e1749]
+              - cell "🤖 QA-19 Autonomous Exploratory" [ref=e1750]
+              - cell "● Open" [ref=e1751]:
+                - generic [ref=e1752]: ● Open
+            - 'row "1000+ -001 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1753] [cursor=pointer]':
+              - cell "1000+ -001" [ref=e1754]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1755]'
+              - cell "medium" [ref=e1756]:
+                - generic [ref=e1757]: medium
+              - cell "General" [ref=e1758]
+              - cell "P2" [ref=e1759]
+              - cell "Engineering" [ref=e1760]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1761]
+              - cell "● Open" [ref=e1762]:
+                - generic [ref=e1763]: ● Open
+            - 'row "1000+ -002 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1764] [cursor=pointer]':
+              - cell "1000+ -002" [ref=e1765]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1766]'
+              - cell "medium" [ref=e1767]:
+                - generic [ref=e1768]: medium
+              - cell "General" [ref=e1769]
+              - cell "P2" [ref=e1770]
+              - cell "Engineering" [ref=e1771]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1772]
+              - cell "● Open" [ref=e1773]:
+                - generic [ref=e1774]: ● Open
+            - 'row "1000+ -003 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1775] [cursor=pointer]':
+              - cell "1000+ -003" [ref=e1776]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1777]'
+              - cell "medium" [ref=e1778]:
+                - generic [ref=e1779]: medium
+              - cell "General" [ref=e1780]
+              - cell "P2" [ref=e1781]
+              - cell "Engineering" [ref=e1782]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1783]
+              - cell "● Open" [ref=e1784]:
+                - generic [ref=e1785]: ● Open
+            - 'row "1000+ -004 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1786] [cursor=pointer]':
+              - cell "1000+ -004" [ref=e1787]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1788]'
+              - cell "medium" [ref=e1789]:
+                - generic [ref=e1790]: medium
+              - cell "General" [ref=e1791]
+              - cell "P2" [ref=e1792]
+              - cell "Engineering" [ref=e1793]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1794]
+              - cell "● Open" [ref=e1795]:
+                - generic [ref=e1796]: ● Open
+            - 'row "1000+ -005 Failed: Test open redirect not followed low Security P3 Security Team 🔢 1000+ Comprehensive Tests ● Open" [ref=e1797] [cursor=pointer]':
+              - cell "1000+ -005" [ref=e1798]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1799]'
+              - cell "low" [ref=e1800]:
+                - generic [ref=e1801]: low
+              - cell "Security" [ref=e1802]
+              - cell "P3" [ref=e1803]
+              - cell "Security Team" [ref=e1804]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1805]
+              - cell "● Open" [ref=e1806]:
+                - generic [ref=e1807]: ● Open
+            - 'row "1000+ -006 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1808] [cursor=pointer]':
+              - cell "1000+ -006" [ref=e1809]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1810]'
+              - cell "medium" [ref=e1811]:
+                - generic [ref=e1812]: medium
+              - cell "General" [ref=e1813]
+              - cell "P2" [ref=e1814]
+              - cell "Engineering" [ref=e1815]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1816]
+              - cell "● Open" [ref=e1817]:
+                - generic [ref=e1818]: ● Open
+            - 'row "1000+ -007 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1819] [cursor=pointer]':
+              - cell "1000+ -007" [ref=e1820]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1821]'
+              - cell "medium" [ref=e1822]:
+                - generic [ref=e1823]: medium
+              - cell "General" [ref=e1824]
+              - cell "P2" [ref=e1825]
+              - cell "Engineering" [ref=e1826]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1827]
+              - cell "● Open" [ref=e1828]:
+                - generic [ref=e1829]: ● Open
+            - 'row "1000+ -008 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1830] [cursor=pointer]':
+              - cell "1000+ -008" [ref=e1831]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1832]'
+              - cell "medium" [ref=e1833]:
+                - generic [ref=e1834]: medium
+              - cell "General" [ref=e1835]
+              - cell "P2" [ref=e1836]
+              - cell "Engineering" [ref=e1837]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1838]
+              - cell "● Open" [ref=e1839]:
+                - generic [ref=e1840]: ● Open
+            - 'row "1000+ -009 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1841] [cursor=pointer]':
+              - cell "1000+ -009" [ref=e1842]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1843]'
+              - cell "medium" [ref=e1844]:
+                - generic [ref=e1845]: medium
+              - cell "Auth" [ref=e1846]
+              - cell "P2" [ref=e1847]
+              - cell "Engineering" [ref=e1848]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1849]
+              - cell "● Open" [ref=e1850]:
+                - generic [ref=e1851]: ● Open
+            - 'row "1000+ -010 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1852] [cursor=pointer]':
+              - cell "1000+ -010" [ref=e1853]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1854]'
+              - cell "medium" [ref=e1855]:
+                - generic [ref=e1856]: medium
+              - cell "Auth" [ref=e1857]
+              - cell "P2" [ref=e1858]
+              - cell "Engineering" [ref=e1859]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1860]
+              - cell "● Open" [ref=e1861]:
+                - generic [ref=e1862]: ● Open
+            - 'row "1000+ -011 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1863] [cursor=pointer]':
+              - cell "1000+ -011" [ref=e1864]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1865]'
+              - cell "medium" [ref=e1866]:
+                - generic [ref=e1867]: medium
+              - cell "Auth" [ref=e1868]
+              - cell "P2" [ref=e1869]
+              - cell "Engineering" [ref=e1870]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1871]
+              - cell "● Open" [ref=e1872]:
+                - generic [ref=e1873]: ● Open
+            - 'row "1000+ -012 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1874] [cursor=pointer]':
+              - cell "1000+ -012" [ref=e1875]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1876]'
+              - cell "medium" [ref=e1877]:
+                - generic [ref=e1878]: medium
+              - cell "Auth" [ref=e1879]
+              - cell "P2" [ref=e1880]
+              - cell "Engineering" [ref=e1881]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1882]
+              - cell "● Open" [ref=e1883]:
+                - generic [ref=e1884]: ● Open
+            - 'row "1000+ -013 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1885] [cursor=pointer]':
+              - cell "1000+ -013" [ref=e1886]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1887]'
+              - cell "medium" [ref=e1888]:
+                - generic [ref=e1889]: medium
+              - cell "Auth" [ref=e1890]
+              - cell "P2" [ref=e1891]
+              - cell "Engineering" [ref=e1892]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1893]
+              - cell "● Open" [ref=e1894]:
+                - generic [ref=e1895]: ● Open
+            - 'row "1000+ -014 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1896] [cursor=pointer]':
+              - cell "1000+ -014" [ref=e1897]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1898]'
+              - cell "medium" [ref=e1899]:
+                - generic [ref=e1900]: medium
+              - cell "General" [ref=e1901]
+              - cell "P2" [ref=e1902]
+              - cell "Engineering" [ref=e1903]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1904]
+              - cell "● Open" [ref=e1905]:
+                - generic [ref=e1906]: ● Open
+            - 'row "1000+ -015 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1907] [cursor=pointer]':
+              - cell "1000+ -015" [ref=e1908]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1909]'
+              - cell "medium" [ref=e1910]:
+                - generic [ref=e1911]: medium
+              - cell "General" [ref=e1912]
+              - cell "P2" [ref=e1913]
+              - cell "Engineering" [ref=e1914]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1915]
+              - cell "● Open" [ref=e1916]:
+                - generic [ref=e1917]: ● Open
+            - 'row "1000+ -016 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1918] [cursor=pointer]':
+              - cell "1000+ -016" [ref=e1919]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1920]'
+              - cell "medium" [ref=e1921]:
+                - generic [ref=e1922]: medium
+              - cell "General" [ref=e1923]
+              - cell "P2" [ref=e1924]
+              - cell "Engineering" [ref=e1925]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1926]
+              - cell "● Open" [ref=e1927]:
+                - generic [ref=e1928]: ● Open
+            - 'row "1000+ -017 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1929] [cursor=pointer]':
+              - cell "1000+ -017" [ref=e1930]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1931]'
+              - cell "medium" [ref=e1932]:
+                - generic [ref=e1933]: medium
+              - cell "Auth" [ref=e1934]
+              - cell "P2" [ref=e1935]
+              - cell "Engineering" [ref=e1936]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1937]
+              - cell "● Open" [ref=e1938]:
+                - generic [ref=e1939]: ● Open
+            - 'row "1000+ -018 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1940] [cursor=pointer]':
+              - cell "1000+ -018" [ref=e1941]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1942]'
+              - cell "medium" [ref=e1943]:
+                - generic [ref=e1944]: medium
+              - cell "Auth" [ref=e1945]
+              - cell "P2" [ref=e1946]
+              - cell "Engineering" [ref=e1947]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1948]
+              - cell "● Open" [ref=e1949]:
+                - generic [ref=e1950]: ● Open
+            - 'row "1000+ -019 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1951] [cursor=pointer]':
+              - cell "1000+ -019" [ref=e1952]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1953]'
+              - cell "medium" [ref=e1954]:
+                - generic [ref=e1955]: medium
+              - cell "General" [ref=e1956]
+              - cell "P2" [ref=e1957]
+              - cell "Engineering" [ref=e1958]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1959]
+              - cell "● Open" [ref=e1960]:
+                - generic [ref=e1961]: ● Open
+            - 'row "1000+ -020 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1962] [cursor=pointer]':
+              - cell "1000+ -020" [ref=e1963]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1964]'
+              - cell "medium" [ref=e1965]:
+                - generic [ref=e1966]: medium
+              - cell "General" [ref=e1967]
+              - cell "P2" [ref=e1968]
+              - cell "Engineering" [ref=e1969]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1970]
+              - cell "● Open" [ref=e1971]:
+                - generic [ref=e1972]: ● Open
+            - 'row "1000+ -021 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1973] [cursor=pointer]':
+              - cell "1000+ -021" [ref=e1974]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1975]'
+              - cell "medium" [ref=e1976]:
+                - generic [ref=e1977]: medium
+              - cell "General" [ref=e1978]
+              - cell "P2" [ref=e1979]
+              - cell "Engineering" [ref=e1980]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1981]
+              - cell "● Open" [ref=e1982]:
+                - generic [ref=e1983]: ● Open
+            - 'row "1000+ -022 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1984] [cursor=pointer]':
+              - cell "1000+ -022" [ref=e1985]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1986]'
+              - cell "medium" [ref=e1987]:
+                - generic [ref=e1988]: medium
+              - cell "General" [ref=e1989]
+              - cell "P2" [ref=e1990]
+              - cell "Engineering" [ref=e1991]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e1992]
+              - cell "● Open" [ref=e1993]:
+                - generic [ref=e1994]: ● Open
+            - 'row "1000+ -023 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e1995] [cursor=pointer]':
+              - cell "1000+ -023" [ref=e1996]
+              - 'cell "Failed: Test open redirect not followed" [ref=e1997]'
+              - cell "medium" [ref=e1998]:
+                - generic [ref=e1999]: medium
+              - cell "Auth" [ref=e2000]
+              - cell "P2" [ref=e2001]
+              - cell "Engineering" [ref=e2002]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2003]
+              - cell "● Open" [ref=e2004]:
+                - generic [ref=e2005]: ● Open
+            - 'row "1000+ -024 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2006] [cursor=pointer]':
+              - cell "1000+ -024" [ref=e2007]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2008]'
+              - cell "medium" [ref=e2009]:
+                - generic [ref=e2010]: medium
+              - cell "Auth" [ref=e2011]
+              - cell "P2" [ref=e2012]
+              - cell "Engineering" [ref=e2013]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2014]
+              - cell "● Open" [ref=e2015]:
+                - generic [ref=e2016]: ● Open
+            - 'row "1000+ -025 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2017] [cursor=pointer]':
+              - cell "1000+ -025" [ref=e2018]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2019]'
+              - cell "medium" [ref=e2020]:
+                - generic [ref=e2021]: medium
+              - cell "Auth" [ref=e2022]
+              - cell "P2" [ref=e2023]
+              - cell "Engineering" [ref=e2024]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2025]
+              - cell "● Open" [ref=e2026]:
+                - generic [ref=e2027]: ● Open
+            - 'row "1000+ -026 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2028] [cursor=pointer]':
+              - cell "1000+ -026" [ref=e2029]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2030]'
+              - cell "medium" [ref=e2031]:
+                - generic [ref=e2032]: medium
+              - cell "Auth" [ref=e2033]
+              - cell "P2" [ref=e2034]
+              - cell "Engineering" [ref=e2035]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2036]
+              - cell "● Open" [ref=e2037]:
+                - generic [ref=e2038]: ● Open
+            - 'row "1000+ -027 Failed: Test email input present high General P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2039] [cursor=pointer]':
+              - cell "1000+ -027" [ref=e2040]
+              - 'cell "Failed: Test email input present" [ref=e2041]'
+              - cell "high" [ref=e2042]:
+                - generic [ref=e2043]: high
+              - cell "General" [ref=e2044]
+              - cell "P1" [ref=e2045]
+              - cell "Engineering Lead" [ref=e2046]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2047]
+              - cell "● Open" [ref=e2048]:
+                - generic [ref=e2049]: ● Open
+            - 'row "1000+ -028 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2050] [cursor=pointer]':
+              - cell "1000+ -028" [ref=e2051]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2052]'
+              - cell "medium" [ref=e2053]:
+                - generic [ref=e2054]: medium
+              - cell "General" [ref=e2055]
+              - cell "P2" [ref=e2056]
+              - cell "Engineering" [ref=e2057]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2058]
+              - cell "● Open" [ref=e2059]:
+                - generic [ref=e2060]: ● Open
+            - 'row "1000+ -029 Failed: Test password input present high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2061] [cursor=pointer]':
+              - cell "1000+ -029" [ref=e2062]
+              - 'cell "Failed: Test password input present" [ref=e2063]'
+              - cell "high" [ref=e2064]:
+                - generic [ref=e2065]: high
+              - cell "Auth" [ref=e2066]
+              - cell "P1" [ref=e2067]
+              - cell "Engineering Lead" [ref=e2068]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2069]
+              - cell "● Open" [ref=e2070]:
+                - generic [ref=e2071]: ● Open
+            - 'row "1000+ -030 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2072] [cursor=pointer]':
+              - cell "1000+ -030" [ref=e2073]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2074]'
+              - cell "medium" [ref=e2075]:
+                - generic [ref=e2076]: medium
+              - cell "Auth" [ref=e2077]
+              - cell "P2" [ref=e2078]
+              - cell "Engineering" [ref=e2079]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2080]
+              - cell "● Open" [ref=e2081]:
+                - generic [ref=e2082]: ● Open
+            - 'row "1000+ -031 Failed: Test sign in button present high General P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2083] [cursor=pointer]':
+              - cell "1000+ -031" [ref=e2084]
+              - 'cell "Failed: Test sign in button present" [ref=e2085]'
+              - cell "high" [ref=e2086]:
+                - generic [ref=e2087]: high
+              - cell "General" [ref=e2088]
+              - cell "P1" [ref=e2089]
+              - cell "Engineering Lead" [ref=e2090]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2091]
+              - cell "● Open" [ref=e2092]:
+                - generic [ref=e2093]: ● Open
+            - 'row "1000+ -032 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2094] [cursor=pointer]':
+              - cell "1000+ -032" [ref=e2095]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2096]'
+              - cell "medium" [ref=e2097]:
+                - generic [ref=e2098]: medium
+              - cell "Auth" [ref=e2099]
+              - cell "P2" [ref=e2100]
+              - cell "Engineering" [ref=e2101]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2102]
+              - cell "● Open" [ref=e2103]:
+                - generic [ref=e2104]: ● Open
+            - 'row "1000+ -033 Failed: Test google oauth button present high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2105] [cursor=pointer]':
+              - cell "1000+ -033" [ref=e2106]
+              - 'cell "Failed: Test google oauth button present" [ref=e2107]'
+              - cell "high" [ref=e2108]:
+                - generic [ref=e2109]: high
+              - cell "Auth" [ref=e2110]
+              - cell "P1" [ref=e2111]
+              - cell "Engineering Lead" [ref=e2112]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2113]
+              - cell "● Open" [ref=e2114]:
+                - generic [ref=e2115]: ● Open
+            - 'row "1000+ -034 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2116] [cursor=pointer]':
+              - cell "1000+ -034" [ref=e2117]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2118]'
+              - cell "medium" [ref=e2119]:
+                - generic [ref=e2120]: medium
+              - cell "Auth" [ref=e2121]
+              - cell "P2" [ref=e2122]
+              - cell "Engineering" [ref=e2123]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2124]
+              - cell "● Open" [ref=e2125]:
+                - generic [ref=e2126]: ● Open
+            - 'row "1000+ -035 Failed: Test forgot password link present high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2127] [cursor=pointer]':
+              - cell "1000+ -035" [ref=e2128]
+              - 'cell "Failed: Test forgot password link present" [ref=e2129]'
+              - cell "high" [ref=e2130]:
+                - generic [ref=e2131]: high
+              - cell "Auth" [ref=e2132]
+              - cell "P1" [ref=e2133]
+              - cell "Engineering Lead" [ref=e2134]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2135]
+              - cell "● Open" [ref=e2136]:
+                - generic [ref=e2137]: ● Open
+            - 'row "1000+ -036 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2138] [cursor=pointer]':
+              - cell "1000+ -036" [ref=e2139]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2140]'
+              - cell "medium" [ref=e2141]:
+                - generic [ref=e2142]: medium
+              - cell "Auth" [ref=e2143]
+              - cell "P2" [ref=e2144]
+              - cell "Engineering" [ref=e2145]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2146]
+              - cell "● Open" [ref=e2147]:
+                - generic [ref=e2148]: ● Open
+            - 'row "1000+ -037 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2149] [cursor=pointer]':
+              - cell "1000+ -037" [ref=e2150]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2151]'
+              - cell "medium" [ref=e2152]:
+                - generic [ref=e2153]: medium
+              - cell "Auth" [ref=e2154]
+              - cell "P2" [ref=e2155]
+              - cell "Engineering" [ref=e2156]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2157]
+              - cell "● Open" [ref=e2158]:
+                - generic [ref=e2159]: ● Open
+            - 'row "1000+ -038 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2160] [cursor=pointer]':
+              - cell "1000+ -038" [ref=e2161]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2162]'
+              - cell "medium" [ref=e2163]:
+                - generic [ref=e2164]: medium
+              - cell "Auth" [ref=e2165]
+              - cell "P2" [ref=e2166]
+              - cell "Engineering" [ref=e2167]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2168]
+              - cell "● Open" [ref=e2169]:
+                - generic [ref=e2170]: ● Open
+            - 'row "1000+ -039 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2171] [cursor=pointer]':
+              - cell "1000+ -039" [ref=e2172]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2173]'
+              - cell "medium" [ref=e2174]:
+                - generic [ref=e2175]: medium
+              - cell "Auth" [ref=e2176]
+              - cell "P2" [ref=e2177]
+              - cell "Engineering" [ref=e2178]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2179]
+              - cell "● Open" [ref=e2180]:
+                - generic [ref=e2181]: ● Open
+            - 'row "1000+ -040 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2182] [cursor=pointer]':
+              - cell "1000+ -040" [ref=e2183]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2184]'
+              - cell "medium" [ref=e2185]:
+                - generic [ref=e2186]: medium
+              - cell "Auth" [ref=e2187]
+              - cell "P2" [ref=e2188]
+              - cell "Engineering" [ref=e2189]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2190]
+              - cell "● Open" [ref=e2191]:
+                - generic [ref=e2192]: ● Open
+            - 'row "1000+ -041 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2193] [cursor=pointer]':
+              - cell "1000+ -041" [ref=e2194]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2195]'
+              - cell "medium" [ref=e2196]:
+                - generic [ref=e2197]: medium
+              - cell "Auth" [ref=e2198]
+              - cell "P2" [ref=e2199]
+              - cell "Engineering" [ref=e2200]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2201]
+              - cell "● Open" [ref=e2202]:
+                - generic [ref=e2203]: ● Open
+            - 'row "1000+ -042 Failed: Test dashboard navigation present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2204] [cursor=pointer]':
+              - cell "1000+ -042" [ref=e2205]
+              - 'cell "Failed: Test dashboard navigation present" [ref=e2206]'
+              - cell "medium" [ref=e2207]:
+                - generic [ref=e2208]: medium
+              - cell "General" [ref=e2209]
+              - cell "P2" [ref=e2210]
+              - cell "Engineering" [ref=e2211]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2212]
+              - cell "● Open" [ref=e2213]:
+                - generic [ref=e2214]: ● Open
+            - 'row "1000+ -043 Failed: Test dashboard no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2215] [cursor=pointer]':
+              - cell "1000+ -043" [ref=e2216]
+              - 'cell "Failed: Test dashboard no js errors" [ref=e2217]'
+              - cell "medium" [ref=e2218]:
+                - generic [ref=e2219]: medium
+              - cell "General" [ref=e2220]
+              - cell "P2" [ref=e2221]
+              - cell "Engineering" [ref=e2222]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2223]
+              - cell "● Open" [ref=e2224]:
+                - generic [ref=e2225]: ● Open
+            - 'row "1000+ -044 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2226] [cursor=pointer]':
+              - cell "1000+ -044" [ref=e2227]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2228]'
+              - cell "medium" [ref=e2229]:
+                - generic [ref=e2230]: medium
+              - cell "Auth" [ref=e2231]
+              - cell "P2" [ref=e2232]
+              - cell "Engineering" [ref=e2233]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2234]
+              - cell "● Open" [ref=e2235]:
+                - generic [ref=e2236]: ● Open
+            - 'row "1000+ -045 Failed: Test dashboard campaigns link works medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2237] [cursor=pointer]':
+              - cell "1000+ -045" [ref=e2238]
+              - 'cell "Failed: Test dashboard campaigns link works" [ref=e2239]'
+              - cell "medium" [ref=e2240]:
+                - generic [ref=e2241]: medium
+              - cell "General" [ref=e2242]
+              - cell "P2" [ref=e2243]
+              - cell "Engineering" [ref=e2244]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2245]
+              - cell "● Open" [ref=e2246]:
+                - generic [ref=e2247]: ● Open
+            - 'row "1000+ -046 Failed: Test dashboard analytics link works medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2248] [cursor=pointer]':
+              - cell "1000+ -046" [ref=e2249]
+              - 'cell "Failed: Test dashboard analytics link works" [ref=e2250]'
+              - cell "medium" [ref=e2251]:
+                - generic [ref=e2252]: medium
+              - cell "General" [ref=e2253]
+              - cell "P2" [ref=e2254]
+              - cell "Engineering" [ref=e2255]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2256]
+              - cell "● Open" [ref=e2257]:
+                - generic [ref=e2258]: ● Open
+            - 'row "1000+ -047 Failed: Test dashboard integrations link works medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2259] [cursor=pointer]':
+              - cell "1000+ -047" [ref=e2260]
+              - 'cell "Failed: Test dashboard integrations link works" [ref=e2261]'
+              - cell "medium" [ref=e2262]:
+                - generic [ref=e2263]: medium
+              - cell "General" [ref=e2264]
+              - cell "P2" [ref=e2265]
+              - cell "Engineering" [ref=e2266]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2267]
+              - cell "● Open" [ref=e2268]:
+                - generic [ref=e2269]: ● Open
+            - 'row "1000+ -048 Failed: Test dashboard settings link works medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2270] [cursor=pointer]':
+              - cell "1000+ -048" [ref=e2271]
+              - 'cell "Failed: Test dashboard settings link works" [ref=e2272]'
+              - cell "medium" [ref=e2273]:
+                - generic [ref=e2274]: medium
+              - cell "General" [ref=e2275]
+              - cell "P2" [ref=e2276]
+              - cell "Engineering" [ref=e2277]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2278]
+              - cell "● Open" [ref=e2279]:
+                - generic [ref=e2280]: ● Open
+            - 'row "1000+ -049 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2281] [cursor=pointer]':
+              - cell "1000+ -049" [ref=e2282]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2283]'
+              - cell "medium" [ref=e2284]:
+                - generic [ref=e2285]: medium
+              - cell "Auth" [ref=e2286]
+              - cell "P2" [ref=e2287]
+              - cell "Engineering" [ref=e2288]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2289]
+              - cell "● Open" [ref=e2290]:
+                - generic [ref=e2291]: ● Open
+            - 'row "1000+ -050 Failed: Test dashboard user avatar or profile medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2292] [cursor=pointer]':
+              - cell "1000+ -050" [ref=e2293]
+              - 'cell "Failed: Test dashboard user avatar or profile" [ref=e2294]'
+              - cell "medium" [ref=e2295]:
+                - generic [ref=e2296]: medium
+              - cell "General" [ref=e2297]
+              - cell "P2" [ref=e2298]
+              - cell "Engineering" [ref=e2299]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2300]
+              - cell "● Open" [ref=e2301]:
+                - generic [ref=e2302]: ● Open
+            - 'row "1000+ -051 Failed: Test google oauth starts flow high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2303] [cursor=pointer]':
+              - cell "1000+ -051" [ref=e2304]
+              - 'cell "Failed: Test google oauth starts flow" [ref=e2305]'
+              - cell "high" [ref=e2306]:
+                - generic [ref=e2307]: high
+              - cell "Auth" [ref=e2308]
+              - cell "P1" [ref=e2309]
+              - cell "Engineering Lead" [ref=e2310]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2311]
+              - cell "● Open" [ref=e2312]:
+                - generic [ref=e2313]: ● Open
+            - 'row "1000+ -052 Failed: Test dashboard logout accessible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2314] [cursor=pointer]':
+              - cell "1000+ -052" [ref=e2315]
+              - 'cell "Failed: Test dashboard logout accessible" [ref=e2316]'
+              - cell "medium" [ref=e2317]:
+                - generic [ref=e2318]: medium
+              - cell "General" [ref=e2319]
+              - cell "P2" [ref=e2320]
+              - cell "Engineering" [ref=e2321]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2322]
+              - cell "● Open" [ref=e2323]:
+                - generic [ref=e2324]: ● Open
+            - 'row "1000+ -053 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2325] [cursor=pointer]':
+              - cell "1000+ -053" [ref=e2326]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2327]'
+              - cell "medium" [ref=e2328]:
+                - generic [ref=e2329]: medium
+              - cell "General" [ref=e2330]
+              - cell "P2" [ref=e2331]
+              - cell "Engineering" [ref=e2332]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2333]
+              - cell "● Open" [ref=e2334]:
+                - generic [ref=e2335]: ● Open
+            - 'row "1000+ -054 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2336] [cursor=pointer]':
+              - cell "1000+ -054" [ref=e2337]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2338]'
+              - cell "medium" [ref=e2339]:
+                - generic [ref=e2340]: medium
+              - cell "General" [ref=e2341]
+              - cell "P2" [ref=e2342]
+              - cell "Engineering" [ref=e2343]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2344]
+              - cell "● Open" [ref=e2345]:
+                - generic [ref=e2346]: ● Open
+            - 'row "1000+ -055 Failed: Test dashboard has create campaign cta medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2347] [cursor=pointer]':
+              - cell "1000+ -055" [ref=e2348]
+              - 'cell "Failed: Test dashboard has create campaign cta" [ref=e2349]'
+              - cell "medium" [ref=e2350]:
+                - generic [ref=e2351]: medium
+              - cell "General" [ref=e2352]
+              - cell "P2" [ref=e2353]
+              - cell "Engineering" [ref=e2354]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2355]
+              - cell "● Open" [ref=e2356]:
+                - generic [ref=e2357]: ● Open
+            - 'row "1000+ -056 Failed: Test password not leaked in page source high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2358] [cursor=pointer]':
+              - cell "1000+ -056" [ref=e2359]
+              - 'cell "Failed: Test password not leaked in page source" [ref=e2360]'
+              - cell "high" [ref=e2361]:
+                - generic [ref=e2362]: high
+              - cell "Auth" [ref=e2363]
+              - cell "P1" [ref=e2364]
+              - cell "Engineering Lead" [ref=e2365]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2366]
+              - cell "● Open" [ref=e2367]:
+                - generic [ref=e2368]: ● Open
+            - 'row "1000+ -057 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2369] [cursor=pointer]':
+              - cell "1000+ -057" [ref=e2370]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2371]'
+              - cell "medium" [ref=e2372]:
+                - generic [ref=e2373]: medium
+              - cell "Auth" [ref=e2374]
+              - cell "P2" [ref=e2375]
+              - cell "Engineering" [ref=e2376]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2377]
+              - cell "● Open" [ref=e2378]:
+                - generic [ref=e2379]: ● Open
+            - 'row "1000+ -058 Failed: Test settings password change section medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2380] [cursor=pointer]':
+              - cell "1000+ -058" [ref=e2381]
+              - 'cell "Failed: Test settings password change section" [ref=e2382]'
+              - cell "medium" [ref=e2383]:
+                - generic [ref=e2384]: medium
+              - cell "Auth" [ref=e2385]
+              - cell "P2" [ref=e2386]
+              - cell "Engineering" [ref=e2387]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2388]
+              - cell "● Open" [ref=e2389]:
+                - generic [ref=e2390]: ● Open
+            - 'row "1000+ -059 Failed: Test no js errors on load high General P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2391] [cursor=pointer]':
+              - cell "1000+ -059" [ref=e2392]
+              - 'cell "Failed: Test no js errors on load" [ref=e2393]'
+              - cell "high" [ref=e2394]:
+                - generic [ref=e2395]: high
+              - cell "General" [ref=e2396]
+              - cell "P1" [ref=e2397]
+              - cell "Engineering Lead" [ref=e2398]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2399]
+              - cell "● Open" [ref=e2400]:
+                - generic [ref=e2401]: ● Open
+            - 'row "1000+ -060 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2402] [cursor=pointer]':
+              - cell "1000+ -060" [ref=e2403]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2404]'
+              - cell "medium" [ref=e2405]:
+                - generic [ref=e2406]: medium
+              - cell "General" [ref=e2407]
+              - cell "P2" [ref=e2408]
+              - cell "Engineering" [ref=e2409]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2410]
+              - cell "● Open" [ref=e2411]:
+                - generic [ref=e2412]: ● Open
+            - 'row "1000+ -061 Failed: Test settings no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2413] [cursor=pointer]':
+              - cell "1000+ -061" [ref=e2414]
+              - 'cell "Failed: Test settings no js errors" [ref=e2415]'
+              - cell "medium" [ref=e2416]:
+                - generic [ref=e2417]: medium
+              - cell "General" [ref=e2418]
+              - cell "P2" [ref=e2419]
+              - cell "Engineering" [ref=e2420]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2421]
+              - cell "● Open" [ref=e2422]:
+                - generic [ref=e2423]: ● Open
+            - 'row "1000+ -062 Failed: Test settings save button present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2424] [cursor=pointer]':
+              - cell "1000+ -062" [ref=e2425]
+              - 'cell "Failed: Test settings save button present" [ref=e2426]'
+              - cell "medium" [ref=e2427]:
+                - generic [ref=e2428]: medium
+              - cell "General" [ref=e2429]
+              - cell "P2" [ref=e2430]
+              - cell "Engineering" [ref=e2431]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2432]
+              - cell "● Open" [ref=e2433]:
+                - generic [ref=e2434]: ● Open
+            - 'row "1000+ -063 Failed: Test open redirect not followed medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2435] [cursor=pointer]':
+              - cell "1000+ -063" [ref=e2436]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2437]'
+              - cell "medium" [ref=e2438]:
+                - generic [ref=e2439]: medium
+              - cell "General" [ref=e2440]
+              - cell "P2" [ref=e2441]
+              - cell "Engineering" [ref=e2442]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2443]
+              - cell "● Open" [ref=e2444]:
+                - generic [ref=e2445]: ● Open
+            - 'row "1000+ -064 Failed: Test settings notification toggles medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2446] [cursor=pointer]':
+              - cell "1000+ -064" [ref=e2447]
+              - 'cell "Failed: Test settings notification toggles" [ref=e2448]'
+              - cell "medium" [ref=e2449]:
+                - generic [ref=e2450]: medium
+              - cell "General" [ref=e2451]
+              - cell "P2" [ref=e2452]
+              - cell "Engineering" [ref=e2453]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2454]
+              - cell "● Open" [ref=e2455]:
+                - generic [ref=e2456]: ● Open
+            - 'row "1000+ -065 Failed: Test settings team section visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2457] [cursor=pointer]':
+              - cell "1000+ -065" [ref=e2458]
+              - 'cell "Failed: Test settings team section visible" [ref=e2459]'
+              - cell "medium" [ref=e2460]:
+                - generic [ref=e2461]: medium
+              - cell "General" [ref=e2462]
+              - cell "P2" [ref=e2463]
+              - cell "Engineering" [ref=e2464]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2465]
+              - cell "● Open" [ref=e2466]:
+                - generic [ref=e2467]: ● Open
+            - 'row "1000+ -066 Failed: Test settings workspace name field medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2468] [cursor=pointer]':
+              - cell "1000+ -066" [ref=e2469]
+              - 'cell "Failed: Test settings workspace name field" [ref=e2470]'
+              - cell "medium" [ref=e2471]:
+                - generic [ref=e2472]: medium
+              - cell "General" [ref=e2473]
+              - cell "P2" [ref=e2474]
+              - cell "Engineering" [ref=e2475]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2476]
+              - cell "● Open" [ref=e2477]:
+                - generic [ref=e2478]: ● Open
+            - 'row "1000+ -067 Failed: Test settings invite member field medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2479] [cursor=pointer]':
+              - cell "1000+ -067" [ref=e2480]
+              - 'cell "Failed: Test settings invite member field" [ref=e2481]'
+              - cell "medium" [ref=e2482]:
+                - generic [ref=e2483]: medium
+              - cell "General" [ref=e2484]
+              - cell "P2" [ref=e2485]
+              - cell "Engineering" [ref=e2486]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2487]
+              - cell "● Open" [ref=e2488]:
+                - generic [ref=e2489]: ● Open
+            - 'row "1000+ -068 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2490] [cursor=pointer]':
+              - cell "1000+ -068" [ref=e2491]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2492]'
+              - cell "medium" [ref=e2493]:
+                - generic [ref=e2494]: medium
+              - cell "Auth" [ref=e2495]
+              - cell "P2" [ref=e2496]
+              - cell "Engineering" [ref=e2497]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2498]
+              - cell "● Open" [ref=e2499]:
+                - generic [ref=e2500]: ● Open
+            - 'row "1000+ -069 Failed: Test settings api keys section medium Integration P2 Backend Team 🔢 1000+ Comprehensive Tests ● Open" [ref=e2501] [cursor=pointer]':
+              - cell "1000+ -069" [ref=e2502]
+              - 'cell "Failed: Test settings api keys section" [ref=e2503]'
+              - cell "medium" [ref=e2504]:
+                - generic [ref=e2505]: medium
+              - cell "Integration" [ref=e2506]
+              - cell "P2" [ref=e2507]
+              - cell "Backend Team" [ref=e2508]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2509]
+              - cell "● Open" [ref=e2510]:
+                - generic [ref=e2511]: ● Open
+            - 'row "1000+ -070 Failed: Test open redirect not followed medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2512] [cursor=pointer]':
+              - cell "1000+ -070" [ref=e2513]
+              - 'cell "Failed: Test open redirect not followed" [ref=e2514]'
+              - cell "medium" [ref=e2515]:
+                - generic [ref=e2516]: medium
+              - cell "Auth" [ref=e2517]
+              - cell "P2" [ref=e2518]
+              - cell "Engineering" [ref=e2519]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2520]
+              - cell "● Open" [ref=e2521]:
+                - generic [ref=e2522]: ● Open
+            - 'row "1000+ -071 Failed: Test login response has hsts critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2523] [cursor=pointer]':
+              - cell "1000+ -071" [ref=e2524]
+              - 'cell "Failed: Test login response has hsts" [ref=e2525]'
+              - cell "critical" [ref=e2526]:
+                - generic [ref=e2527]: critical
+              - cell "Auth" [ref=e2528]
+              - cell "P0" [ref=e2529]
+              - cell "Engineering Lead" [ref=e2530]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2531]
+              - cell "● Open" [ref=e2532]:
+                - generic [ref=e2533]: ● Open
+            - 'row "1000+ -072 Failed: Test no sensitive data in headers meta high Security P1 Security Team 🔢 1000+ Comprehensive Tests ● Open" [ref=e2534] [cursor=pointer]':
+              - cell "1000+ -072" [ref=e2535]
+              - 'cell "Failed: Test no sensitive data in headers meta" [ref=e2536]'
+              - cell "high" [ref=e2537]:
+                - generic [ref=e2538]: high
+              - cell "Security" [ref=e2539]
+              - cell "P1" [ref=e2540]
+              - cell "Security Team" [ref=e2541]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2542]
+              - cell "● Open" [ref=e2543]:
+                - generic [ref=e2544]: ● Open
+            - 'row "1000+ -073 Failed: Test login has h1 high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2545] [cursor=pointer]':
+              - cell "1000+ -073" [ref=e2546]
+              - 'cell "Failed: Test login has h1" [ref=e2547]'
+              - cell "high" [ref=e2548]:
+                - generic [ref=e2549]: high
+              - cell "Auth" [ref=e2550]
+              - cell "P1" [ref=e2551]
+              - cell "Engineering Lead" [ref=e2552]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2553]
+              - cell "● Open" [ref=e2554]:
+                - generic [ref=e2555]: ● Open
+            - 'row "1000+ -074 Failed: Test login response has csp critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2556] [cursor=pointer]':
+              - cell "1000+ -074" [ref=e2557]
+              - 'cell "Failed: Test login response has csp" [ref=e2558]'
+              - cell "critical" [ref=e2559]:
+                - generic [ref=e2560]: critical
+              - cell "Auth" [ref=e2561]
+              - cell "P0" [ref=e2562]
+              - cell "Engineering Lead" [ref=e2563]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2564]
+              - cell "● Open" [ref=e2565]:
+                - generic [ref=e2566]: ● Open
+            - 'row "1000+ -075 Failed: Test login response has x content type critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2567] [cursor=pointer]':
+              - cell "1000+ -075" [ref=e2568]
+              - 'cell "Failed: Test login response has x content type" [ref=e2569]'
+              - cell "critical" [ref=e2570]:
+                - generic [ref=e2571]: critical
+              - cell "Auth" [ref=e2572]
+              - cell "P0" [ref=e2573]
+              - cell "Engineering Lead" [ref=e2574]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2575]
+              - cell "● Open" [ref=e2576]:
+                - generic [ref=e2577]: ● Open
+            - 'row "1000+ -076 Failed: Test login sign in button has accessible name high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2578] [cursor=pointer]':
+              - cell "1000+ -076" [ref=e2579]
+              - 'cell "Failed: Test login sign in button has accessible name" [ref=e2580]'
+              - cell "high" [ref=e2581]:
+                - generic [ref=e2582]: high
+              - cell "Auth" [ref=e2583]
+              - cell "P1" [ref=e2584]
+              - cell "Engineering Lead" [ref=e2585]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2586]
+              - cell "● Open" [ref=e2587]:
+                - generic [ref=e2588]: ● Open
+            - 'row "1000+ -077 Failed: Test login response has x frame options critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2589] [cursor=pointer]':
+              - cell "1000+ -077" [ref=e2590]
+              - 'cell "Failed: Test login response has x frame options" [ref=e2591]'
+              - cell "critical" [ref=e2592]:
+                - generic [ref=e2593]: critical
+              - cell "Auth" [ref=e2594]
+              - cell "P0" [ref=e2595]
+              - cell "Engineering Lead" [ref=e2596]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2597]
+              - cell "● Open" [ref=e2598]:
+                - generic [ref=e2599]: ● Open
+            - 'row "1000+ -078 Failed: Test signup has email field medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2600] [cursor=pointer]':
+              - cell "1000+ -078" [ref=e2601]
+              - 'cell "Failed: Test signup has email field" [ref=e2602]'
+              - cell "medium" [ref=e2603]:
+                - generic [ref=e2604]: medium
+              - cell "General" [ref=e2605]
+              - cell "P2" [ref=e2606]
+              - cell "Engineering" [ref=e2607]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2608]
+              - cell "● Open" [ref=e2609]:
+                - generic [ref=e2610]: ● Open
+            - 'row "1000+ -079 Failed: Test login response no server version critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2611] [cursor=pointer]':
+              - cell "1000+ -079" [ref=e2612]
+              - 'cell "Failed: Test login response no server version" [ref=e2613]'
+              - cell "critical" [ref=e2614]:
+                - generic [ref=e2615]: critical
+              - cell "Auth" [ref=e2616]
+              - cell "P0" [ref=e2617]
+              - cell "Engineering Lead" [ref=e2618]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2619]
+              - cell "● Open" [ref=e2620]:
+                - generic [ref=e2621]: ● Open
+            - 'row "1000+ -080 Failed: Test signup has password field medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2622] [cursor=pointer]':
+              - cell "1000+ -080" [ref=e2623]
+              - 'cell "Failed: Test signup has password field" [ref=e2624]'
+              - cell "medium" [ref=e2625]:
+                - generic [ref=e2626]: medium
+              - cell "Auth" [ref=e2627]
+              - cell "P2" [ref=e2628]
+              - cell "Engineering" [ref=e2629]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2630]
+              - cell "● Open" [ref=e2631]:
+                - generic [ref=e2632]: ● Open
+            - 'row "1000+ -081 Failed: Test signup has h1 medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2633] [cursor=pointer]':
+              - cell "1000+ -081" [ref=e2634]
+              - 'cell "Failed: Test signup has h1" [ref=e2635]'
+              - cell "medium" [ref=e2636]:
+                - generic [ref=e2637]: medium
+              - cell "Auth" [ref=e2638]
+              - cell "P2" [ref=e2639]
+              - cell "Engineering" [ref=e2640]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2641]
+              - cell "● Open" [ref=e2642]:
+                - generic [ref=e2643]: ● Open
+            - 'row "1000+ -082 Failed: Test signup has submit button medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2644] [cursor=pointer]':
+              - cell "1000+ -082" [ref=e2645]
+              - 'cell "Failed: Test signup has submit button" [ref=e2646]'
+              - cell "medium" [ref=e2647]:
+                - generic [ref=e2648]: medium
+              - cell "General" [ref=e2649]
+              - cell "P2" [ref=e2650]
+              - cell "Engineering" [ref=e2651]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2652]
+              - cell "● Open" [ref=e2653]:
+                - generic [ref=e2654]: ● Open
+            - 'row "1000+ -083 Failed: Test reset has h1 medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2655] [cursor=pointer]':
+              - cell "1000+ -083" [ref=e2656]
+              - 'cell "Failed: Test reset has h1" [ref=e2657]'
+              - cell "medium" [ref=e2658]:
+                - generic [ref=e2659]: medium
+              - cell "Auth" [ref=e2660]
+              - cell "P2" [ref=e2661]
+              - cell "Engineering" [ref=e2662]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2663]
+              - cell "● Open" [ref=e2664]:
+                - generic [ref=e2665]: ● Open
+            - 'row "1000+ -084 Failed: Test signup page no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2666] [cursor=pointer]':
+              - cell "1000+ -084" [ref=e2667]
+              - 'cell "Failed: Test signup page no js errors" [ref=e2668]'
+              - cell "medium" [ref=e2669]:
+                - generic [ref=e2670]: medium
+              - cell "General" [ref=e2671]
+              - cell "P2" [ref=e2672]
+              - cell "Engineering" [ref=e2673]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2674]
+              - cell "● Open" [ref=e2675]:
+                - generic [ref=e2676]: ● Open
+            - 'row "1000+ -085 Failed: Test signup link on login page high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2677] [cursor=pointer]':
+              - cell "1000+ -085" [ref=e2678]
+              - 'cell "Failed: Test signup link on login page" [ref=e2679]'
+              - cell "high" [ref=e2680]:
+                - generic [ref=e2681]: high
+              - cell "Auth" [ref=e2682]
+              - cell "P1" [ref=e2683]
+              - cell "Engineering Lead" [ref=e2684]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2685]
+              - cell "● Open" [ref=e2686]:
+                - generic [ref=e2687]: ● Open
+            - 'row "1000+ -086 Failed: Test login referrer policy set critical Auth P0 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2688] [cursor=pointer]':
+              - cell "1000+ -086" [ref=e2689]
+              - 'cell "Failed: Test login referrer policy set" [ref=e2690]'
+              - cell "critical" [ref=e2691]:
+                - generic [ref=e2692]: critical
+              - cell "Auth" [ref=e2693]
+              - cell "P0" [ref=e2694]
+              - cell "Engineering Lead" [ref=e2695]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2696]
+              - cell "● Open" [ref=e2697]:
+                - generic [ref=e2698]: ● Open
+            - 'row "1000+ -087 Failed: Test signup password confirmation field medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2699] [cursor=pointer]':
+              - cell "1000+ -087" [ref=e2700]
+              - 'cell "Failed: Test signup password confirmation field" [ref=e2701]'
+              - cell "medium" [ref=e2702]:
+                - generic [ref=e2703]: medium
+              - cell "Auth" [ref=e2704]
+              - cell "P2" [ref=e2705]
+              - cell "Engineering" [ref=e2706]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2707]
+              - cell "● Open" [ref=e2708]:
+                - generic [ref=e2709]: ● Open
+            - 'row "1000+ -088 Failed: Test billing skip link or landmark medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2710] [cursor=pointer]':
+              - cell "1000+ -088" [ref=e2711]
+              - 'cell "Failed: Test billing skip link or landmark" [ref=e2712]'
+              - cell "medium" [ref=e2713]:
+                - generic [ref=e2714]: medium
+              - cell "General" [ref=e2715]
+              - cell "P2" [ref=e2716]
+              - cell "Engineering" [ref=e2717]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2718]
+              - cell "● Open" [ref=e2719]:
+                - generic [ref=e2720]: ● Open
+            - 'row "1000+ -089 Failed: Test campaign type options present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2721] [cursor=pointer]':
+              - cell "1000+ -089" [ref=e2722]
+              - 'cell "Failed: Test campaign type options present" [ref=e2723]'
+              - cell "medium" [ref=e2724]:
+                - generic [ref=e2725]: medium
+              - cell "General" [ref=e2726]
+              - cell "P2" [ref=e2727]
+              - cell "Engineering" [ref=e2728]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2729]
+              - cell "● Open" [ref=e2730]:
+                - generic [ref=e2731]: ● Open
+            - 'row "1000+ -090 Failed: Test campaigns filter options present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2732] [cursor=pointer]':
+              - cell "1000+ -090" [ref=e2733]
+              - 'cell "Failed: Test campaigns filter options present" [ref=e2734]'
+              - cell "medium" [ref=e2735]:
+                - generic [ref=e2736]: medium
+              - cell "General" [ref=e2737]
+              - cell "P2" [ref=e2738]
+              - cell "Engineering" [ref=e2739]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2740]
+              - cell "● Open" [ref=e2741]:
+                - generic [ref=e2742]: ● Open
+            - 'row "1000+ -091 Failed: Test audience based option visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2743] [cursor=pointer]':
+              - cell "1000+ -091" [ref=e2744]
+              - 'cell "Failed: Test audience based option visible" [ref=e2745]'
+              - cell "medium" [ref=e2746]:
+                - generic [ref=e2747]: medium
+              - cell "General" [ref=e2748]
+              - cell "P2" [ref=e2749]
+              - cell "Engineering" [ref=e2750]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2751]
+              - cell "● Open" [ref=e2752]:
+                - generic [ref=e2753]: ● Open
+            - 'row "1000+ -092 Failed: Test signup has login link high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e2754] [cursor=pointer]':
+              - cell "1000+ -092" [ref=e2755]
+              - 'cell "Failed: Test signup has login link" [ref=e2756]'
+              - cell "high" [ref=e2757]:
+                - generic [ref=e2758]: high
+              - cell "Auth" [ref=e2759]
+              - cell "P1" [ref=e2760]
+              - cell "Engineering Lead" [ref=e2761]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2762]
+              - cell "● Open" [ref=e2763]:
+                - generic [ref=e2764]: ● Open
+            - 'row "1000+ -093 Failed: Test event based option visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2765] [cursor=pointer]':
+              - cell "1000+ -093" [ref=e2766]
+              - 'cell "Failed: Test event based option visible" [ref=e2767]'
+              - cell "medium" [ref=e2768]:
+                - generic [ref=e2769]: medium
+              - cell "General" [ref=e2770]
+              - cell "P2" [ref=e2771]
+              - cell "Engineering" [ref=e2772]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2773]
+              - cell "● Open" [ref=e2774]:
+                - generic [ref=e2775]: ● Open
+            - 'row "1000+ -094 Failed: Test preset campaigns option visible medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2776] [cursor=pointer]':
+              - cell "1000+ -094" [ref=e2777]
+              - 'cell "Failed: Test preset campaigns option visible" [ref=e2778]'
+              - cell "medium" [ref=e2779]:
+                - generic [ref=e2780]: medium
+              - cell "Auth" [ref=e2781]
+              - cell "P2" [ref=e2782]
+              - cell "Engineering" [ref=e2783]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2784]
+              - cell "● Open" [ref=e2785]:
+                - generic [ref=e2786]: ● Open
+            - 'row "1000+ -095 Failed: Test wizard has step indicator medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2787] [cursor=pointer]':
+              - cell "1000+ -095" [ref=e2788]
+              - 'cell "Failed: Test wizard has step indicator" [ref=e2789]'
+              - cell "medium" [ref=e2790]:
+                - generic [ref=e2791]: medium
+              - cell "General" [ref=e2792]
+              - cell "P2" [ref=e2793]
+              - cell "Engineering" [ref=e2794]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2795]
+              - cell "● Open" [ref=e2796]:
+                - generic [ref=e2797]: ● Open
+            - 'row "1000+ -096 Failed: Test campaign name field present in wizard medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2798] [cursor=pointer]':
+              - cell "1000+ -096" [ref=e2799]
+              - 'cell "Failed: Test campaign name field present in wizard" [ref=e2800]'
+              - cell "medium" [ref=e2801]:
+                - generic [ref=e2802]: medium
+              - cell "General" [ref=e2803]
+              - cell "P2" [ref=e2804]
+              - cell "Engineering" [ref=e2805]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2806]
+              - cell "● Open" [ref=e2807]:
+                - generic [ref=e2808]: ● Open
+            - 'row "1000+ -097 Failed: Test campaigns no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2809] [cursor=pointer]':
+              - cell "1000+ -097" [ref=e2810]
+              - 'cell "Failed: Test campaigns no js errors" [ref=e2811]'
+              - cell "medium" [ref=e2812]:
+                - generic [ref=e2813]: medium
+              - cell "General" [ref=e2814]
+              - cell "P2" [ref=e2815]
+              - cell "Engineering" [ref=e2816]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2817]
+              - cell "● Open" [ref=e2818]:
+                - generic [ref=e2819]: ● Open
+            - 'row "1000+ -098 Failed: Test analytics no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2820] [cursor=pointer]':
+              - cell "1000+ -098" [ref=e2821]
+              - 'cell "Failed: Test analytics no js errors" [ref=e2822]'
+              - cell "medium" [ref=e2823]:
+                - generic [ref=e2824]: medium
+              - cell "General" [ref=e2825]
+              - cell "P2" [ref=e2826]
+              - cell "Engineering" [ref=e2827]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2828]
+              - cell "● Open" [ref=e2829]:
+                - generic [ref=e2830]: ● Open
+            - 'row "1000+ -099 Failed: Test analytics has chart or graph medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2831] [cursor=pointer]':
+              - cell "1000+ -099" [ref=e2832]
+              - 'cell "Failed: Test analytics has chart or graph" [ref=e2833]'
+              - cell "medium" [ref=e2834]:
+                - generic [ref=e2835]: medium
+              - cell "General" [ref=e2836]
+              - cell "P2" [ref=e2837]
+              - cell "Engineering" [ref=e2838]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2839]
+              - cell "● Open" [ref=e2840]:
+                - generic [ref=e2841]: ● Open
+            - 'row "1000+ -100 Failed: Test analytics date range picker medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2842] [cursor=pointer]':
+              - cell "1000+ -100" [ref=e2843]
+              - 'cell "Failed: Test analytics date range picker" [ref=e2844]'
+              - cell "medium" [ref=e2845]:
+                - generic [ref=e2846]: medium
+              - cell "General" [ref=e2847]
+              - cell "P2" [ref=e2848]
+              - cell "Engineering" [ref=e2849]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2850]
+              - cell "● Open" [ref=e2851]:
+                - generic [ref=e2852]: ● Open
+            - 'row "1000+ -101 Failed: Test wizard no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2853] [cursor=pointer]':
+              - cell "1000+ -101" [ref=e2854]
+              - 'cell "Failed: Test wizard no js errors" [ref=e2855]'
+              - cell "medium" [ref=e2856]:
+                - generic [ref=e2857]: medium
+              - cell "General" [ref=e2858]
+              - cell "P2" [ref=e2859]
+              - cell "Engineering" [ref=e2860]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2861]
+              - cell "● Open" [ref=e2862]:
+                - generic [ref=e2863]: ● Open
+            - 'row "1000+ -102 Failed: Test campaigns empty state graceful medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2864] [cursor=pointer]':
+              - cell "1000+ -102" [ref=e2865]
+              - 'cell "Failed: Test campaigns empty state graceful" [ref=e2866]'
+              - cell "medium" [ref=e2867]:
+                - generic [ref=e2868]: medium
+              - cell "General" [ref=e2869]
+              - cell "P2" [ref=e2870]
+              - cell "Engineering" [ref=e2871]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2872]
+              - cell "● Open" [ref=e2873]:
+                - generic [ref=e2874]: ● Open
+            - 'row "1000+ -103 Failed: Test shopify card present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2875] [cursor=pointer]':
+              - cell "1000+ -103" [ref=e2876]
+              - 'cell "Failed: Test shopify card present" [ref=e2877]'
+              - cell "medium" [ref=e2878]:
+                - generic [ref=e2879]: medium
+              - cell "General" [ref=e2880]
+              - cell "P2" [ref=e2881]
+              - cell "Engineering" [ref=e2882]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2883]
+              - cell "● Open" [ref=e2884]:
+                - generic [ref=e2885]: ● Open
+            - 'row "1000+ -104 Failed: Test channel selection visible in wizard medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2886] [cursor=pointer]':
+              - cell "1000+ -104" [ref=e2887]
+              - 'cell "Failed: Test channel selection visible in wizard" [ref=e2888]'
+              - cell "medium" [ref=e2889]:
+                - generic [ref=e2890]: medium
+              - cell "General" [ref=e2891]
+              - cell "P2" [ref=e2892]
+              - cell "Engineering" [ref=e2893]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2894]
+              - cell "● Open" [ref=e2895]:
+                - generic [ref=e2896]: ● Open
+            - 'row "1000+ -105 Failed: Test analytics export button present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2897] [cursor=pointer]':
+              - cell "1000+ -105" [ref=e2898]
+              - 'cell "Failed: Test analytics export button present" [ref=e2899]'
+              - cell "medium" [ref=e2900]:
+                - generic [ref=e2901]: medium
+              - cell "General" [ref=e2902]
+              - cell "P2" [ref=e2903]
+              - cell "Engineering" [ref=e2904]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2905]
+              - cell "● Open" [ref=e2906]:
+                - generic [ref=e2907]: ● Open
+            - 'row "1000+ -106 Failed: Test whatsapp integration present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2908] [cursor=pointer]':
+              - cell "1000+ -106" [ref=e2909]
+              - 'cell "Failed: Test whatsapp integration present" [ref=e2910]'
+              - cell "medium" [ref=e2911]:
+                - generic [ref=e2912]: medium
+              - cell "General" [ref=e2913]
+              - cell "P2" [ref=e2914]
+              - cell "Engineering" [ref=e2915]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2916]
+              - cell "● Open" [ref=e2917]:
+                - generic [ref=e2918]: ● Open
+            - 'row "1000+ -107 Failed: Test analytics performance tab present medium Performance P2 Platform Team 🔢 1000+ Comprehensive Tests ● Open" [ref=e2919] [cursor=pointer]':
+              - cell "1000+ -107" [ref=e2920]
+              - 'cell "Failed: Test analytics performance tab present" [ref=e2921]'
+              - cell "medium" [ref=e2922]:
+                - generic [ref=e2923]: medium
+              - cell "Performance" [ref=e2924]
+              - cell "P2" [ref=e2925]
+              - cell "Platform Team" [ref=e2926]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2927]
+              - cell "● Open" [ref=e2928]:
+                - generic [ref=e2929]: ● Open
+            - 'row "1000+ -108 Failed: Test 404 page exists medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2930] [cursor=pointer]':
+              - cell "1000+ -108" [ref=e2931]
+              - 'cell "Failed: Test 404 page exists" [ref=e2932]'
+              - cell "medium" [ref=e2933]:
+                - generic [ref=e2934]: medium
+              - cell "Auth" [ref=e2935]
+              - cell "P2" [ref=e2936]
+              - cell "Engineering" [ref=e2937]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2938]
+              - cell "● Open" [ref=e2939]:
+                - generic [ref=e2940]: ● Open
+            - 'row "1000+ -109 Failed: Test billing plan cards visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2941] [cursor=pointer]':
+              - cell "1000+ -109" [ref=e2942]
+              - 'cell "Failed: Test billing plan cards visible" [ref=e2943]'
+              - cell "medium" [ref=e2944]:
+                - generic [ref=e2945]: medium
+              - cell "General" [ref=e2946]
+              - cell "P2" [ref=e2947]
+              - cell "Engineering" [ref=e2948]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2949]
+              - cell "● Open" [ref=e2950]:
+                - generic [ref=e2951]: ● Open
+            - 'row "1000+ -110 Failed: Test webhook option present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2952] [cursor=pointer]':
+              - cell "1000+ -110" [ref=e2953]
+              - 'cell "Failed: Test webhook option present" [ref=e2954]'
+              - cell "medium" [ref=e2955]:
+                - generic [ref=e2956]: medium
+              - cell "General" [ref=e2957]
+              - cell "P2" [ref=e2958]
+              - cell "Engineering" [ref=e2959]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2960]
+              - cell "● Open" [ref=e2961]:
+                - generic [ref=e2962]: ● Open
+            - 'row "1000+ -111 Failed: Test analytics conversion metric visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2963] [cursor=pointer]':
+              - cell "1000+ -111" [ref=e2964]
+              - 'cell "Failed: Test analytics conversion metric visible" [ref=e2965]'
+              - cell "medium" [ref=e2966]:
+                - generic [ref=e2967]: medium
+              - cell "General" [ref=e2968]
+              - cell "P2" [ref=e2969]
+              - cell "Engineering" [ref=e2970]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2971]
+              - cell "● Open" [ref=e2972]:
+                - generic [ref=e2973]: ● Open
+            - 'row "1000+ -112 Failed: Test integrations no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2974] [cursor=pointer]':
+              - cell "1000+ -112" [ref=e2975]
+              - 'cell "Failed: Test integrations no js errors" [ref=e2976]'
+              - cell "medium" [ref=e2977]:
+                - generic [ref=e2978]: medium
+              - cell "General" [ref=e2979]
+              - cell "P2" [ref=e2980]
+              - cell "Engineering" [ref=e2981]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2982]
+              - cell "● Open" [ref=e2983]:
+                - generic [ref=e2984]: ● Open
+            - 'row "1000+ -113 Failed: Test billing no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2985] [cursor=pointer]':
+              - cell "1000+ -113" [ref=e2986]
+              - 'cell "Failed: Test billing no js errors" [ref=e2987]'
+              - cell "medium" [ref=e2988]:
+                - generic [ref=e2989]: medium
+              - cell "General" [ref=e2990]
+              - cell "P2" [ref=e2991]
+              - cell "Engineering" [ref=e2992]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e2993]
+              - cell "● Open" [ref=e2994]:
+                - generic [ref=e2995]: ● Open
+            - 'row "1000+ -114 Failed: Test integrations connect button present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e2996] [cursor=pointer]':
+              - cell "1000+ -114" [ref=e2997]
+              - 'cell "Failed: Test integrations connect button present" [ref=e2998]'
+              - cell "medium" [ref=e2999]:
+                - generic [ref=e3000]: medium
+              - cell "General" [ref=e3001]
+              - cell "P2" [ref=e3002]
+              - cell "Engineering" [ref=e3003]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3004]
+              - cell "● Open" [ref=e3005]:
+                - generic [ref=e3006]: ● Open
+            - 'row "1000+ -115 Failed: Test billing invoice history section medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3007] [cursor=pointer]':
+              - cell "1000+ -115" [ref=e3008]
+              - 'cell "Failed: Test billing invoice history section" [ref=e3009]'
+              - cell "medium" [ref=e3010]:
+                - generic [ref=e3011]: medium
+              - cell "General" [ref=e3012]
+              - cell "P2" [ref=e3013]
+              - cell "Engineering" [ref=e3014]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3015]
+              - cell "● Open" [ref=e3016]:
+                - generic [ref=e3017]: ● Open
+            - 'row "1000+ -116 Failed: Test billing upgrade button present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3018] [cursor=pointer]':
+              - cell "1000+ -116" [ref=e3019]
+              - 'cell "Failed: Test billing upgrade button present" [ref=e3020]'
+              - cell "medium" [ref=e3021]:
+                - generic [ref=e3022]: medium
+              - cell "General" [ref=e3023]
+              - cell "P2" [ref=e3024]
+              - cell "Engineering" [ref=e3025]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3026]
+              - cell "● Open" [ref=e3027]:
+                - generic [ref=e3028]: ● Open
+            - 'row "1000+ -117 Failed: Test data room import button medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3029] [cursor=pointer]':
+              - cell "1000+ -117" [ref=e3030]
+              - 'cell "Failed: Test data room import button" [ref=e3031]'
+              - cell "medium" [ref=e3032]:
+                - generic [ref=e3033]: medium
+              - cell "General" [ref=e3034]
+              - cell "P2" [ref=e3035]
+              - cell "Engineering" [ref=e3036]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3037]
+              - cell "● Open" [ref=e3038]:
+                - generic [ref=e3039]: ● Open
+            - 'row "1000+ -118 Failed: Test billing plan prices visible medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3040] [cursor=pointer]':
+              - cell "1000+ -118" [ref=e3041]
+              - 'cell "Failed: Test billing plan prices visible" [ref=e3042]'
+              - cell "medium" [ref=e3043]:
+                - generic [ref=e3044]: medium
+              - cell "General" [ref=e3045]
+              - cell "P2" [ref=e3046]
+              - cell "Engineering" [ref=e3047]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3048]
+              - cell "● Open" [ref=e3049]:
+                - generic [ref=e3050]: ● Open
+            - 'row "1000+ -119 Failed: Test data room export button medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3051] [cursor=pointer]':
+              - cell "1000+ -119" [ref=e3052]
+              - 'cell "Failed: Test data room export button" [ref=e3053]'
+              - cell "medium" [ref=e3054]:
+                - generic [ref=e3055]: medium
+              - cell "General" [ref=e3056]
+              - cell "P2" [ref=e3057]
+              - cell "Engineering" [ref=e3058]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3059]
+              - cell "● Open" [ref=e3060]:
+                - generic [ref=e3061]: ● Open
+            - 'row "1000+ -120 Failed: Test integrations status indicators medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3062] [cursor=pointer]':
+              - cell "1000+ -120" [ref=e3063]
+              - 'cell "Failed: Test integrations status indicators" [ref=e3064]'
+              - cell "medium" [ref=e3065]:
+                - generic [ref=e3066]: medium
+              - cell "General" [ref=e3067]
+              - cell "P2" [ref=e3068]
+              - cell "Engineering" [ref=e3069]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3070]
+              - cell "● Open" [ref=e3071]:
+                - generic [ref=e3072]: ● Open
+            - 'row "1000+ -121 Failed: Test data room no js errors medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3073] [cursor=pointer]':
+              - cell "1000+ -121" [ref=e3074]
+              - 'cell "Failed: Test data room no js errors" [ref=e3075]'
+              - cell "medium" [ref=e3076]:
+                - generic [ref=e3077]: medium
+              - cell "General" [ref=e3078]
+              - cell "P2" [ref=e3079]
+              - cell "Engineering" [ref=e3080]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3081]
+              - cell "● Open" [ref=e3082]:
+                - generic [ref=e3083]: ● Open
+            - 'row "1000+ -122 Failed: Test data room search field medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3084] [cursor=pointer]':
+              - cell "1000+ -122" [ref=e3085]
+              - 'cell "Failed: Test data room search field" [ref=e3086]'
+              - cell "medium" [ref=e3087]:
+                - generic [ref=e3088]: medium
+              - cell "General" [ref=e3089]
+              - cell "P2" [ref=e3090]
+              - cell "Engineering" [ref=e3091]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3092]
+              - cell "● Open" [ref=e3093]:
+                - generic [ref=e3094]: ● Open
+            - 'row "1000+ -123 Failed: Test integrations docs link present medium General P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3095] [cursor=pointer]':
+              - cell "1000+ -123" [ref=e3096]
+              - 'cell "Failed: Test integrations docs link present" [ref=e3097]'
+              - cell "medium" [ref=e3098]:
+                - generic [ref=e3099]: medium
+              - cell "General" [ref=e3100]
+              - cell "P2" [ref=e3101]
+              - cell "Engineering" [ref=e3102]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3103]
+              - cell "● Open" [ref=e3104]:
+                - generic [ref=e3105]: ● Open
+            - 'row "1000+ -124 Failed: Test reset has email field medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3106] [cursor=pointer]':
+              - cell "1000+ -124" [ref=e3107]
+              - 'cell "Failed: Test reset has email field" [ref=e3108]'
+              - cell "medium" [ref=e3109]:
+                - generic [ref=e3110]: medium
+              - cell "Auth" [ref=e3111]
+              - cell "P2" [ref=e3112]
+              - cell "Engineering" [ref=e3113]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3114]
+              - cell "● Open" [ref=e3115]:
+                - generic [ref=e3116]: ● Open
+            - 'row "1000+ -125 Failed: Test reset back to login link high Auth P1 Engineering Lead 🔢 1000+ Comprehensive Tests ● Open" [ref=e3117] [cursor=pointer]':
+              - cell "1000+ -125" [ref=e3118]
+              - 'cell "Failed: Test reset back to login link" [ref=e3119]'
+              - cell "high" [ref=e3120]:
+                - generic [ref=e3121]: high
+              - cell "Auth" [ref=e3122]
+              - cell "P1" [ref=e3123]
+              - cell "Engineering Lead" [ref=e3124]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3125]
+              - cell "● Open" [ref=e3126]:
+                - generic [ref=e3127]: ● Open
+            - 'row "1000+ -126 Failed: Test reset no js errors medium Auth P2 Engineering 🔢 1000+ Comprehensive Tests ● Open" [ref=e3128] [cursor=pointer]':
+              - cell "1000+ -126" [ref=e3129]
+              - 'cell "Failed: Test reset no js errors" [ref=e3130]'
+              - cell "medium" [ref=e3131]:
+                - generic [ref=e3132]: medium
+              - cell "Auth" [ref=e3133]
+              - cell "P2" [ref=e3134]
+              - cell "Engineering" [ref=e3135]
+              - cell "🔢 1000+ Comprehensive Tests" [ref=e3136]
+              - cell "● Open" [ref=e3137]:
+                - generic [ref=e3138]: ● Open
+            - 'row "QA-23 -001 Failed: Test qa23 first visit sees value proposition medium General P2 Engineering 🚶 QA-23 End User Journeys ● Open" [ref=e3139] [cursor=pointer]':
+              - cell "QA-23 -001" [ref=e3140]
+              - 'cell "Failed: Test qa23 first visit sees value proposition" [ref=e3141]'
+              - cell "medium" [ref=e3142]:
+                - generic [ref=e3143]: medium
+              - cell "General" [ref=e3144]
+              - cell "P2" [ref=e3145]
+              - cell "Engineering" [ref=e3146]
+              - cell "🚶 QA-23 End User Journeys" [ref=e3147]
+              - cell "● Open" [ref=e3148]:
+                - generic [ref=e3149]: ● Open
+            - 'row "QA-23 -002 Failed: Test qa23 login page loads with email field high Auth P1 Engineering Lead 🚶 QA-23 End User Journeys ● Open" [ref=e3150] [cursor=pointer]':
+              - cell "QA-23 -002" [ref=e3151]
+              - 'cell "Failed: Test qa23 login page loads with email field" [ref=e3152]'
+              - cell "high" [ref=e3153]:
+                - generic [ref=e3154]: high
+              - cell "Auth" [ref=e3155]
+              - cell "P1" [ref=e3156]
+              - cell "Engineering Lead" [ref=e3157]
+              - cell "🚶 QA-23 End User Journeys" [ref=e3158]
+              - cell "● Open" [ref=e3159]:
+                - generic [ref=e3160]: ● Open
+            - 'row "QA-23 -003 Failed: Test qa23 homepage loads without crash medium General P2 Engineering 🚶 QA-23 End User Journeys ● Open" [ref=e3161] [cursor=pointer]':
+              - cell "QA-23 -003" [ref=e3162]
+              - 'cell "Failed: Test qa23 homepage loads without crash" [ref=e3163]'
+              - cell "medium" [ref=e3164]:
+                - generic [ref=e3165]: medium
+              - cell "General" [ref=e3166]
+              - cell "P2" [ref=e3167]
+              - cell "Engineering" [ref=e3168]
+              - cell "🚶 QA-23 End User Journeys" [ref=e3169]
+              - cell "● Open" [ref=e3170]:
+                - generic [ref=e3171]: ● Open
+            - 'row "QA-23 -004 Failed: Test qa23 login page loads without crash high Auth P1 Engineering Lead 🚶 QA-23 End User Journeys ● Open" [ref=e3172] [cursor=pointer]':
+              - cell "QA-23 -004" [ref=e3173]
+              - 'cell "Failed: Test qa23 login page loads without crash" [ref=e3174]'
+              - cell "high" [ref=e3175]:
+                - generic [ref=e3176]: high
+              - cell "Auth" [ref=e3177]
+              - cell "P1" [ref=e3178]
+              - cell "Engineering Lead" [ref=e3179]
+              - cell "🚶 QA-23 End User Journeys" [ref=e3180]
+              - cell "● Open" [ref=e3181]:
+                - generic [ref=e3182]: ● Open
+            - 'row "QA-23 -005 Failed: Test qa23 markopolo branding on homepage medium General P2 Engineering 🚶 QA-23 End User Journeys ● Open" [ref=e3183] [cursor=pointer]':
+              - cell "QA-23 -005" [ref=e3184]
+              - 'cell "Failed: Test qa23 markopolo branding on homepage" [ref=e3185]'
+              - cell "medium" [ref=e3186]:
+                - generic [ref=e3187]: medium
+              - cell "General" [ref=e3188]
+              - cell "P2" [ref=e3189]
+              - cell "Engineering" [ref=e3190]
+              - cell "🚶 QA-23 End User Journeys" [ref=e3191]
+              - cell "● Open" [ref=e3192]:
+                - generic [ref=e3193]: ● Open
+            - 'row "QA-24 -001 Failed: Test qa24 back button from login to home high Auth P1 Engineering Lead 🔬 QA-24 Tester Checks ● Open" [ref=e3194] [cursor=pointer]':
+              - cell "QA-24 -001" [ref=e3195]
+              - 'cell "Failed: Test qa24 back button from login to home" [ref=e3196]'
+              - cell "high" [ref=e3197]:
+                - generic [ref=e3198]: high
+              - cell "Auth" [ref=e3199]
+              - cell "P1" [ref=e3200]
+              - cell "Engineering Lead" [ref=e3201]
+              - cell "🔬 QA-24 Tester Checks" [ref=e3202]
+              - cell "● Open" [ref=e3203]:
+                - generic [ref=e3204]: ● Open
+            - 'row "QA-25 -001 Failed: Test qa25 api responses have correct content type medium Integration P2 Backend Team 💻 QA-25 Developer Checks ● Open" [ref=e3205] [cursor=pointer]':
+              - cell "QA-25 -001" [ref=e3206]
+              - 'cell "Failed: Test qa25 api responses have correct content type" [ref=e3207]'
+              - cell "medium" [ref=e3208]:
+                - generic [ref=e3209]: medium
+              - cell "Integration" [ref=e3210]
+              - cell "P2" [ref=e3211]
+              - cell "Backend Team" [ref=e3212]
+              - cell "💻 QA-25 Developer Checks" [ref=e3213]
+              - cell "● Open" [ref=e3214]:
+                - generic [ref=e3215]: ● Open
+            - 'row "QA-25 -002 Failed: Test qa25 cookies have secure flag low Security P3 Security Team 💻 QA-25 Developer Checks ● Open" [ref=e3216] [cursor=pointer]':
+              - cell "QA-25 -002" [ref=e3217]
+              - 'cell "Failed: Test qa25 cookies have secure flag" [ref=e3218]'
+              - cell "low" [ref=e3219]:
+                - generic [ref=e3220]: low
+              - cell "Security" [ref=e3221]
+              - cell "P3" [ref=e3222]
+              - cell "Security Team" [ref=e3223]
+              - cell "💻 QA-25 Developer Checks" [ref=e3224]
+              - cell "● Open" [ref=e3225]:
+                - generic [ref=e3226]: ● Open
+            - 'row "QA-26 -001 Failed: Test qa26 platform name on homepage medium General P2 Engineering 📋 QA-26 PM Critical Paths ● Open" [ref=e3227] [cursor=pointer]':
+              - cell "QA-26 -001" [ref=e3228]
+              - 'cell "Failed: Test qa26 platform name on homepage" [ref=e3229]'
+              - cell "medium" [ref=e3230]:
+                - generic [ref=e3231]: medium
+              - cell "General" [ref=e3232]
+              - cell "P2" [ref=e3233]
+              - cell "Engineering" [ref=e3234]
+              - cell "📋 QA-26 PM Critical Paths" [ref=e3235]
+              - cell "● Open" [ref=e3236]:
+                - generic [ref=e3237]: ● Open
+            - 'row "QA-26 -002 Failed: Test qa26 homepage mobile renders medium Auth P2 Engineering 📋 QA-26 PM Critical Paths ● Open" [ref=e3238] [cursor=pointer]':
+              - cell "QA-26 -002" [ref=e3239]
+              - 'cell "Failed: Test qa26 homepage mobile renders" [ref=e3240]'
+              - cell "medium" [ref=e3241]:
+                - generic [ref=e3242]: medium
+              - cell "Auth" [ref=e3243]
+              - cell "P2" [ref=e3244]
+              - cell "Engineering" [ref=e3245]
+              - cell "📋 QA-26 PM Critical Paths" [ref=e3246]
+              - cell "● Open" [ref=e3247]:
+                - generic [ref=e3248]: ● Open
+            - 'row "E2E ST-001 Failed: Test flow login to dashboard high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3249] [cursor=pointer]':
+              - cell "E2E ST-001" [ref=e3250]
+              - 'cell "Failed: Test flow login to dashboard" [ref=e3251]'
+              - cell "high" [ref=e3252]:
+                - generic [ref=e3253]: high
+              - cell "Auth" [ref=e3254]
+              - cell "P1" [ref=e3255]
+              - cell "Engineering Lead" [ref=e3256]
+              - cell "🔗 E2E Stateful Flows" [ref=e3257]
+              - cell "● Open" [ref=e3258]:
+                - generic [ref=e3259]: ● Open
+            - 'row "E2E ST-002 Failed: Test flow login to dashboard interrupted high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3260] [cursor=pointer]':
+              - cell "E2E ST-002" [ref=e3261]
+              - 'cell "Failed: Test flow login to dashboard interrupted" [ref=e3262]'
+              - cell "high" [ref=e3263]:
+                - generic [ref=e3264]: high
+              - cell "Auth" [ref=e3265]
+              - cell "P1" [ref=e3266]
+              - cell "Engineering Lead" [ref=e3267]
+              - cell "🔗 E2E Stateful Flows" [ref=e3268]
+              - cell "● Open" [ref=e3269]:
+                - generic [ref=e3270]: ● Open
+            - 'row "E2E ST-003 Failed: Test flow login invalid high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3271] [cursor=pointer]':
+              - cell "E2E ST-003" [ref=e3272]
+              - 'cell "Failed: Test flow login invalid" [ref=e3273]'
+              - cell "high" [ref=e3274]:
+                - generic [ref=e3275]: high
+              - cell "Auth" [ref=e3276]
+              - cell "P1" [ref=e3277]
+              - cell "Engineering Lead" [ref=e3278]
+              - cell "🔗 E2E Stateful Flows" [ref=e3279]
+              - cell "● Open" [ref=e3280]:
+                - generic [ref=e3281]: ● Open
+            - 'row "E2E ST-004 Failed: Test flow login invalid interrupted high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3282] [cursor=pointer]':
+              - cell "E2E ST-004" [ref=e3283]
+              - 'cell "Failed: Test flow login invalid interrupted" [ref=e3284]'
+              - cell "high" [ref=e3285]:
+                - generic [ref=e3286]: high
+              - cell "Auth" [ref=e3287]
+              - cell "P1" [ref=e3288]
+              - cell "Engineering Lead" [ref=e3289]
+              - cell "🔗 E2E Stateful Flows" [ref=e3290]
+              - cell "● Open" [ref=e3291]:
+                - generic [ref=e3292]: ● Open
+            - 'row "E2E ST-005 Failed: Test flow login campaign high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3293] [cursor=pointer]':
+              - cell "E2E ST-005" [ref=e3294]
+              - 'cell "Failed: Test flow login campaign" [ref=e3295]'
+              - cell "high" [ref=e3296]:
+                - generic [ref=e3297]: high
+              - cell "Auth" [ref=e3298]
+              - cell "P1" [ref=e3299]
+              - cell "Engineering Lead" [ref=e3300]
+              - cell "🔗 E2E Stateful Flows" [ref=e3301]
+              - cell "● Open" [ref=e3302]:
+                - generic [ref=e3303]: ● Open
+            - 'row "E2E ST-006 Failed: Test flow login campaign interrupted high Auth P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3304] [cursor=pointer]':
+              - cell "E2E ST-006" [ref=e3305]
+              - 'cell "Failed: Test flow login campaign interrupted" [ref=e3306]'
+              - cell "high" [ref=e3307]:
+                - generic [ref=e3308]: high
+              - cell "Auth" [ref=e3309]
+              - cell "P1" [ref=e3310]
+              - cell "Engineering Lead" [ref=e3311]
+              - cell "🔗 E2E Stateful Flows" [ref=e3312]
+              - cell "● Open" [ref=e3313]:
+                - generic [ref=e3314]: ● Open
+            - 'row "E2E ST-007 Failed: Test flow session expiry high General P1 Engineering Lead 🔗 E2E Stateful Flows ● Open" [ref=e3315] [cursor=pointer]':
+              - cell "E2E ST-007" [ref=e3316]
+              - 'cell "Failed: Test flow session expiry" [ref=e3317]'
+              - cell "high" [ref=e3318]:
+                - generic [ref=e3319]: high
+              - cell "General" [ref=e3320]
+              - cell "P1" [ref=e3321]
+              - cell "Engineering Lead" [ref=e3322]
+              - cell "🔗 E2E Stateful Flows" [ref=e3323]
+              - cell "● Open" [ref=e3324]:
+                - generic [ref=e3325]: ● Open
+            - 'row "E2E ST-008 Failed: Test flow settings profile medium General P2 Engineering 🔗 E2E Stateful Flows ● Open" [ref=e3326] [cursor=pointer]':
+              - cell "E2E ST-008" [ref=e3327]
+              - 'cell "Failed: Test flow settings profile" [ref=e3328]'
+              - cell "medium" [ref=e3329]:
+                - generic [ref=e3330]: medium
+              - cell "General" [ref=e3331]
+              - cell "P2" [ref=e3332]
+              - cell "Engineering" [ref=e3333]
+              - cell "🔗 E2E Stateful Flows" [ref=e3334]
+              - cell "● Open" [ref=e3335]:
+                - generic [ref=e3336]: ● Open
+            - 'row "E2E ST-009 Failed: Test flow settings profile interrupted medium General P2 Engineering 🔗 E2E Stateful Flows ● Open" [ref=e3337] [cursor=pointer]':
+              - cell "E2E ST-009" [ref=e3338]
+              - 'cell "Failed: Test flow settings profile interrupted" [ref=e3339]'
+              - cell "medium" [ref=e3340]:
+                - generic [ref=e3341]: medium
+              - cell "General" [ref=e3342]
+              - cell "P2" [ref=e3343]
+              - cell "Engineering" [ref=e3344]
+              - cell "🔗 E2E Stateful Flows" [ref=e3345]
+              - cell "● Open" [ref=e3346]:
+                - generic [ref=e3347]: ● Open
+            - 'row "E2E ST-010 Failed: Test flow analytics export medium General P2 Engineering 🔗 E2E Stateful Flows ● Open" [ref=e3348] [cursor=pointer]':
+              - cell "E2E ST-010" [ref=e3349]
+              - 'cell "Failed: Test flow analytics export" [ref=e3350]'
+              - cell "medium" [ref=e3351]:
+                - generic [ref=e3352]: medium
+              - cell "General" [ref=e3353]
+              - cell "P2" [ref=e3354]
+              - cell "Engineering" [ref=e3355]
+              - cell "🔗 E2E Stateful Flows" [ref=e3356]
+              - cell "● Open" [ref=e3357]:
+                - generic [ref=e3358]: ● Open
+            - 'row "E2E ST-011 Failed: Test flow analytics export interrupted medium General P2 Engineering 🔗 E2E Stateful Flows ● Open" [ref=e3359] [cursor=pointer]':
+              - cell "E2E ST-011" [ref=e3360]
+              - 'cell "Failed: Test flow analytics export interrupted" [ref=e3361]'
+              - cell "medium" [ref=e3362]:
+                - generic [ref=e3363]: medium
+              - cell "General" [ref=e3364]
+              - cell "P2" [ref=e3365]
+              - cell "Engineering" [ref=e3366]
+              - cell "🔗 E2E Stateful Flows" [ref=e3367]
+              - cell "● Open" [ref=e3368]:
+                - generic [ref=e3369]: ● Open
+            - 'row "REGRES-001 Failed: Test ds146 jwt must be verified not decoded critical General P0 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3370] [cursor=pointer]':
+              - cell "REGRES-001" [ref=e3371]
+              - 'cell "Failed: Test ds146 jwt must be verified not decoded" [ref=e3372]'
+              - cell "critical" [ref=e3373]:
+                - generic [ref=e3374]: critical
+              - cell "General" [ref=e3375]
+              - cell "P0" [ref=e3376]
+              - cell "Engineering Lead" [ref=e3377]
+              - cell "🔄 Regression Bug Tests" [ref=e3378]
+              - cell "● Open" [ref=e3379]:
+                - generic [ref=e3380]: ● Open
+            - 'row "REGRES-002 Failed: Test ds147 cors must not reflect arbitrary origin critical General P0 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3381] [cursor=pointer]':
+              - cell "REGRES-002" [ref=e3382]
+              - 'cell "Failed: Test ds147 cors must not reflect arbitrary origin" [ref=e3383]'
+              - cell "critical" [ref=e3384]:
+                - generic [ref=e3385]: critical
+              - cell "General" [ref=e3386]
+              - cell "P0" [ref=e3387]
+              - cell "Engineering Lead" [ref=e3388]
+              - cell "🔄 Regression Bug Tests" [ref=e3389]
+              - cell "● Open" [ref=e3390]:
+                - generic [ref=e3391]: ● Open
+            - 'row "REGRES-003 Failed: Test ds148 otp must have rate limiting critical Auth P0 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3392] [cursor=pointer]':
+              - cell "REGRES-003" [ref=e3393]
+              - 'cell "Failed: Test ds148 otp must have rate limiting" [ref=e3394]'
+              - cell "critical" [ref=e3395]:
+                - generic [ref=e3396]: critical
+              - cell "Auth" [ref=e3397]
+              - cell "P0" [ref=e3398]
+              - cell "Engineering Lead" [ref=e3399]
+              - cell "🔄 Regression Bug Tests" [ref=e3400]
+              - cell "● Open" [ref=e3401]:
+                - generic [ref=e3402]: ● Open
+            - 'row "REGRES-004 Failed: Test ds149 login must have rate limiting critical Auth P0 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3403] [cursor=pointer]':
+              - cell "REGRES-004" [ref=e3404]
+              - 'cell "Failed: Test ds149 login must have rate limiting" [ref=e3405]'
+              - cell "critical" [ref=e3406]:
+                - generic [ref=e3407]: critical
+              - cell "Auth" [ref=e3408]
+              - cell "P0" [ref=e3409]
+              - cell "Engineering Lead" [ref=e3410]
+              - cell "🔄 Regression Bug Tests" [ref=e3411]
+              - cell "● Open" [ref=e3412]:
+                - generic [ref=e3413]: ● Open
+            - 'row "REGRES-005 Failed: Test mplo84 integrations api must not return plain text credentials critical Auth P0 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3414] [cursor=pointer]':
+              - cell "REGRES-005" [ref=e3415]
+              - 'cell "Failed: Test mplo84 integrations api must not return plain text credentials" [ref=e3416]'
+              - cell "critical" [ref=e3417]:
+                - generic [ref=e3418]: critical
+              - cell "Auth" [ref=e3419]
+              - cell "P0" [ref=e3420]
+              - cell "Engineering Lead" [ref=e3421]
+              - cell "🔄 Regression Bug Tests" [ref=e3422]
+              - cell "● Open" [ref=e3423]:
+                - generic [ref=e3424]: ● Open
+            - 'row "REGRES-006 Failed: Test ds229 product upload rejects malicious urls critical Integration P0 Backend Team 🔄 Regression Bug Tests ● Open" [ref=e3425] [cursor=pointer]':
+              - cell "REGRES-006" [ref=e3426]
+              - 'cell "Failed: Test ds229 product upload rejects malicious urls" [ref=e3427]'
+              - cell "critical" [ref=e3428]:
+                - generic [ref=e3429]: critical
+              - cell "Integration" [ref=e3430]
+              - cell "P0" [ref=e3431]
+              - cell "Backend Team" [ref=e3432]
+              - cell "🔄 Regression Bug Tests" [ref=e3433]
+              - cell "● Open" [ref=e3434]:
+                - generic [ref=e3435]: ● Open
+            - 'row "REGRES-007 Failed: Test ds287 campaign status must not show failed on success medium Integration P2 Backend Team 🔄 Regression Bug Tests ● Open" [ref=e3436] [cursor=pointer]':
+              - cell "REGRES-007" [ref=e3437]
+              - 'cell "Failed: Test ds287 campaign status must not show failed on success" [ref=e3438]'
+              - cell "medium" [ref=e3439]:
+                - generic [ref=e3440]: medium
+              - cell "Integration" [ref=e3441]
+              - cell "P2" [ref=e3442]
+              - cell "Backend Team" [ref=e3443]
+              - cell "🔄 Regression Bug Tests" [ref=e3444]
+              - cell "● Open" [ref=e3445]:
+                - generic [ref=e3446]: ● Open
+            - 'row "REGRES-008 Failed: Test ds220 voice option must be hidden or disabled medium Auth P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3447] [cursor=pointer]':
+              - cell "REGRES-008" [ref=e3448]
+              - 'cell "Failed: Test ds220 voice option must be hidden or disabled" [ref=e3449]'
+              - cell "medium" [ref=e3450]:
+                - generic [ref=e3451]: medium
+              - cell "Auth" [ref=e3452]
+              - cell "P2" [ref=e3453]
+              - cell "Engineering" [ref=e3454]
+              - cell "🔄 Regression Bug Tests" [ref=e3455]
+              - cell "● Open" [ref=e3456]:
+                - generic [ref=e3457]: ● Open
+            - 'row "REGRES-009 Failed: Test ds245 campaign steps must include voice if configured medium Integration P2 Backend Team 🔄 Regression Bug Tests ● Open" [ref=e3458] [cursor=pointer]':
+              - cell "REGRES-009" [ref=e3459]
+              - 'cell "Failed: Test ds245 campaign steps must include voice if configured" [ref=e3460]'
+              - cell "medium" [ref=e3461]:
+                - generic [ref=e3462]: medium
+              - cell "Integration" [ref=e3463]
+              - cell "P2" [ref=e3464]
+              - cell "Backend Team" [ref=e3465]
+              - cell "🔄 Regression Bug Tests" [ref=e3466]
+              - cell "● Open" [ref=e3467]:
+                - generic [ref=e3468]: ● Open
+            - 'row "REGRES-010 Failed: Test ds167 email subject must match sequence tab medium Integration P2 Backend Team 🔄 Regression Bug Tests ● Open" [ref=e3469] [cursor=pointer]':
+              - cell "REGRES-010" [ref=e3470]
+              - 'cell "Failed: Test ds167 email subject must match sequence tab" [ref=e3471]'
+              - cell "medium" [ref=e3472]:
+                - generic [ref=e3473]: medium
+              - cell "Integration" [ref=e3474]
+              - cell "P2" [ref=e3475]
+              - cell "Backend Team" [ref=e3476]
+              - cell "🔄 Regression Bug Tests" [ref=e3477]
+              - cell "● Open" [ref=e3478]:
+                - generic [ref=e3479]: ● Open
+            - 'row "REGRES-011 Failed: Test ds198 custom prompt no followup respected medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3480] [cursor=pointer]':
+              - cell "REGRES-011" [ref=e3481]
+              - 'cell "Failed: Test ds198 custom prompt no followup respected" [ref=e3482]'
+              - cell "medium" [ref=e3483]:
+                - generic [ref=e3484]: medium
+              - cell "General" [ref=e3485]
+              - cell "P2" [ref=e3486]
+              - cell "Engineering" [ref=e3487]
+              - cell "🔄 Regression Bug Tests" [ref=e3488]
+              - cell "● Open" [ref=e3489]:
+                - generic [ref=e3490]: ● Open
+            - 'row "REGRES-012 Failed: Test ds163 auto send channel stats must not be zero medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3491] [cursor=pointer]':
+              - cell "REGRES-012" [ref=e3492]
+              - 'cell "Failed: Test ds163 auto send channel stats must not be zero" [ref=e3493]'
+              - cell "medium" [ref=e3494]:
+                - generic [ref=e3495]: medium
+              - cell "General" [ref=e3496]
+              - cell "P2" [ref=e3497]
+              - cell "Engineering" [ref=e3498]
+              - cell "🔄 Regression Bug Tests" [ref=e3499]
+              - cell "● Open" [ref=e3500]:
+                - generic [ref=e3501]: ● Open
+            - 'row "REGRES-013 Failed: Test ds212 sms must use product url not brand url medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3502] [cursor=pointer]':
+              - cell "REGRES-013" [ref=e3503]
+              - 'cell "Failed: Test ds212 sms must use product url not brand url" [ref=e3504]'
+              - cell "medium" [ref=e3505]:
+                - generic [ref=e3506]: medium
+              - cell "General" [ref=e3507]
+              - cell "P2" [ref=e3508]
+              - cell "Engineering" [ref=e3509]
+              - cell "🔄 Regression Bug Tests" [ref=e3510]
+              - cell "● Open" [ref=e3511]:
+                - generic [ref=e3512]: ● Open
+            - 'row "REGRES-014 Failed: Test ds288 settings save failure must show error toast medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3513] [cursor=pointer]':
+              - cell "REGRES-014" [ref=e3514]
+              - 'cell "Failed: Test ds288 settings save failure must show error toast" [ref=e3515]'
+              - cell "medium" [ref=e3516]:
+                - generic [ref=e3517]: medium
+              - cell "General" [ref=e3518]
+              - cell "P2" [ref=e3519]
+              - cell "Engineering" [ref=e3520]
+              - cell "🔄 Regression Bug Tests" [ref=e3521]
+              - cell "● Open" [ref=e3522]:
+                - generic [ref=e3523]: ● Open
+            - 'row "REGRES-015 Failed: Test ds196 settings update must not return 400 on business name medium Integration P2 Backend Team 🔄 Regression Bug Tests ● Open" [ref=e3524] [cursor=pointer]':
+              - cell "REGRES-015" [ref=e3525]
+              - 'cell "Failed: Test ds196 settings update must not return 400 on business name" [ref=e3526]'
+              - cell "medium" [ref=e3527]:
+                - generic [ref=e3528]: medium
+              - cell "Integration" [ref=e3529]
+              - cell "P2" [ref=e3530]
+              - cell "Backend Team" [ref=e3531]
+              - cell "🔄 Regression Bug Tests" [ref=e3532]
+              - cell "● Open" [ref=e3533]:
+                - generic [ref=e3534]: ● Open
+            - 'row "REGRES-016 Failed: Test ds289 campaign footer must require address medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3535] [cursor=pointer]':
+              - cell "REGRES-016" [ref=e3536]
+              - 'cell "Failed: Test ds289 campaign footer must require address" [ref=e3537]'
+              - cell "medium" [ref=e3538]:
+                - generic [ref=e3539]: medium
+              - cell "General" [ref=e3540]
+              - cell "P2" [ref=e3541]
+              - cell "Engineering" [ref=e3542]
+              - cell "🔄 Regression Bug Tests" [ref=e3543]
+              - cell "● Open" [ref=e3544]:
+                - generic [ref=e3545]: ● Open
+            - 'row "REGRES-017 Failed: Test ds65 audience pagination beyond page 1 medium Auth P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3546] [cursor=pointer]':
+              - cell "REGRES-017" [ref=e3547]
+              - 'cell "Failed: Test ds65 audience pagination beyond page 1" [ref=e3548]'
+              - cell "medium" [ref=e3549]:
+                - generic [ref=e3550]: medium
+              - cell "Auth" [ref=e3551]
+              - cell "P2" [ref=e3552]
+              - cell "Engineering" [ref=e3553]
+              - cell "🔄 Regression Bug Tests" [ref=e3554]
+              - cell "● Open" [ref=e3555]:
+                - generic [ref=e3556]: ● Open
+            - 'row "REGRES-018 Failed: Test ds46 audience filter consistency medium Auth P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3557] [cursor=pointer]':
+              - cell "REGRES-018" [ref=e3558]
+              - 'cell "Failed: Test ds46 audience filter consistency" [ref=e3559]'
+              - cell "medium" [ref=e3560]:
+                - generic [ref=e3561]: medium
+              - cell "Auth" [ref=e3562]
+              - cell "P2" [ref=e3563]
+              - cell "Engineering" [ref=e3564]
+              - cell "🔄 Regression Bug Tests" [ref=e3565]
+              - cell "● Open" [ref=e3566]:
+                - generic [ref=e3567]: ● Open
+            - 'row "REGRES-019 Failed: Test ds28 duplicate template name must be rejected medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3568] [cursor=pointer]':
+              - cell "REGRES-019" [ref=e3569]
+              - 'cell "Failed: Test ds28 duplicate template name must be rejected" [ref=e3570]'
+              - cell "medium" [ref=e3571]:
+                - generic [ref=e3572]: medium
+              - cell "General" [ref=e3573]
+              - cell "P2" [ref=e3574]
+              - cell "Engineering" [ref=e3575]
+              - cell "🔄 Regression Bug Tests" [ref=e3576]
+              - cell "● Open" [ref=e3577]:
+                - generic [ref=e3578]: ● Open
+            - 'row "REGRES-020 Failed: Test ds19 view list must show location data medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3579] [cursor=pointer]':
+              - cell "REGRES-020" [ref=e3580]
+              - 'cell "Failed: Test ds19 view list must show location data" [ref=e3581]'
+              - cell "medium" [ref=e3582]:
+                - generic [ref=e3583]: medium
+              - cell "General" [ref=e3584]
+              - cell "P2" [ref=e3585]
+              - cell "Engineering" [ref=e3586]
+              - cell "🔄 Regression Bug Tests" [ref=e3587]
+              - cell "● Open" [ref=e3588]:
+                - generic [ref=e3589]: ● Open
+            - 'row "REGRES-021 Failed: Test mplo569 confirmation page must not allow resend after verification high Auth P1 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3590] [cursor=pointer]':
+              - cell "REGRES-021" [ref=e3591]
+              - 'cell "Failed: Test mplo569 confirmation page must not allow resend after verification" [ref=e3592]'
+              - cell "high" [ref=e3593]:
+                - generic [ref=e3594]: high
+              - cell "Auth" [ref=e3595]
+              - cell "P1" [ref=e3596]
+              - cell "Engineering Lead" [ref=e3597]
+              - cell "🔄 Regression Bug Tests" [ref=e3598]
+              - cell "● Open" [ref=e3599]:
+                - generic [ref=e3600]: ● Open
+            - 'row "REGRES-022 Failed: Test ma196 phone number no extra zero after country code high General P1 Engineering Lead 🔄 Regression Bug Tests ● Open" [ref=e3601] [cursor=pointer]':
+              - cell "REGRES-022" [ref=e3602]
+              - 'cell "Failed: Test ma196 phone number no extra zero after country code" [ref=e3603]'
+              - cell "high" [ref=e3604]:
+                - generic [ref=e3605]: high
+              - cell "General" [ref=e3606]
+              - cell "P1" [ref=e3607]
+              - cell "Engineering Lead" [ref=e3608]
+              - cell "🔄 Regression Bug Tests" [ref=e3609]
+              - cell "● Open" [ref=e3610]:
+                - generic [ref=e3611]: ● Open
+            - 'row "REGRES-023 Failed: Test ds139 audience filter failure must show error not stale data medium Auth P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3612] [cursor=pointer]':
+              - cell "REGRES-023" [ref=e3613]
+              - 'cell "Failed: Test ds139 audience filter failure must show error not stale data" [ref=e3614]'
+              - cell "medium" [ref=e3615]:
+                - generic [ref=e3616]: medium
+              - cell "Auth" [ref=e3617]
+              - cell "P2" [ref=e3618]
+              - cell "Engineering" [ref=e3619]
+              - cell "🔄 Regression Bug Tests" [ref=e3620]
+              - cell "● Open" [ref=e3621]:
+                - generic [ref=e3622]: ● Open
+            - 'row "REGRES-024 Failed: Test ds159 campaign content section must be scrollable medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3623] [cursor=pointer]':
+              - cell "REGRES-024" [ref=e3624]
+              - 'cell "Failed: Test ds159 campaign content section must be scrollable" [ref=e3625]'
+              - cell "medium" [ref=e3626]:
+                - generic [ref=e3627]: medium
+              - cell "General" [ref=e3628]
+              - cell "P2" [ref=e3629]
+              - cell "Engineering" [ref=e3630]
+              - cell "🔄 Regression Bug Tests" [ref=e3631]
+              - cell "● Open" [ref=e3632]:
+                - generic [ref=e3633]: ● Open
+            - 'row "REGRES-025 Failed: Test ds280 email template size compliance must be accurate medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3634] [cursor=pointer]':
+              - cell "REGRES-025" [ref=e3635]
+              - 'cell "Failed: Test ds280 email template size compliance must be accurate" [ref=e3636]'
+              - cell "medium" [ref=e3637]:
+                - generic [ref=e3638]: medium
+              - cell "General" [ref=e3639]
+              - cell "P2" [ref=e3640]
+              - cell "Engineering" [ref=e3641]
+              - cell "🔄 Regression Bug Tests" [ref=e3642]
+              - cell "● Open" [ref=e3643]:
+                - generic [ref=e3644]: ● Open
+            - 'row "REGRES-026 Failed: Test mplo520 visitor source breakdown must be visible medium Auth P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3645] [cursor=pointer]':
+              - cell "REGRES-026" [ref=e3646]
+              - 'cell "Failed: Test mplo520 visitor source breakdown must be visible" [ref=e3647]'
+              - cell "medium" [ref=e3648]:
+                - generic [ref=e3649]: medium
+              - cell "Auth" [ref=e3650]
+              - cell "P2" [ref=e3651]
+              - cell "Engineering" [ref=e3652]
+              - cell "🔄 Regression Bug Tests" [ref=e3653]
+              - cell "● Open" [ref=e3654]:
+                - generic [ref=e3655]: ● Open
+            - 'row "REGRES-027 Failed: Test ma127 color change must update live preview medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3656] [cursor=pointer]':
+              - cell "REGRES-027" [ref=e3657]
+              - 'cell "Failed: Test ma127 color change must update live preview" [ref=e3658]'
+              - cell "medium" [ref=e3659]:
+                - generic [ref=e3660]: medium
+              - cell "General" [ref=e3661]
+              - cell "P2" [ref=e3662]
+              - cell "Engineering" [ref=e3663]
+              - cell "🔄 Regression Bug Tests" [ref=e3664]
+              - cell "● Open" [ref=e3665]:
+                - generic [ref=e3666]: ● Open
+            - 'row "REGRES-028 Failed: Test mplo10 revenue attribution must show data medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3667] [cursor=pointer]':
+              - cell "REGRES-028" [ref=e3668]
+              - 'cell "Failed: Test mplo10 revenue attribution must show data" [ref=e3669]'
+              - cell "medium" [ref=e3670]:
+                - generic [ref=e3671]: medium
+              - cell "General" [ref=e3672]
+              - cell "P2" [ref=e3673]
+              - cell "Engineering" [ref=e3674]
+              - cell "🔄 Regression Bug Tests" [ref=e3675]
+              - cell "● Open" [ref=e3676]:
+                - generic [ref=e3677]: ● Open
+            - 'row "REGRES-029 Failed: Test mplo18 shopify discount sync reflected in knowledge base medium General P2 Engineering 🔄 Regression Bug Tests ● Open" [ref=e3678] [cursor=pointer]':
+              - cell "REGRES-029" [ref=e3679]
+              - 'cell "Failed: Test mplo18 shopify discount sync reflected in knowledge base" [ref=e3680]'
+              - cell "medium" [ref=e3681]:
+                - generic [ref=e3682]: medium
+              - cell "General" [ref=e3683]
+              - cell "P2" [ref=e3684]
+              - cell "Engineering" [ref=e3685]
+              - cell "🔄 Regression Bug Tests" [ref=e3686]
+              - cell "● Open" [ref=e3687]:
+                - generic [ref=e3688]: ● Open
+            - 'row "REGRES-030 Failed: Test ma198 event data must include product attributes medium Accessibility P2 Frontend Team 🔄 Regression Bug Tests ● Open" [ref=e3689] [cursor=pointer]':
+              - cell "REGRES-030" [ref=e3690]
+              - 'cell "Failed: Test ma198 event data must include product attributes" [ref=e3691]'
+              - cell "medium" [ref=e3692]:
+                - generic [ref=e3693]: medium
+              - cell "Accessibility" [ref=e3694]
+              - cell "P2" [ref=e3695]
+              - cell "Frontend Team" [ref=e3696]
+              - cell "🔄 Regression Bug Tests" [ref=e3697]
+              - cell "● Open" [ref=e3698]:
+                - generic [ref=e3699]: ● Open
+            - 'row "WEBSOC-001 Failed: Test ws messages not empty if connected medium Auth P2 Engineering 🧪 WebSocket Tests ● Open" [ref=e3700] [cursor=pointer]':
+              - cell "WEBSOC-001" [ref=e3701]
+              - 'cell "Failed: Test ws messages not empty if connected" [ref=e3702]'
+              - cell "medium" [ref=e3703]:
+                - generic [ref=e3704]: medium
+              - cell "Auth" [ref=e3705]
+              - cell "P2" [ref=e3706]
+              - cell "Engineering" [ref=e3707]
+              - cell "🧪 WebSocket Tests" [ref=e3708]
+              - cell "● Open" [ref=e3709]:
+                - generic [ref=e3710]: ● Open
+            - 'row "BUG-ANAL-001 Failed: Test element page title 0002 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3711] [cursor=pointer]':
+              - cell "BUG-ANAL-001" [ref=e3712]
+              - 'cell "Failed: Test element page title 0002" [ref=e3713]'
+              - cell "medium" [ref=e3714]:
+                - generic [ref=e3715]: medium
+              - cell "General" [ref=e3716]
+              - cell "P2" [ref=e3717]
+              - cell "Engineering" [ref=e3718]
+              - cell "✍️ Signup" [ref=e3719]
+              - cell "● Open" [ref=e3720]:
+                - generic [ref=e3721]: ● Open
+            - 'row "BUG-ANAL-002 Failed: Test element date filter button 0006 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3722] [cursor=pointer]':
+              - cell "BUG-ANAL-002" [ref=e3723]
+              - 'cell "Failed: Test element date filter button 0006" [ref=e3724]'
+              - cell "medium" [ref=e3725]:
+                - generic [ref=e3726]: medium
+              - cell "General" [ref=e3727]
+              - cell "P2" [ref=e3728]
+              - cell "Engineering" [ref=e3729]
+              - cell "✍️ Signup" [ref=e3730]
+              - cell "● Open" [ref=e3731]:
+                - generic [ref=e3732]: ● Open
+            - 'row "BUG-ANAL-003 Failed: Test element event timeline chart 0011 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3733] [cursor=pointer]':
+              - cell "BUG-ANAL-003" [ref=e3734]
+              - 'cell "Failed: Test element event timeline chart 0011" [ref=e3735]'
+              - cell "medium" [ref=e3736]:
+                - generic [ref=e3737]: medium
+              - cell "General" [ref=e3738]
+              - cell "P2" [ref=e3739]
+              - cell "Engineering" [ref=e3740]
+              - cell "✍️ Signup" [ref=e3741]
+              - cell "● Open" [ref=e3742]:
+                - generic [ref=e3743]: ● Open
+            - 'row "BUG-ANAL-004 Failed: Test req 01 0023 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3744] [cursor=pointer]':
+              - cell "BUG-ANAL-004" [ref=e3745]
+              - 'cell "Failed: Test req 01 0023" [ref=e3746]'
+              - cell "medium" [ref=e3747]:
+                - generic [ref=e3748]: medium
+              - cell "General" [ref=e3749]
+              - cell "P2" [ref=e3750]
+              - cell "Engineering" [ref=e3751]
+              - cell "✍️ Signup" [ref=e3752]
+              - cell "● Open" [ref=e3753]:
+                - generic [ref=e3754]: ● Open
+            - 'row "BUG-ANAL-005 Failed: Test req 07 0029 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3755] [cursor=pointer]':
+              - cell "BUG-ANAL-005" [ref=e3756]
+              - 'cell "Failed: Test req 07 0029" [ref=e3757]'
+              - cell "medium" [ref=e3758]:
+                - generic [ref=e3759]: medium
+              - cell "General" [ref=e3760]
+              - cell "P2" [ref=e3761]
+              - cell "Engineering" [ref=e3762]
+              - cell "✍️ Signup" [ref=e3763]
+              - cell "● Open" [ref=e3764]:
+                - generic [ref=e3765]: ● Open
+            - 'row "BUG-CONT-001 Failed: Test element preset template label 0007 medium Auth P2 Engineering ✍️ Signup ● Open" [ref=e3766] [cursor=pointer]':
+              - cell "BUG-CONT-001" [ref=e3767]
+              - 'cell "Failed: Test element preset template label 0007" [ref=e3768]'
+              - cell "medium" [ref=e3769]:
+                - generic [ref=e3770]: medium
+              - cell "Auth" [ref=e3771]
+              - cell "P2" [ref=e3772]
+              - cell "Engineering" [ref=e3773]
+              - cell "✍️ Signup" [ref=e3774]
+              - cell "● Open" [ref=e3775]:
+                - generic [ref=e3776]: ● Open
+            - 'row "BUG-CONT-002 Failed: Test element default email template 0008 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3777] [cursor=pointer]':
+              - cell "BUG-CONT-002" [ref=e3778]
+              - 'cell "Failed: Test element default email template 0008" [ref=e3779]'
+              - cell "medium" [ref=e3780]:
+                - generic [ref=e3781]: medium
+              - cell "General" [ref=e3782]
+              - cell "P2" [ref=e3783]
+              - cell "Engineering" [ref=e3784]
+              - cell "✍️ Signup" [ref=e3785]
+              - cell "● Open" [ref=e3786]:
+                - generic [ref=e3787]: ● Open
+            - 'row "BUG-CONT-003 Failed: Test element default template label 0009 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3788] [cursor=pointer]':
+              - cell "BUG-CONT-003" [ref=e3789]
+              - 'cell "Failed: Test element default template label 0009" [ref=e3790]'
+              - cell "medium" [ref=e3791]:
+                - generic [ref=e3792]: medium
+              - cell "General" [ref=e3793]
+              - cell "P2" [ref=e3794]
+              - cell "Engineering" [ref=e3795]
+              - cell "✍️ Signup" [ref=e3796]
+              - cell "● Open" [ref=e3797]:
+                - generic [ref=e3798]: ● Open
+            - 'row "BUG-DASH-001 Failed: Test element revenue sub heading 0002 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3799] [cursor=pointer]':
+              - cell "BUG-DASH-001" [ref=e3800]
+              - 'cell "Failed: Test element revenue sub heading 0002" [ref=e3801]'
+              - cell "medium" [ref=e3802]:
+                - generic [ref=e3803]: medium
+              - cell "General" [ref=e3804]
+              - cell "P2" [ref=e3805]
+              - cell "Engineering" [ref=e3806]
+              - cell "✍️ Signup" [ref=e3807]
+              - cell "● Open" [ref=e3808]:
+                - generic [ref=e3809]: ● Open
+            - 'row "BUG-DASH-002 Failed: Test element help resources heading 0011 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3810] [cursor=pointer]':
+              - cell "BUG-DASH-002" [ref=e3811]
+              - 'cell "Failed: Test element help resources heading 0011" [ref=e3812]'
+              - cell "medium" [ref=e3813]:
+                - generic [ref=e3814]: medium
+              - cell "General" [ref=e3815]
+              - cell "P2" [ref=e3816]
+              - cell "Engineering" [ref=e3817]
+              - cell "✍️ Signup" [ref=e3818]
+              - cell "● Open" [ref=e3819]:
+                - generic [ref=e3820]: ● Open
+            - 'row "BUG-DASH-003 Failed: Test req 03 0022 medium Auth P2 Engineering ✍️ Signup ● Open" [ref=e3821] [cursor=pointer]':
+              - cell "BUG-DASH-003" [ref=e3822]
+              - 'cell "Failed: Test req 03 0022" [ref=e3823]'
+              - cell "medium" [ref=e3824]:
+                - generic [ref=e3825]: medium
+              - cell "Auth" [ref=e3826]
+              - cell "P2" [ref=e3827]
+              - cell "Engineering" [ref=e3828]
+              - cell "✍️ Signup" [ref=e3829]
+              - cell "● Open" [ref=e3830]:
+                - generic [ref=e3831]: ● Open
+            - 'row "BUG-DASH-004 Failed: Test req 09 0028 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3832] [cursor=pointer]':
+              - cell "BUG-DASH-004" [ref=e3833]
+              - 'cell "Failed: Test req 09 0028" [ref=e3834]'
+              - cell "medium" [ref=e3835]:
+                - generic [ref=e3836]: medium
+              - cell "General" [ref=e3837]
+              - cell "P2" [ref=e3838]
+              - cell "Engineering" [ref=e3839]
+              - cell "✍️ Signup" [ref=e3840]
+              - cell "● Open" [ref=e3841]:
+                - generic [ref=e3842]: ● Open
+            - 'row "BUG-DATA-001 Failed: Test element page title 0002 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3843] [cursor=pointer]':
+              - cell "BUG-DATA-001" [ref=e3844]
+              - 'cell "Failed: Test element page title 0002" [ref=e3845]'
+              - cell "medium" [ref=e3846]:
+                - generic [ref=e3847]: medium
+              - cell "General" [ref=e3848]
+              - cell "P2" [ref=e3849]
+              - cell "Engineering" [ref=e3850]
+              - cell "🧪 Dataroom" [ref=e3851]
+              - cell "● Open" [ref=e3852]:
+                - generic [ref=e3853]: ● Open
+            - 'row "BUG-DATA-002 Failed: Test element setup button 0005 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3854] [cursor=pointer]':
+              - cell "BUG-DATA-002" [ref=e3855]
+              - 'cell "Failed: Test element setup button 0005" [ref=e3856]'
+              - cell "medium" [ref=e3857]:
+                - generic [ref=e3858]: medium
+              - cell "General" [ref=e3859]
+              - cell "P2" [ref=e3860]
+              - cell "Engineering" [ref=e3861]
+              - cell "🧪 Dataroom" [ref=e3862]
+              - cell "● Open" [ref=e3863]:
+                - generic [ref=e3864]: ● Open
+            - 'row "BUG-DATA-003 Failed: Test element empty state text 0011 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3865] [cursor=pointer]':
+              - cell "BUG-DATA-003" [ref=e3866]
+              - 'cell "Failed: Test element empty state text 0011" [ref=e3867]'
+              - cell "medium" [ref=e3868]:
+                - generic [ref=e3869]: medium
+              - cell "General" [ref=e3870]
+              - cell "P2" [ref=e3871]
+              - cell "Engineering" [ref=e3872]
+              - cell "🧪 Dataroom" [ref=e3873]
+              - cell "● Open" [ref=e3874]:
+                - generic [ref=e3875]: ● Open
+            - 'row "BUG-DATA-004 Failed: Test element empty state cta button 0012 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3876] [cursor=pointer]':
+              - cell "BUG-DATA-004" [ref=e3877]
+              - 'cell "Failed: Test element empty state cta button 0012" [ref=e3878]'
+              - cell "medium" [ref=e3879]:
+                - generic [ref=e3880]: medium
+              - cell "General" [ref=e3881]
+              - cell "P2" [ref=e3882]
+              - cell "Engineering" [ref=e3883]
+              - cell "🧪 Dataroom" [ref=e3884]
+              - cell "● Open" [ref=e3885]:
+                - generic [ref=e3886]: ● Open
+            - 'row "BUG-DATA-005 Failed: Test req 01 0021 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3887] [cursor=pointer]':
+              - cell "BUG-DATA-005" [ref=e3888]
+              - 'cell "Failed: Test req 01 0021" [ref=e3889]'
+              - cell "medium" [ref=e3890]:
+                - generic [ref=e3891]: medium
+              - cell "General" [ref=e3892]
+              - cell "P2" [ref=e3893]
+              - cell "Engineering" [ref=e3894]
+              - cell "🧪 Dataroom" [ref=e3895]
+              - cell "● Open" [ref=e3896]:
+                - generic [ref=e3897]: ● Open
+            - 'row "BUG-DATA-006 Failed: Test req 02 0022 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3898] [cursor=pointer]':
+              - cell "BUG-DATA-006" [ref=e3899]
+              - 'cell "Failed: Test req 02 0022" [ref=e3900]'
+              - cell "medium" [ref=e3901]:
+                - generic [ref=e3902]: medium
+              - cell "General" [ref=e3903]
+              - cell "P2" [ref=e3904]
+              - cell "Engineering" [ref=e3905]
+              - cell "🧪 Dataroom" [ref=e3906]
+              - cell "● Open" [ref=e3907]:
+                - generic [ref=e3908]: ● Open
+            - 'row "BUG-DATA-007 Failed: Test req 03 0023 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3909] [cursor=pointer]':
+              - cell "BUG-DATA-007" [ref=e3910]
+              - 'cell "Failed: Test req 03 0023" [ref=e3911]'
+              - cell "medium" [ref=e3912]:
+                - generic [ref=e3913]: medium
+              - cell "General" [ref=e3914]
+              - cell "P2" [ref=e3915]
+              - cell "Engineering" [ref=e3916]
+              - cell "🧪 Dataroom" [ref=e3917]
+              - cell "● Open" [ref=e3918]:
+                - generic [ref=e3919]: ● Open
+            - 'row "BUG-DATA-008 Failed: Test req 04 0024 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3920] [cursor=pointer]':
+              - cell "BUG-DATA-008" [ref=e3921]
+              - 'cell "Failed: Test req 04 0024" [ref=e3922]'
+              - cell "medium" [ref=e3923]:
+                - generic [ref=e3924]: medium
+              - cell "General" [ref=e3925]
+              - cell "P2" [ref=e3926]
+              - cell "Engineering" [ref=e3927]
+              - cell "🧪 Dataroom" [ref=e3928]
+              - cell "● Open" [ref=e3929]:
+                - generic [ref=e3930]: ● Open
+            - 'row "BUG-DATA-009 Failed: Test req 08 0028 medium General P2 Engineering 🧪 Dataroom ● Open" [ref=e3931] [cursor=pointer]':
+              - cell "BUG-DATA-009" [ref=e3932]
+              - 'cell "Failed: Test req 08 0028" [ref=e3933]'
+              - cell "medium" [ref=e3934]:
+                - generic [ref=e3935]: medium
+              - cell "General" [ref=e3936]
+              - cell "P2" [ref=e3937]
+              - cell "Engineering" [ref=e3938]
+              - cell "🧪 Dataroom" [ref=e3939]
+              - cell "● Open" [ref=e3940]:
+                - generic [ref=e3941]: ● Open
+            - 'row "BUG-INTE-001 Failed: Test element mark sms card 0011 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3942] [cursor=pointer]':
+              - cell "BUG-INTE-001" [ref=e3943]
+              - 'cell "Failed: Test element mark sms card 0011" [ref=e3944]'
+              - cell "medium" [ref=e3945]:
+                - generic [ref=e3946]: medium
+              - cell "General" [ref=e3947]
+              - cell "P2" [ref=e3948]
+              - cell "Engineering" [ref=e3949]
+              - cell "✍️ Signup" [ref=e3950]
+              - cell "● Open" [ref=e3951]:
+                - generic [ref=e3952]: ● Open
+            - 'row "BUG-INTE-002 Failed: Test element twilio card 0012 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3953] [cursor=pointer]':
+              - cell "BUG-INTE-002" [ref=e3954]
+              - 'cell "Failed: Test element twilio card 0012" [ref=e3955]'
+              - cell "medium" [ref=e3956]:
+                - generic [ref=e3957]: medium
+              - cell "General" [ref=e3958]
+              - cell "P2" [ref=e3959]
+              - cell "Engineering" [ref=e3960]
+              - cell "✍️ Signup" [ref=e3961]
+              - cell "● Open" [ref=e3962]:
+                - generic [ref=e3963]: ● Open
+            - 'row "BUG-INTE-003 Failed: Test element reve sms card 0013 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3964] [cursor=pointer]':
+              - cell "BUG-INTE-003" [ref=e3965]
+              - 'cell "Failed: Test element reve sms card 0013" [ref=e3966]'
+              - cell "medium" [ref=e3967]:
+                - generic [ref=e3968]: medium
+              - cell "General" [ref=e3969]
+              - cell "P2" [ref=e3970]
+              - cell "Engineering" [ref=e3971]
+              - cell "✍️ Signup" [ref=e3972]
+              - cell "● Open" [ref=e3973]:
+                - generic [ref=e3974]: ● Open
+            - 'row "BUG-LEAD-001 Failed: Test element leads empty state 0006 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3975] [cursor=pointer]':
+              - cell "BUG-LEAD-001" [ref=e3976]
+              - 'cell "Failed: Test element leads empty state 0006" [ref=e3977]'
+              - cell "medium" [ref=e3978]:
+                - generic [ref=e3979]: medium
+              - cell "General" [ref=e3980]
+              - cell "P2" [ref=e3981]
+              - cell "Engineering" [ref=e3982]
+              - cell "✍️ Signup" [ref=e3983]
+              - cell "● Open" [ref=e3984]:
+                - generic [ref=e3985]: ● Open
+            - 'row "BUG-LEAD-002 Failed: Test element upload audiences button 0007 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3986] [cursor=pointer]':
+              - cell "BUG-LEAD-002" [ref=e3987]
+              - 'cell "Failed: Test element upload audiences button 0007" [ref=e3988]'
+              - cell "medium" [ref=e3989]:
+                - generic [ref=e3990]: medium
+              - cell "General" [ref=e3991]
+              - cell "P2" [ref=e3992]
+              - cell "Engineering" [ref=e3993]
+              - cell "✍️ Signup" [ref=e3994]
+              - cell "● Open" [ref=e3995]:
+                - generic [ref=e3996]: ● Open
+            - 'row "BUG-LEAD-003 Failed: Test element create campaign button row 0009 medium General P2 Engineering ✍️ Signup ● Open" [ref=e3997] [cursor=pointer]':
+              - cell "BUG-LEAD-003" [ref=e3998]
+              - 'cell "Failed: Test element create campaign button row 0009" [ref=e3999]'
+              - cell "medium" [ref=e4000]:
+                - generic [ref=e4001]: medium
+              - cell "General" [ref=e4002]
+              - cell "P2" [ref=e4003]
+              - cell "Engineering" [ref=e4004]
+              - cell "✍️ Signup" [ref=e4005]
+              - cell "● Open" [ref=e4006]:
+                - generic [ref=e4007]: ● Open
+            - 'row "BUG-LEAD-004 Failed: Test element audiences empty state heading 0010 medium General P2 Engineering ✍️ Signup ● Open" [ref=e4008] [cursor=pointer]':
+              - cell "BUG-LEAD-004" [ref=e4009]
+              - 'cell "Failed: Test element audiences empty state heading 0010" [ref=e4010]'
+              - cell "medium" [ref=e4011]:
+                - generic [ref=e4012]: medium
+              - cell "General" [ref=e4013]
+              - cell "P2" [ref=e4014]
+              - cell "Engineering" [ref=e4015]
+              - cell "✍️ Signup" [ref=e4016]
+              - cell "● Open" [ref=e4017]:
+                - generic [ref=e4018]: ● Open
+            - 'row "BUG-LEAD-005 Failed: Test element audiences empty state body 0011 medium General P2 Engineering ✍️ Signup ● Open" [ref=e4019] [cursor=pointer]':
+              - cell "BUG-LEAD-005" [ref=e4020]
+              - 'cell "Failed: Test element audiences empty state body 0011" [ref=e4021]'
+              - cell "medium" [ref=e4022]:
+                - generic [ref=e4023]: medium
+              - cell "General" [ref=e4024]
+              - cell "P2" [ref=e4025]
+              - cell "Engineering" [ref=e4026]
+              - cell "✍️ Signup" [ref=e4027]
+              - cell "● Open" [ref=e4028]:
+                - generic [ref=e4029]: ● Open
+            - 'row "BUG-LEAD-006 Failed: Test element audiences empty state cancel 0012 medium General P2 Engineering ✍️ Signup ● Open" [ref=e4030] [cursor=pointer]':
+              - cell "BUG-LEAD-006" [ref=e4031]
+              - 'cell "Failed: Test element audiences empty state cancel 0012" [ref=e4032]'
+              - cell "medium" [ref=e4033]:
+                - generic [ref=e4034]: medium
+              - cell "General" [ref=e4035]
+              - cell "P2" [ref=e4036]
+              - cell "Engineering" [ref=e4037]
+              - cell "✍️ Signup" [ref=e4038]
+              - cell "● Open" [ref=e4039]:
+                - generic [ref=e4040]: ● Open
+            - 'row "BUG-PLAN-001 Failed: Test element page title 0002 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4041] [cursor=pointer]':
+              - cell "BUG-PLAN-001" [ref=e4042]
+              - 'cell "Failed: Test element page title 0002" [ref=e4043]'
+              - cell "medium" [ref=e4044]:
+                - generic [ref=e4045]: medium
+              - cell "General" [ref=e4046]
+              - cell "P2" [ref=e4047]
+              - cell "Engineering" [ref=e4048]
+              - cell "🧪 Planbilling" [ref=e4049]
+              - cell "● Open" [ref=e4050]:
+                - generic [ref=e4051]: ● Open
+            - 'row "BUG-PLAN-002 Failed: Test element billing cycle 0004 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4052] [cursor=pointer]':
+              - cell "BUG-PLAN-002" [ref=e4053]
+              - 'cell "Failed: Test element billing cycle 0004" [ref=e4054]'
+              - cell "medium" [ref=e4055]:
+                - generic [ref=e4056]: medium
+              - cell "General" [ref=e4057]
+              - cell "P2" [ref=e4058]
+              - cell "Engineering" [ref=e4059]
+              - cell "🧪 Planbilling" [ref=e4060]
+              - cell "● Open" [ref=e4061]:
+                - generic [ref=e4062]: ● Open
+            - 'row "BUG-PLAN-003 Failed: Test element plan price 0006 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4063] [cursor=pointer]':
+              - cell "BUG-PLAN-003" [ref=e4064]
+              - 'cell "Failed: Test element plan price 0006" [ref=e4065]'
+              - cell "medium" [ref=e4066]:
+                - generic [ref=e4067]: medium
+              - cell "General" [ref=e4068]
+              - cell "P2" [ref=e4069]
+              - cell "Engineering" [ref=e4070]
+              - cell "🧪 Planbilling" [ref=e4071]
+              - cell "● Open" [ref=e4072]:
+                - generic [ref=e4073]: ● Open
+            - 'row "BUG-PLAN-004 Failed: Test flow flow 5 unauthenticated access redirects 0012 high Auth P1 Engineering Lead 🧪 Planbilling ● Open" [ref=e4074] [cursor=pointer]':
+              - cell "BUG-PLAN-004" [ref=e4075]
+              - 'cell "Failed: Test flow flow 5 unauthenticated access redirects 0012" [ref=e4076]'
+              - cell "high" [ref=e4077]:
+                - generic [ref=e4078]: high
+              - cell "Auth" [ref=e4079]
+              - cell "P1" [ref=e4080]
+              - cell "Engineering Lead" [ref=e4081]
+              - cell "🧪 Planbilling" [ref=e4082]
+              - cell "● Open" [ref=e4083]:
+                - generic [ref=e4084]: ● Open
+            - 'row "BUG-PLAN-005 Failed: Test req 01 0014 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4085] [cursor=pointer]':
+              - cell "BUG-PLAN-005" [ref=e4086]
+              - 'cell "Failed: Test req 01 0014" [ref=e4087]'
+              - cell "medium" [ref=e4088]:
+                - generic [ref=e4089]: medium
+              - cell "General" [ref=e4090]
+              - cell "P2" [ref=e4091]
+              - cell "Engineering" [ref=e4092]
+              - cell "🧪 Planbilling" [ref=e4093]
+              - cell "● Open" [ref=e4094]:
+                - generic [ref=e4095]: ● Open
+            - 'row "BUG-PLAN-006 Failed: Test req 02 0015 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4096] [cursor=pointer]':
+              - cell "BUG-PLAN-006" [ref=e4097]
+              - 'cell "Failed: Test req 02 0015" [ref=e4098]'
+              - cell "medium" [ref=e4099]:
+                - generic [ref=e4100]: medium
+              - cell "General" [ref=e4101]
+              - cell "P2" [ref=e4102]
+              - cell "Engineering" [ref=e4103]
+              - cell "🧪 Planbilling" [ref=e4104]
+              - cell "● Open" [ref=e4105]:
+                - generic [ref=e4106]: ● Open
+            - 'row "BUG-PLAN-007 Failed: Test req 04 0017 medium Auth P2 Engineering 🧪 Planbilling ● Open" [ref=e4107] [cursor=pointer]':
+              - cell "BUG-PLAN-007" [ref=e4108]
+              - 'cell "Failed: Test req 04 0017" [ref=e4109]'
+              - cell "medium" [ref=e4110]:
+                - generic [ref=e4111]: medium
+              - cell "Auth" [ref=e4112]
+              - cell "P2" [ref=e4113]
+              - cell "Engineering" [ref=e4114]
+              - cell "🧪 Planbilling" [ref=e4115]
+              - cell "● Open" [ref=e4116]:
+                - generic [ref=e4117]: ● Open
+            - 'row "BUG-PLAN-008 Failed: Test req 05 0018 medium Auth P2 Engineering 🧪 Planbilling ● Open" [ref=e4118] [cursor=pointer]':
+              - cell "BUG-PLAN-008" [ref=e4119]
+              - 'cell "Failed: Test req 05 0018" [ref=e4120]'
+              - cell "medium" [ref=e4121]:
+                - generic [ref=e4122]: medium
+              - cell "Auth" [ref=e4123]
+              - cell "P2" [ref=e4124]
+              - cell "Engineering" [ref=e4125]
+              - cell "🧪 Planbilling" [ref=e4126]
+              - cell "● Open" [ref=e4127]:
+                - generic [ref=e4128]: ● Open
+            - 'row "BUG-PLAN-009 Failed: Test req 08 0021 medium General P2 Engineering 🧪 Planbilling ● Open" [ref=e4129] [cursor=pointer]':
+              - cell "BUG-PLAN-009" [ref=e4130]
+              - 'cell "Failed: Test req 08 0021" [ref=e4131]'
+              - cell "medium" [ref=e4132]:
+                - generic [ref=e4133]: medium
+              - cell "General" [ref=e4134]
+              - cell "P2" [ref=e4135]
+              - cell "Engineering" [ref=e4136]
+              - cell "🧪 Planbilling" [ref=e4137]
+              - cell "● Open" [ref=e4138]:
+                - generic [ref=e4139]: ● Open
+            - 'row "BUG-REGR-001 Failed: Test element email 0002 critical General P0 Engineering Lead 🧪 Regressionui ● Open" [ref=e4140] [cursor=pointer]':
+              - cell "BUG-REGR-001" [ref=e4141]
+              - 'cell "Failed: Test element email 0002" [ref=e4142]'
+              - cell "critical" [ref=e4143]:
+                - generic [ref=e4144]: critical
+              - cell "General" [ref=e4145]
+              - cell "P0" [ref=e4146]
+              - cell "Engineering Lead" [ref=e4147]
+              - cell "🧪 Regressionui" [ref=e4148]
+              - cell "● Open" [ref=e4149]:
+                - generic [ref=e4150]: ● Open
+            - 'row "BUG-REGR-002 Failed: Test req 09 0012 critical Auth P0 Engineering Lead 🧪 Regressionui ● Open" [ref=e4151] [cursor=pointer]':
+              - cell "BUG-REGR-002" [ref=e4152]
+              - 'cell "Failed: Test req 09 0012" [ref=e4153]'
+              - cell "critical" [ref=e4154]:
+                - generic [ref=e4155]: critical
+              - cell "Auth" [ref=e4156]
+              - cell "P0" [ref=e4157]
+              - cell "Engineering Lead" [ref=e4158]
+              - cell "🧪 Regressionui" [ref=e4159]
+              - cell "● Open" [ref=e4160]:
+                - generic [ref=e4161]: ● Open
+            - 'row "BUG-SIGN-001 Failed: Test element country selector 0007 medium General P2 Engineering ✍️ Signup ● Open" [ref=e4162] [cursor=pointer]':
+              - cell "BUG-SIGN-001" [ref=e4163]
+              - 'cell "Failed: Test element country selector 0007" [ref=e4164]'
+              - cell "medium" [ref=e4165]:
+                - generic [ref=e4166]: medium
+              - cell "General" [ref=e4167]
+              - cell "P2" [ref=e4168]
+              - cell "Engineering" [ref=e4169]
+              - cell "✍️ Signup" [ref=e4170]
+              - cell "● Open" [ref=e4171]:
+                - generic [ref=e4172]: ● Open
+    - generic [ref=e4173]:
+      - generic [ref=e4174]:
+        - generic [ref=e4175]:
+          - generic [ref=e4176]: "07"
+          - heading "Recommended workstreams" [level=3] [ref=e4177]
+        - paragraph [ref=e4178]: "Three focused sprints that, together, should return pass-rate above 85% by run #105."
+      - generic [ref=e4179]:
+        - generic [ref=e4180]:
+          - generic [ref=e4181]: P0 / P1
+          - heading "Patch the security ceiling" [level=4] [ref=e4183]
+          - paragraph [ref=e4184]: Two critical/high security findings (reflected XSS on /campaign/new, missing CSP/HSTS) are the most likely root-causes of this regression. Patch before the next release branch.
+          - list [ref=e4185]:
+            - listitem [ref=e4186]: "→ Sanitise the `ref` query param server-side; add input encoding tests"
+            - listitem [ref=e4187]: → Set Content-Security-Policy + HSTS max-age ≥ 31536000
+            - listitem [ref=e4188]: → Add Secure + SameSite=Strict to session cookie
+        - generic [ref=e4189]:
+          - generic [ref=e4190]: P1
+          - heading "Close the accessibility gap" [level=4] [ref=e4192]
+          - paragraph [ref=e4193]: 5 a11y failures (contrast, missing aria-labels, focus trap) are the single largest category. These are typically 1-day fixes that move pass-rate ~3pts.
+          - list [ref=e4194]:
+            - listitem [ref=e4195]: → Audit muted-text against design tokens — target ≥ 4.5:1
+            - listitem [ref=e4196]: → Add aria-label to icon-only buttons in the global toolbar
+            - listitem [ref=e4197]: → Ship focus-trap in confirm-delete modal
+        - generic [ref=e4198]:
+          - generic [ref=e4199]: P2
+          - heading "Reclaim LCP on /journeys" [level=4] [ref=e4201]
+          - paragraph [ref=e4202]: LCP 4.6s and a 12× hero re-render on first paint are pushing Core Web Vitals into 'needs improvement'. Tree-shake lodash, defer the analytics SDK.
+          - list [ref=e4203]:
+            - listitem [ref=e4204]: → Replace lodash deep-imports with shallow utilities (-380KB)
+            - listitem [ref=e4205]: → Memoise hero chart props; investigate Suspense boundary
+            - listitem [ref=e4206]: → Preload above-the-fold font subset
+    - contentinfo [ref=e4207]:
+      - generic [ref=e4208]:
+        - heading "Built by" [level=5] [ref=e4209]
+        - generic [ref=e4210]: Mejbaur Bahar Fagun
+        - generic [ref=e4211]: Senior Software Engineer QA (IV) · Markopolo.ai
+        - generic [ref=e4212]: Fagun Autonomous QA Platform · 24+ specialised agents · 285+ test cases · local AI + Claude Sonnet 4.6.
+      - generic [ref=e4213]:
+        - heading "Documentation" [level=5] [ref=e4214]
+        - generic [ref=e4215]:
+          - link "Platform docs ↗" [ref=e4216] [cursor=pointer]:
+            - /url: docs.html
+          - link "Introduction" [ref=e4217] [cursor=pointer]:
+            - /url: docs.html#intro
+          - link "All 24+ agents" [ref=e4218] [cursor=pointer]:
+            - /url: docs.html#agents
+          - link "AI & models" [ref=e4219] [cursor=pointer]:
+            - /url: docs.html#ai
+          - link "Getting started" [ref=e4220] [cursor=pointer]:
+            - /url: docs.html#install
+          - link "FAQ" [ref=e4221] [cursor=pointer]:
+            - /url: docs.html#faq
+      - generic [ref=e4222]:
+        - 'heading "Run #153" [level=5] [ref=e4223]'
+        - generic [ref=e4224]:
+          - link "CI run ↗" [ref=e4225] [cursor=pointer]:
+            - /url: https://github.com/mejbaur-markopolo/Markopolo-Automation-Testing/actions/runs/26263643979
+          - link "Commit a6b4974 ↗" [ref=e4226] [cursor=pointer]:
+            - /url: https://github.com/mejbaur-markopolo/Markopolo-Automation-Testing/commit/a6b4974ee275ab709ec7d7c0d8066265b65bac45
+          - link "LinkedIn ↗" [ref=e4227] [cursor=pointer]:
+            - /url: https://www.linkedin.com/in/mejbaur/
+          - link "GitHub ↗" [ref=e4228] [cursor=pointer]:
+            - /url: https://github.com/mejbaur-markopolo/Markopolo-Automation-Testing
+          - link "Email ↗" [ref=e4229] [cursor=pointer]:
+            - /url: mailto:mejbaur@markopolo.ai

@@ -289,7 +289,7 @@ const FLOW_STEPS_MAP = {
     "tapOn 'Change Currency' (optional)",
     "waitForAnimationToEnd",
     "tapOn 'Back' (optional)",
-    "tapOn 'About Qatarat' (optional)",
+    "tapOn 'About MyCoiffeur' (optional)",
     "waitForAnimationToEnd",
     "tapOn 'Back' (optional)",
     "tapOn 'Logout' (optional)",
@@ -669,7 +669,7 @@ const TYPE_COLORS = {
 };
 
 const FlowsView = () => {
-  const { MAESTRO_FLOWS = [], RUN_META = {} } = window.QATARAT_DATA || {};
+  const { MAESTRO_FLOWS = [], RUN_META = {} } = window.MYCOIFFEUR_DATA || {};
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
   const [q, setQ] = useState("");

@@ -28,7 +28,7 @@ class TestProfile:
         screenshot(driver, "profile_currency_option")
 
     @allure.story("About")
-    @allure.title("About Qatarat page loads")
+    @allure.title("About MyCoiffeur page loads")
     def test_about_page_loads(self, driver):
         login = LoginPage(driver)
         login.select_country_and_language()
@@ -38,10 +38,10 @@ class TestProfile:
         page = BasePage(driver)
         page.tap_optional("Profile")
         page.tap_optional("About")
-        page.tap_optional("About Qatarat")
+        page.tap_optional("About MyCoiffeur")
         wait_for_animation(driver, 2)
 
-        assert page.is_visible("Qatarat") or page.is_visible("About"), \
+        assert page.is_visible("MyCoiffeur") or page.is_visible("About"), \
             "About page did not load"
         screenshot(driver, "about_page")
 

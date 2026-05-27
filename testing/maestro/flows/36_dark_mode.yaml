@@ -1,0 +1,95 @@
+appId: com.example.my_coiffeur
+---
+# Flow 36: Dark Mode Toggle — switch theme in settings, verify UI updates
+# Covers: Settings → Appearance → Dark/Light toggle → UI theme changes.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Open Profile → Settings / Appearance
+- tapOn:
+    text: "Profile"
+    optional: true
+- tapOn:
+    text: "Settings"
+    optional: true
+- tapOn:
+    text: "Appearance"
+    optional: true
+- tapOn:
+    text: "Theme"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: appearance_settings
+
+# Toggle to dark mode
+- tapOn:
+    text: "Dark"
+    optional: true
+- tapOn:
+    text: "Dark Mode"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: dark_mode_enabled
+
+# Toggle back to light mode
+- tapOn:
+    text: "Light"
+    optional: true
+- tapOn:
+    text: "Light Mode"
+    optional: true
+- tapOn:
+    text: "System Default"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: light_mode_restored

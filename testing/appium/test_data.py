@@ -1,5 +1,5 @@
 """
-Centralised test data for all Qatarat test suites.
+Centralised test data for all MyCoiffeur test suites.
 All boundary values, invalid inputs, and negative-case data live here.
 """
 
@@ -94,7 +94,7 @@ class InvalidRating:
 
 class BoundaryValues:
     CART_MAX_QUANTITY_TAPS = 20   # how many times to tap "+"
-    HELP_SEARCH_NO_RESULTS = "ZZZZZNOTEXISTQATARAT"
+    HELP_SEARCH_NO_RESULTS = "ZZZZZNOTEXISTXXX"
     HELP_SEARCH_SPECIAL = "@#$%^&*()"
     HELP_SEARCH_SQL = "' OR 1=1 --"
     ORDER_SEARCH_EMPTY = ""

@@ -48,7 +48,7 @@ jobs:
       #
       # - name: Install app on Simulator
       #   run: |
-      #     xcrun simctl install "$SIM_ID" "Qatarat.app"
+      #     xcrun simctl install "$SIM_ID" "MyCoiffeur.app"
       #
       # Until then, run against the App Store version using bundle ID:
       - name: Run iOS Smoke Suite
@@ -59,7 +59,7 @@ jobs:
             --output testing/maestro/reports/ios-smoke-results.xml
         env:
           # Override appId to use iOS bundle ID
-          MAESTRO_APP_ID: com.qatarat.app
+          MAESTRO_APP_ID: com.example.my_coiffeur
 
       - name: Upload iOS test results
         if: always()

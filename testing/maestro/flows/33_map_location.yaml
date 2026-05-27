@@ -1,0 +1,97 @@
+appId: com.example.my_coiffeur
+---
+# Flow 33: Map / Location — grant permission, map loads, provider pin visible
+# Covers: location permission dialog, map renders, tapping provider pin, back.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+# Navigate to map view
+- tapOn:
+    text: "Map"
+    optional: true
+- tapOn:
+    text: "Near Me"
+    optional: true
+- tapOn:
+    text: "Location"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Handle OS location permission dialog
+- tapOn:
+    text: "Allow"
+    optional: true
+- tapOn:
+    text: "Allow While Using App"
+    optional: true
+- tapOn:
+    text: "While using the app"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+
+- takeScreenshot: map_loaded
+
+# Tap a provider pin if visible
+- tapOn:
+    text: "Sarah"
+    optional: true
+- tapOn:
+    id: "map_pin"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 2000
+
+- takeScreenshot: map_pin_tapped
+
+# Go back
+- tapOn:
+    text: "Back"
+    optional: true
+
+- takeScreenshot: map_complete

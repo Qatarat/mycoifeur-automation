@@ -187,6 +187,11 @@ jobs:
           cp testing/report-ui/tweaks-panel.jsx gh-pages/tweaks-panel.jsx
           cp testing/report-ui/app.jsx          gh-pages/app.jsx
           cp testing/report-ui/views/*.jsx      gh-pages/views/
+          # Use committed data.js as fallback if generate_data_js produced no real results
+          if [ -f testing/report-ui/data.js ] && ! grep -q '"neverRan": true' gh-pages/data.js 2>/dev/null; then
+            echo "Using committed data.js as baseline (real results will overlay on next CI run)"
+            cp testing/report-ui/data.js gh-pages/data.js.baseline
+          fi
 
       - name: Copy Allure report
         run: cp -r allure-report/ gh-pages/allure-report/ 2>/dev/null || mkdir -p gh-pages/allure-report
@@ -216,7 +221,7 @@ jobs:
                   print(f"Warning: {xml_path}: {e}")
           pct = int(passed/total*100) if total else 0
           bar = "🟩"*(pct//10) + "🟥"*((100-pct)//10)
-          summary = f"""## 📊 Qatarat Test Report
+          summary = f"""## 📊 MyCoiffeur Test Report
           {bar}
           | Metric | Value |
           |--------|-------|

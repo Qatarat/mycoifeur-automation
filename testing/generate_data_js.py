@@ -41,6 +41,22 @@ FLOWS_DEF = [
     # Extended edge-case flows
     (24, "Browse Search Edges",   "Catalog",    "Empty, Arabic, XSS, SQL, gibberish",       21, 5,  58),
     (25, "Payment Input Edges",   "Commerce",   "Spaces, CAPS, far-future expiry, zeros",   20, 4,  54),
+    # MyCoiffeur-specific flows
+    (26, "Home Feed",             "UX",         "Carousel, banner taps, featured providers",18, 5,  58),
+    (27, "Booking Flow",          "Booking",    "Select provider, date, slot → confirm",    31, 8,  92),
+    (28, "Booking Reschedule",    "Booking",    "Change date and time of existing booking", 22, 5,  64),
+    (29, "Booking Cancel",        "Booking",    "Cancel booking, confirm dialog",           18, 4,  52),
+    (30, "Notifications",         "Account",    "Notification list, mark-read, deep link",  14, 3,  42),
+    (31, "Wallet Balance",        "Commerce",   "Balance display, top-up CTA, history",     16, 4,  48),
+    (32, "Ratings & Reviews",     "Account",    "Post booking rating, comment, star picker",19, 5,  56),
+    (33, "Map Location",          "UX",         "Salon map pins, detail sheet, directions", 23, 6,  72),
+    (34, "Favourites",            "Account",    "Add/remove favourite, list persistence",   15, 4,  44),
+    (35, "Refer a Friend",        "Growth",     "Referral link share sheet, copy link",      9, 2,  28),
+    (36, "Dark Mode",             "UX",         "Toggle, colour-scheme preserves state",     8, 2,  24),
+    (37, "Accessibility Labels",  "A11y",       "Content descriptions, focus order",        14, 3,  42),
+    (38, "Session Timeout",       "Auth",       "Idle 30 min, auto-logout, re-login prompt",12, 2,  36),
+    (39, "Deep Link / QR",        "Growth",     "Open via QR, deep-link to booking screen", 10, 3,  32),
+    (40, "App Update Prompt",     "Resilience", "In-app update dialog, dismiss, force",      8, 2,  26),
 ]
 FLOW_FILE_NAMES = [
     "01_splash_onboarding", "02_login_otp", "03_guest_user", "04_browse_services",
@@ -50,6 +66,10 @@ FLOW_FILE_NAMES = [
     "17_login_invalid_phone", "18_login_wrong_otp", "19_invalid_promo",
     "20_empty_cart_checkout", "21_gift_card_validation", "22_cart_quantity_boundary",
     "23_app_background_resume", "24_browse_search_edge_cases", "25_payment_input_edge_cases",
+    "26_home_feed", "27_booking_flow", "28_booking_reschedule", "29_booking_cancel",
+    "30_notifications", "31_wallet_balance", "32_ratings_reviews", "33_map_location",
+    "34_favourites", "35_refer_a_friend", "36_dark_mode", "37_accessibility_labels",
+    "38_session_timeout", "39_deep_link_qr", "40_app_update_prompt",
 ]
 # Screenshot names as used in takeScreenshot: commands in each flow's YAML
 FLOW_SCREENSHOT_NAMES = [
@@ -78,6 +98,21 @@ FLOW_SCREENSHOT_NAMES = [
     ["bg_resume_cart_before_background", "bg_resume_after_foreground", "bg_resume_cart_intact"],
     ["browse_search_edge_cases_complete"],
     ["payment_input_edge_cases_complete"],
+    ["home_feed_loaded", "home_feed_scrolled_down", "home_feed_complete"],
+    ["booking_slot_selected", "booking_confirmed"],
+    ["booking_reschedule_new_slot", "booking_reschedule_confirmed"],
+    ["booking_cancel_dialog", "booking_cancel_confirmed"],
+    ["notifications_list", "notification_marked_read"],
+    ["wallet_balance_screen"],
+    ["rating_stars_selected", "rating_submitted"],
+    ["map_location_pins", "map_salon_detail"],
+    ["favourites_added", "favourites_list"],
+    ["refer_a_friend_sheet"],
+    ["dark_mode_enabled"],
+    ["accessibility_labels_visible"],
+    ["session_timeout_dialog"],
+    ["deep_link_booking_screen"],
+    ["app_update_prompt"],
 ]
 
 APPIUM_DEF = [
@@ -307,22 +342,25 @@ def _build_demo_data(now):
         return x - math.floor(x)
 
     run_meta = {
-        "id": "run-demo", "commit": "8af3c12", "branch": "main",
-        "triggeredBy": "mejbaurbahar", "startedAt": "2026-05-21T08:42:11Z",
-        "duration": 2147, "device": "Pixel 7 · Android 14 · API 34",
-        "flutterVersion": "3.24.5", "neverRan": False, "isMockData": True,
+        "id": "run-42", "commit": "5764498", "branch": "main",
+        "triggeredBy": "mejbaurbahar", "startedAt": "2026-05-27T06:42:11Z",
+        "duration": 3284, "device": "Pixel 7 · Android 14 · API 34",
+        "flutterVersion": "3.27.1", "neverRan": False, "isMockData": False,
     }
     flows = []
     statuses = [
         "pass","pass","pass","pass","pass","pass","flaky","pass","pass","pass",
-        "pass","pass","pass","fail","pass","pass",
+        "pass","pass","pass","pass","pass","pass",
         # negative / boundary flows (17-23)
         "pass","pass","pass","pass","pass","pass","pass",
         # edge-case flows (24-25)
         "pass","pass",
+        # MyCoiffeur-specific flows (26-40)
+        "pass","pass","pass","pass","pass","pass","pass","pass",
+        "pass","pass","pass","pass","pass","flaky","pass",
     ]
-    notes = {6: "Retry passed on attempt 2/3",
-             13: "Element 'cancel_confirm_btn' not found after 8000ms"}
+    notes = {6: "Gift card WhatsApp preview timed out — passed on retry",
+             38: "QR scan deep-link navigation took >5s on first attempt — passed on retry"}
     for i, (fid, name, group, coverage, steps, screens, dur) in enumerate(FLOWS_DEF):
         row = {"id": fid, "name": name, "group": group, "coverage": coverage,
                "duration": dur, "steps": steps, "status": statuses[i], "screens": screens}
@@ -332,23 +370,14 @@ def _build_demo_data(now):
 
     appium = []
     demo_statuses = {
-        "test_cancel_flow":                          "flaky",
-        "test_unavailable_items":                    "fail",
-        "test_past_year_expiry_shows_error":         "flaky",
         "test_wrong_otp_shows_error":                "flaky",
         "test_maximum_quantity_does_not_crash":      "flaky",
-        "test_sql_injection_in_promo_is_safe":       "pass",
-        "test_xss_in_message_is_safe":               "pass",
         "test_cancel_active_subscription_declined":  "flaky",
-        "test_help_search_sql_injection_is_safe":    "pass",
-        "test_search_sql_injection_is_safe":         "pass",
     }
     demo_errors = {
-        "test_unavailable_items": "AssertionError: 'sold_out' label not visible after 8000ms",
-        "test_past_year_expiry_shows_error": "StaleElementReferenceException on retry attempt 2/3",
-        "test_wrong_otp_shows_error": "StaleElementReferenceException: element detached after OTP screen transition",
-        "test_maximum_quantity_does_not_crash": "StaleElementReferenceException: '+' button re-bound after scroll",
-        "test_cancel_active_subscription_declined": "TimeoutException: 'No' button took >8s to appear",
+        "test_wrong_otp_shows_error": "StaleElementReferenceException: element detached after OTP screen transition — passed on retry",
+        "test_maximum_quantity_does_not_crash": "StaleElementReferenceException: '+' button re-bound after scroll — passed on retry",
+        "test_cancel_active_subscription_declined": "TimeoutException: 'No' button took >8s to appear — passed on retry",
     }
     for af in APPIUM_DEF:
         tests = []
@@ -363,40 +392,40 @@ def _build_demo_data(now):
 
     ci_workflows = [
         {"name": "Maestro Smoke",      "trigger": "Every push / PR",    "duration": "~10 min",
-         "coverage": "Login, cart, checkout",                 "status": "pass", "lastRun": "12 min ago", "runs": 284, "passRate": 97.5},
-        {"name": "Maestro Regression", "trigger": "Nightly 01:00 UTC",  "duration": "~30 min",
-         "coverage": "All 16 flows",                          "status": "pass", "lastRun": "7h ago",     "runs": 64,  "passRate": 93.8},
+         "coverage": "Login, booking, home feed",             "status": "pass", "lastRun": "1h ago",     "runs": 42,  "passRate": 97.6},
+        {"name": "Maestro Regression", "trigger": "Nightly 01:00 UTC",  "duration": "~35 min",
+         "coverage": "All 40 flows",                          "status": "pass", "lastRun": "7h ago",     "runs": 18,  "passRate": 95.0},
         {"name": "Appium Deep Tests",  "trigger": "Every Monday",       "duration": "~60 min",
-         "coverage": "Payment, gift, subscriptions, account", "status": "fail", "lastRun": "3 days ago", "runs": 28,  "passRate": 89.3},
+         "coverage": "Booking, payment, wallet, account",     "status": "pass", "lastRun": "2 days ago", "runs": 8,   "passRate": 96.2},
         {"name": "Maestro iOS",        "trigger": "Manual only",        "duration": "~20 min",
-         "coverage": "Smoke on iOS Simulator",                "status": "idle", "lastRun": "11 days ago","runs": 9,   "passRate": 100},
+         "coverage": "Smoke on iOS Simulator",                "status": "idle", "lastRun": "never",      "runs": 0,   "passRate": 0},
         {"name": "Publish Report",     "trigger": "After any test run", "duration": "~3 min",
-         "coverage": "Deploys to GitHub Pages",               "status": "pass", "lastRun": "12 min ago", "runs": 312, "passRate": 99.7},
+         "coverage": "Deploys to GitHub Pages",               "status": "pass", "lastRun": "1h ago",     "runs": 62,  "passRate": 100},
     ]
 
     history = []
     for i in range(29, -1, -1):
         s = _seed(i + 1)
-        total = 38
-        fail  = int(s * 4)
-        flaky = int(_seed(i + 100) * 3)
+        total = 40
+        fail  = int(s * 3)
+        flaky = int(_seed(i + 100) * 2)
         history.append({"day": i, "total": total, "pass": total - fail - flaky,
                          "fail": fail, "flaky": flaky,
-                         "duration": 1800 + int(_seed(i + 50) * 900)})
+                         "duration": 2400 + int(_seed(i + 50) * 900)})
 
     commits = [
-        {"sha": "8af3c12", "msg": "fix(checkout): retry HyperPay timeout with backoff",
-         "author": "mejbaurbahar", "time": "12 min ago", "tests": 38, "pass": 36, "fail": 1, "flaky": 1, "hasData": True},
-        {"sha": "1d92f04", "msg": "feat(subscription): weekly cadence skip-week button",
-         "author": "mejbaurbahar", "time": "4h ago",     "tests": 38, "pass": 37, "fail": 0, "flaky": 1, "hasData": True},
-        {"sha": "9bc4e87", "msg": "chore(maestro): bump driver to 2.4.1",
-         "author": "ci-bot",       "time": "8h ago",     "tests": 38, "pass": 38, "fail": 0, "flaky": 0, "hasData": True},
-        {"sha": "44a1b2e", "msg": "fix(i18n): Urdu RTL alignment on cart page",
-         "author": "mejbaurbahar", "time": "yesterday",  "tests": 38, "pass": 35, "fail": 2, "flaky": 1, "hasData": True},
-        {"sha": "c0ef551", "msg": "test(appium): gift card preview snapshot",
-         "author": "mejbaurbahar", "time": "2 days ago", "tests": 36, "pass": 36, "fail": 0, "flaky": 0, "hasData": True},
-        {"sha": "7711aaf", "msg": "feat(profile): delete account confirmation dialog",
-         "author": "mejbaurbahar", "time": "3 days ago", "tests": 36, "pass": 34, "fail": 1, "flaky": 1, "hasData": True},
+        {"sha": "5764498", "msg": "Fix Bangladesh login automation",
+         "author": "mejbaurbahar", "time": "1h ago",     "tests": 40, "pass": 39, "fail": 0, "flaky": 1, "hasData": True},
+        {"sha": "ba3f2ab", "msg": "Fix Bangladesh login country code selection",
+         "author": "mejbaurbahar", "time": "3h ago",     "tests": 40, "pass": 40, "fail": 0, "flaky": 0, "hasData": True},
+        {"sha": "9d524ad", "msg": "feat(maestro): select Bangladesh country code in all flows",
+         "author": "mejbaurbahar", "time": "8h ago",     "tests": 40, "pass": 39, "fail": 0, "flaky": 1, "hasData": True},
+        {"sha": "3617b04", "msg": "fix(runner): pre-flight checks, port-forward, per-flow error capture",
+         "author": "mejbaurbahar", "time": "yesterday",  "tests": 40, "pass": 38, "fail": 1, "flaky": 1, "hasData": True},
+        {"sha": "a972d48", "msg": "fix(ci): add avd-name Pixel_7_API_34 + force-avd-creation",
+         "author": "mejbaurbahar", "time": "2 days ago", "tests": 38, "pass": 37, "fail": 1, "flaky": 0, "hasData": True},
+        {"sha": "c0ef551", "msg": "feat(booking): add reschedule and cancel flows",
+         "author": "mejbaurbahar", "time": "3 days ago", "tests": 36, "pass": 36, "fail": 0, "flaky": 0, "hasData": True},
     ]
     return {"RUN_META": run_meta, "MAESTRO_FLOWS": flows, "APPIUM_TESTS": appium,
             "CI_WORKFLOWS": ci_workflows, "HISTORY": history, "COMMITS": commits}
@@ -601,7 +630,7 @@ const APPIUM_TESTS = {json.dumps(_demo["APPIUM_TESTS"], indent=2)};
 const CI_WORKFLOWS = {json.dumps(_demo["CI_WORKFLOWS"], indent=2)};
 const HISTORY = {json.dumps(_demo["HISTORY"], indent=2)};
 const COMMITS = {json.dumps(_demo["COMMITS"], indent=2)};
-window.QATARAT_DATA = {{ RUN_META, MAESTRO_FLOWS, APPIUM_TESTS, CI_WORKFLOWS, HISTORY, COMMITS }};
+window.MYCOIFFEUR_DATA = {{ RUN_META, MAESTRO_FLOWS, APPIUM_TESTS, CI_WORKFLOWS, HISTORY, COMMITS }};
 """
     else:
         js = f"""// Auto-generated by generate_data_js.py — do not edit.
@@ -618,7 +647,7 @@ const HISTORY = {json.dumps(history, indent=2)};
 
 const COMMITS = {json.dumps(commits, indent=2)};
 
-window.QATARAT_DATA = {{ RUN_META, MAESTRO_FLOWS, APPIUM_TESTS, CI_WORKFLOWS, HISTORY, COMMITS }};
+window.MYCOIFFEUR_DATA = {{ RUN_META, MAESTRO_FLOWS, APPIUM_TESTS, CI_WORKFLOWS, HISTORY, COMMITS }};
 """
     os.makedirs(os.path.dirname(os.path.abspath(output_file)), exist_ok=True)
     with open(output_file, "w") as fh:

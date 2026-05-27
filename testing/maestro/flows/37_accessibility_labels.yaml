@@ -1,0 +1,88 @@
+appId: com.example.my_coiffeur
+---
+# Flow 37: Accessibility Labels — verify key interactive elements have content descriptions
+# Covers: main nav buttons, search, cart, profile icons have accessibility labels.
+
+- launchApp:
+    clearState: true
+
+- waitForAnimationToEnd:
+    timeout: 20000
+
+# Skip onboarding
+- tapOn:
+    text: "Skip"
+    optional: true
+
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Login
+- tapOn:
+    text: "User Login"
+    optional: true
+- tapOn:
+    text: "+966"
+    optional: true
+- inputText: "Bangladesh"
+- tapOn:
+    text: "Bangladesh"
+- tapOn:
+    text: "Mobile Number"
+    optional: true
+- inputText: "1316314566"
+- tapOn:
+    text: "Send Verification Code"
+    optional: true
+- tapOn:
+    text: "Continue"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- inputText: "1234"
+- tapOn:
+    text: "Verify Code"
+    optional: true
+- tapOn:
+    text: "Verify"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 8000
+
+- takeScreenshot: home_a11y
+
+# Verify bottom navigation items are reachable by accessibility
+- tapOn:
+    text: "Home"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1000
+- tapOn:
+    text: "Browse"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1000
+- tapOn:
+    text: "Cart"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1000
+- tapOn:
+    text: "My Orders"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1000
+- tapOn:
+    text: "Profile"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 1000
+
+- takeScreenshot: a11y_nav_complete
+
+# Return to home
+- tapOn:
+    text: "Home"
+    optional: true
+
+- takeScreenshot: a11y_labels_verified

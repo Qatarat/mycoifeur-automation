@@ -1,6 +1,6 @@
 // CI/CD pipeline view — workflows + visualized pipeline
 const PipelineView = () => {
-  const { CI_WORKFLOWS = [], RUN_META = {} } = window.QATARAT_DATA || {};
+  const { CI_WORKFLOWS = [], RUN_META = {} } = window.MYCOIFFEUR_DATA || {};
   const neverRan = RUN_META.neverRan || CI_WORKFLOWS.every(w => w.status === "idle");
   const idleCount = CI_WORKFLOWS.filter(w => w.status === "idle").length;
 
@@ -158,7 +158,7 @@ const PipelineView = () => {
         <div className="card-body">
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))", gap: 12 }}>
             {[
-              { layer: "App under test",  tech: "Flutter / Dart",              icon: "phone",    c: "oklch(74% 0.16 195)", desc: "Qatarat — Arabic Islamic app for Android & iOS" },
+              { layer: "App under test",  tech: "Flutter / Dart",              icon: "phone",    c: "oklch(74% 0.16 195)", desc: "MyCoiffeur — Hair salon booking app for Android & iOS" },
               { layer: "UI automation",   tech: "Maestro 2.x",                 icon: "flows",    c: "oklch(74% 0.18 155)", desc: "YAML flows that simulate real user taps" },
               { layer: "Deep tests",      tech: "Appium 2.x + flutter-driver", icon: "appium",   c: "oklch(80% 0.16 75)",  desc: "Python/pytest for payment SDKs and data checks" },
               { layer: "Test language",   tech: "Python 3 + pytest",           icon: "bolt",     c: "oklch(75% 0.14 230)", desc: "Assertions, fixtures, parametrize decorators" },

@@ -3,7 +3,7 @@ import os
 IOS_CAPS = {
     "platformName": "iOS",
     "appium:automationName": "Flutter",           # uses appium-flutter-driver
-    "appium:bundleId": "com.qatarat.app",
+    "appium:bundleId": "com.example.my_coiffeur",
     "appium:noReset": False,
     "appium:newCommandTimeout": 120,
     "appium:autoAcceptAlerts": True,
@@ -23,7 +23,7 @@ IOS_DEVICE_CAPS = {
     "appium:app": os.environ.get("IOS_APP_PATH", ""),  # path to .ipa file
     "appium:xcodeOrgId": os.environ.get("XCODE_ORG_ID", ""),
     "appium:xcodeSigningId": "iPhone Developer",
-    "appium:updatedWDABundleId": "com.qatarat.app.WebDriverAgentRunner",
+    "appium:updatedWDABundleId": "com.example.my_coiffeur.WebDriverAgentRunner",
 }
 
 # Simulator
