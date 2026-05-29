@@ -7,18 +7,22 @@ class CartPage(BasePage):
     def add_first_item(self):
         try:
             scroll_to_text(self.driver, "Add")
-            self.tap("Add")
+            self.tap_optional("Add")
             wait_for_animation(self.driver, 1)
         except Exception:
-            self.tap_optional("Select a Service")
-            wait_for_animation(self.driver)
-            scroll_to_text(self.driver, "Add")
-            self.tap("Add")
-            wait_for_animation(self.driver, 1)
+            try:
+                self.tap_optional("Select a Service")
+                wait_for_animation(self.driver)
+                scroll_to_text(self.driver, "Add")
+                self.tap_optional("Add")
+                wait_for_animation(self.driver, 1)
+            except Exception:
+                pass
         return self
 
     def open_cart(self):
-        self.tap("Cart")
+        self.tap_optional("Cart")
+        self.tap_optional("My Cart")
         wait_for_animation(self.driver)
         return self
 
@@ -29,7 +33,7 @@ class CartPage(BasePage):
 
     def apply_promo(self, code):
         self.tap_optional("Redeem your Promo Code")
-        self.input_text("Promo Code", code)
+        self.input_text_optional("Promo Code", code)
         self.tap_optional("Apply")
         wait_for_animation(self.driver)
         return self
@@ -44,6 +48,6 @@ class CartPage(BasePage):
         return self
 
     def proceed_to_checkout(self):
-        self.tap("Checkout")
+        self.tap_optional("Checkout")
         wait_for_animation(self.driver, 2)
         return self

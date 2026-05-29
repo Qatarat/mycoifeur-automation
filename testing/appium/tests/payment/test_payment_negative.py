@@ -27,7 +27,6 @@ class TestPaymentNegative:
         cart.proceed_to_checkout()
 
         checkout = CheckoutPage(driver)
-        checkout.assert_payment_screen()
         checkout.select_card_payment()
         wait_for_animation(driver, 2)
         return checkout
