@@ -8,12 +8,21 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Country / language selection (onboarding)
 - tapOn:
     text: "Select your country"
     optional: true
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - tapOn:
     text: "Select your language"
@@ -33,14 +42,13 @@ appId: com.example.my_coiffeur
     text: "Login to your account"
     optional: true
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
     optional: true
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
-- tapOn:
-    text: "Enter phone number"
-    optional: true
+    text: ".*\\+880.*"
 - inputText: "1316314566"
 - tapOn:
     text: "Continue"
@@ -88,23 +96,19 @@ appId: com.example.my_coiffeur
 
 # Verify salon name, rating, services list are visible
 - assertVisible:
-    text: "Rating"
+    text: "Rating.*"
     optional: true
 - assertVisible:
-    text: "Services"
+    text: "Services.*"
     optional: true
 
 - takeScreenshot: salon_profile_info_visible
 
 # Scroll through the gallery / profile photos
-- scroll:
-    direction: DOWN
-    speed: 40
+- scroll
 - waitForAnimationToEnd:
     timeout: 2000
-- scroll:
-    direction: DOWN
-    speed: 40
+- scroll
 - waitForAnimationToEnd:
     timeout: 2000
 
@@ -142,9 +146,7 @@ appId: com.example.my_coiffeur
 - takeScreenshot: salon_profile_reviews_tab
 
 # Scroll through reviews
-- scroll:
-    direction: DOWN
-    speed: 40
+- scroll
 - waitForAnimationToEnd:
     timeout: 2000
 

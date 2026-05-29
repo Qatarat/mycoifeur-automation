@@ -9,6 +9,15 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Skip onboarding
 - tapOn:
     text: "Skip"
@@ -19,21 +28,19 @@ appId: com.example.my_coiffeur
 
 # Login
 - tapOn:
-    text: "User Login"
+    text: "User Login.*"
     optional: true
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
     optional: true
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
-- tapOn:
-    text: "Mobile Number"
+    text: ".*\\+880.*"
     optional: true
 - inputText: "1316314566"
-- tapOn:
-    text: "Send Verification Code"
-    optional: true
+- pressKey: Enter
 - tapOn:
     text: "Continue"
     optional: true
@@ -41,7 +48,7 @@ appId: com.example.my_coiffeur
     timeout: 5000
 - inputText: "1234"
 - tapOn:
-    text: "Verify Code"
+    text: "Verify Code.*"
     optional: true
 - tapOn:
     text: "Verify"
@@ -58,7 +65,6 @@ appId: com.example.my_coiffeur
 
 # Re-open the app
 - openLink: "mycoiffeur://"
-    optional: true
 - launchApp:
     clearState: false
 
@@ -69,10 +75,10 @@ appId: com.example.my_coiffeur
 
 # Verify app is in a valid state (either still logged in or shows re-login)
 - assertVisible:
-    text: "Home"
+    text: "Home.*"
     optional: true
 - assertVisible:
-    text: "Login"
+    text: "Login.*"
     optional: true
 
 - takeScreenshot: session_timeout_complete

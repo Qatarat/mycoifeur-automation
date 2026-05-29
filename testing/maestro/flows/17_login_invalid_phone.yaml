@@ -7,6 +7,15 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 - tapOn:
     text: "Skip"
     optional: true
@@ -18,7 +27,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - tapOn:
     text: "Select your language"
@@ -44,9 +53,6 @@ appId: com.example.my_coiffeur
 - takeScreenshot: login_empty_phone_blocked
 
 # ── Test 2: too-short phone (3 digits) ───────────────
-- tapOn:
-    text: "Enter phone number"
-    optional: true
 - clearKeychain
 - inputText: "123"
 - tapOn:
@@ -59,9 +65,6 @@ appId: com.example.my_coiffeur
 - takeScreenshot: login_short_phone_blocked
 
 # ── Test 3: alphabetic phone ─────────────────────────
-- tapOn:
-    text: "Enter phone number"
-    optional: true
 - clearKeychain
 - inputText: "abcdefghij"
 - tapOn:
@@ -74,9 +77,6 @@ appId: com.example.my_coiffeur
 - takeScreenshot: login_alpha_phone_blocked
 
 # ── Test 4: special-character phone ──────────────────
-- tapOn:
-    text: "Enter phone number"
-    optional: true
 - clearKeychain
 - inputText: "+880@abc#123"
 - tapOn:

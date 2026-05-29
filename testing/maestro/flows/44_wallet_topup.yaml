@@ -8,12 +8,21 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Country / language selection (onboarding)
 - tapOn:
     text: "Select your country"
     optional: true
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - tapOn:
     text: "Select your language"
@@ -33,14 +42,13 @@ appId: com.example.my_coiffeur
     text: "Login to your account"
     optional: true
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
     optional: true
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
-- tapOn:
-    text: "Enter phone number"
-    optional: true
+    text: ".*\\+880.*"
 - inputText: "1316314566"
 - tapOn:
     text: "Continue"
@@ -73,10 +81,10 @@ appId: com.example.my_coiffeur
 
 # View current balance
 - assertVisible:
-    text: "SAR"
+    text: "SAR.*"
     optional: true
 - assertVisible:
-    text: "Balance"
+    text: "Balance.*"
     optional: true
 
 # Tap Top Up / Add Money
@@ -150,13 +158,13 @@ appId: com.example.my_coiffeur
 
 # Verify success screen or updated balance
 - assertVisible:
-    text: "Success"
+    text: "Success.*"
     optional: true
 - assertVisible:
-    text: "successful"
+    text: "successful.*"
     optional: true
 - assertVisible:
-    text: "Balance"
+    text: "Balance.*"
     optional: true
 
 - takeScreenshot: wallet_topup_success

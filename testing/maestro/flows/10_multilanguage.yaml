@@ -8,6 +8,15 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Pick Arabic on onboarding
 - tapOn:
     text: "Select your country"
@@ -15,7 +24,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000
@@ -43,7 +52,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000
@@ -71,7 +80,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000
@@ -99,7 +108,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - waitForAnimationToEnd:
     timeout: 3000

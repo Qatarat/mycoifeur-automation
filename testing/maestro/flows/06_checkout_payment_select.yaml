@@ -8,6 +8,15 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Skip onboarding if shown
 - tapOn:
     text: "Skip"
@@ -18,27 +27,27 @@ appId: com.example.my_coiffeur
 
 # Tap User Login and login
 - tapOn:
-    text: "User Login"
+    text: "User Login.*"
 - waitForAnimationToEnd:
     timeout: 3000
 
 # Select Bangladesh country code
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
+    text: ".*\\+880.*"
 
-- tapOn:
-    text: "Mobile Number"
 - inputText: "1316314566"
-- tapOn:
-    text: "Send Verification Code"
+- pressKey: Enter
 - waitForAnimationToEnd:
     timeout: 5000
 - inputText: "1234"
 - tapOn:
-    text: "Verify Code"
+    text: "Verify Code.*"
+    optional: true
 - tapOn:
     text: "Verify"
     optional: true

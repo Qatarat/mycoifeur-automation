@@ -8,12 +8,21 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # Country / language selection (onboarding)
 - tapOn:
     text: "Select your country"
     optional: true
 - tapOn:
-    text: "Saudi Arabia"
+    text: ".*Saudi Arabia.*"
     optional: true
 - tapOn:
     text: "Select your language"
@@ -33,14 +42,13 @@ appId: com.example.my_coiffeur
     text: "Login to your account"
     optional: true
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
     optional: true
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
-- tapOn:
-    text: "Enter phone number"
-    optional: true
+    text: ".*\\+880.*"
 - inputText: "1316314566"
 - tapOn:
     text: "Continue"
@@ -73,9 +81,7 @@ appId: com.example.my_coiffeur
     timeout: 2000
 
 # Scroll down to find Logout
-- scroll:
-    direction: DOWN
-    speed: 40
+- scroll
 - waitForAnimationToEnd:
     timeout: 2000
 
@@ -116,23 +122,23 @@ appId: com.example.my_coiffeur
 
 # Verify app returns to login / splash screen
 - assertVisible:
-    text: "Login"
+    text: "Login.*"
     optional: true
 - assertVisible:
-    text: "Login to your account"
+    text: "Login to your account.*"
     optional: true
 - assertVisible:
-    text: "Sign In"
+    text: "Sign In.*"
     optional: true
 
 - takeScreenshot: logout_login_screen_visible
 
 # Verify login button is visible again
 - assertVisible:
-    text: "Continue"
+    text: "Continue.*"
     optional: true
 - assertVisible:
-    text: "Get Started"
+    text: "Get Started.*"
     optional: true
 
 - takeScreenshot: logout_success_complete

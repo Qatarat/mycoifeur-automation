@@ -10,6 +10,15 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
+# Conditionally dismiss location permission dialog
+# (appears on fresh CI installs; absent locally once granted)
+- runFlow:
+    when:
+      visible: "While using the app"
+    commands:
+      - tapOn:
+          text: "While using the app"
+
 # If a force-update dialog appears, tap Update (do NOT block test — tap optional)
 - tapOn:
     text: "Update Now"
@@ -31,21 +40,19 @@ appId: com.example.my_coiffeur
 
 # Login
 - tapOn:
-    text: "User Login"
+    text: "User Login.*"
     optional: true
 - tapOn:
-    text: "+966"
+    text: ".*\\+966.*"
     optional: true
+- tapOn:
+    point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
-    text: "Bangladesh"
-- tapOn:
-    text: "Mobile Number"
+    text: ".*\\+880.*"
     optional: true
 - inputText: "1316314566"
-- tapOn:
-    text: "Send Verification Code"
-    optional: true
+- pressKey: Enter
 - tapOn:
     text: "Continue"
     optional: true
@@ -53,7 +60,7 @@ appId: com.example.my_coiffeur
     timeout: 5000
 - inputText: "1234"
 - tapOn:
-    text: "Verify Code"
+    text: "Verify Code.*"
     optional: true
 - tapOn:
     text: "Verify"
@@ -63,7 +70,7 @@ appId: com.example.my_coiffeur
 
 # Verify the app is usable after (no force-update on current build)
 - assertVisible:
-    text: "Home"
+    text: "Home.*"
     optional: true
 
 - takeScreenshot: app_update_check_complete
