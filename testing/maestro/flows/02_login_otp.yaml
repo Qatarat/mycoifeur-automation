@@ -1,6 +1,6 @@
 appId: com.example.my_coiffeur
 ---
-# Flow: User Login → Mobile number input → OTP verification → logged-in home
+# Flow: Launch → country/language → login with Bangladesh phone → OTP → home
 
 - launchApp:
     clearState: true
@@ -8,8 +8,7 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 20000
 
-# Conditionally dismiss location permission dialog
-# (appears on fresh CI installs; absent locally once granted)
+# Dismiss location permission if shown on first CI install
 - runFlow:
     when:
       visible: "While using the app"
@@ -17,7 +16,27 @@ appId: com.example.my_coiffeur
       - tapOn:
           text: "While using the app"
 
-# Skip onboarding if shown
+# Country / language selection (cold start on CI emulator)
+- tapOn:
+    text: "Select your country"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+- tapOn:
+    text: ".*Saudi Arabia.*"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 3000
+- tapOn:
+    text: "Select your language"
+    optional: true
+- tapOn:
+    text: "English"
+    optional: true
+- waitForAnimationToEnd:
+    timeout: 5000
+
+# Skip onboarding
 - tapOn:
     text: "Skip"
     optional: true
@@ -25,31 +44,40 @@ appId: com.example.my_coiffeur
 - waitForAnimationToEnd:
     timeout: 5000
 
-# Tap User Login
+# Navigate to login
+- tapOn:
+    text: "Login to your account"
+    optional: true
 - tapOn:
     text: "User Login.*"
+    optional: true
 
 - waitForAnimationToEnd:
     timeout: 3000
 
-# Select Bangladesh country code
+# Select Bangladesh country code (+880)
 - tapOn:
     text: ".*\\+966.*"
+    optional: true
 - tapOn:
     point: "50%, 13%"
 - inputText: "Bangladesh"
 - tapOn:
     text: ".*\\+880.*"
+    optional: true
 
-# Tap Mobile Number field and input phone number
+# Enter phone number
 - inputText: "1316314566"
 
-# Agree to terms checkbox/link (if any)
+# Agree to terms if shown
 - tapOn:
     text: "By continuing you agree"
     optional: true
 
-# Send Verification Code
+# Send verification code
+- tapOn:
+    text: "Continue"
+    optional: true
 - pressKey: Enter
 
 - waitForAnimationToEnd:
@@ -58,7 +86,7 @@ appId: com.example.my_coiffeur
 # Enter OTP
 - inputText: "1234"
 
-# Verify Code
+# Verify
 - tapOn:
     text: "Verify Code.*"
     optional: true
