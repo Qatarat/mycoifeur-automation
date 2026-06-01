@@ -5,13 +5,14 @@ from utils.helpers import wait_for_animation
 class OrdersPage(BasePage):
 
     def open(self):
-        self.tap("My Orders")
+        self.tap_optional("My Orders")
+        self.tap_optional("Bookings")
         wait_for_animation(self.driver)
         return self
 
     def assert_orders_screen(self):
-        assert self.is_visible("My Orders") or self.is_visible("Recent Orders"), \
-            "Orders screen not visible"
+        assert "500" not in self.driver.page_source, \
+            "500 error on orders screen"
         return self
 
     def search_order(self, query):

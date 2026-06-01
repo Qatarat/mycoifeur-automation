@@ -728,10 +728,11 @@ const TestDetail = ({ test, onClose }) => {
         {/* Tabs */}
         <div style={{ padding: "0 24px", borderBottom: "1px solid var(--border)", display: "flex", gap: 0 }}>
           {[
-            { id: "overview", label: "Overview" },
-            { id: "log",      label: "Execution log" },
-            { id: "code",     label: "Test code" },
-            { id: "screens",  label: `Screenshots${shotNames.length ? ` (${shotNames.length})` : ""}` },
+            { id: "overview",   label: "Overview" },
+            { id: "log",        label: "Execution log" },
+            { id: "code",       label: "Test code" },
+            { id: "screens",    label: `Screenshots${shotNames.length ? ` (${shotNames.length})` : ""}` },
+            ...(test.status === "fail" ? [{ id: "bugreport", label: "Bug Report" }] : []),
           ].map(t => (
             <button key={t.id} onClick={() => setTab(t.id)}
                     style={{
@@ -897,7 +898,8 @@ const TestDetail = ({ test, onClose }) => {
                 <h3>Screenshots</h3>
                 <span className="sub">
                   {isIdle ? "awaiting run"
-                          : shotNames.length ? `${shotNames.length} captured · reports/screenshots/`
+                          : test.screenshots?.length ? `${test.screenshots.length} captured · reports/screenshots/`
+                          : shotNames.length ? `${shotNames.length} expected · reports/screenshots/`
                           : "0 — no screenshot() call in this test"}
                 </span>
               </div>
@@ -913,11 +915,36 @@ const TestDetail = ({ test, onClose }) => {
                       {shotNames.length > 0 && (<><br/><br/>Expected captures: {shotNames.map((s,i)=><span key={i} className="mono" style={{color:"var(--accent)",fontSize:11}}>{s}.png{i<shotNames.length-1?", ":""}</span>)}</>)}
                     </div>
                   </div>
+                ) : test.screenshots?.length > 0 ? (
+                  /* Real CI screenshots — show actual <img> tags */
+                  <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(140px, 1fr))", gap: 12 }}>
+                    {test.screenshots.map((src, i) => {
+                      const label = src.split("/").pop();
+                      const isFailShot = test.status === "fail" && i === test.screenshots.length - 1;
+                      return (
+                        <a key={i} href={src} target="_blank" rel="noopener noreferrer"
+                           style={{ textDecoration: "none", display: "block", aspectRatio: "9/19", borderRadius: 10, border: isFailShot ? "1px solid color-mix(in oklch, var(--fail) 40%, transparent)" : "1px solid var(--border)", position: "relative", overflow: "hidden", background: "var(--surface-2)" }}>
+                          <img src={src} alt={label} loading="lazy"
+                               style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                               onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                          {isFailShot && (
+                            <div style={{ position: "absolute", top: 8, right: 8, padding: "2px 7px", borderRadius: 4, background: "var(--fail-2)", color: "var(--fail)", fontSize: 10, fontFamily: "Geist Mono", border: "1px solid color-mix(in oklch, var(--fail) 30%, transparent)" }}>
+                              fail
+                            </div>
+                          )}
+                          <div style={{ position: "absolute", inset: "auto 0 0 0", padding: "6px 8px", background: "linear-gradient(180deg, transparent, rgba(0,0,0,.8))", fontFamily: "Geist Mono", fontSize: 10, color: "#ccc", lineHeight: 1.4 }}>
+                            {label}
+                          </div>
+                        </a>
+                      );
+                    })}
+                  </div>
                 ) : shotNames.length === 0 ? (
                   <div style={{ padding: "20px 16px", textAlign: "center", color: "var(--text-3)", fontSize: 13 }}>
                     No screenshot() calls in this test.
                   </div>
                 ) : (
+                  /* No real URLs yet — show filename placeholder tiles */
                   <>
                     <div style={{ marginBottom: 12, padding: "8px 10px", background: "var(--surface-2)", borderRadius: 7, border: "1px solid var(--border)", fontSize: 12, color: "var(--text-3)" }}>
                       <Icon name="clock" size={12} style={{ marginRight: 6 }} />
@@ -951,6 +978,127 @@ const TestDetail = ({ test, onClose }) => {
               </div>
             </div>
           )}
+
+          {/* ── Bug Report tab (fail only) ── */}
+          {tab === "bugreport" && test.status === "fail" && (() => {
+            const buildExpectedResult = (testName) => {
+              const n = testName.replace(/^test_/, "");
+              if (n.endsWith("_shows_error") || n.includes("_shows_error_")) return "An error message should be displayed";
+              if (n.endsWith("_blocked") || n.includes("_is_blocked"))       return "Action should be blocked / rejected";
+              if (n.endsWith("_not_crash") || n.endsWith("_does_not_crash")) return "App should not crash";
+              if (n.endsWith("_visible") || n.endsWith("_is_visible"))       return "Element should be visible on screen";
+              if (n.endsWith("_loads"))                                       return "Screen should load without errors";
+              return "Test assertion should pass";
+            };
+            const stepsToReproduce = logLines.filter(l =>
+              l.level === "info" && (
+                l.text.includes("→") || l.text.includes("tapOn") ||
+                l.text.includes("inputText") || l.text.includes("login") ||
+                l.text.includes("assert") || l.text.includes("LoginPage") ||
+                l.text.includes("cart") || l.text.includes("checkout")
+              )
+            );
+            const expected = buildExpectedResult(test.name);
+            const actual = test.error || "Test assertion failed — element not found or unexpected state";
+            return (
+              <div className="grid" style={{ gap: 14 }}>
+                <div style={{ padding: 14, borderRadius: 10, background: "var(--fail-2)", border: "1px solid color-mix(in oklch, var(--fail) 30%, transparent)" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
+                    <span style={{ color: "var(--fail)" }}><Icon name="x" size={14} /></span>
+                    <span style={{ fontWeight: 600, fontSize: 13, color: "var(--fail)" }}>Bug Report</span>
+                  </div>
+                  <div className="mono" style={{ fontSize: 12.5, color: "var(--text-2)", lineHeight: 1.5 }}>
+                    Auto-generated from CI failure data. Steps and assertions are derived from the test source.
+                  </div>
+                </div>
+
+                <div className="card">
+                  <div className="card-head"><h3>Summary</h3></div>
+                  <div className="card-body">
+                    <div className="mono" style={{ fontSize: 12.5, color: "var(--fail)", lineHeight: 1.6 }}>{actual}</div>
+                  </div>
+                </div>
+
+                <div className="card">
+                  <div className="card-head"><h3>Steps to reproduce</h3></div>
+                  <div className="card-body" style={{ padding: 0 }}>
+                    {stepsToReproduce.map((step, i) => (
+                      <div key={i} style={{ display: "grid", gridTemplateColumns: "28px 1fr auto", gap: 10, padding: "9px 16px", borderBottom: "1px solid var(--border)", alignItems: "center" }}>
+                        <span style={{ width: 20, height: 20, borderRadius: 5, display: "grid", placeItems: "center", background: "var(--surface-2)", color: "var(--text-3)", fontSize: 10, fontFamily: "Geist Mono", fontWeight: 600 }}>
+                          {i + 1}
+                        </span>
+                        <span className="mono" style={{ fontSize: 12.5, color: "var(--text)", lineHeight: 1.4 }}>{step.text}</span>
+                        <span className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>{step.ts}s</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                  <div className="card">
+                    <div className="card-head"><h3>Actual result</h3></div>
+                    <div className="card-body">
+                      <div className="mono" style={{ fontSize: 12.5, color: "var(--fail)", lineHeight: 1.6 }}>{actual}</div>
+                    </div>
+                  </div>
+                  <div className="card">
+                    <div className="card-head"><h3>Expected result</h3></div>
+                    <div className="card-body">
+                      <div className="mono" style={{ fontSize: 12.5, color: "var(--pass)", lineHeight: 1.6 }}>{expected}</div>
+                    </div>
+                  </div>
+                </div>
+
+                {(test.screenshots?.length > 0 || shotNames.length > 0) && (
+                  <div className="card">
+                    <div className="card-head"><h3>PoC — screenshots</h3></div>
+                    <div className="card-body">
+                      {test.screenshots?.length > 0 ? (
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: 10 }}>
+                          {test.screenshots.map((src, i) => {
+                            const label = src.split("/").pop();
+                            return (
+                              <a key={i} href={src} target="_blank" rel="noopener noreferrer"
+                                 style={{ textDecoration: "none", display: "block", aspectRatio: "9/19", borderRadius: 8, border: "1px solid var(--border)", position: "relative", overflow: "hidden", background: "var(--surface-2)" }}>
+                                <img src={src} alt={label} loading="lazy"
+                                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                                     onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                                <div style={{ position: "absolute", inset: "auto 0 0 0", padding: "5px 7px", background: "linear-gradient(180deg,transparent,rgba(0,0,0,.75))", fontFamily: "Geist Mono", fontSize: 10, color: "#ccc" }}>
+                                  {label}
+                                </div>
+                              </a>
+                            );
+                          })}
+                        </div>
+                      ) : (
+                        <div style={{ fontSize: 12.5, color: "var(--text-3)" }}>
+                          Expected captures: {shotNames.map((s, i) => (
+                            <span key={i} className="mono" style={{ color: "var(--text-2)", marginRight: 6 }}>{s}.png</span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                <div className="card">
+                  <div className="card-head"><h3>Execution log tail</h3></div>
+                  <div style={{ background: "var(--bg)", fontFamily: "Geist Mono", fontSize: 12, maxHeight: 220, overflowY: "auto" }}>
+                    {logLines.slice(-8).map((a, i) => {
+                      const c = a.level === "fail" ? "var(--fail)" : a.level === "warn" ? "var(--flaky)" : a.level === "pass" ? "var(--pass)" : "var(--text-2)";
+                      return (
+                        <div key={i} style={{ display: "grid", gridTemplateColumns: "64px 52px 1fr", gap: 10, padding: "6px 16px", borderBottom: "1px solid var(--border)" }}>
+                          <span style={{ color: "var(--text-3)" }}>{a.ts}</span>
+                          <span style={{ color: c, textTransform: "uppercase", fontSize: 10.5, letterSpacing: ".08em", alignSelf: "center" }}>{a.level}</span>
+                          <span style={{ color: a.level === "fail" ? "var(--fail)" : "var(--text)" }}>{a.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
     </div>

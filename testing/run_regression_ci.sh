@@ -8,7 +8,7 @@ REPORTS_DIR="$SCRIPT_DIR/maestro/reports"
 SOLO_FLOW="${1:-}"
 mkdir -p "$REPORTS_DIR"
 
-FLOW_TIMEOUT=480   # 8 min hard cap per flow for regression (some flows are heavier)
+FLOW_TIMEOUT=240   # 4 min hard cap per flow for regression (keeps 50 flows within 130 min budget)
 
 _run_flow() {
   local flow_file="$1"

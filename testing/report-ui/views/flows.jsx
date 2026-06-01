@@ -940,6 +940,88 @@ const FlowDetail = ({ flow, onClose }) => {
           </div>
         </div>
 
+        {/* Bug Report — only when flow failed */}
+        {flow.status === "fail" && (() => {
+          const failedStepIdx = Math.floor(flow.steps * 0.78);
+          const stepsUpToFail = realSteps.length > 0
+            ? realSteps.slice(0, failedStepIdx + 1)
+            : stepsToShow.slice(0, failedStepIdx + 1);
+          return (
+            <div className="card" style={{ marginTop: 14 }}>
+              <div className="card-head" style={{ background: "var(--fail-2)", borderBottom: "1px solid color-mix(in oklch, var(--fail) 25%, transparent)" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                  <span style={{ color: "var(--fail)" }}><Icon name="x" size={14} /></span>
+                  <h3 style={{ color: "var(--fail)" }}>Bug Report</h3>
+                </div>
+                <span className="sub">auto-generated from CI failure</span>
+              </div>
+              <div className="card-body" style={{ padding: 0 }}>
+                {/* What failed */}
+                <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
+                  <div style={{ fontSize: 11, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 6 }}>What failed</div>
+                  <div className="mono" style={{ fontSize: 12.5, color: "var(--fail)", lineHeight: 1.5 }}>
+                    {flow.note || "Flow failed during execution — see CI logs for step-level details"}
+                  </div>
+                </div>
+                {/* Steps to reproduce */}
+                <div style={{ padding: "12px 16px", borderBottom: "1px solid var(--border)" }}>
+                  <div style={{ fontSize: 11, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 8 }}>Steps to reproduce</div>
+                  <div style={{ fontFamily: "Geist Mono", fontSize: 12 }}>
+                    {stepsUpToFail.map((cmd, i) => {
+                      const isFail = i === stepsUpToFail.length - 1;
+                      return (
+                        <div key={i} style={{ display: "grid", gridTemplateColumns: "28px 1fr", gap: 10, padding: "6px 0", borderBottom: i < stepsUpToFail.length - 1 ? "1px solid var(--border)" : "none", alignItems: "center" }}>
+                          <span style={{ width: 20, height: 20, borderRadius: 5, display: "grid", placeItems: "center", background: isFail ? "var(--fail-2)" : "var(--surface-2)", color: isFail ? "var(--fail)" : "var(--text-3)", fontSize: 10, fontWeight: 600 }}>
+                            {i + 1}
+                          </span>
+                          <span style={{ color: isFail ? "var(--fail)" : "var(--text)", lineHeight: 1.4 }}>{cmd}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+                {/* Actual vs Expected */}
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 0 }}>
+                  <div style={{ padding: "12px 16px", borderRight: "1px solid var(--border)" }}>
+                    <div style={{ fontSize: 11, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 6 }}>Actual result</div>
+                    <div className="mono" style={{ fontSize: 12.5, color: "var(--fail)", lineHeight: 1.5 }}>
+                      {`Flow failed at step ${failedStepIdx + 1}. ${flow.note || "Assertion did not pass."}`}
+                    </div>
+                  </div>
+                  <div style={{ padding: "12px 16px" }}>
+                    <div style={{ fontSize: 11, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 6 }}>Expected result</div>
+                    <div className="mono" style={{ fontSize: 12.5, color: "var(--pass)", lineHeight: 1.5 }}>
+                      All steps should complete successfully and reach the final screenshot.
+                    </div>
+                  </div>
+                </div>
+                {/* PoC screenshots if available */}
+                {flow.screenshots?.length > 0 && (
+                  <div style={{ padding: "12px 16px", borderTop: "1px solid var(--border)" }}>
+                    <div style={{ fontSize: 11, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: ".08em", marginBottom: 8 }}>PoC screenshots</div>
+                    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(100px, 1fr))", gap: 8 }}>
+                      {flow.screenshots.map((src, i) => {
+                        const label = src.split("/").pop();
+                        return (
+                          <a key={i} href={src} target="_blank" rel="noopener noreferrer"
+                             style={{ textDecoration: "none", display: "block", aspectRatio: "9/19", borderRadius: 8, border: "1px solid var(--border)", position: "relative", overflow: "hidden", background: "var(--surface-2)" }}>
+                            <img src={src} alt={label} loading="lazy"
+                                 style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                                 onError={(e) => { e.currentTarget.style.display = "none"; }} />
+                            <div style={{ position: "absolute", inset: "auto 0 0 0", padding: "4px 6px", background: "linear-gradient(180deg,transparent,rgba(0,0,0,.75))", fontFamily: "Geist Mono", fontSize: 10, color: "#ccc" }}>
+                              {label}
+                            </div>
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })()}
+
         {/* Screenshots */}
         <div className="card" style={{ marginTop: 14 }}>
           <div className="card-head">

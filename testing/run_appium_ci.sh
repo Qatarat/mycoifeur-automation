@@ -24,6 +24,7 @@ PYTEST_ARGS=(
   -o "junit_family=xunit2"
   --junit-xml="$REPORTS_DIR/results.xml"
   --alluredir="$ALLURE_DIR"
+  --timeout=180
 )
 
 if [ -n "$MARKER" ]; then

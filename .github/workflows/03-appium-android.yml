@@ -22,7 +22,9 @@ jobs:
   appium-tests:
     name: Appium Deep Tests (Android API 33)
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 120
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     steps:
       - name: Checkout
@@ -46,10 +48,10 @@ jobs:
       - name: Install Python deps
         run: pip install -r testing/appium/requirements.txt
 
-      - name: Set up Node 20
+      - name: Set up Node 24
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "24"
 
       - name: Install Appium + drivers
         run: |
@@ -135,6 +137,18 @@ jobs:
               fh.write(summary)
           EOF
 
+      - name: Ensure results.xml exists for upload
+        if: always()
+        run: |
+          mkdir -p testing/appium/reports
+          if [ ! -f testing/appium/reports/results.xml ]; then
+            echo '<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="appium" tests="0" errors="0" failures="0" skipped="0" time="0"/></testsuites>' \
+              > testing/appium/reports/results.xml
+            echo "Created empty results.xml placeholder (pytest was cancelled mid-run)"
+          else
+            echo "results.xml found ($(wc -l < testing/appium/reports/results.xml) lines)"
+          fi
+
       - name: Upload Allure results
         if: always()
         uses: actions/upload-artifact@v4
@@ -150,6 +164,7 @@ jobs:
           name: appium-junit-${{ github.run_number }}
           path: testing/appium/reports/results.xml
           retention-days: 30
+          if-no-files-found: warn
 
       - name: Upload HTML report
         if: always()
@@ -158,6 +173,7 @@ jobs:
           name: appium-html-report-${{ github.run_number }}
           path: testing/appium/reports/report.html
           retention-days: 30
+          if-no-files-found: warn
 
       - name: Upload failure screenshots
         if: always()

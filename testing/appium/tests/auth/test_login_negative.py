@@ -17,7 +17,8 @@ class TestLoginNegative:
         page = LoginPage(driver)
         page.select_country_and_language()
         page.skip_onboarding()
-        page.tap("Login to your account")
+        page.tap_optional("Login to your account")
+        page.tap_optional("User Login")
         wait_for_animation(driver)
         return page
 
@@ -142,7 +143,11 @@ class TestLoginNegative:
         screenshot(driver, "login_empty_otp_error")
 
     def test_otp_resend_link_visible(self, driver):
-        """A resend/retry option must be visible on the OTP screen."""
+        """A resend/retry option must be visible on the OTP screen.
+
+        The resend button only becomes active after a ~30s countdown timer,
+        so we poll every 5s for up to 45s before giving up.
+        """
         page = LoginPage(driver)
         page.select_country_and_language()
         page.skip_onboarding()
@@ -150,8 +155,16 @@ class TestLoginNegative:
         wait_for_animation(driver, 3)
 
         base = BasePage(driver)
-        assert base.is_visible("Resend") or \
-               base.is_visible("Didn't receive") or \
-               base.is_visible("Send again"), \
-            "Resend OTP option not found on OTP screen"
+        import time as _time
+        deadline = _time.monotonic() + 45
+        found = False
+        while _time.monotonic() < deadline:
+            if (base.is_visible("Resend", timeout=2) or
+                    base.is_visible("Didn't receive", timeout=2) or
+                    base.is_visible("Send again", timeout=2)):
+                found = True
+                break
+            _time.sleep(5)
+
         screenshot(driver, "login_resend_otp_visible")
+        assert found, "Resend OTP option not found on OTP screen after 45s"

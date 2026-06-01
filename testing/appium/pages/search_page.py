@@ -27,8 +27,13 @@ class SearchPage(BasePage):
         """Navigate to the search/browse screen and focus the search bar."""
         from utils.helpers import navigate_to_browse_tab
         navigate_to_browse_tab(self.driver)
-        self.tap_optional("Search")
-        wait_for_animation(self.driver)
+        wait_for_animation(self.driver, 2)
+        # Try multiple labels that may appear on different app versions/locales
+        for label in ["Search", "Search services", "Find services", "Browse"]:
+            if self.is_visible(label, timeout=3):
+                self.tap_optional(label)
+                break
+        wait_for_animation(self.driver, 1)
         self._focus_search_bar()
         return self
 

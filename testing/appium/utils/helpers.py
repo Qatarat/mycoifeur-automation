@@ -72,6 +72,50 @@ def scroll_to_text(driver, text, direction="down", max_scrolls=10):
     raise NoSuchElementException(f"Could not scroll to: {text}")
 
 
+def navigate_to_profile_tab(driver):
+    """Tap the Profile bottom nav tab.
+
+    Tries text-based element lookup first (Profile, Account, Me),
+    falls back to coordinate tap if no labelled element is found.
+    """
+    for label in ["Profile", "Account", "Me"]:
+        try:
+            el = find_by_text(driver, label, timeout=3)
+            el.click()
+            time.sleep(2)
+            return
+        except NoSuchElementException:
+            continue
+    # Coordinate fallback (rightmost tab)
+    size = driver.get_window_size()
+    x = int(size["width"] * 0.9)
+    y = int(size["height"] * 0.955)
+    driver.tap([(x, y)])
+    time.sleep(2)
+
+
+def navigate_to_browse_tab(driver):
+    """Tap the Browse bottom nav tab.
+
+    Tries text-based element lookup first (Browse, Explore, Services),
+    falls back to coordinate tap if no labelled element is found.
+    """
+    for label in ["Browse", "Explore", "Services"]:
+        try:
+            el = find_by_text(driver, label, timeout=3)
+            el.click()
+            time.sleep(1.5)
+            return
+        except NoSuchElementException:
+            continue
+    # Coordinate fallback (2nd tab from left)
+    size = driver.get_window_size()
+    x = int(size["width"] * 0.3)
+    y = int(size["height"] * 0.955)
+    driver.tap([(x, y)])
+    time.sleep(1.5)
+
+
 def enter_otp(driver, otp="1234"):
     for digit in otp:
         driver.find_element(AppiumBy.XPATH, f"//android.widget.EditText").send_keys(digit)

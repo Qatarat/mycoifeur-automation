@@ -35,6 +35,15 @@ class BasePage:
         el.send_keys(value)
         return self
 
+    def input_text_optional(self, placeholder, value, timeout=3):
+        try:
+            el = find_by_text(self.driver, placeholder, timeout=timeout)
+            el.clear()
+            el.send_keys(value)
+        except Exception:
+            pass
+        return self
+
     def screenshot(self, name):
         return screenshot(self.driver, name)
 

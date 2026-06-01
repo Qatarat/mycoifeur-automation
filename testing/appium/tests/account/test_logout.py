@@ -7,7 +7,7 @@ import pytest
 import allure
 from pages.login_page import LoginPage
 from pages.base_page import BasePage
-from utils.helpers import screenshot, wait_for_animation, scroll_to_text
+from utils.helpers import screenshot, wait_for_animation, scroll_to_text, navigate_to_profile_tab
 
 
 def _login(driver):
@@ -19,10 +19,9 @@ def _login(driver):
 
 
 def _navigate_to_logout(page):
-    page.tap_optional("Profile")
-    page.tap_optional("Account")
+    navigate_to_profile_tab(page.driver)
     wait_for_animation(page.driver)
-    scroll_to_text(page.driver, "Logout", max_scrolls=5)
+    scroll_to_text(page.driver, "Logout", max_scrolls=12)
     page.tap_optional("Logout")
     wait_for_animation(page.driver)
 
@@ -37,10 +36,9 @@ class TestLogout:
     @pytest.mark.smoke
     def test_logout_dialog_appears(self, driver):
         page = _login(driver)
-        page.tap_optional("Profile")
-        page.tap_optional("Account")
+        navigate_to_profile_tab(driver)
         wait_for_animation(driver)
-        scroll_to_text(driver, "Logout", max_scrolls=5)
+        scroll_to_text(driver, "Logout", max_scrolls=12)
         page.tap_optional("Logout")
         wait_for_animation(driver)
 
@@ -126,11 +124,11 @@ class TestLogout:
     @pytest.mark.smoke
     def test_logout_from_profile_tab(self, driver):
         page = _login(driver)
-        page.tap_optional("Profile")
+        navigate_to_profile_tab(driver)
         wait_for_animation(driver)
 
         assert page.is_visible("Profile") or page.is_visible("Account") \
-               or page.is_visible("Logout"), \
+               or page.is_visible("My Profile"), \
             "Profile tab did not load"
         screenshot(driver, "profile_tab_before_logout")
 
@@ -139,10 +137,9 @@ class TestLogout:
     @pytest.mark.regression
     def test_logout_button_visible_in_account(self, driver):
         page = _login(driver)
-        page.tap_optional("Profile")
-        page.tap_optional("Account")
+        navigate_to_profile_tab(driver)
         wait_for_animation(driver)
-        scroll_to_text(driver, "Logout", max_scrolls=6)
+        scroll_to_text(driver, "Logout", max_scrolls=12)
 
         assert page.is_visible("Logout", timeout=5), \
             "Logout button not found in Account section"

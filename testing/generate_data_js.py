@@ -9,7 +9,7 @@ All data is derived from actual CI artifacts.  Where no results exist,
 statuses are set to "idle" and counts to zero — no fabricated numbers.
 """
 import xml.etree.ElementTree as ET
-import os, glob, json, sys, subprocess
+import os, glob, json, sys, subprocess, re
 from datetime import datetime, timezone
 
 # ─── Static flow / test definitions (metadata only — no fake statuses) ────
@@ -382,6 +382,151 @@ APPIUM_DEF = [
     ]},
 ]
 
+# Screenshot names per test — mirrors TEST_SCREENSHOTS in appium.jsx.
+# Used to attach real screenshot URLs to each test entry in the output data.
+APPIUM_TEST_SCREENSHOTS = {
+    "test_card_payment_flow_reaches_processing": ["card_payment_cart","card_payment_form","card_payment_submitted"],
+    "test_card_payment_expired_card_shows_error": ["card_expired_error"],
+    "test_card_payment_insufficient_funds": ["card_payment_declined"],
+    "test_promo_code_reduces_total": ["promo_code_applied"],
+    "test_short_card_number_shows_error": ["card_short_number_error"],
+    "test_letters_in_card_number_shows_error": ["card_alpha_number_error"],
+    "test_invalid_expiry_month_shows_error": ["card_invalid_month_error"],
+    "test_past_year_expiry_shows_error": ["card_past_year_error"],
+    "test_empty_cvv_shows_error": ["card_empty_cvv_error"],
+    "test_single_digit_cvv_shows_error": ["card_short_cvv_error"],
+    "test_empty_cardholder_name_shows_error": ["card_empty_name_error"],
+    "test_all_zeros_card_shows_error": ["card_zeros_number_error"],
+    "test_card_number_with_spaces": ["payment_card_spaces"],
+    "test_card_number_with_dashes": ["payment_card_dashes"],
+    "test_card_number_with_padding_spaces": ["payment_card_padding"],
+    "test_card_number_max_16_digits": ["payment_card_max_digits"],
+    "test_cvv_letters_rejected": ["payment_cvv_letters"],
+    "test_cvv_special_chars_rejected": ["payment_cvv_special"],
+    "test_cvv_4_digit_amex": ["payment_cvv_amex"],
+    "test_expiry_current_month_valid": ["payment_expiry_current"],
+    "test_expiry_far_future_accepted": ["payment_expiry_far_future"],
+    "test_expiry_no_slash_format": ["payment_expiry_no_slash"],
+    "test_expiry_month_00_rejected": ["payment_expiry_month_00"],
+    "test_cardholder_numbers_rejected": ["payment_cardholder_numbers"],
+    "test_cardholder_all_spaces_rejected": ["payment_cardholder_spaces"],
+    "test_cardholder_uppercase_accepted": ["payment_cardholder_uppercase"],
+    "test_cardholder_50_chars": ["payment_cardholder_50_chars"],
+    "test_tabby_visibility": ["tabby_option_visible"],
+    "test_shariah_badge_shown": ["tabby_shariah_badge"],
+    "test_learn_more_modal": ["tabby_learn_more_modal"],
+    "test_cancel_flow": ["tabby_cancel_flow"],
+    "test_account_details_visible": ["bank_transfer_details"],
+    "test_receipt_upload_prompt": ["bank_receipt_prompt"],
+    "test_photo_gallery_options": ["bank_gallery_options"],
+    "test_field_validation": ["gift_field_validation"],
+    "test_preview_accuracy": ["gift_card_preview"],
+    "test_gifts_received_section": ["gifts_received_section"],
+    "test_very_long_recipient_name_handled": ["gift_long_name"],
+    "test_special_chars_in_recipient_name": ["gift_special_name"],
+    "test_arabic_name_accepted": ["gift_arabic_name"],
+    "test_invalid_recipient_phone_shows_error": ["gift_invalid_phone_error"],
+    "test_short_recipient_phone_shows_error": ["gift_short_phone_error"],
+    "test_xss_in_message_is_safe": ["gift_xss_safe"],
+    "test_sql_injection_in_message_is_safe": ["gift_sql_safe"],
+    "test_emoji_in_message_does_not_crash": ["gift_emoji_message"],
+    "test_very_long_message_is_handled": ["gift_long_message"],
+    "test_weekly_cadence": ["subscription_weekly"],
+    "test_monthly_cadence": ["subscription_monthly"],
+    "test_skip_week": ["subscription_skip_week"],
+    "test_success_banner": ["subscription_success_banner"],
+    "test_unavailable_items": ["subscription_unavailable"],
+    "test_skipping_subscription_reaches_payment": ["subscription_skip_to_payment"],
+    "test_weekly_then_back_resets_selection": ["subscription_back_resets"],
+    "test_subscription_prompt_has_both_options": ["subscription_prompt_options"],
+    "test_subscription_frequency_options_shown": ["subscription_frequency_options"],
+    "test_cancel_active_subscription_declined": ["subscription_active_list","subscription_cancel_declined"],
+    "test_billing_history_accessible": ["subscription_billing_history"],
+    "test_broadcast_screen_loads": ["broadcast_screen"],
+    "test_visual_docs_render": ["broadcast_docs"],
+    "test_permission_handling": ["broadcast_permissions"],
+    "test_currency_switch": ["profile_currency_switched"],
+    "test_about_page": ["profile_about_page"],
+    "test_logout_dialog": ["profile_logout_dialog"],
+    "test_delete_account": ["profile_delete_dialog"],
+    "test_billing_history": ["profile_billing_history"],
+    "test_logout_cancel_stays_logged_in": ["profile_logout_cancelled"],
+    "test_delete_account_cancel_stays_active": ["profile_delete_cancelled"],
+    "test_currency_list_loads_without_error": ["profile_currency_list"],
+    "test_about_page_has_app_info": ["profile_about_page"],
+    "test_help_support_contact_options_visible": ["profile_help_contact_options"],
+    "test_help_search_no_results_shows_empty_state": ["profile_help_search_empty"],
+    "test_help_search_sql_injection_is_safe": ["profile_help_sql_safe"],
+    "test_empty_phone_blocks_continue": ["login_empty_phone_error"],
+    "test_too_short_phone_shows_error": ["login_short_phone_error"],
+    "test_too_long_phone_shows_error": ["login_long_phone_error"],
+    "test_letters_in_phone_shows_error": ["login_alpha_phone_error"],
+    "test_special_chars_in_phone_shows_error": ["login_special_phone_error"],
+    "test_wrong_otp_shows_error": ["login_wrong_otp_error"],
+    "test_all_zeros_otp_shows_error": ["login_zeros_otp_error"],
+    "test_empty_otp_blocks_verify": ["login_empty_otp_error"],
+    "test_otp_resend_link_visible": ["login_resend_otp_visible"],
+    "test_phone_leading_spaces_stripped": ["auth_phone_spaces"],
+    "test_phone_plus880_prefix": ["auth_phone_prefix"],
+    "test_phone_all_same_digits": ["auth_phone_same_digits"],
+    "test_phone_starts_with_zero": ["auth_phone_zero_start"],
+    "test_phone_with_dots": ["auth_phone_dots"],
+    "test_phone_with_parentheses": ["auth_phone_parens"],
+    "test_phone_max_length": ["auth_phone_max_length"],
+    "test_phone_uppercase_blocked": ["auth_phone_uppercase"],
+    "test_phone_emoji_blocked": ["auth_phone_emoji"],
+    "test_otp_spaces_between_digits": ["auth_otp_spaces"],
+    "test_otp_uppercase_blocked": ["auth_otp_uppercase"],
+    "test_otp_special_chars_blocked": ["auth_otp_special_chars"],
+    "test_otp_100_digit_input": ["auth_otp_100_digits"],
+    "test_empty_cart_checkout_is_blocked": ["cart_empty_checkout_blocked"],
+    "test_quantity_increment_updates_total": ["cart_quantity_incremented"],
+    "test_quantity_decrement_to_one_keeps_item": ["cart_quantity_back_to_one"],
+    "test_quantity_decrement_at_one_removes_or_prompts": ["cart_decrement_below_one"],
+    "test_maximum_quantity_does_not_crash": ["cart_max_quantity"],
+    "test_remove_all_items_shows_empty_state": ["cart_empty_after_remove"],
+    "test_valid_promo_applies_successfully": ["promo_valid_applied"],
+    "test_invalid_promo_shows_error": ["promo_invalid_error"],
+    "test_empty_promo_shows_error": ["promo_empty_error"],
+    "test_expired_promo_shows_error": ["promo_expired_error"],
+    "test_lowercase_promo_handled": ["promo_lowercase_result"],
+    "test_promo_with_spaces_is_trimmed_or_rejected": ["promo_spaces_result"],
+    "test_special_chars_promo_shows_error": ["promo_special_chars_error"],
+    "test_sql_injection_in_promo_is_safe": ["promo_sql_injection_safe"],
+    "test_very_long_promo_does_not_crash": ["promo_long_code_error"],
+    "test_search_with_no_results_shows_empty_state": ["orders_search_no_results"],
+    "test_search_with_special_chars_does_not_crash": ["orders_search_special_chars"],
+    "test_empty_rating_feedback_shows_error": ["orders_empty_feedback_error"],
+    "test_long_rating_feedback_is_handled": ["orders_long_feedback"],
+    "test_special_chars_in_feedback_are_safe": ["orders_special_chars_feedback"],
+    "test_order_detail_shows_required_fields": ["orders_detail_fields"],
+    "test_cancel_order_dialog_can_be_dismissed": ["orders_cancel_dismissed"],
+    "test_single_character_search": ["browse_single_char"],
+    "test_search_100_chars_does_not_crash": ["browse_100_chars"],
+    "test_search_arabic_text": ["browse_arabic_search"],
+    "test_search_emoji_does_not_crash": ["browse_emoji_search"],
+    "test_search_all_uppercase_query": ["browse_uppercase_search"],
+    "test_search_mixed_case": ["browse_mixed_case"],
+    "test_search_with_numbers_only": ["browse_numbers_search"],
+    "test_search_with_html_tags_is_safe": ["browse_html_safe"],
+    "test_search_sql_injection_is_safe": ["browse_sql_safe"],
+    "test_search_gibberish_shows_empty_state": ["browse_gibberish_empty"],
+    "test_clear_search_restores_full_list": ["browse_search_cleared"],
+    "test_services_list_loads_without_login": ["browse_list_guest"],
+    "test_service_card_tap_opens_detail": ["browse_service_detail"],
+    "test_rapid_back_forth_navigation_no_crash": ["browse_rapid_nav"],
+    "test_back_from_checkout_returns_to_cart": ["checkout_back_to_cart"],
+    "test_back_then_forward_preserves_cart": ["checkout_back_forward"],
+    "test_checkout_page_shows_order_summary": ["checkout_order_summary"],
+    "test_checkout_price_not_nan_or_zero": ["checkout_price_valid"],
+    "test_switch_from_card_to_tabby": ["checkout_card_to_tabby"],
+    "test_switch_payment_method_multiple_times": ["checkout_method_switch"],
+    "test_coupon_applied_then_payment_selected": ["checkout_coupon_payment"],
+    "test_invalid_coupon_then_payment_selected": ["checkout_invalid_coupon"],
+    "test_price_shows_currency_symbol": ["checkout_currency_symbol"],
+    "test_price_decimal_places_correct": ["checkout_decimal_places"],
+}
+
 CI_WORKFLOWS_DEF = [
     {"name": "Maestro Smoke",      "trigger": "Every push / PR",    "duration": "~10 min", "coverage": "Login, cart, checkout",                 "passRate": 0, "runs": 0},
     {"name": "Maestro Regression", "trigger": "Nightly 01:00 UTC",  "duration": "~30 min", "coverage": "All 16 flows",                          "passRate": 0, "runs": 0},
@@ -556,11 +701,17 @@ def main():
 
     # ── 3. Screenshot paths ───────────────────────────────────────────────
     # Build a flat lookup: basename_without_ext → relative URL
+    # Also register a timestamp-stripped key so "login_resend_otp_visible_1717000000"
+    # maps to "login_resend_otp_visible" (helpers.py saves as {name}_{unix_time}.png).
     screenshot_lookup = {}
     if screenshots_dir and os.path.isdir(screenshots_dir):
         for png in glob.glob(f"{screenshots_dir}/**/*.png", recursive=True):
             base = os.path.splitext(os.path.basename(png))[0]
             screenshot_lookup[base] = "screenshots/" + os.path.basename(png)
+            # Strip trailing _<9-11 digit timestamp> to map canonical name → URL
+            base_no_ts = re.sub(r'_\d{9,11}$', '', base)
+            if base_no_ts != base:
+                screenshot_lookup.setdefault(base_no_ts, screenshot_lookup[base])
 
     # ── 4. Build MAESTRO_FLOWS ────────────────────────────────────────────
     maestro_flows = []
@@ -595,6 +746,11 @@ def main():
                     entry["error"] = err
             else:
                 entry = {"name": t["name"], "duration": t["dur"], "status": "idle"}
+            # Attach real screenshot URLs using the APPIUM_TEST_SCREENSHOTS mapping
+            shot_names = APPIUM_TEST_SCREENSHOTS.get(t["name"], [])
+            shot_urls = [screenshot_lookup[n] for n in shot_names if n in screenshot_lookup]
+            if shot_urls:
+                entry["screenshots"] = shot_urls
             tests.append(entry)
         appium_tests.append({"file": af["file"], "group": af["group"],
                               "icon": af["icon"], "tests": tests})
@@ -708,21 +864,16 @@ def main():
         else:
             history.append({"day": day, "total": 0, "pass": 0, "fail": 0, "flaky": 0, "duration": 0})
 
-    # ── 10. If nothing ran, emit rich demo data so GitHub Pages looks great ──
+    # ── 10. Set neverRan flag; emit real (idle) data either way ──────────
+    # Do NOT emit fabricated demo data — when nothing has run we show an
+    # honest "No test runs yet" banner (handled by overview.jsx neverRan flag).
     if never_ran:
-        _demo = _build_demo_data(now)
-        js = f"""// Auto-generated by generate_data_js.py — demo data (no CI run yet).
-// Generated: {now}
-const RUN_META = {json.dumps(_demo["RUN_META"], indent=2)};
-const MAESTRO_FLOWS = {json.dumps(_demo["MAESTRO_FLOWS"], indent=2)};
-const APPIUM_TESTS = {json.dumps(_demo["APPIUM_TESTS"], indent=2)};
-const CI_WORKFLOWS = {json.dumps(_demo["CI_WORKFLOWS"], indent=2)};
-const HISTORY = {json.dumps(_demo["HISTORY"], indent=2)};
-const COMMITS = {json.dumps(_demo["COMMITS"], indent=2)};
-window.MYCOIFFEUR_DATA = {{ RUN_META, MAESTRO_FLOWS, APPIUM_TESTS, CI_WORKFLOWS, HISTORY, COMMITS }};
-"""
+        run_meta["neverRan"] = True
+
+    if False:  # pragma: no cover — kept for structure parity
+        pass
     else:
-        js = f"""// Auto-generated by generate_data_js.py — do not edit.
+        js = f"""// Auto-generated by generate_data_js.py — do not edit.  neverRan={never_ran}
 // Generated: {now}
 const RUN_META = {json.dumps(run_meta, indent=2)};
 
