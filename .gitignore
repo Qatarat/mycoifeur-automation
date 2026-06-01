@@ -24,5 +24,17 @@ testing/maestro/reports/
 allure-results/
 testing/appium/allure-results/
 
+# Auto-generated data file (produced by generate_data_js.py during CI)
+testing/data.js
+
+# Python cache at testing/ root
+testing/__pycache__/
+testing/**/__pycache__/
+*.pyc
+
+# Local test screenshots accidentally dropped in repo root
+/*.png
+/report-*.png
+
 # IDE / tool configs
 .playwright-mcp/
