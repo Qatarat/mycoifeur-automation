@@ -16,7 +16,9 @@ jobs:
   smoke:
     name: Smoke Tests (Android API 33)
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 160
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
 
     steps:
       - name: Checkout

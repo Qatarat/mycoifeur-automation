@@ -172,12 +172,23 @@ jobs:
           find raw-screenshots/ -name "*.png" -exec cp {} gh-pages/screenshots/ \; 2>/dev/null || true
           echo "Screenshots copied: $(ls gh-pages/screenshots/*.png 2>/dev/null | wc -l)"
 
+      - name: Download previous data.js for history accumulation
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO=$(echo "${{ github.repository }}" | cut -d'/' -f2 | tr '[:upper:]' '[:lower:]')
+          PAGES_URL="https://${OWNER}.github.io/${REPO}/data.js"
+          echo "Fetching previous data.js from: $PAGES_URL"
+          curl -sf --max-time 15 "$PAGES_URL" -o prev_data.js 2>/dev/null \
+            && echo "✅ Downloaded previous data.js ($(wc -c < prev_data.js) bytes)" \
+            || { echo "⚠️  No previous data.js — this is the first deploy or fetch failed"; touch prev_data.js; }
+
       - name: Generate data.js from real test results
         run: |
           python3 testing/generate_data_js.py \
             raw-artifacts/ \
             gh-pages/data.js \
-            gh-pages/screenshots/
+            gh-pages/screenshots/ \
+            prev_data.js
 
       - name: Copy React dashboard to gh-pages
         run: |

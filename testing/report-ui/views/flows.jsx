@@ -675,6 +675,16 @@ const FlowsView = () => {
   const [q, setQ] = useState("");
   const allIdle = MAESTRO_FLOWS.every(f => f.status === "idle");
 
+  // Auto-open a flow when navigated from the issues panel (window.__openFlowId)
+  useEffect(() => {
+    const id = window.__openFlowId;
+    if (id) {
+      window.__openFlowId = null;
+      const flow = MAESTRO_FLOWS.find(f => f.id === id);
+      if (flow) setSelected(flow);
+    }
+  }, []);
+
   const filtered = MAESTRO_FLOWS.filter(f => {
     if (filter !== "all" && f.status !== filter) return false;
     if (q && !f.name.toLowerCase().includes(q.toLowerCase()) && !f.group.toLowerCase().includes(q.toLowerCase())) return false;

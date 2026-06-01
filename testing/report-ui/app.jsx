@@ -1,5 +1,5 @@
 // App shell — sidebar nav, tweaks, view router
-const { OverviewView, FlowsView, PipelineView, HistoryView } = window;
+const { OverviewView, FlowsView, AppiumView, PipelineView, HistoryView } = window;
 
 // Hex → accent OKLCH mapping. TweakColor stores hex; we translate to CSS vars.
 const ACCENTS = {
@@ -47,11 +47,17 @@ const App = () => {
   const navItems = [
     { id: "overview", label: "Overview",      icon: "overview", count: null },
     { id: "flows",    label: "Maestro flows", icon: "flows",    count: (data.MAESTRO_FLOWS || []).length },
+    { id: "appium",   label: "Appium tests",  icon: "appium",   count: (data.APPIUM_TESTS || []).reduce((s, f) => s + f.tests.length, 0) },
     { id: "pipeline", label: "CI / CD",       icon: "pipeline", count: (data.CI_WORKFLOWS || []).length },
     { id: "history",  label: "History",       icon: "history",  count: null },
   ];
 
-  const ViewCmp = { overview: OverviewView, flows: FlowsView, pipeline: PipelineView, history: HistoryView }[view];
+  // Expose global navigation so child views (overview issues panel) can deep-link
+  useEffect(() => {
+    window.__setView = (id) => setTweak("view", id);
+  }, [setTweak]);
+
+  const ViewCmp = { overview: OverviewView, flows: FlowsView, appium: AppiumView, pipeline: PipelineView, history: HistoryView }[view];
   const crumbLabel = navItems.find(n => n.id === view)?.label || "Overview";
 
   // Format lastRun timestamp
@@ -207,7 +213,7 @@ const App = () => {
         <TweakSection label="View" />
         <TweakSelect
           label="Active view"
-          value={t.view}
+          value={t.view || "overview"}
           onChange={(v) => setTweak("view", v)}
           options={navItems.map(n => ({ value: n.id, label: n.label }))}
         />

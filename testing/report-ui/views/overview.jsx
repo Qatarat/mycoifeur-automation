@@ -29,9 +29,20 @@ const OverviewView = () => {
     f.tests.filter(t => t.status === "fail" || t.status === "flaky").map(t => ({ ...t, file: f.file }))
   );
   const allIssues = [
-    ...failingFlows.map(f => ({ kind: "Maestro flow", title: f.name, group: f.group, status: f.status, note: f.note })),
+    ...failingFlows.map(f => ({ kind: "Maestro flow", title: f.name, group: f.group, status: f.status, note: f.note, flowId: f.id })),
     ...failingAppium.map(t => ({ kind: "Appium test", title: t.name, group: t.file, status: t.status, note: t.error })),
   ];
+
+  const openIssue = (row) => {
+    if (!window.__setView) return;
+    if (row.kind === "Maestro flow") {
+      window.__openFlowId = row.flowId;
+      window.__setView("flows");
+    } else {
+      window.__openAppiumTest = row.title;
+      window.__setView("appium");
+    }
+  };
 
   return (
     <div className="grid" style={{ gap: 20 }}>
@@ -276,7 +287,12 @@ const OverviewView = () => {
               </div>
             ) : (
               allIssues.map((row, i) => (
-                <div key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 14, alignItems: "center", padding: "14px 16px", borderBottom: "1px solid var(--border)" }}>
+                <div key={i}
+                     onClick={() => openIssue(row)}
+                     style={{ display: "grid", gridTemplateColumns: "auto 1fr auto", gap: 14, alignItems: "center", padding: "14px 16px", borderBottom: "1px solid var(--border)", cursor: "pointer", transition: "background .12s ease" }}
+                     onMouseEnter={(e) => { e.currentTarget.style.background = "var(--surface-2)"; }}
+                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; }}
+                >
                   <div style={{ width: 30, height: 30, borderRadius: 8, background: row.status === "fail" ? "var(--fail-2)" : "var(--flaky-2)", color: row.status === "fail" ? "var(--fail)" : "var(--flaky)", display: "grid", placeItems: "center" }}>
                     <Icon name={row.status === "fail" ? "x" : "bolt"} size={14} />
                   </div>
@@ -284,11 +300,12 @@ const OverviewView = () => {
                     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
                       <span style={{ fontWeight: 500, fontSize: 13.5 }}>{row.title}</span>
                       <span className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>· {row.kind}</span>
+                      <span style={{ fontSize: 11, color: "var(--accent)", marginLeft: "auto", fontFamily: "Geist Mono", opacity: 0.7 }}>view details →</span>
                     </div>
                     <div style={{ fontSize: 12, color: "var(--text-3)", fontFamily: "Geist Mono", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                       {row.note
                         ? row.note
-                        : `Group: ${row.group} — open CI logs for step details`}
+                        : `Group: ${row.group} — click to open full report`}
                     </div>
                   </div>
                   <StatusPill status={row.status} />

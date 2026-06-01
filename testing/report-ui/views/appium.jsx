@@ -6,6 +6,18 @@ const AppiumView = () => {
   const [filter, setFilter] = useState("all");
   const [selected, setSelected] = useState(null);
 
+  // Auto-open a test when navigated from the issues panel (window.__openAppiumTest)
+  useEffect(() => {
+    const name = window.__openAppiumTest;
+    if (name) {
+      window.__openAppiumTest = null;
+      for (const file of APPIUM_TESTS) {
+        const t = file.tests.find(t => t.name === name);
+        if (t) { setSelected({ ...t, file: file.file, group: file.group }); break; }
+      }
+    }
+  }, []);
+
   const allTests = APPIUM_TESTS.flatMap(f => f.tests);
   const counts = allTests.reduce((acc, t) => { acc[t.status] = (acc[t.status] || 0) + 1; return acc; }, {});
 

@@ -670,6 +670,7 @@ def main():
     artifacts_dir   = sys.argv[1] if len(sys.argv) > 1 else "raw-artifacts"
     output_file     = sys.argv[2] if len(sys.argv) > 2 else "data.js"
     screenshots_dir = sys.argv[3] if len(sys.argv) > 3 else None
+    prev_data_file  = sys.argv[4] if len(sys.argv) > 4 else None
 
     # ── 1. Maestro flow statuses from per-flow XML files ──────────────────
     flow_statuses = {}   # index → 'pass'|'fail'
@@ -841,9 +842,7 @@ def main():
     except Exception:
         pass
 
-    # ── 9. History — only real data; empty if nothing available ───────────
-    # We don't fabricate history. We emit an array of zeros for all 30 slots
-    # and populate today's slot with actual results so the chart is honest.
+    # ── 9. History — accumulate from previous data.js + today's results ──────
     total_tests = len(maestro_flows) + sum(len(a["tests"]) for a in appium_tests)
     m_pass_today = sum(1 for s in flow_statuses.values() if s == "pass")
     m_fail_today = sum(1 for s in flow_statuses.values() if s == "fail")
@@ -853,16 +852,42 @@ def main():
     today_fail   = m_fail_today + a_fail_today
     today_ran    = maestro_ran or appium_ran
 
-    history = []
-    for day in range(29, -1, -1):
-        if day == 0 and today_ran:
-            history.append({
-                "day": 0, "total": total_tests,
-                "pass": today_pass, "fail": today_fail, "flaky": 0,
-                "duration": total_duration or 0,
-            })
-        else:
-            history.append({"day": day, "total": 0, "pass": 0, "fail": 0, "flaky": 0, "duration": 0})
+    # Load previous history from the published data.js to preserve 30-day trend
+    prev_history = []
+    if prev_data_file and os.path.isfile(prev_data_file) and os.path.getsize(prev_data_file) > 0:
+        try:
+            with open(prev_data_file) as fh:
+                prev_text = fh.read()
+            m = re.search(r'const HISTORY\s*=\s*(\[.*?\]);', prev_text, re.DOTALL)
+            if m:
+                prev_history = json.loads(m.group(1))
+                print(f"Loaded {len(prev_history)} previous history slots from {prev_data_file}")
+        except Exception as e:
+            print(f"Warning: could not parse previous history: {e}")
+
+    # Build today's slot
+    today_entry = {
+        "day": 0, "total": total_tests if today_ran else 0,
+        "pass": today_pass, "fail": today_fail, "flaky": 0,
+        "duration": total_duration or 0,
+    }
+
+    if prev_history:
+        # Shift every previous slot one day forward, drop slots that would exceed day 29
+        shifted = [
+            {**h, "day": h["day"] + 1}
+            for h in prev_history
+            if h.get("day", 30) + 1 < 30
+        ]
+        history = [today_entry] + shifted
+    else:
+        # First deploy — only today's data is real; pad remaining slots with zeros
+        history = [today_entry]
+
+    # Ensure exactly 30 slots with ascending day numbers
+    while len(history) < 30:
+        history.append({"day": len(history), "total": 0, "pass": 0, "fail": 0, "flaky": 0, "duration": 0})
+    history = history[:30]
 
     # ── 10. Set neverRan flag; emit real (idle) data either way ──────────
     # Do NOT emit fabricated demo data — when nothing has run we show an

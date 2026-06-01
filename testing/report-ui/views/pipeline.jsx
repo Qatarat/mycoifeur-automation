@@ -25,9 +25,9 @@ const PipelineView = () => {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 10 }}>
             {[
-              { n: "1", title: "Smoke (fast)", desc: "5 core flows · ~10 min. Best for a quick sanity check after each push.", wf: "Maestro — Smoke (Android)" },
-              { n: "2", title: "Full Regression", desc: "All 16 flows · ~30 min. Runs nightly via cron.", wf: "Maestro — Full Regression (Android)" },
-              { n: "3", title: "Appium Deep Tests", desc: "22 Python/pytest tests · ~60 min. Verifies payment SDKs in depth.", wf: "Appium — Deep Tests (Android)" },
+              { n: "1", title: "Smoke (fast)", desc: "All 50 flows · ~60 min. Quick sanity check on every push/PR.", wf: "Maestro — Smoke (Android)" },
+              { n: "2", title: "Full Regression", desc: "All 50 flows · ~60 min. Full nightly run.", wf: "Maestro — Full Regression (Android)" },
+              { n: "3", title: "Appium Deep Tests", desc: "Python/pytest deep tests · ~60 min. Verifies payment SDKs in depth.", wf: "Appium — Deep Tests (Android)" },
             ].map(s => (
               <div key={s.n} style={{ padding: "12px 14px", background: "var(--surface-2)", borderRadius: 9, border: "1px solid var(--border)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 6 }}>
@@ -53,8 +53,8 @@ const PipelineView = () => {
             {[
               { label: "Source",  icon: "branch",   note: "Push to main or PR",         color: "oklch(70% 0.04 260)" },
               { label: "Install", icon: "bolt",     note: "APK install on emulator",    color: "oklch(74% 0.16 195)" },
-              { label: "Maestro", icon: "flows",    note: "16 flows · ~30 min",         color: "oklch(74% 0.18 155)" },
-              { label: "Appium",  icon: "appium",   note: "22 deep tests · ~60 min",    color: "oklch(80% 0.16 75)" },
+              { label: "Maestro", icon: "flows",    note: "50 flows · ~60 min",         color: "oklch(74% 0.18 155)" },
+              { label: "Appium",  icon: "appium",   note: "deep tests · ~60 min",       color: "oklch(80% 0.16 75)" },
               { label: "Publish", icon: "download", note: "GitHub Pages report",         color: "oklch(75% 0.16 280)" },
             ].map((s, i, arr) => (
               <div key={s.label} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 10, position: "relative" }}>
