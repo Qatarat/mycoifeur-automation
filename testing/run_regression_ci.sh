@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 # Regression CI runner — called from reactivecircus/android-emulator-runner script:
 # Pass a flow number prefix (e.g. "07") as $1 to run a single flow; omit for all flows.
+#
+# LOCAL USAGE:
+#   bash testing/run_regression_ci.sh                          # use already-installed APK
+#   APK_PATH=/path/to/MyCoiffeur.apk bash testing/run_regression_ci.sh  # install new APK first
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FLOWS_DIR="$SCRIPT_DIR/maestro/flows"
@@ -27,6 +31,13 @@ adb shell input keyevent 4  2>/dev/null || true
 sleep 8
 echo "✅ Emulator ready — starting flows"
 # ────────────────────────────────────────────────────────────────────────────
+
+# ── Optional: install a new APK before testing ──────────────────────────────
+if [ -n "${APK_PATH:-}" ]; then
+  echo "📱 Installing new APK: $APK_PATH"
+  adb install -r "$APK_PATH"
+  echo "✅ APK installed"
+fi
 
 _run_flow() {
   local flow_file="$1"

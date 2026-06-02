@@ -5,6 +5,12 @@ on:
     branches: [main, develop, "release/**"]
   pull_request:
     branches: [main, develop]
+  workflow_dispatch:
+    inputs:
+      apk_url:
+        description: "Direct download URL for a new APK (leave blank to use the apk-latest release)"
+        required: false
+        default: ""
 
 concurrency:
   # PRs: group by PR number so a new commit cancels the stale run.
@@ -47,9 +53,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download apk-latest \
-            --pattern "MyCoiffeur.apk" \
-            --repo ${{ github.repository }}
+          if [ -n "${{ github.event.inputs.apk_url }}" ]; then
+            echo "⬇️  Downloading new APK from: ${{ github.event.inputs.apk_url }}"
+            curl -fL "${{ github.event.inputs.apk_url }}" -o MyCoiffeur.apk
+          else
+            echo "⬇️  Downloading APK from apk-latest release..."
+            gh release download apk-latest \
+              --pattern "MyCoiffeur.apk" \
+              --repo ${{ github.repository }}
+          fi
+          echo "APK size: $(du -h MyCoiffeur.apk | cut -f1)"
 
       - name: Run Smoke Flows on Emulator
         uses: reactivecircus/android-emulator-runner@v2

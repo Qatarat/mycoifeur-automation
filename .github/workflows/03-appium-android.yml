@@ -9,6 +9,10 @@ on:
     - cron: "0 2 * * 1"
   workflow_dispatch:
     inputs:
+      apk_url:
+        description: "Direct download URL for a new APK (leave blank to use the apk-latest release)"
+        required: false
+        default: ""
       marker:
         description: "pytest marker (payment | gift | subscription | account | streaming | empty=all)"
         required: false
@@ -69,9 +73,16 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download apk-latest \
-            --pattern "MyCoiffeur.apk" \
-            --repo ${{ github.repository }}
+          if [ -n "${{ github.event.inputs.apk_url }}" ]; then
+            echo "⬇️  Downloading new APK from: ${{ github.event.inputs.apk_url }}"
+            curl -fL "${{ github.event.inputs.apk_url }}" -o MyCoiffeur.apk
+          else
+            echo "⬇️  Downloading APK from apk-latest release..."
+            gh release download apk-latest \
+              --pattern "MyCoiffeur.apk" \
+              --repo ${{ github.repository }}
+          fi
+          echo "APK size: $(du -h MyCoiffeur.apk | cut -f1)"
 
       - name: Start Appium server
         run: |

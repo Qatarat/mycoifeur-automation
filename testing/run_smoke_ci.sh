@@ -1,11 +1,22 @@
 #!/usr/bin/env bash
 # Smoke CI runner — called from reactivecircus/android-emulator-runner script:
 # Each flow runs independently; failures are counted but don't stop the suite.
+#
+# LOCAL USAGE:
+#   bash testing/run_smoke_ci.sh                          # use already-installed APK
+#   APK_PATH=/path/to/MyCoiffeur.apk bash testing/run_smoke_ci.sh  # install new APK first
 set -uo pipefail
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 FLOWS_DIR="$SCRIPT_DIR/maestro/flows"
 REPORTS_DIR="$SCRIPT_DIR/maestro/reports"
 mkdir -p "$REPORTS_DIR"
+
+# ── Optional: install a new APK before testing ──────────────────────────────
+if [ -n "${APK_PATH:-}" ]; then
+  echo "📱 Installing new APK: $APK_PATH"
+  adb install -r "$APK_PATH"
+  echo "✅ APK installed"
+fi
 
 FLOW_TIMEOUT=300   # 5 min hard cap per flow — prevents a stuck flow from eating the budget
 

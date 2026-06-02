@@ -3,6 +3,10 @@
 #   bash testing/run_appium_ci.sh [pytest_marker]
 # Pass a pytest marker (payment|gift|subscription|account|streaming) as $1
 # to run only that subset; omit for the full test suite.
+#
+# LOCAL USAGE:
+#   bash testing/run_appium_ci.sh                               # use APK path from android_caps.py
+#   APK_PATH=/path/to/MyCoiffeur.apk bash testing/run_appium_ci.sh  # point at a new APK
 set -uo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -10,6 +14,13 @@ APPIUM_DIR="$SCRIPT_DIR/appium"
 REPORTS_DIR="$APPIUM_DIR/reports"
 ALLURE_DIR="$APPIUM_DIR/allure-results"
 MARKER="${1:-}"
+
+# ── Optional: use a new APK ──────────────────────────────────────────────────
+# Appium installs the APK via capabilities — just point ANDROID_APP_PATH at the file.
+if [ -n "${APK_PATH:-}" ]; then
+  echo "📱 New APK path: $APK_PATH"
+  export ANDROID_APP_PATH="$APK_PATH"
+fi
 
 mkdir -p "$REPORTS_DIR/screenshots" "$ALLURE_DIR"
 
