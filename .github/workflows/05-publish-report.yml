@@ -55,8 +55,8 @@ jobs:
             echo "id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
             echo "Triggered by Maestro workflow_run: ${{ github.event.workflow_run.id }}"
           else
-            echo "Searching for latest successful Maestro run..."
-            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=50" \
+            echo "Searching for latest completed Maestro run..."
+            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=completed&per_page=50" \
               --jq '[.workflow_runs[] | select(.name | test("Maestro"))] | first | .id // ""' 2>/dev/null || echo "")
             echo "id=${ID}" >> "$GITHUB_OUTPUT"
             echo "Latest Maestro run ID: ${ID:-none found}"
@@ -73,8 +73,8 @@ jobs:
             echo "id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
             echo "Triggered by Appium workflow_run: ${{ github.event.workflow_run.id }}"
           else
-            echo "Searching for latest successful Appium run..."
-            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=success&per_page=50" \
+            echo "Searching for latest completed Appium run..."
+            ID=$(gh api "repos/${{ github.repository }}/actions/runs?status=completed&per_page=50" \
               --jq '[.workflow_runs[] | select(.name | test("Appium"))] | first | .id // ""' 2>/dev/null || echo "")
             echo "id=${ID}" >> "$GITHUB_OUTPUT"
             echo "Latest Appium run ID: ${ID:-none found}"
