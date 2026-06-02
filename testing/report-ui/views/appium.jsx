@@ -388,7 +388,7 @@ const TEST_BODY_SPECIFIC = {
     '        """SQL injection in promo field must not expose server errors."""',
     "        cart = self._login_and_reach_promo(driver)",
     "        cart.apply_promo(InvalidPromo.SQL_INJECTION)",
-    '        # InvalidPromo.SQL_INJECTION = "\\' OR \\'1\\'=\\'1"',
+    "        # InvalidPromo.SQL_INJECTION = \"' OR '1'='1\"",
     "        wait_for_animation(driver, 2)",
     "        base = BasePage(driver)",
     '        assert not base.is_visible("SQL") and \\',
