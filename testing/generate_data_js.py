@@ -84,58 +84,124 @@ FLOW_FILE_NAMES = [
     "44_wallet_topup", "45_logout_success", "46_edit_profile",
     "47_otp_resend", "48_location_permission", "49_app_permissions", "50_language_switch_mid_session",
 ]
-# Screenshot names as used in takeScreenshot: commands in each flow's YAML
+# Screenshot names — exact takeScreenshot: values from each flow's YAML file
 FLOW_SCREENSHOT_NAMES = [
-    ["splash_onboarding_complete"],
+    # 01_splash_onboarding
+    ["splash_onboarding_complete", "splash_onboarding_login_screen"],
+    # 02_login_otp
     ["login_otp_success"],
+    # 03_guest_user
     ["guest_user_home", "guest_user_login_prompt"],
+    # 04_browse_services
     ["browse_services_complete"],
-    ["cart_with_items", "cart_quantity_updated"],
+    # 05_cart_add_items
+    ["cart_with_items"],
+    # 06_checkout_payment_select
     ["checkout_payment_selection", "checkout_promo_applied"],
+    # 07_gift_card
     ["gift_card_preview", "gift_card_saved"],
+    # 08_my_orders
     ["my_orders_list", "order_detail", "order_rating_submitted"],
+    # 09_subscription
     ["subscription_success"],
+    # 10_multilanguage
     ["language_arabic", "language_turkish", "language_urdu", "language_english_restored"],
+    # 11_no_internet
     ["no_internet_screen"],
+    # 12_profile_settings
     ["profile_settings_screen", "logout_cancelled"],
+    # 13_help_support
     ["help_support_screen", "help_search_results"],
+    # 14_manage_subscriptions
     ["active_subscriptions", "billing_history", "cancel_subscription_dialog"],
+    # 15_cancel_order
     ["cancel_order_dialog", "cancel_order_declined"],
+    # 16_share_app
     ["share_app_sheet"],
+    # 17_login_invalid_phone
     ["login_empty_phone_blocked", "login_short_phone_blocked", "login_alpha_phone_blocked", "login_special_phone_blocked"],
+    # 18_login_wrong_otp
     ["login_wrong_otp_rejected", "login_zeros_otp_rejected", "login_resend_option_visible"],
+    # 19_invalid_promo
     ["promo_invalid_rejected", "promo_empty_rejected", "promo_special_chars_rejected", "promo_sql_injection_safe"],
+    # 20_empty_cart_checkout
     ["cart_empty_state", "empty_cart_checkout_blocked"],
+    # 21_gift_card_validation
     ["gift_empty_form_blocked", "gift_invalid_phone_blocked", "gift_xss_in_message", "gift_sql_injection_safe"],
+    # 22_cart_quantity_boundary
     ["cart_qty_initial", "cart_qty_after_10_increments", "cart_qty_back_to_one", "cart_qty_decrement_below_one"],
+    # 23_app_background_resume
     ["bg_resume_cart_before_background", "bg_resume_after_foreground", "bg_resume_cart_intact"],
+    # 24_browse_search_edge_cases
     ["browse_search_edge_cases_complete"],
+    # 25_payment_input_edge_cases
     ["payment_input_edge_cases_complete"],
+    # 26_home_feed
     ["home_feed_loaded", "home_feed_scrolled_down", "home_feed_complete"],
-    ["booking_slot_selected", "booking_confirmed"],
-    ["booking_reschedule_new_slot", "booking_reschedule_confirmed"],
-    ["booking_cancel_dialog", "booking_cancel_confirmed"],
-    ["notifications_list", "notification_marked_read"],
-    ["wallet_balance_screen"],
-    ["rating_stars_selected", "rating_submitted"],
-    ["map_location_pins", "map_salon_detail"],
-    ["favourites_added", "favourites_list"],
-    ["refer_a_friend_sheet"],
-    ["dark_mode_enabled"],
-    ["accessibility_labels_visible"],
-    ["session_timeout_dialog"],
-    ["deep_link_booking_screen"],
-    ["app_update_prompt"],
-    ["salon_profile_screen", "gallery_scrolled", "reviews_tab"],
-    ["search_results", "filters_applied", "filters_cleared"],
-    ["payment_methods_list", "add_card_form", "card_saved"],
-    ["wallet_screen", "topup_amount", "topup_success"],
-    ["logout_dialog", "login_screen_after_logout"],
-    ["edit_profile_screen", "name_updated", "profile_saved"],
-    ["otp_screen", "resend_requested", "otp_verified"],
-    ["location_permission", "map_loaded", "pin_selected"],
-    ["permissions_settings", "notification_toggle", "location_enabled"],
-    ["arabic_layout", "rtl_confirmed", "english_restored"],
+    # 27_booking_flow
+    ["booking_service_selected", "booking_slot_selected", "booking_confirmed"],
+    # 28_booking_reschedule
+    ["bookings_list", "reschedule_picker", "reschedule_confirmed"],
+    # 29_booking_cancel
+    ["orders_before_cancel", "cancel_dialog_shown", "booking_cancelled"],
+    # 30_notifications
+    ["notifications_panel_open", "notifications_complete"],
+    # 31_wallet_balance
+    ["wallet_screen", "wallet_history", "wallet_topup_options", "wallet_complete"],
+    # 32_ratings_reviews
+    ["completed_orders_list", "rating_screen", "rating_submitted"],
+    # 33_map_location
+    ["map_loaded", "map_pin_tapped", "map_complete"],
+    # 34_favourites
+    ["favourite_added", "favourites_list", "favourite_removed"],
+    # 35_refer_a_friend
+    ["referral_screen", "referral_share_dialog", "referral_complete"],
+    # 36_dark_mode
+    ["appearance_settings", "dark_mode_enabled", "light_mode_restored"],
+    # 37_accessibility_labels
+    ["home_a11y", "a11y_nav_complete", "a11y_labels_verified"],
+    # 38_session_timeout
+    ["logged_in_before_background", "after_resume", "session_timeout_complete"],
+    # 39_deep_link_qr
+    ["qr_scanner_screen", "deep_link_qr_complete"],
+    # 40_app_update_prompt
+    ["app_update_check_complete"],
+    # 41_salon_profile_view
+    ["salon_profile_home_loaded", "salon_profile_listing", "salon_profile_opened",
+     "salon_profile_info_visible", "salon_profile_gallery_scrolled", "salon_profile_service_detail",
+     "salon_profile_reviews_tab", "salon_profile_reviews_scrolled", "salon_profile_complete"],
+    # 42_search_with_filters
+    ["search_filters_home_loaded", "search_results_hair", "search_filter_category_selected",
+     "search_filter_price_selected", "search_filter_sort_nearest", "search_filtered_results",
+     "search_filters_cleared", "search_results_massage", "search_filters_complete"],
+    # 43_payment_methods_manage
+    ["payment_methods_home_loaded", "payment_methods_list", "payment_add_card_form",
+     "payment_card_form_filled", "payment_card_saved", "payment_card_in_list",
+     "payment_card_deleted", "payment_methods_complete"],
+    # 44_wallet_topup
+    ["wallet_topup_home_loaded", "wallet_topup_balance_screen", "wallet_topup_amount_screen",
+     "wallet_topup_50_selected", "wallet_topup_payment_selected", "wallet_topup_processing",
+     "wallet_topup_success", "wallet_topup_complete"],
+    # 45_logout_success
+    ["logout_home_loaded", "logout_profile_screen", "logout_profile_scrolled",
+     "logout_dialog_appeared", "logout_processing", "logout_login_screen_visible", "logout_success_complete"],
+    # 46_edit_profile
+    ["edit_profile_home_loaded", "edit_profile_profile_screen", "edit_profile_edit_screen",
+     "edit_profile_name_entered", "edit_profile_avatar_option", "edit_profile_saved",
+     "edit_profile_name_verified", "edit_profile_complete"],
+    # 47_otp_resend
+    ["otp_resend_otp_screen_initial", "otp_resend_waiting", "otp_resend_tapped",
+     "otp_resend_confirmation_visible", "otp_resend_login_complete"],
+    # 48_location_permission
+    ["location_permission_home_loaded", "location_permission_map_navigated", "location_permission_granted",
+     "location_permission_map_loaded", "location_permission_pin_tapped", "location_permission_complete"],
+    # 49_app_permissions
+    ["app_permissions_home_loaded", "app_permissions_settings_screen", "app_permissions_notifications_screen",
+     "app_permissions_notification_toggled", "app_permissions_notification_retoggled", "app_permissions_final_state"],
+    # 50_language_switch_mid_session
+    ["language_switch_home_loaded", "language_switch_settings_screen", "language_switch_language_picker",
+     "language_switch_arabic_applied", "language_switch_arabic_layout", "language_switch_rtl_verified",
+     "language_switch_english_selected", "language_switch_english_restored", "language_switch_complete"],
 ]
 
 APPIUM_DEF = [
