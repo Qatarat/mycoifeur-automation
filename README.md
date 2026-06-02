@@ -138,12 +138,14 @@ adb devices
 
 #### Step 4 — Install the APK
 
-Place `MyCoiffeur.apk` in the repo root (obtain it from the team), then:
+Obtain `MyCoiffeur.apk` from the team (or download from the [apk-latest release](https://github.com/Qatarat/mycoifeur-automation/releases/tag/apk-latest)), place it anywhere on your machine, then install it:
 
 ```bash
-adb install -r MyCoiffeur.apk
+adb install -r /path/to/MyCoiffeur.apk
 # Expected: Success
 ```
+
+> **Got a newer APK?** See **[Updating the APK](#updating-the-apk)** below — no need to reinstall manually every time.
 
 #### Step 5 — Run tests
 
@@ -314,6 +316,65 @@ bash mirror.sh --help      # show all options
 
 ---
 
+## Updating the APK
+
+Every test run needs the latest `MyCoiffeur.apk`. There are three ways to provide it, depending on whether you are running locally or on CI.
+
+---
+
+### Option A — Local run: set `APK_PATH`
+
+Pass the path to the new APK as an environment variable before calling any runner script. The script installs it automatically on the connected device or emulator before tests start.
+
+```bash
+# Maestro smoke
+APK_PATH=/path/to/MyCoiffeur-v2.apk bash testing/run_smoke_ci.sh
+
+# Maestro full regression
+APK_PATH=/path/to/MyCoiffeur-v2.apk bash testing/run_regression_ci.sh
+
+# Appium
+APK_PATH=/path/to/MyCoiffeur-v2.apk bash testing/run_appium_ci.sh
+```
+
+- **Maestro scripts** — run `adb install -r <path>` automatically before the first flow.
+- **Appium script** — sets `ANDROID_APP_PATH` so Appium installs the APK via capabilities.
+- If `APK_PATH` is not set, the scripts assume the APK is already installed on the device.
+
+---
+
+### Option B — GitHub CI: paste a URL when triggering manually
+
+All three test workflows accept an `apk_url` input when triggered manually from the **Actions tab**:
+
+1. Go to **Actions → Maestro Smoke** (or Regression / Appium Deep Tests)
+2. Click **Run workflow**
+3. Paste a direct download URL into **"Direct download URL for a new APK"**
+4. Click **Run workflow**
+
+The CI downloads that APK with `curl` instead of the default `apk-latest` release. The URL can come from anywhere: GitHub Artifacts, Firebase App Distribution, Google Drive (direct link), S3, etc.
+
+> Leave the field **blank** for automatic triggers (push, nightly schedule) — those always use the `apk-latest` release.
+
+---
+
+### Option C — Replace the permanent release APK
+
+If the new APK should be used for **all future automatic runs** (pushes, nightly schedules), upload it to the `apk-latest` release. This is the "set and forget" approach.
+
+```bash
+# Upload and replace the APK in the apk-latest release (one command)
+gh release upload apk-latest /path/to/MyCoiffeur.apk \
+  --repo Qatarat/mycoifeur-automation \
+  --clobber
+```
+
+After this, every CI run (smoke, regression, Appium) automatically downloads the new APK with no further changes needed.
+
+> You need the [GitHub CLI](https://cli.github.com) installed and authenticated (`gh auth login`).
+
+---
+
 ## CI / CD — GitHub Actions (all free)
 
 | Workflow | Trigger | Duration | Coverage |
@@ -325,6 +386,14 @@ bash mirror.sh --help      # show all options
 | Publish Report | After any test run | ~3 min | Deploys to GitHub Pages |
 
 **Run any workflow manually:** [Actions tab](https://github.com/Qatarat/mycoifeur-automation/actions) → pick workflow → **Run workflow**
+
+**Manual trigger inputs:**
+
+| Workflow | Extra inputs |
+|----------|-------------|
+| Maestro Smoke | `apk_url` — custom APK download URL (optional) |
+| Maestro Regression | `apk_url` — custom APK download URL · `flow` — run a single flow number (optional) |
+| Appium Deep Tests | `apk_url` — custom APK download URL · `marker` — pytest marker to run a subset (optional) |
 
 > **First-time setup:** Go to **Settings → Pages → Source → GitHub Actions** to enable the report page.
 

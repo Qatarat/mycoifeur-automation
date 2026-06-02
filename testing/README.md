@@ -53,11 +53,16 @@ See the real device screen on your PC while any test runs. Works even on low-sto
 ## Quick Start — CI / Emulator
 
 ```bash
-# Local emulator or CI
-./run_maestro.sh           # smoke (5 min)
+# Local emulator or CI (APK must already be installed)
+./run_maestro.sh             # smoke (5 min)
 ./run_maestro.sh regression  # all flows (20 min)
-./run_appium.sh payment    # payment deep tests
-./run_appium.sh            # all Appium tests
+./run_appium.sh payment      # payment deep tests
+./run_appium.sh              # all Appium tests
+
+# Point at a NEW APK — installs it automatically before running
+APK_PATH=/path/to/MyCoiffeur-v2.apk ./run_smoke_ci.sh
+APK_PATH=/path/to/MyCoiffeur-v2.apk ./run_regression_ci.sh
+APK_PATH=/path/to/MyCoiffeur-v2.apk ./run_appium_ci.sh
 ```
 
 ---
@@ -131,10 +136,46 @@ PLATFORM=android DEVICE_MODE=device ./run_appium.sh
 
 ---
 
+## Providing a new APK
+
+### Local runs — `APK_PATH`
+
+Set `APK_PATH` before calling any runner script and it will install the APK on the device automatically before tests start:
+
+```bash
+# Maestro
+APK_PATH=/Downloads/MyCoiffeur-v2.apk bash run_smoke_ci.sh
+APK_PATH=/Downloads/MyCoiffeur-v2.apk bash run_regression_ci.sh
+
+# Appium
+APK_PATH=/Downloads/MyCoiffeur-v2.apk bash run_appium_ci.sh
+```
+
+Maestro scripts call `adb install -r` before the first flow.
+Appium sets `ANDROID_APP_PATH` so the driver installs the APK via capabilities.
+
+### GitHub Actions — `apk_url` input
+
+Go to **Actions → (any test workflow) → Run workflow**, paste a download URL in the **"Direct download URL for a new APK"** field, and click Run. The CI uses `curl` to fetch that APK instead of the default release.
+
+### Replace the default release APK
+
+To update the APK used by all automatic runs permanently:
+
+```bash
+gh release upload apk-latest /path/to/MyCoiffeur.apk \
+  --repo Qatarat/mycoifeur-automation \
+  --clobber
+```
+
+---
+
 ## Environment Variables
 
 | Variable | Default | Description |
 |----------|---------|-------------|
+| `APK_PATH` | — | **Path to a new APK** — Maestro installs it via `adb install -r`; Appium via `ANDROID_APP_PATH` |
+| `ANDROID_APP_PATH` | auto-detected | Path to the APK for Appium capabilities (set automatically by `APK_PATH`) |
 | `PLATFORM` | `android` | `android` or `ios` |
 | `DEVICE_MODE` | `emulator` | `emulator` or `device` |
 | `ANDROID_UDID` | — | Real device UDID (from `adb devices`) |
