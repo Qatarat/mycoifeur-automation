@@ -198,6 +198,11 @@ jobs:
           cp testing/report-ui/tweaks-panel.jsx gh-pages/tweaks-panel.jsx
           cp testing/report-ui/app.jsx          gh-pages/app.jsx
           cp testing/report-ui/views/*.jsx      gh-pages/views/
+          # Replace CACHE_BUST placeholder with short commit SHA so browsers always
+          # fetch fresh JSX files after every deploy (prevents stale-cache breakage)
+          COMMIT_SHORT=$(echo "${{ github.sha }}" | cut -c1-7)
+          sed -i "s/CACHE_BUST/${COMMIT_SHORT}/g" gh-pages/index.html
+          echo "Cache-bust version: ${COMMIT_SHORT}"
           # Use committed data.js as fallback if generate_data_js produced no real results
           if [ -f testing/report-ui/data.js ] && ! grep -q '"neverRan": true' gh-pages/data.js 2>/dev/null; then
             echo "Using committed data.js as baseline (real results will overlay on next CI run)"
