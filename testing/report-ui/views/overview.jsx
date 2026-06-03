@@ -375,7 +375,7 @@ const OverviewView = () => {
             viewKey: "appium",
           },
         ].map(s => (
-          <div key={s.title} className="card">
+          <div key={s.title} className="card" style={{ cursor: "pointer" }} onClick={() => window.__setView && window.__setView(s.viewKey)}>
             <div className="card-body">
               <div style={{ display: "flex", alignItems: "flex-start", gap: 12, marginBottom: 12 }}>
                 <div style={{ width: 38, height: 38, borderRadius: 10, background: `color-mix(in oklch, ${s.color} 14%, transparent)`, border: `1px solid color-mix(in oklch, ${s.color} 30%, transparent)`, color: s.color, display: "grid", placeItems: "center", flexShrink: 0 }}>
